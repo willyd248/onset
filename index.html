@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>onset</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="top-bar">
+        <div class="top-bar__title">
+          <h1>onset</h1>
+          <span class="top-bar__subtitle">learn to DJ</span>
+        </div>
+        <div class="top-bar__status">
+          <span class="midi-status" id="midi-status">MIDI: disconnected</span>
+        </div>
+        <div class="top-bar__actions">
+          <button class="btn btn--ghost" id="settings-btn">settings</button>
+        </div>
+      </header>
+
+      <section class="waveforms">
+        <div class="waveform-display waveform-display--a">
+          <div class="waveform-display__label">A</div>
+          <canvas class="waveform-display__canvas" id="waveform-a"></canvas>
+          <div class="waveform-display__info">
+            <span class="track-name" id="track-name-a">no track loaded</span>
+            <span class="track-time" id="track-time-a">0:00 / 0:00</span>
+          </div>
+        </div>
+        <div class="waveform-display waveform-display--b">
+          <div class="waveform-display__label">B</div>
+          <canvas class="waveform-display__canvas" id="waveform-b"></canvas>
+          <div class="waveform-display__info">
+            <span class="track-name" id="track-name-b">no track loaded</span>
+            <span class="track-time" id="track-time-b">0:00 / 0:00</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="mixer">
+        <div class="deck-controls deck-controls--a">
+          <div class="eq-rack">
+            <div class="knob-group">
+              <label>HI</label>
+              <input type="range" class="knob" id="eq-high-a" min="-24" max="6" value="0" orient="vertical" />
+            </div>
+            <div class="knob-group">
+              <label>MID</label>
+              <input type="range" class="knob" id="eq-mid-a" min="-24" max="6" value="0" orient="vertical" />
+            </div>
+            <div class="knob-group">
+              <label>LOW</label>
+              <input type="range" class="knob" id="eq-low-a" min="-24" max="6" value="0" orient="vertical" />
+            </div>
+          </div>
+          <div class="volume-fader">
+            <label>VOL</label>
+            <input type="range" class="fader" id="volume-a" min="0" max="100" value="80" orient="vertical" />
+          </div>
+          <div class="transport">
+            <button class="btn btn--accent-a glow-a" id="play-a">PLAY</button>
+            <button class="btn btn--accent-a" id="cue-a">CUE</button>
+          </div>
+          <div class="pitch-fader">
+            <label>PITCH</label>
+            <input type="range" class="fader" id="pitch-a" min="-8" max="8" value="0" step="0.1" orient="vertical" />
+          </div>
+          <div class="load-track">
+            <button class="btn btn--ghost" id="load-a">LOAD</button>
+            <input type="file" id="file-a" accept="audio/*" hidden />
+          </div>
+        </div>
+
+        <div class="crossfader-section">
+          <div class="crossfader-label">CROSSFADER</div>
+          <input type="range" class="crossfader-input" id="crossfader" min="-100" max="100" value="0" />
+          <div class="crossfader-markers">
+            <span>A</span>
+            <span>B</span>
+          </div>
+        </div>
+
+        <div class="deck-controls deck-controls--b">
+          <div class="eq-rack">
+            <div class="knob-group">
+              <label>HI</label>
+              <input type="range" class="knob" id="eq-high-b" min="-24" max="6" value="0" orient="vertical" />
+            </div>
+            <div class="knob-group">
+              <label>MID</label>
+              <input type="range" class="knob" id="eq-mid-b" min="-24" max="6" value="0" orient="vertical" />
+            </div>
+            <div class="knob-group">
+              <label>LOW</label>
+              <input type="range" class="knob" id="eq-low-b" min="-24" max="6" value="0" orient="vertical" />
+            </div>
+          </div>
+          <div class="volume-fader">
+            <label>VOL</label>
+            <input type="range" class="fader" id="volume-b" min="0" max="100" value="80" orient="vertical" />
+          </div>
+          <div class="transport">
+            <button class="btn btn--accent-b glow-b" id="play-b">PLAY</button>
+            <button class="btn btn--accent-b" id="cue-b">CUE</button>
+          </div>
+          <div class="pitch-fader">
+            <label>PITCH</label>
+            <input type="range" class="fader" id="pitch-b" min="-8" max="8" value="0" step="0.1" orient="vertical" />
+          </div>
+          <div class="load-track">
+            <button class="btn btn--ghost" id="load-b">LOAD</button>
+            <input type="file" id="file-b" accept="audio/*" hidden />
+          </div>
+        </div>
+      </section>
+
+      <section class="lesson-panel">
+        <div class="lesson-panel__header">
+          <h2>lessons</h2>
+          <span class="lesson-panel__progress" id="lesson-progress">0 / 0</span>
+        </div>
+        <div class="lesson-panel__content" id="lesson-content">
+          <p class="lesson-panel__placeholder">load a track to get started</p>
+        </div>
+      </section>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
