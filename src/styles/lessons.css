@@ -1,50 +1,13 @@
-/* onset — lesson panel styles */
+/* onset — lesson panel styles (Duolingo-inspired) */
 
 .lesson-panel {
   grid-area: lessons;
   background: var(--bg-secondary);
   display: flex;
   flex-direction: column;
-  border-top: 1px solid var(--border-color);
-}
-
-.lesson-panel__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 16px;
-  border-bottom: 1px solid var(--border-color);
-  background: var(--bg-tertiary);
-}
-
-.lesson-panel__header h2 {
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.lesson-panel__progress {
-  font-size: 11px;
-  color: var(--text-secondary);
-  font-variant-numeric: tabular-nums;
-}
-
-.lesson-panel__content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 12px 16px;
-}
-
-.lesson-panel__placeholder {
-  color: var(--text-secondary);
-  font-style: italic;
-  font-size: 12px;
-}
-
-/* Lesson panel collapse/expand transition */
-.lesson-panel {
-  max-height: 180px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.25);
+  max-height: 280px;
   transition: max-height 300ms ease, opacity 300ms ease, padding 300ms ease;
   overflow: hidden;
 }
@@ -53,7 +16,41 @@
   max-height: 0;
   opacity: 0;
   padding: 0;
-  border-top-color: transparent;
+}
+
+.lesson-panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.lesson-panel__header h2 {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.lesson-panel__progress {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.lesson-panel__content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+  font-size: 15px;
+}
+
+.lesson-panel__placeholder {
+  color: var(--text-secondary);
+  font-style: italic;
+  font-size: 13px;
 }
 
 /* ── Lesson Phase Styles ───────────────────────────────── */
@@ -61,63 +58,60 @@
 .lesson-phase {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .phase-badge {
   display: inline-block;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  padding: 2px 8px;
-  border-radius: 3px;
+  letter-spacing: 0.12em;
+  padding: 3px 12px;
+  border-radius: 20px;
   width: fit-content;
 }
 
 .lesson-phase--watch .phase-badge {
-  background: rgba(0, 240, 255, 0.15);
-  color: var(--accent-a);
-  border: 1px solid rgba(0, 240, 255, 0.3);
+  background: rgba(28, 176, 246, 0.15);
+  color: #1cb0f6;
 }
 
 .lesson-phase--imagine .phase-badge {
-  background: rgba(255, 0, 229, 0.15);
+  background: var(--accent-b-bg);
   color: var(--accent-b);
-  border: 1px solid rgba(255, 0, 229, 0.3);
 }
 
 .lesson-phase--do .phase-badge {
-  background: rgba(0, 255, 136, 0.15);
-  color: #00ff88;
-  border: 1px solid rgba(0, 255, 136, 0.3);
+  background: var(--accent-a-bg);
+  color: var(--accent-a);
 }
 
 .lesson-instruction {
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.6;
   color: var(--text-primary);
 }
 
 .lesson-hint {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-secondary);
   font-style: italic;
 }
 
 .lesson-meta {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-secondary);
   font-variant-numeric: tabular-nums;
 }
 
 /* Imagine phase timer */
 .imagine-timer {
-  height: 3px;
+  height: 4px;
   background: var(--bg-tertiary);
   border-radius: 2px;
   overflow: hidden;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .imagine-timer__bar {
@@ -137,23 +131,24 @@
 .lesson-target {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 10px;
+  gap: 10px;
+  padding: 8px 14px;
   background: var(--bg-tertiary);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border-color);
   width: fit-content;
 }
 
 .lesson-target__label {
-  font-size: 10px;
+  font-size: 11px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   color: var(--text-secondary);
 }
 
 .lesson-target__value {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--accent-a);
   font-variant-numeric: tabular-nums;
@@ -164,35 +159,36 @@
 .lesson-session-start {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .lesson-title {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
 
 .lesson-session-list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .lesson-session-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  padding: 4px 0;
+  gap: 10px;
+  font-size: 13px;
+  padding: 6px 0;
 }
 
 .lesson-session-num {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--text-secondary);
-  width: 16px;
+  width: 18px;
+  font-weight: 600;
 }
 
 .lesson-session-name {
@@ -200,14 +196,15 @@
 }
 
 .lesson-session-cat {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  font-weight: 500;
 }
 
 .lesson-start-btn {
-  margin-top: 4px;
+  margin-top: 6px;
   align-self: flex-start;
 }
 
@@ -217,33 +214,34 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  padding: 8px;
+  gap: 6px;
+  padding: 10px;
   text-align: center;
 }
 
 .lesson-score__value {
-  font-size: 32px;
+  font-size: 40px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
 
-.lesson-score--perfect .lesson-score__value { color: #00ff88; }
-.lesson-score--good .lesson-score__value { color: var(--accent-a); }
-.lesson-score--ok .lesson-score__value { color: #ffaa00; }
-.lesson-score--miss .lesson-score__value { color: #ff4444; }
+.lesson-score--perfect .lesson-score__value { color: var(--success); }
+.lesson-score--good .lesson-score__value { color: var(--info); }
+.lesson-score--ok .lesson-score__value { color: var(--warning); }
+.lesson-score--miss .lesson-score__value { color: var(--error); }
 
 .lesson-score__label {
-  font-size: 11px;
+  font-size: 12px;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--text-secondary);
 }
 
 .lesson-score__perfect {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
-  color: #00ff88;
+  color: var(--success);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   animation: score-pop 0.3s ease;
@@ -257,8 +255,8 @@
 
 .lesson-score__breakdown {
   display: flex;
-  gap: 12px;
-  font-size: 10px;
+  gap: 14px;
+  font-size: 11px;
   color: var(--text-secondary);
   font-variant-numeric: tabular-nums;
 }
@@ -269,12 +267,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   text-align: center;
 }
 
 .lesson-complete__title {
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--text-secondary);
@@ -288,20 +287,20 @@
 }
 
 .lesson-complete__pb {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
-  color: #00ff88;
+  color: var(--success);
   text-transform: uppercase;
   animation: score-pop 0.4s ease;
 }
 
 .lesson-complete__stats {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-secondary);
 }
 
 .lesson-complete__hint {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-secondary);
   font-style: italic;
   margin-top: 4px;
@@ -320,13 +319,13 @@
   position: absolute;
   inset: -4px;
   border: 2px dashed var(--accent-a);
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   pointer-events: none;
   opacity: 0.6;
 }
 
 .lesson-highlight--arrow::before {
-  content: '▸';
+  content: '\25B8';
   position: absolute;
   left: -16px;
   top: 50%;
@@ -338,8 +337,8 @@
 }
 
 @keyframes highlight-pulse {
-  0%, 100% { box-shadow: 0 0 8px rgba(0, 240, 255, 0.3); }
-  50% { box-shadow: 0 0 16px rgba(0, 240, 255, 0.6), 0 0 24px rgba(0, 240, 255, 0.2); }
+  0%, 100% { box-shadow: 0 0 8px rgba(88, 204, 2, 0.3); }
+  50% { box-shadow: 0 0 16px rgba(88, 204, 2, 0.55), 0 0 24px rgba(88, 204, 2, 0.15); }
 }
 
 @keyframes arrow-bounce {
@@ -349,7 +348,7 @@
 
 /* Immediate input feedback (Guitar Hero colors) */
 .feedback-hit {
-  box-shadow: 0 0 12px rgba(0, 255, 136, 0.7), 0 0 24px rgba(0, 255, 136, 0.3) !important;
+  box-shadow: 0 0 12px rgba(88, 204, 2, 0.7), 0 0 24px rgba(88, 204, 2, 0.3) !important;
   transition: box-shadow 50ms ease;
 }
 
@@ -364,6 +363,6 @@
 }
 
 .feedback-cold {
-  box-shadow: 0 0 8px rgba(255, 68, 68, 0.5), 0 0 16px rgba(255, 68, 68, 0.2) !important;
+  box-shadow: 0 0 8px rgba(255, 75, 75, 0.5), 0 0 16px rgba(255, 75, 75, 0.2) !important;
   transition: box-shadow 50ms ease;
 }
