@@ -48,13 +48,32 @@ export class MixerUI extends EventTarget {
     // Crossfader
     this._elements['shared:crossfader'] = /** @type {HTMLInputElement} */ (document.getElementById('crossfader'));
 
+    // Gain knobs
+    this._elements['A:gain'] = /** @type {HTMLInputElement} */ (document.getElementById('gain-a'));
+    this._elements['B:gain'] = /** @type {HTMLInputElement} */ (document.getElementById('gain-b'));
+
+    // Filter knobs
+    this._elements['A:filter'] = /** @type {HTMLInputElement} */ (document.getElementById('filter-a'));
+    this._elements['B:filter'] = /** @type {HTMLInputElement} */ (document.getElementById('filter-b'));
+
     // Buttons
     this._buttons['playA'] = /** @type {HTMLButtonElement} */ (document.getElementById('play-a'));
     this._buttons['playB'] = /** @type {HTMLButtonElement} */ (document.getElementById('play-b'));
     this._buttons['cueA'] = /** @type {HTMLButtonElement} */ (document.getElementById('cue-a'));
     this._buttons['cueB'] = /** @type {HTMLButtonElement} */ (document.getElementById('cue-b'));
+    this._buttons['syncA'] = /** @type {HTMLButtonElement} */ (document.getElementById('sync-a'));
+    this._buttons['syncB'] = /** @type {HTMLButtonElement} */ (document.getElementById('sync-b'));
     this._buttons['loadA'] = /** @type {HTMLButtonElement} */ (document.getElementById('load-a'));
     this._buttons['loadB'] = /** @type {HTMLButtonElement} */ (document.getElementById('load-b'));
+
+    // Pad buttons
+    for (const deck of ['A', 'B']) {
+      for (let p = 1; p <= 4; p++) {
+        this._buttons[`pad${deck}${p}`] = /** @type {HTMLButtonElement} */ (
+          document.getElementById(`pad-${p}-${deck.toLowerCase()}`)
+        );
+      }
+    }
 
     // Hidden file inputs
     this._elements['fileA'] = /** @type {HTMLInputElement} */ (document.getElementById('file-a'));
@@ -81,6 +100,14 @@ export class MixerUI extends EventTarget {
 
     // Crossfader — HTML range -100 to +100, state stores -1 to +1
     this._bindRange('shared:crossfader', 'shared', 'crossfader', (v) => parseFloat(v) / 100);
+
+    // Gain knobs — HTML range 0-200, state stores 0-2 (center=1.0)
+    this._bindRange('A:gain', 'A', 'gain', (v) => parseFloat(v) / 100);
+    this._bindRange('B:gain', 'B', 'gain', (v) => parseFloat(v) / 100);
+
+    // Filter knobs — HTML range 0-100, state stores 0-1
+    this._bindRange('A:filter', 'A', 'filter', (v) => parseFloat(v) / 100);
+    this._bindRange('B:filter', 'B', 'filter', (v) => parseFloat(v) / 100);
   }
 
   /**
@@ -121,6 +148,24 @@ export class MixerUI extends EventTarget {
     this._buttons['cueB']?.addEventListener('click', () => {
       this.dispatchEvent(new CustomEvent('cue', { detail: { deck: 'B' } }));
     });
+
+    // Sync buttons — dispatch sync event
+    this._buttons['syncA']?.addEventListener('click', () => {
+      this.dispatchEvent(new CustomEvent('sync', { detail: { deck: 'A' } }));
+    });
+
+    this._buttons['syncB']?.addEventListener('click', () => {
+      this.dispatchEvent(new CustomEvent('sync', { detail: { deck: 'B' } }));
+    });
+
+    // Pad buttons — dispatch pad event
+    for (const deck of ['A', 'B']) {
+      for (let p = 1; p <= 4; p++) {
+        this._buttons[`pad${deck}${p}`]?.addEventListener('click', () => {
+          this.dispatchEvent(new CustomEvent('pad', { detail: { deck, pad: p } }));
+        });
+      }
+    }
 
     // Load buttons — trigger hidden file input
     this._buttons['loadA']?.addEventListener('click', () => {
@@ -178,11 +223,11 @@ export class MixerUI extends EventTarget {
       if (value) {
         btn.classList.remove(baseGlow);
         btn.classList.add(glowClass);
-        btn.textContent = 'PAUSE';
+        btn.textContent = 'Pause';
       } else {
         btn.classList.remove(glowClass);
         btn.classList.add(baseGlow);
-        btn.textContent = 'PLAY';
+        btn.textContent = 'Play';
       }
       return;
     }
@@ -194,7 +239,7 @@ export class MixerUI extends EventTarget {
 
     // Denormalize from state value to DOM range value
     let domValue;
-    if (param === 'volume') {
+    if (param === 'volume' || param === 'gain' || param === 'filter') {
       domValue = /** @type {number} */ (value) * 100;
     } else if (param === 'crossfader') {
       domValue = /** @type {number} */ (value) * 100;
@@ -209,7 +254,7 @@ export class MixerUI extends EventTarget {
   /** Push the initial state values into the DOM. */
   _syncInitialState() {
     for (const deck of /** @type {const} */ (['A', 'B'])) {
-      for (const param of ['volume', 'eqHigh', 'eqMid', 'eqLow', 'pitch']) {
+      for (const param of ['gain', 'volume', 'eqHigh', 'eqMid', 'eqLow', 'pitch', 'filter']) {
         const value = this._state.get(deck, param);
         if (value !== undefined) {
           this._updateDOM(deck, param, value);

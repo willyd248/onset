@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>onset</title>
+    <title>onset — learn to DJ</title>
   </head>
   <body>
     <div id="app">
@@ -12,6 +12,12 @@
         <div class="top-bar__title">
           <h1>onset</h1>
           <span class="top-bar__subtitle">learn to DJ</span>
+        </div>
+        <div class="top-bar__progress">
+          <span class="streak-badge" id="streak-badge">
+            <span class="streak-icon">&#x1F525;</span>
+            <span id="streak-count">0</span>
+          </span>
         </div>
         <div class="top-bar__status">
           <span class="midi-status" id="midi-status">MIDI: disconnected</span>
@@ -46,40 +52,58 @@
 
       <section class="mixer">
         <div class="deck-controls deck-controls--a">
-          <div class="eq-rack">
+          <div class="deck-controls__header">
+            <span class="deck-badge deck-badge--a">Deck A</span>
+            <button class="btn btn--load" id="load-a">Load Track</button>
+            <input type="file" id="file-a" accept="audio/*" hidden />
+          </div>
+          <div class="deck-controls__knobs">
+            <div class="knob-group knob-group--gain">
+              <label>Gain</label>
+              <input type="range" class="knob" id="gain-a" min="0" max="200" value="100" orient="vertical" />
+            </div>
             <div class="knob-group">
-              <label>HI</label>
+              <label>Hi</label>
               <input type="range" class="knob" id="eq-high-a" min="-24" max="6" value="0" orient="vertical" />
             </div>
             <div class="knob-group">
-              <label>MID</label>
+              <label>Mid</label>
               <input type="range" class="knob" id="eq-mid-a" min="-24" max="6" value="0" orient="vertical" />
             </div>
             <div class="knob-group">
-              <label>LOW</label>
+              <label>Low</label>
               <input type="range" class="knob" id="eq-low-a" min="-24" max="6" value="0" orient="vertical" />
             </div>
+            <div class="knob-group knob-group--filter">
+              <label>Filter</label>
+              <input type="range" class="knob" id="filter-a" min="0" max="100" value="50" orient="vertical" />
+            </div>
           </div>
-          <div class="volume-fader">
-            <label>VOL</label>
-            <input type="range" class="fader" id="volume-a" min="0" max="100" value="80" orient="vertical" />
+          <div class="deck-controls__faders">
+            <div class="fader-group">
+              <label>Volume</label>
+              <input type="range" class="fader" id="volume-a" min="0" max="100" value="80" orient="vertical" />
+            </div>
+            <div class="fader-group">
+              <label>Pitch</label>
+              <input type="range" class="fader" id="pitch-a" min="-8" max="8" value="0" step="0.1" orient="vertical" />
+            </div>
           </div>
-          <div class="transport">
-            <button class="btn btn--accent-a glow-a" id="play-a">PLAY</button>
-            <button class="btn btn--accent-a" id="cue-a">CUE</button>
+          <div class="deck-controls__transport">
+            <button class="btn btn--play btn--deck-a" id="play-a">Play</button>
+            <button class="btn btn--transport btn--deck-a" id="cue-a">Cue</button>
+            <button class="btn btn--transport btn--deck-a" id="sync-a">Sync</button>
           </div>
-          <div class="pitch-fader">
-            <label>PITCH</label>
-            <input type="range" class="fader" id="pitch-a" min="-8" max="8" value="0" step="0.1" orient="vertical" />
-          </div>
-          <div class="load-track">
-            <button class="btn btn--ghost" id="load-a">LOAD</button>
-            <input type="file" id="file-a" accept="audio/*" hidden />
+          <div class="deck-controls__pads">
+            <button class="pad-btn pad-btn--a" id="pad-1-a">1</button>
+            <button class="pad-btn pad-btn--a" id="pad-2-a">2</button>
+            <button class="pad-btn pad-btn--a" id="pad-3-a">3</button>
+            <button class="pad-btn pad-btn--a" id="pad-4-a">4</button>
           </div>
         </div>
 
         <div class="crossfader-section">
-          <div class="crossfader-label">CROSSFADER</div>
+          <div class="crossfader-label">Crossfader</div>
           <input type="range" class="crossfader-input" id="crossfader" min="-100" max="100" value="0" />
           <div class="crossfader-markers">
             <span>A</span>
@@ -88,51 +112,69 @@
         </div>
 
         <div class="deck-controls deck-controls--b">
-          <div class="eq-rack">
+          <div class="deck-controls__header">
+            <span class="deck-badge deck-badge--b">Deck B</span>
+            <button class="btn btn--load" id="load-b">Load Track</button>
+            <input type="file" id="file-b" accept="audio/*" hidden />
+          </div>
+          <div class="deck-controls__knobs">
+            <div class="knob-group knob-group--gain">
+              <label>Gain</label>
+              <input type="range" class="knob" id="gain-b" min="0" max="200" value="100" orient="vertical" />
+            </div>
             <div class="knob-group">
-              <label>HI</label>
+              <label>Hi</label>
               <input type="range" class="knob" id="eq-high-b" min="-24" max="6" value="0" orient="vertical" />
             </div>
             <div class="knob-group">
-              <label>MID</label>
+              <label>Mid</label>
               <input type="range" class="knob" id="eq-mid-b" min="-24" max="6" value="0" orient="vertical" />
             </div>
             <div class="knob-group">
-              <label>LOW</label>
+              <label>Low</label>
               <input type="range" class="knob" id="eq-low-b" min="-24" max="6" value="0" orient="vertical" />
             </div>
+            <div class="knob-group knob-group--filter">
+              <label>Filter</label>
+              <input type="range" class="knob" id="filter-b" min="0" max="100" value="50" orient="vertical" />
+            </div>
           </div>
-          <div class="volume-fader">
-            <label>VOL</label>
-            <input type="range" class="fader" id="volume-b" min="0" max="100" value="80" orient="vertical" />
+          <div class="deck-controls__faders">
+            <div class="fader-group">
+              <label>Volume</label>
+              <input type="range" class="fader" id="volume-b" min="0" max="100" value="80" orient="vertical" />
+            </div>
+            <div class="fader-group">
+              <label>Pitch</label>
+              <input type="range" class="fader" id="pitch-b" min="-8" max="8" value="0" step="0.1" orient="vertical" />
+            </div>
           </div>
-          <div class="transport">
-            <button class="btn btn--accent-b glow-b" id="play-b">PLAY</button>
-            <button class="btn btn--accent-b" id="cue-b">CUE</button>
+          <div class="deck-controls__transport">
+            <button class="btn btn--play btn--deck-b" id="play-b">Play</button>
+            <button class="btn btn--transport btn--deck-b" id="cue-b">Cue</button>
+            <button class="btn btn--transport btn--deck-b" id="sync-b">Sync</button>
           </div>
-          <div class="pitch-fader">
-            <label>PITCH</label>
-            <input type="range" class="fader" id="pitch-b" min="-8" max="8" value="0" step="0.1" orient="vertical" />
-          </div>
-          <div class="load-track">
-            <button class="btn btn--ghost" id="load-b">LOAD</button>
-            <input type="file" id="file-b" accept="audio/*" hidden />
+          <div class="deck-controls__pads">
+            <button class="pad-btn pad-btn--b" id="pad-1-b">1</button>
+            <button class="pad-btn pad-btn--b" id="pad-2-b">2</button>
+            <button class="pad-btn pad-btn--b" id="pad-3-b">3</button>
+            <button class="pad-btn pad-btn--b" id="pad-4-b">4</button>
           </div>
         </div>
       </section>
 
       <section class="lesson-panel">
         <div class="lesson-panel__header">
-          <h2>lessons</h2>
-          <span class="lesson-panel__progress" id="lesson-progress">0 / 0</span>
+          <h2>Lessons</h2>
+          <span class="lesson-panel__progress" id="lesson-progress"></span>
         </div>
         <div class="lesson-panel__content" id="lesson-content">
-          <p class="lesson-panel__placeholder">load a track to get started</p>
+          <p class="lesson-panel__placeholder">Load a track to get started</p>
         </div>
       </section>
       <div class="min-width-overlay" id="min-width-overlay">
-        <p>please use a wider screen</p>
-        <span>onset requires at least 1280px</span>
+        <p>Please use a wider screen</p>
+        <span>Onset needs at least 1280px</span>
       </div>
     </div>
     <script type="module" src="/src/main.js"></script>
