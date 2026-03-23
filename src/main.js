@@ -4,9 +4,12 @@ import './styles/waveform.css';
 import './styles/mixer.css';
 import './styles/lessons.css';
 
-import { AppShell } from './ui/AppShell.js';
+import { App } from './ui/App.js';
 
-const shell = new AppShell();
-shell.init();
+const app = new App();
 
-console.log('onset initialized');
+document.addEventListener('DOMContentLoaded', () => {
+  app.init().catch(err => {
+    console.error('Failed to initialize onset:', err);
+  });
+});

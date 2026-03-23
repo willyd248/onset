@@ -1,3 +1,8 @@
 export { MixerState } from './MixerState.js';
 export { MixerUI } from './MixerUI.js';
 export { MixerBridge } from './MixerBridge.js';
+export { AppShell } from './AppShell.js';
+export { App } from './App.js';
+export { Toast } from './Toast.js';
+export { ErrorOverlay } from './ErrorOverlay.js';
+export { PerformanceTips } from './PerformanceTips.js';
