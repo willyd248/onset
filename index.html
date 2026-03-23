@@ -17,6 +17,10 @@
           <span class="midi-status" id="midi-status">MIDI: disconnected</span>
         </div>
         <div class="top-bar__actions">
+          <div class="top-bar__modes">
+            <button class="mode-btn mode-btn--active" id="mode-lessons">lessons</button>
+            <button class="mode-btn" id="mode-freeplay">free play</button>
+          </div>
           <button class="btn btn--ghost" id="settings-btn">settings</button>
         </div>
       </header>
@@ -126,6 +130,10 @@
           <p class="lesson-panel__placeholder">load a track to get started</p>
         </div>
       </section>
+      <div class="min-width-overlay" id="min-width-overlay">
+        <p>please use a wider screen</p>
+        <span>onset requires at least 1280px</span>
+      </div>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>
