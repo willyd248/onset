@@ -1,0 +1,9 @@
+export { LessonEngine } from './LessonEngine.js';
+export { LessonLibrary } from './LessonLibrary.js';
+export { LessonRenderer } from './LessonRenderer.js';
+export { InputValidator } from './InputValidator.js';
+export { ScaffoldManager } from './ScaffoldManager.js';
+export { ScoringEngine } from './ScoringEngine.js';
+export { SpacedRepetition } from './SpacedRepetition.js';
+export { SessionManager } from './SessionManager.js';
+export { LESSON_CATALOG, CATEGORIES } from './lesson-schema.js';
