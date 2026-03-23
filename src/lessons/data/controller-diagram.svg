@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" width="600" height="300">
+  <defs>
+    <style>
+      .label-a { fill: #00f0ff; font-family: monospace; font-size: 8px; text-anchor: middle; }
+      .label-b { fill: #ff00e5; font-family: monospace; font-size: 8px; text-anchor: middle; }
+      .label-center { fill: #888; font-family: monospace; font-size: 8px; text-anchor: middle; }
+      .control { fill: #2a2a2a; stroke: #444; stroke-width: 1; }
+      .control:hover { stroke: #666; stroke-width: 2; }
+      .deck-label { font-family: monospace; font-size: 14px; font-weight: bold; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="300" fill="#1a1a1a" rx="12" ry="12"/>
+
+  <!-- Controller body -->
+  <rect x="20" y="20" width="560" height="260" fill="#111" rx="8" ry="8" stroke="#333" stroke-width="1"/>
+
+  <!-- Center divider -->
+  <line x1="300" y1="30" x2="300" y2="270" stroke="#333" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- ===== DECK A (Left Side) ===== -->
+  <text x="150" y="45" class="deck-label" fill="#00f0ff">DECK A</text>
+
+  <!-- Deck A: Jog Wheel -->
+  <g id="deck-a:jog">
+    <circle cx="120" cy="160" r="55" class="control" stroke="#00f0ff" stroke-width="1.5"/>
+    <circle cx="120" cy="160" r="8" fill="#333" stroke="#00f0ff" stroke-width="1"/>
+    <text x="120" y="230" class="label-a">JOG</text>
+  </g>
+
+  <!-- Deck A: Play Button -->
+  <g id="deck-a:play">
+    <rect x="60" y="240" width="30" height="20" rx="3" class="control" stroke="#00f0ff"/>
+    <text x="75" y="275" class="label-a">PLAY</text>
+  </g>
+
+  <!-- Deck A: Cue Button -->
+  <g id="deck-a:cue">
+    <rect x="100" y="240" width="30" height="20" rx="3" class="control" stroke="#00f0ff"/>
+    <text x="115" y="275" class="label-a">CUE</text>
+  </g>
+
+  <!-- Deck A: Pitch Fader -->
+  <g id="deck-a:pitch">
+    <rect x="200" y="100" width="14" height="80" rx="3" class="control" stroke="#00f0ff"/>
+    <rect x="202" y="135" width="10" height="12" rx="2" fill="#555"/>
+    <text x="207" y="195" class="label-a">PITCH</text>
+  </g>
+
+  <!-- Deck A: EQ Low Knob -->
+  <g id="deck-a:eq-low">
+    <circle cx="235" cy="80" r="10" class="control" stroke="#00f0ff"/>
+    <line x1="235" y1="80" x2="235" y2="72" stroke="#00f0ff" stroke-width="1.5"/>
+    <text x="235" y="100" class="label-a">LOW</text>
+  </g>
+
+  <!-- Deck A: EQ High Knob -->
+  <g id="deck-a:eq-high">
+    <circle cx="270" cy="80" r="10" class="control" stroke="#00f0ff"/>
+    <line x1="270" y1="80" x2="270" y2="72" stroke="#00f0ff" stroke-width="1.5"/>
+    <text x="270" y="100" class="label-a">HIGH</text>
+  </g>
+
+  <!-- Deck A: Volume Fader -->
+  <g id="deck-a:volume">
+    <rect x="255" y="120" width="14" height="70" rx="3" class="control" stroke="#00f0ff"/>
+    <rect x="257" y="150" width="10" height="12" rx="2" fill="#555"/>
+    <text x="262" y="205" class="label-a">VOL</text>
+  </g>
+
+  <!-- ===== DECK B (Right Side) ===== -->
+  <text x="450" y="45" class="deck-label" fill="#ff00e5">DECK B</text>
+
+  <!-- Deck B: Jog Wheel -->
+  <g id="deck-b:jog">
+    <circle cx="480" cy="160" r="55" class="control" stroke="#ff00e5" stroke-width="1.5"/>
+    <circle cx="480" cy="160" r="8" fill="#333" stroke="#ff00e5" stroke-width="1"/>
+    <text x="480" y="230" class="label-b">JOG</text>
+  </g>
+
+  <!-- Deck B: Play Button -->
+  <g id="deck-b:play">
+    <rect x="510" y="240" width="30" height="20" rx="3" class="control" stroke="#ff00e5"/>
+    <text x="525" y="275" class="label-b">PLAY</text>
+  </g>
+
+  <!-- Deck B: Cue Button -->
+  <g id="deck-b:cue">
+    <rect x="470" y="240" width="30" height="20" rx="3" class="control" stroke="#ff00e5"/>
+    <text x="485" y="275" class="label-b">CUE</text>
+  </g>
+
+  <!-- Deck B: Pitch Fader -->
+  <g id="deck-b:pitch">
+    <rect x="386" y="100" width="14" height="80" rx="3" class="control" stroke="#ff00e5"/>
+    <rect x="388" y="135" width="10" height="12" rx="2" fill="#555"/>
+    <text x="393" y="195" class="label-b">PITCH</text>
+  </g>
+
+  <!-- Deck B: EQ Low Knob -->
+  <g id="deck-b:eq-low">
+    <circle cx="330" cy="80" r="10" class="control" stroke="#ff00e5"/>
+    <line x1="330" y1="80" x2="330" y2="72" stroke="#ff00e5" stroke-width="1.5"/>
+    <text x="330" y="100" class="label-b">LOW</text>
+  </g>
+
+  <!-- Deck B: EQ High Knob -->
+  <g id="deck-b:eq-high">
+    <circle cx="365" cy="80" r="10" class="control" stroke="#ff00e5"/>
+    <line x1="365" y1="80" x2="365" y2="72" stroke="#ff00e5" stroke-width="1.5"/>
+    <text x="365" y="100" class="label-b">HIGH</text>
+  </g>
+
+  <!-- Deck B: Volume Fader -->
+  <g id="deck-b:volume">
+    <rect x="331" y="120" width="14" height="70" rx="3" class="control" stroke="#ff00e5"/>
+    <rect x="333" y="150" width="10" height="12" rx="2" fill="#555"/>
+    <text x="338" y="205" class="label-b">VOL</text>
+  </g>
+
+  <!-- ===== CROSSFADER (Center Bottom) ===== -->
+  <g id="crossfader">
+    <rect x="250" y="245" width="100" height="14" rx="3" class="control" stroke="#888"/>
+    <rect x="293" y="247" width="14" height="10" rx="2" fill="#555"/>
+    <text x="300" y="275" class="label-center">CROSSFADER</text>
+  </g>
+</svg>

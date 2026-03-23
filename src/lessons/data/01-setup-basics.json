@@ -1,0 +1,112 @@
+{
+  "id": "curriculum-setup",
+  "title": "DJ Setup & First Sounds",
+  "description": "Get your controller connected, load your first tracks, and learn the essential controls — volume, cue, and EQ.",
+  "category": "basics",
+  "technique": "setup-basics",
+  "difficulty": 1,
+  "estimatedMinutes": 8,
+  "prerequisiteIds": [],
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: the MIDI status indicator turns green when your controller is connected.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: a track is loaded onto Deck A using the load button.",
+          "highlight": "deck-a:play",
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: Play is pressed and the waveform starts moving.",
+          "highlight": "deck-a:play",
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w4",
+          "instruction": "Watch: the volume fader is brought up to about 80%.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0.8, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "Picture yourself plugging in, loading a track, and hearing music come through the speakers for the first time.",
+      "durationMs": 4000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "full",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Connect your controller. Check that the MIDI status indicator turns green.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Load a track onto Deck A. Drag an audio file onto the deck or use the load button.",
+          "highlight": "deck-a:play",
+          "target": { "type": "button_press", "deck": "A" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Press Play on Deck A. You should see the waveform start scrolling.",
+          "highlight": "deck-a:play",
+          "target": { "type": "button_press", "deck": "A", "param": "isPlaying" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Bring the volume fader up to about 80%. Listen for the music to get louder.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0.8, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 0.8, "timing": 0.2, "phrase": 0 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Press Cue to jump back to the start of the track. The playback will stop.",
+          "highlight": "deck-a:cue",
+          "target": { "type": "button_press", "deck": "A", "param": "cue" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d6",
+          "instruction": "Try the EQ: turn the LOW knob all the way down. Hear the bass disappear.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": -24, "tolerance": 4 },
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.3, "phrase": 0 }
+        },
+        {
+          "id": "d7",
+          "instruction": "Bring the bass back. Turn the LOW knob to the center position (0 dB).",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": 0, "tolerance": 3 },
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.3, "phrase": 0 }
+        },
+        {
+          "id": "d8",
+          "instruction": "Now load a track onto Deck B. Same as before — drag a file or use the load button.",
+          "highlight": "deck-b:play",
+          "target": { "type": "button_press", "deck": "B" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "id": "curriculum-eq-mixing",
+  "title": "EQ Mixing Fundamentals",
+  "description": "Learn to blend two tracks by swapping frequency bands — the foundation of smooth DJ transitions.",
+  "category": "eq-mixing",
+  "technique": "eq-blend",
+  "difficulty": 3,
+  "estimatedMinutes": 10,
+  "prerequisiteIds": ["curriculum-beatmatch"],
+  "requiredTracks": {
+    "count": 2,
+    "bpmRange": [120, 130],
+    "characteristics": "tracks with distinct bass patterns, house or techno recommended"
+  },
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: both decks are playing together at matched BPMs. Listen to the combined sound.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: Deck A's bass is cut completely. Notice how Deck B's bass takes over the low end.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": -24, "tolerance": 3 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: the highs swap — Deck A's highs cut, Deck B's highs come through.",
+          "highlight": "deck-a:eq-high",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqHigh", "value": -24, "tolerance": 3 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "Think of the frequency spectrum as layers — bass, mids, highs. You can give each layer to whichever deck you want. That is the power of EQ mixing.",
+      "durationMs": 5000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "full",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Make sure both tracks are playing and beatmatched. Listen to the combined sound for a moment.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Cut Deck A's bass completely. Turn the LOW EQ knob all the way down to -24 dB.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": -24, "tolerance": 4 },
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.2, "phrase": 0.1 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Hear the difference? Deck B's bass is now driving the low end by itself. This avoids two basslines fighting each other.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Bring Deck A's bass back to center (0 dB). Turn the LOW knob back to the middle.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": 0, "tolerance": 3 },
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.2, "phrase": 0.1 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Now cut Deck A's highs. Turn the HIGH EQ knob all the way down to -24 dB. Notice how the hats and cymbals disappear.",
+          "highlight": "deck-a:eq-high",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqHigh", "value": -24, "tolerance": 4 },
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.2, "phrase": 0.1 }
+        },
+        {
+          "id": "d6",
+          "instruction": "Swap the highs! Keep Deck A's highs cut and make sure Deck B's highs are at center (0 dB). Deck B now owns the top end.",
+          "highlight": "deck-b:eq-high",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqHigh", "value": 0, "tolerance": 3 },
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        },
+        {
+          "id": "d7",
+          "instruction": "Practice the bass swap at a phrase boundary. Wait for the phrase to end, then quickly cut Deck A's bass and leave Deck B's bass at 0 dB.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": -24, "tolerance": 4 },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.3, "phrase": 0.3 }
+        },
+        {
+          "id": "d8",
+          "instruction": "Full frequency swap! Cut both Deck A's bass AND highs. Deck B should have both at center. You have handed the entire mix to Deck B.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": -24, "tolerance": 4 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.3, "phrase": 0.3 }
+        }
+      ]
+    }
+  ]
+}

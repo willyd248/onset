@@ -44,6 +44,12 @@
  * @property {LessonPhase[]} phases
  */
 
+// Import curriculum lesson data
+import setupBasicsData from './data/01-setup-basics.json';
+import beatmatchingData from './data/02-beatmatching.json';
+import eqMixingData from './data/03-eq-mixing.json';
+import transitionsData from './data/04-transitions.json';
+
 /** @type {LessonDef[]} */
 export const LESSON_CATALOG = [
   // ── Basics ────────────────────────────────────────────
@@ -221,6 +227,12 @@ export const LESSON_CATALOG = [
       },
     ],
   },
+
+  // ── Curriculum (Full Course) ──────────────────────────
+  setupBasicsData,
+  beatmatchingData,
+  eqMixingData,
+  transitionsData,
 ];
 
 /** @type {TechniqueCategory[]} */

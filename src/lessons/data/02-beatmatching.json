@@ -1,0 +1,132 @@
+{
+  "id": "curriculum-beatmatch",
+  "title": "Beatmatching from Scratch",
+  "description": "Learn to match the tempo and phase of two tracks by ear using the pitch fader and jog wheel.",
+  "category": "beatmatching",
+  "technique": "full-beatmatch",
+  "difficulty": 2,
+  "estimatedMinutes": 12,
+  "prerequisiteIds": ["curriculum-setup"],
+  "requiredTracks": {
+    "count": 2,
+    "bpmRange": [120, 130],
+    "maxBpmDifference": 10,
+    "genre": "house/techno recommended"
+  },
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: notice the BPM numbers displayed on each deck. They are different right now.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: the pitch fader on Deck B slides to match Deck A's BPM.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: the jog wheel nudges Deck B until the beats land on top of each other.",
+          "highlight": "deck-b:jog",
+          "target": { "type": "beat_aligned", "tolerance": 50 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "Close your eyes. Imagine two kick drums playing side by side. One is slightly faster. Picture yourself slowing it down until they lock together perfectly.",
+      "durationMs": 6000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "full",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Look at the BPM display on both decks. Read the numbers — which one is faster?",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Identify which track is faster. If Deck B is faster, you will need to slow it down (push pitch fader up). If slower, speed it up (pull pitch fader down).",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Move the pitch fader on Deck B. Go slowly — small movements make a big difference.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 3 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.3, "phrase": 0.1 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Get closer! Match the BPM within 2 beats per minute. Watch the BPM display as you adjust.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 2 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.3, "phrase": 0.1 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Listen carefully to both tracks together. Can you hear the beats drifting apart? That is normal — we will fix it next.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d6",
+          "instruction": "Nudge Deck B's jog wheel gently. Push forward to speed up momentarily, pull back to slow down. Try to line up the kicks.",
+          "highlight": "deck-b:jog",
+          "target": { "type": "beat_aligned", "tolerance": 80 },
+          "timeLimitMs": 45000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.2, "phrase": 0.3 }
+        },
+        {
+          "id": "d7",
+          "instruction": "Fine-tune the pitch. Get the BPM within 1 beat per minute. Tiny adjustments only.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 1 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.2, "phrase": 0.1 }
+        },
+        {
+          "id": "d8",
+          "instruction": "Check the phase alignment. The beats should be landing at the same time. Use the jog wheel for final nudges.",
+          "highlight": "deck-b:jog",
+          "target": { "type": "beat_aligned", "tolerance": 50 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.2, "phrase": 0.3 }
+        },
+        {
+          "id": "d9",
+          "instruction": "Let it play for 8 beats. Listen — do the kicks stay locked together or start drifting apart?",
+          "highlight": null,
+          "target": { "type": "beat_aligned", "tolerance": 60 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        },
+        {
+          "id": "d10",
+          "instruction": "If you hear drift, give a tiny nudge on the jog wheel to correct it. Keep the beats locked!",
+          "highlight": "deck-b:jog",
+          "target": { "type": "beat_aligned", "tolerance": 40 },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        }
+      ]
+    }
+  ]
+}
