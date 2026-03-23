@@ -55,3 +55,315 @@
   padding: 0;
   border-top-color: transparent;
 }
+
+/* ── Lesson Phase Styles ───────────────────────────────── */
+
+.lesson-phase {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.phase-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 2px 8px;
+  border-radius: 3px;
+  width: fit-content;
+}
+
+.lesson-phase--watch .phase-badge {
+  background: rgba(0, 240, 255, 0.15);
+  color: var(--accent-a);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+}
+
+.lesson-phase--imagine .phase-badge {
+  background: rgba(255, 0, 229, 0.15);
+  color: var(--accent-b);
+  border: 1px solid rgba(255, 0, 229, 0.3);
+}
+
+.lesson-phase--do .phase-badge {
+  background: rgba(0, 255, 136, 0.15);
+  color: #00ff88;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.lesson-instruction {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.lesson-hint {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.lesson-meta {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Imagine phase timer */
+.imagine-timer {
+  height: 3px;
+  background: var(--bg-tertiary);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.imagine-timer__bar {
+  height: 100%;
+  background: var(--accent-b);
+  border-radius: 2px;
+  animation: imagine-countdown linear forwards;
+  transform-origin: left;
+}
+
+@keyframes imagine-countdown {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+/* Target display */
+.lesson-target {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  width: fit-content;
+}
+
+.lesson-target__label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+}
+
+.lesson-target__value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent-a);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Session List ──────────────────────────────────────── */
+
+.lesson-session-start {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lesson-title {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.lesson-session-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lesson-session-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  padding: 4px 0;
+}
+
+.lesson-session-num {
+  font-size: 10px;
+  color: var(--text-secondary);
+  width: 16px;
+}
+
+.lesson-session-name {
+  flex: 1;
+}
+
+.lesson-session-cat {
+  font-size: 10px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.lesson-start-btn {
+  margin-top: 4px;
+  align-self: flex-start;
+}
+
+/* ── Step Score ────────────────────────────────────────── */
+
+.lesson-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  text-align: center;
+}
+
+.lesson-score__value {
+  font-size: 32px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.lesson-score--perfect .lesson-score__value { color: #00ff88; }
+.lesson-score--good .lesson-score__value { color: var(--accent-a); }
+.lesson-score--ok .lesson-score__value { color: #ffaa00; }
+.lesson-score--miss .lesson-score__value { color: #ff4444; }
+
+.lesson-score__label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+}
+
+.lesson-score__perfect {
+  font-size: 12px;
+  font-weight: 700;
+  color: #00ff88;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  animation: score-pop 0.3s ease;
+}
+
+@keyframes score-pop {
+  0% { transform: scale(0.5); opacity: 0; }
+  70% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.lesson-score__breakdown {
+  display: flex;
+  gap: 12px;
+  font-size: 10px;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Lesson Complete ───────────────────────────────────── */
+
+.lesson-complete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.lesson-complete__title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+}
+
+.lesson-complete__score {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--accent-a);
+  font-variant-numeric: tabular-nums;
+}
+
+.lesson-complete__pb {
+  font-size: 12px;
+  font-weight: 700;
+  color: #00ff88;
+  text-transform: uppercase;
+  animation: score-pop 0.4s ease;
+}
+
+.lesson-complete__stats {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.lesson-complete__hint {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-top: 4px;
+}
+
+/* ── Guitar Hero Feedback on Controls ──────────────────── */
+
+.lesson-highlight {
+  position: relative;
+  z-index: 1;
+  animation: highlight-pulse 1.5s ease-in-out infinite;
+}
+
+.lesson-highlight--target::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 2px dashed var(--accent-a);
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.lesson-highlight--arrow::before {
+  content: '▸';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent-a);
+  font-size: 14px;
+  animation: arrow-bounce 1s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes highlight-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(0, 240, 255, 0.3); }
+  50% { box-shadow: 0 0 16px rgba(0, 240, 255, 0.6), 0 0 24px rgba(0, 240, 255, 0.2); }
+}
+
+@keyframes arrow-bounce {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-50%) translateX(4px); }
+}
+
+/* Immediate input feedback (Guitar Hero colors) */
+.feedback-hit {
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.7), 0 0 24px rgba(0, 255, 136, 0.3) !important;
+  transition: box-shadow 50ms ease;
+}
+
+.feedback-hot {
+  box-shadow: 0 0 10px rgba(255, 200, 0, 0.6), 0 0 20px rgba(255, 200, 0, 0.2) !important;
+  transition: box-shadow 50ms ease;
+}
+
+.feedback-warm {
+  box-shadow: 0 0 8px rgba(255, 140, 0, 0.5), 0 0 16px rgba(255, 140, 0, 0.2) !important;
+  transition: box-shadow 50ms ease;
+}
+
+.feedback-cold {
+  box-shadow: 0 0 8px rgba(255, 68, 68, 0.5), 0 0 16px rgba(255, 68, 68, 0.2) !important;
+  transition: box-shadow 50ms ease;
+}
