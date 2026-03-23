@@ -52,6 +52,9 @@ export class MixerBridge {
     if (!d) return;
 
     switch (param) {
+      case 'gain':
+        d.setGain(/** @type {number} */ (value));
+        break;
       case 'volume':
         d.setVolume(/** @type {number} */ (value));
         break;
@@ -92,6 +95,14 @@ export class MixerBridge {
   /** MIDI router events → state updates. */
   _subscribeToMIDI() {
     const router = /** @type {import('../midi/MIDIRouter.js').MIDIRouter} */ (this._router);
+
+    // Gain knobs (MIDI sends 0-1, normalize to 0-2, center=1.0)
+    router.addEventListener('deck-a:gain', (e) => {
+      this._state.set('A', 'gain', /** @type {CustomEvent} */ (e).detail.value * 2, 'midi');
+    });
+    router.addEventListener('deck-b:gain', (e) => {
+      this._state.set('B', 'gain', /** @type {CustomEvent} */ (e).detail.value * 2, 'midi');
+    });
 
     // Volume faders (MIDI sends 0-1)
     router.addEventListener('deck-a:volume', (e) => {
@@ -159,13 +170,50 @@ export class MixerBridge {
       }
     });
 
-    // Filter knobs (MIDI sends 0-1, store directly for future use)
+    // Sync buttons — copy pitch from the other deck
+    router.addEventListener('deck-a:sync', (e) => {
+      if (/** @type {CustomEvent} */ (e).detail.value === 1) {
+        const otherPitch = this._state.get('B', 'pitch');
+        this._state.set('A', 'pitch', otherPitch, 'midi');
+      }
+    });
+    router.addEventListener('deck-b:sync', (e) => {
+      if (/** @type {CustomEvent} */ (e).detail.value === 1) {
+        const otherPitch = this._state.get('A', 'pitch');
+        this._state.set('B', 'pitch', otherPitch, 'midi');
+      }
+    });
+
+    // Filter knobs (MIDI sends 0-1, store directly)
     router.addEventListener('deck-a:filter', (e) => {
       this._state.set('A', 'filter', /** @type {CustomEvent} */ (e).detail.value, 'midi');
     });
     router.addEventListener('deck-b:filter', (e) => {
       this._state.set('B', 'filter', /** @type {CustomEvent} */ (e).detail.value, 'midi');
     });
+
+    // Hot cue pads — first press sets, second press jumps
+    for (const deckName of ['A', 'B']) {
+      for (let p = 1; p <= 4; p++) {
+        const eventName = `deck-${deckName.toLowerCase()}:pad-${p}`;
+        router.addEventListener(eventName, (e) => {
+          if (/** @type {CustomEvent} */ (e).detail.value !== 1) return;
+          const cues = this._state.get(deckName, 'hotCues');
+          const deck = this._decks[deckName];
+          const idx = p - 1;
+          if (cues[idx] === null) {
+            // Set hot cue at current position
+            cues[idx] = deck.currentTime;
+            this._state.set(deckName, 'hotCues', [...cues], 'midi');
+          } else {
+            // Jump to hot cue
+            deck.cue();
+            deck.setCuePoint(cues[idx]);
+            deck.cue();
+          }
+        });
+      }
+    }
   }
 
   /** Listen to deck transport events and sync state back. */

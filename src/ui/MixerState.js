@@ -12,6 +12,7 @@ export class MixerState extends EventTarget {
     /** @type {Record<string, Record<string, number | boolean>>} */
     this._state = {
       A: {
+        gain: 1.0,
         volume: 0.8,
         eqHigh: 0,
         eqMid: 0,
@@ -19,8 +20,10 @@ export class MixerState extends EventTarget {
         pitch: 0,
         filter: 0,
         isPlaying: false,
+        hotCues: [null, null, null, null],
       },
       B: {
+        gain: 1.0,
         volume: 0.8,
         eqHigh: 0,
         eqMid: 0,
@@ -28,6 +31,7 @@ export class MixerState extends EventTarget {
         pitch: 0,
         filter: 0,
         isPlaying: false,
+        hotCues: [null, null, null, null],
       },
       shared: {
         crossfader: 0,

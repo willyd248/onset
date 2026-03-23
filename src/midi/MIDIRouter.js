@@ -15,6 +15,7 @@ export class MIDIRouter extends EventTarget {
     this._controller = controller;
     this._mappingIndex = buildMappingIndex(mapping);
     this._onMIDIMessage = this._onMIDIMessage.bind(this);
+    this._debug = false;
 
     this._attachListener();
 
@@ -70,6 +71,13 @@ export class MIDIRouter extends EventTarget {
 
     const key = `${type}:${channel}:${data1}`;
     const control = this._mappingIndex.get(key);
+
+    // Debug logging — fires for ALL messages, including unmapped
+    if (this._debug) {
+      const mapped = control ? control.name : 'unmapped';
+      console.log(`[MIDI] ${type} ch:${channel} ${type === 'cc' ? 'cc' : 'note'}:${data1} value:${data2} → ${mapped}`);
+    }
+
     if (!control) return;
 
     let value;
@@ -96,6 +104,20 @@ export class MIDIRouter extends EventTarget {
         raw: { status, data1, data2 },
       },
     }));
+  }
+
+  /**
+   * Enable or disable MIDI debug logging.
+   * @param {boolean} enabled
+   */
+  setDebug(enabled) {
+    this._debug = enabled;
+    if (enabled) console.log('[MIDI] Debug mode ON — all messages will be logged');
+  }
+
+  /** @returns {boolean} */
+  get debug() {
+    return this._debug;
   }
 
   /** Clean up. */

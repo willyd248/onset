@@ -1,29 +1,32 @@
-/* onset — top bar styles */
+/* onset — top bar styles (Duolingo-inspired) */
 
 .top-bar {
   grid-area: topbar;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
+  padding: 0 20px;
+  height: 56px;
   background: var(--bg-secondary);
-  border-bottom: 1px solid var(--border-color);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .top-bar__title {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 10px;
 }
 
 .top-bar__title h1 {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  color: var(--accent-a);
+  letter-spacing: 0.03em;
 }
 
 .top-bar__subtitle {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-secondary);
 }
 
@@ -33,23 +36,61 @@
   gap: 12px;
 }
 
+/* Streak badge */
+.streak-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-a-bg);
+  border: 1px solid var(--accent-a);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-a);
+}
+
+/* MIDI status pill */
 .midi-status {
-  font-size: 11px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
   color: var(--text-secondary);
-  padding: 2px 8px;
+  padding: 4px 12px;
   border: 1px solid var(--border-color);
-  border-radius: 3px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+/* Status dot indicator */
+.midi-status::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 7px;
+  background: var(--text-secondary);
+  flex-shrink: 0;
 }
 
 .midi-status.connected {
-  color: #00ff88;
-  border-color: #00ff88;
+  color: #58cc02;
+  border-color: #58cc02;
   animation: pulse-connected 2s ease-in-out infinite;
 }
 
+.midi-status.connected::before {
+  background: #58cc02;
+}
+
 .midi-status.disconnected {
-  color: #ff4444;
-  border-color: #ff4444;
+  color: var(--error);
+  border-color: var(--error);
+}
+
+.midi-status.disconnected::before {
+  background: var(--error);
 }
 
 .midi-status.no-midi {
@@ -57,53 +98,33 @@
   border-color: var(--border-color);
 }
 
-/* Status dot indicator */
-.midi-status::before {
-  content: '';
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  margin-right: 6px;
-  background: var(--text-secondary);
-  vertical-align: middle;
-}
-
-.midi-status.connected::before {
-  background: #00ff88;
-}
-
-.midi-status.disconnected::before {
-  background: #ff4444;
-}
-
 .midi-status.no-midi::before {
   background: var(--text-secondary);
 }
 
 @keyframes pulse-connected {
-  0%, 100% { box-shadow: 0 0 4px #00ff88; }
-  50% { box-shadow: 0 0 12px #00ff88, 0 0 20px rgba(0, 255, 136, 0.3); }
+  0%, 100% { box-shadow: 0 0 4px rgba(88, 204, 2, 0.3); }
+  50% { box-shadow: 0 0 10px rgba(88, 204, 2, 0.5), 0 0 18px rgba(88, 204, 2, 0.15); }
 }
 
-/* Mode toggle buttons */
+/* Mode toggle buttons — pill toggle group */
 .top-bar__modes {
   display: flex;
-  gap: 2px;
+  gap: 0;
   background: var(--bg-primary);
-  border-radius: 4px;
-  padding: 2px;
+  border-radius: 20px;
+  padding: 3px;
 }
 
 .mode-btn {
   font-family: inherit;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border: none;
-  border-radius: 3px;
-  padding: 4px 12px;
+  border-radius: 18px;
+  padding: 5px 14px;
   cursor: pointer;
   background: transparent;
   color: var(--text-secondary);
@@ -115,8 +136,8 @@
 }
 
 .mode-btn--active {
-  background: var(--bg-tertiary);
-  color: var(--text-primary);
+  background: var(--accent-a);
+  color: #fff;
 }
 
 .top-bar__actions {

@@ -9,6 +9,15 @@
  *   Ch2 — Deck B main controls
  *   Ch6 — Deck A performance pads
  *   Ch7 — Deck B performance pads
+ *
+ * CC assignments (confirmed):
+ *   CC0  = Tempo/Pitch fader
+ *   CC1  = Gain knob (input trim)
+ *   CC2  = High EQ knob
+ *   CC4  = Low EQ knob
+ *   CC5  = Filter knob
+ *   CC7  = Volume fader (UNCONFIRMED — use MIDI debug to verify)
+ *   CC40 = Jog wheel rotation (relative encoding)
  */
 export const herculesMapping = {
   controls: [
@@ -19,9 +28,10 @@ export const herculesMapping = {
     { name: 'deck-a:sync',       type: 'note', channel: 1, number: 5,  action: 'sync',        deck: 'A' },
 
     // Faders & knobs
-    { name: 'deck-a:volume',     type: 'cc',   channel: 1, number: 1,  action: 'volume',      deck: 'A' },
+    { name: 'deck-a:gain',       type: 'cc',   channel: 1, number: 1,  action: 'gain',        deck: 'A' },
     { name: 'deck-a:pitch',      type: 'cc',   channel: 1, number: 0,  action: 'pitch',       deck: 'A' },
     { name: 'deck-a:filter',     type: 'cc',   channel: 1, number: 5,  action: 'filter',      deck: 'A' },
+    { name: 'deck-a:volume',     type: 'cc',   channel: 1, number: 7,  action: 'volume',      deck: 'A' }, // UNCONFIRMED CC — use MIDI debug to verify
 
     // EQ
     { name: 'deck-a:eq-high',    type: 'cc',   channel: 1, number: 2,  action: 'eq-high',     deck: 'A' },
@@ -44,9 +54,10 @@ export const herculesMapping = {
     { name: 'deck-b:sync',       type: 'note', channel: 2, number: 5,  action: 'sync',        deck: 'B' },
 
     // Faders & knobs
-    { name: 'deck-b:volume',     type: 'cc',   channel: 2, number: 1,  action: 'volume',      deck: 'B' },
+    { name: 'deck-b:gain',       type: 'cc',   channel: 2, number: 1,  action: 'gain',        deck: 'B' },
     { name: 'deck-b:pitch',      type: 'cc',   channel: 2, number: 0,  action: 'pitch',       deck: 'B' },
     { name: 'deck-b:filter',     type: 'cc',   channel: 2, number: 5,  action: 'filter',      deck: 'B' },
+    { name: 'deck-b:volume',     type: 'cc',   channel: 2, number: 7,  action: 'volume',      deck: 'B' }, // UNCONFIRMED CC — use MIDI debug to verify
 
     // EQ
     { name: 'deck-b:eq-high',    type: 'cc',   channel: 2, number: 2,  action: 'eq-high',     deck: 'B' },

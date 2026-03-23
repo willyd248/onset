@@ -1,6 +1,6 @@
 /**
  * Deck — per-deck audio graph with source, 3-band EQ, volume, pitch, and transport controls.
- * Audio graph: AudioBufferSourceNode → lowshelf → peaking (mid) → highshelf → GainNode → output
+ * Audio graph: AudioBufferSourceNode → preGain → lowshelf → peaking (mid) → highshelf → GainNode(volume) → output
  */
 export class Deck extends EventTarget {
   /**
@@ -39,11 +39,16 @@ export class Deck extends EventTarget {
     this._eqHigh.frequency.value = 4000;
     this._eqHigh.gain.value = 0;
 
-    // Volume
+    // Pre-gain (input level / trim)
+    this._preGainNode = this._ctx.createGain();
+    this._preGainNode.gain.value = 1.0;
+
+    // Volume (post-EQ channel fader)
     this._gainNode = this._ctx.createGain();
     this._gainNode.gain.value = 0.8;
 
-    // Chain: eqLow → eqMid → eqHigh → gain
+    // Chain: preGain → eqLow → eqMid → eqHigh → gain(volume)
+    this._preGainNode.connect(this._eqLow);
     this._eqLow.connect(this._eqMid);
     this._eqMid.connect(this._eqHigh);
     this._eqHigh.connect(this._gainNode);
@@ -76,7 +81,7 @@ export class Deck extends EventTarget {
     this._source = this._ctx.createBufferSource();
     this._source.buffer = this._buffer;
     this._source.playbackRate.value = this._playbackRate;
-    this._source.connect(this._eqLow);
+    this._source.connect(this._preGainNode);
 
     this._source.onended = () => {
       if (this._isPlaying) {
@@ -128,6 +133,14 @@ export class Deck extends EventTarget {
    */
   setCuePoint(time) {
     this._cuePoint = Math.max(0, Math.min(time, this.duration));
+  }
+
+  /**
+   * Set input gain (pre-EQ trim).
+   * @param {number} value — 0.0 to 2.0 (1.0 = unity)
+   */
+  setGain(value) {
+    this._preGainNode.gain.value = Math.max(0, Math.min(2, value));
   }
 
   /**
