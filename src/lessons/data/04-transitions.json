@@ -1,0 +1,162 @@
+{
+  "id": "curriculum-transitions",
+  "title": "Your First Full Transition",
+  "description": "Put it all together — beatmatch, EQ mix, and crossfade from Deck A to Deck B like a real DJ set.",
+  "category": "transitions",
+  "technique": "full-transition",
+  "difficulty": 3,
+  "estimatedMinutes": 15,
+  "prerequisiteIds": ["curriculum-beatmatch", "curriculum-eq-mixing"],
+  "requiredTracks": {
+    "count": 2,
+    "bpmRange": [120, 130],
+    "maxBpmDifference": 5,
+    "characteristics": "compatible tracks with clear phrase structure"
+  },
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: Deck B is cued to its first beat and the BPM is matched to Deck A.",
+          "highlight": "deck-b:cue",
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: Deck B starts playing and the volume comes up gradually.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.8, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: at the phrase boundary, the bass swaps from Deck A to Deck B.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_kill", "deck": "A", "param": "eqLow" },
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.2, "phrase": 0.3 }
+        },
+        {
+          "id": "w4",
+          "instruction": "Watch: Deck A fades out completely. Deck B is now playing solo.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "Visualize the entire transition: cue, match, blend, swap, fade. Two tracks becoming one seamless flow. You are about to do this yourself.",
+      "durationMs": 6000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "full",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Cue Deck B to its first beat. Press the Cue button so playback starts right on the downbeat.",
+          "highlight": "deck-b:cue",
+          "target": { "type": "button_press", "deck": "B", "param": "cue" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Match the BPM. Adjust Deck B's pitch fader until it reads the same BPM as Deck A.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 2 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.3, "phrase": 0.1 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Press Play on Deck B. The track starts but the audience cannot hear it yet — the volume is down.",
+          "highlight": "deck-b:play",
+          "target": { "type": "button_press", "deck": "B", "param": "isPlaying" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Slowly bring Deck B's volume up to about 80%. Go gradually — do not slam it up.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.8, "tolerance": 0.15 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.3, "phrase": 0 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Listen for the phrase boundary. Phrases are usually 8 or 16 bars. Wait for the moment when the musical phrase resets.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.3, "phrase": 0.4 }
+        },
+        {
+          "id": "d6",
+          "instruction": "At the phrase drop — kill Deck A's bass! Turn the LOW EQ all the way down. Be quick and decisive.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": -24, "tolerance": 4 },
+          "timeLimitMs": 10000,
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.3, "phrase": 0.3 }
+        },
+        {
+          "id": "d7",
+          "instruction": "Make sure Deck B's bass is at center (0 dB). It is now the only bass the audience hears.",
+          "highlight": "deck-b:eq-low",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqLow", "value": 0, "tolerance": 3 },
+          "timeLimitMs": 5000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        },
+        {
+          "id": "d8",
+          "instruction": "Start cutting Deck A's highs. Turn the HIGH EQ knob down toward -24 dB.",
+          "highlight": "deck-a:eq-high",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqHigh", "value": -24, "tolerance": 4 },
+          "timeLimitMs": 10000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        },
+        {
+          "id": "d9",
+          "instruction": "Bring Deck B's highs to center (0 dB) if they are not already. Deck B now owns all the high frequencies.",
+          "highlight": "deck-b:eq-high",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqHigh", "value": 0, "tolerance": 3 },
+          "timeLimitMs": 10000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        },
+        {
+          "id": "d10",
+          "instruction": "Move the crossfader toward Deck B. Slide it past the center point.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 0.75, "tolerance": 0.2 },
+          "timeLimitMs": 10000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.2, "phrase": 0.3 }
+        },
+        {
+          "id": "d11",
+          "instruction": "Fade Deck A's volume down to zero. Bring the fader all the way down smoothly.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0, "tolerance": 0.05 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.4, "phrase": 0 }
+        },
+        {
+          "id": "d12",
+          "instruction": "Deck B is now playing solo. Transition complete! You just mixed your first track.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.3, "phrase": 0.3 }
+        }
+      ]
+    }
+  ],
+  "scoring": {
+    "finalStepWeights": {
+      "beatAlignment": 0.4,
+      "eqSmoothness": 0.3,
+      "crossfaderCurve": 0.3
+    }
+  }
+}
