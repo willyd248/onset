@@ -41,3 +41,17 @@
   font-style: italic;
   font-size: 12px;
 }
+
+/* Lesson panel collapse/expand transition */
+.lesson-panel {
+  max-height: 180px;
+  transition: max-height 300ms ease, opacity 300ms ease, padding 300ms ease;
+  overflow: hidden;
+}
+
+.lesson-panel--collapsed {
+  max-height: 0;
+  opacity: 0;
+  padding: 0;
+  border-top-color: transparent;
+}

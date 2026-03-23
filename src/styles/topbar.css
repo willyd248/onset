@@ -44,4 +44,83 @@
 .midi-status.connected {
   color: #00ff88;
   border-color: #00ff88;
+  animation: pulse-connected 2s ease-in-out infinite;
+}
+
+.midi-status.disconnected {
+  color: #ff4444;
+  border-color: #ff4444;
+}
+
+.midi-status.no-midi {
+  color: var(--text-secondary);
+  border-color: var(--border-color);
+}
+
+/* Status dot indicator */
+.midi-status::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 6px;
+  background: var(--text-secondary);
+  vertical-align: middle;
+}
+
+.midi-status.connected::before {
+  background: #00ff88;
+}
+
+.midi-status.disconnected::before {
+  background: #ff4444;
+}
+
+.midi-status.no-midi::before {
+  background: var(--text-secondary);
+}
+
+@keyframes pulse-connected {
+  0%, 100% { box-shadow: 0 0 4px #00ff88; }
+  50% { box-shadow: 0 0 12px #00ff88, 0 0 20px rgba(0, 255, 136, 0.3); }
+}
+
+/* Mode toggle buttons */
+.top-bar__modes {
+  display: flex;
+  gap: 2px;
+  background: var(--bg-primary);
+  border-radius: 4px;
+  padding: 2px;
+}
+
+.mode-btn {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+  border-radius: 3px;
+  padding: 4px 12px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-secondary);
+  transition: all var(--transition-speed) ease;
+}
+
+.mode-btn:hover {
+  color: var(--text-primary);
+}
+
+.mode-btn--active {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.top-bar__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
