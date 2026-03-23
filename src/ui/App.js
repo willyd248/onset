@@ -352,6 +352,26 @@ export class App {
     if (this._midiController.isConnected) {
       this._shell.setConnectionStatus('connected');
     }
+
+    // MIDI debug toggle — triple-click on MIDI status indicator
+    const midiStatusEl = document.getElementById('midi-status');
+    if (midiStatusEl) {
+      let clickCount = 0;
+      let clickTimer = null;
+      midiStatusEl.addEventListener('click', () => {
+        clickCount++;
+        if (clickTimer) clearTimeout(clickTimer);
+        clickTimer = setTimeout(() => { clickCount = 0; }, 600);
+        if (clickCount >= 3) {
+          clickCount = 0;
+          if (this._midiRouter) {
+            const newState = !this._midiRouter.debug;
+            this._midiRouter.setDebug(newState);
+            Toast.show(newState ? 'MIDI debug ON — check console' : 'MIDI debug OFF');
+          }
+        }
+      });
+    }
   }
 
   // ── Mode Switching ───────────────────────────────────────────
