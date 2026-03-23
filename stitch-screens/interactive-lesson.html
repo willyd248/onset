@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sonic Groove - DJ Lesson</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#e1e3e3",
+              "outline-variant": "#acadad",
+              "on-primary-fixed": "#1a4700",
+              "tertiary-dim": "#644c00",
+              "primary-fixed-dim": "#76ec33",
+              "inverse-primary": "#84fb42",
+              "primary-dim": "#235b00",
+              "background": "#f6f6f6",
+              "secondary-dim": "#7c18ac",
+              "on-primary-container": "#245c00",
+              "primary-container": "#84fb42",
+              "surface-bright": "#f6f6f6",
+              "surface-dim": "#d3d5d5",
+              "secondary-container": "#eec2ff",
+              "error": "#b02500",
+              "on-secondary-fixed-variant": "#7d19ad",
+              "on-tertiary-container": "#574300",
+              "on-surface-variant": "#5a5c5c",
+              "primary": "#2a6900",
+              "tertiary": "#725800",
+              "error-container": "#f95630",
+              "tertiary-fixed-dim": "#edba00",
+              "surface-container": "#e7e8e8",
+              "on-secondary-container": "#7303a3",
+              "on-tertiary": "#fff1d7",
+              "on-primary-fixed-variant": "#296700",
+              "secondary-fixed": "#eec2ff",
+              "on-error": "#ffefec",
+              "surface-variant": "#dbdddd",
+              "secondary-fixed-dim": "#e7afff",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-fixed": "#403000",
+              "surface": "#f6f6f6",
+              "on-tertiary-fixed-variant": "#634c00",
+              "surface-container-low": "#f0f1f1",
+              "surface-container-highest": "#dbdddd",
+              "on-background": "#2d2f2f",
+              "on-secondary-fixed": "#56007c",
+              "tertiary-container": "#fec700",
+              "on-surface": "#2d2f2f",
+              "on-secondary": "#feeeff",
+              "secondary": "#8a2ab9",
+              "surface-tint": "#2a6900",
+              "inverse-on-surface": "#9c9d9d",
+              "error-dim": "#b92902",
+              "on-primary": "#d5ffb9",
+              "outline": "#767777",
+              "on-error-container": "#520c00",
+              "tertiary-fixed": "#fec700",
+              "primary-fixed": "#84fb42",
+              "inverse-surface": "#0c0f0f"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#f6f6f6] dark:bg-neutral-900">
+<div class="flex items-center gap-4">
+<span class="text-2xl font-black text-[#2d2f2f] dark:text-white tracking-tighter">Sonic Groove</span>
+</div>
+<!-- Lesson Progress Bar -->
+<div class="absolute left-1/2 -translate-x-1/2 w-1/3 h-3 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full w-2/3 bg-gradient-to-r from-primary-dim to-primary-fixed rounded-full"></div>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#2a6900] dark:text-[#84fb42] hover:opacity-80 transition-opacity cursor-pointer">local_fire_department</span>
+<span class="material-symbols-outlined text-[#2a6900] dark:text-[#84fb42] hover:opacity-80 transition-opacity cursor-pointer">stars</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border-2 border-primary">
+<img alt="User avatar" data-alt="close-up portrait of a smiling young male dj wearing professional headphones in a neon lit studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1YVyUei8_t0eXXlZ0xQY8Dpxy96CtIKRh0uZbXEoXEheQriEMI_Uh8U1SrDmk4RJUa04-tM-YpGOHzMUW4A056m85uCDkq-7RiCW6beFUxhb6dBT3AAswPdxyKxWgnd41tEy6lugiVNaZ3MnlVY363uUMa70fDg5usvI4ZGsjp_oug-0reboUHnulqisE1yBlW86jvUCoX6w6Z2w6SdvROvB5leV_4WL8-88EtCUzqgsH3TIWMjUni3XjeXzl5Uc7iKBpaDc4hwo"/>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full bg-[#e7e8e8] dark:bg-neutral-800 h-[2px]"></div>
+</header>
+<!-- SideNavBar (Hidden on Mobile) -->
+<aside class="fixed left-0 top-0 h-full w-72 flex flex-col p-6 z-40 bg-white dark:bg-neutral-950 rounded-r-[3rem] shadow-[20px_0_40px_rgba(45,47,47,0.06)] hidden md:flex">
+<div class="text-xl font-black text-[#2a6900] dark:text-[#84fb42] mb-8">Sonic Groove</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-4 bg-[#84fb42] dark:bg-[#2a6900] text-[#2a6900] dark:text-[#84fb42] rounded-full px-6 py-4 shadow-sm font-['Plus_Jakarta_Sans'] font-bold text-sm tracking-widest uppercase active:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined">school</span>
+<span>Learn</span>
+</a>
+<a class="flex items-center gap-4 text-[#5a5c5c] dark:text-neutral-400 px-6 py-4 hover:bg-[#f0f1f1] dark:hover:bg-neutral-800 rounded-full transition-all font-['Plus_Jakarta_Sans'] font-bold text-sm tracking-widest uppercase" href="#">
+<span class="material-symbols-outlined">headphones</span>
+<span>Practice</span>
+</a>
+<a class="flex items-center gap-4 text-[#5a5c5c] dark:text-neutral-400 px-6 py-4 hover:bg-[#f0f1f1] dark:hover:bg-neutral-800 rounded-full transition-all font-['Plus_Jakarta_Sans'] font-bold text-sm tracking-widest uppercase" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span>Stats</span>
+</a>
+<a class="flex items-center gap-4 text-[#5a5c5c] dark:text-neutral-400 px-6 py-4 hover:bg-[#f0f1f1] dark:hover:bg-neutral-800 rounded-full transition-all font-['Plus_Jakarta_Sans'] font-bold text-sm tracking-widest uppercase" href="#">
+<span class="material-symbols-outlined">person</span>
+<span>Profile</span>
+</a>
+</nav>
+<div class="mt-auto p-6 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">music_note</span>
+</div>
+<div>
+<p class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Current Lesson</p>
+<p class="text-sm font-bold">The Downbeat</p>
+</div>
+</div>
+<button class="w-full py-3 bg-primary text-on-primary rounded-full font-bold text-sm uppercase tracking-widest hover:opacity-90 transition-opacity">
+                Start Mix
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-72 mt-16 p-6 md:p-12 flex flex-col items-center justify-center max-w-6xl mx-auto w-full">
+<!-- Instruction Header -->
+<div class="text-center mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+<h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-on-background">Let's drop a beat on Deck A!</h1>
+<p class="text-lg text-on-surface-variant max-w-lg mx-auto">Slide the fader to the left to activate the primary deck. Listen for the pulse!</p>
+</div>
+<!-- Interactive Playground -->
+<div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+<!-- Deck A (Active Focus) -->
+<div class="lg:col-span-7 bg-surface-container-lowest p-8 md:p-12 rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] border-4 border-primary-container relative group transition-transform hover:scale-[1.01]">
+<div class="absolute -top-4 -left-4 bg-primary px-6 py-2 rounded-full text-on-primary font-bold text-xs uppercase tracking-widest">
+                    Deck A • Primary
+                </div>
+<div class="flex flex-col items-center gap-12">
+<!-- Turntable Visual -->
+<div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full bg-on-background flex items-center justify-center shadow-2xl">
+<!-- Vinyl Groove -->
+<div class="absolute inset-4 rounded-full border-[1px] border-white/10"></div>
+<div class="absolute inset-8 rounded-full border-[1px] border-white/10"></div>
+<div class="absolute inset-12 rounded-full border-[1px] border-white/10"></div>
+<div class="absolute inset-16 rounded-full border-[1px] border-white/10"></div>
+<!-- Center Label -->
+<div class="w-24 h-24 md:w-32 md:h-32 rounded-full bg-primary-container flex flex-col items-center justify-center text-center p-4">
+<span class="material-symbols-outlined text-primary text-3xl mb-1">album</span>
+<span class="text-[10px] font-black uppercase tracking-tighter text-on-primary-container leading-none">Sonic<br/>Master</span>
+</div>
+<!-- Tonearm (Visual Only) -->
+<div class="absolute -right-8 top-12 w-4 h-48 bg-surface-container-highest rounded-full origin-top rotate-[25deg] shadow-lg">
+<div class="absolute bottom-0 w-8 h-12 bg-outline rounded-lg -right-2"></div>
+</div>
+</div>
+<!-- Deck Controls -->
+<div class="w-full grid grid-cols-3 gap-6">
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center relative border-2 border-transparent group-hover:border-primary transition-colors">
+<div class="w-2 h-2 rounded-full bg-primary absolute top-1"></div>
+</div>
+<span class="font-['Plus_Jakarta_Sans'] font-bold text-[10px] tracking-widest uppercase text-on-surface-variant">Low</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center relative">
+<div class="w-2 h-2 rounded-full bg-primary absolute top-1"></div>
+</div>
+<span class="font-['Plus_Jakarta_Sans'] font-bold text-[10px] tracking-widest uppercase text-on-surface-variant">Mid</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center relative">
+<div class="w-2 h-2 rounded-full bg-primary absolute top-1"></div>
+</div>
+<span class="font-['Plus_Jakarta_Sans'] font-bold text-[10px] tracking-widest uppercase text-on-surface-variant">High</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Mixer Section (The Goal) -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<div class="bg-surface-container p-8 rounded-xl flex flex-col gap-8 h-full">
+<div class="flex justify-between items-center">
+<span class="font-['Plus_Jakarta_Sans'] font-bold text-xs tracking-widest uppercase text-on-surface-variant">Crossfader</span>
+<span class="bg-secondary-container text-secondary text-[10px] px-2 py-1 rounded-full font-black uppercase">Lesson Target</span>
+</div>
+<!-- Vertical Sliders -->
+<div class="flex justify-around h-48 items-end gap-4">
+<div class="w-12 h-full bg-surface-container-high rounded-full relative p-1 flex items-end">
+<div class="w-full h-3/4 bg-primary-fixed rounded-full"></div>
+<div class="absolute bottom-[70%] left-1/2 -translate-x-1/2 w-10 h-6 bg-surface-container-lowest shadow-md rounded-md cursor-pointer border border-primary/20"></div>
+</div>
+<div class="w-12 h-full bg-surface-container-high rounded-full relative p-1 flex items-end">
+<div class="w-full h-1/4 bg-secondary-fixed rounded-full"></div>
+<div class="absolute bottom-[20%] left-1/2 -translate-x-1/2 w-10 h-6 bg-surface-container-lowest shadow-md rounded-md cursor-pointer border border-secondary/20"></div>
+</div>
+</div>
+<!-- Horizontal Crossfader (The Task) -->
+<div class="mt-auto">
+<div class="w-full h-4 bg-surface-container-highest rounded-full relative">
+<!-- Indicator -->
+<div class="absolute top-1/2 left-0 -translate-y-1/2 w-16 h-10 bg-primary shadow-xl rounded-lg cursor-grab active:cursor-grabbing flex items-center justify-center ring-4 ring-white">
+<div class="w-1 h-6 bg-on-primary/30 rounded-full mx-1"></div>
+<div class="w-1 h-6 bg-on-primary/30 rounded-full mx-1"></div>
+</div>
+</div>
+<div class="flex justify-between mt-6 px-1">
+<span class="font-bold text-primary text-xs tracking-widest uppercase">Deck A</span>
+<span class="font-bold text-on-surface-variant text-xs tracking-widest uppercase">Deck B</span>
+</div>
+</div>
+</div>
+<!-- Tip Card -->
+<div class="bg-tertiary-container p-6 rounded-xl flex gap-4 items-center">
+<span class="material-symbols-outlined text-tertiary text-3xl">lightbulb</span>
+<p class="text-sm font-medium text-on-tertiary-fixed-variant leading-tight">
+                        Keep the fader locked to the left to ensure only Deck A's audio is heard by the crowd!
+                    </p>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="fixed bottom-0 left-0 md:left-72 right-0 p-6 bg-white/80 backdrop-blur-xl border-t border-surface-container-high flex justify-center items-center z-40">
+<div class="max-w-4xl w-full flex justify-between items-center">
+<button class="px-8 py-4 text-on-surface-variant font-bold text-sm uppercase tracking-widest hover:bg-surface-container rounded-full transition-all">
+                    Skip
+                </button>
+<button class="px-12 py-4 bg-primary text-on-primary rounded-full font-black text-lg uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(42,105,0,0.3)] hover:scale-105 active:scale-95 transition-all">
+                    Check
+                </button>
+</div>
+</div>
+</main>
+<!-- Success Overlay (Hidden by default, used for state visualization) -->
+<div class="fixed inset-0 bg-primary/20 backdrop-blur-sm z-[100] flex items-center justify-center hidden">
+<div class="bg-surface-container-lowest p-12 rounded-xl text-center shadow-2xl max-w-sm">
+<div class="w-24 h-24 bg-primary-container rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="material-symbols-outlined text-primary text-6xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h2 class="text-3xl font-black mb-2">Perfect Drop!</h2>
+<p class="text-on-surface-variant mb-8">You've mastered Deck A's volume. Ready to mix in Deck B?</p>
+<button class="w-full py-5 bg-primary text-on-primary rounded-full font-black text-xl uppercase tracking-widest shadow-xl">
+                Continue
+            </button>
+</div>
+</div>
+</body></html>

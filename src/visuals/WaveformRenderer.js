@@ -47,13 +47,13 @@ export class WaveformRenderer {
   static ZOOM_WINDOW = 10;
 
   /** @type {string} Background color */
-  static BG_COLOR = '#0a0a0a';
+  static BG_COLOR = '#f0f1f1';
 
   /** @type {string} Beat grid color */
-  static BEAT_GRID_COLOR = 'rgba(255, 255, 255, 0.08)';
+  static BEAT_GRID_COLOR = 'rgba(0, 0, 0, 0.06)';
 
   /** @type {string} Beat grid color for zoomed view */
-  static BEAT_GRID_ZOOM_COLOR = 'rgba(255, 255, 255, 0.12)';
+  static BEAT_GRID_ZOOM_COLOR = 'rgba(0, 0, 0, 0.08)';
 
   /**
    * @param {HTMLCanvasElement} canvas — the canvas element for this deck
@@ -63,7 +63,7 @@ export class WaveformRenderer {
     this._canvas = canvas;
     this._ctx = canvas.getContext('2d');
     this._deck = deck;
-    this._accent = deck === 'A' ? '#00f0ff' : '#ff00e5';
+    this._accent = deck === 'A' ? '#2a6900' : '#8a2ab9';
 
     this._dpr = window.devicePixelRatio || 1;
     this._resize();
@@ -197,7 +197,7 @@ export class WaveformRenderer {
 
       const color = colors && colors[i]
         ? this._rgbToString(colors[i])
-        : 'rgba(150, 150, 150, 0.8)';
+        : 'rgba(90, 92, 92, 0.6)';
 
       ctx.fillStyle = color;
       // Top half (above center)
@@ -242,7 +242,7 @@ export class WaveformRenderer {
     this._renderOverview(ctx, w, overviewH, position, duration);
 
     // --- Divider line ---
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
     ctx.fillRect(0, overviewH, w, 1);
 
     // --- Zoomed (bottom half) ---
@@ -284,7 +284,7 @@ export class WaveformRenderer {
     this._drawPlayhead(ctx, playheadX, 0, h);
 
     // Darken played portion
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
     ctx.fillRect(0, 0, playheadX, h);
   }
 
@@ -345,7 +345,7 @@ export class WaveformRenderer {
 
       const color = colors && colors[i]
         ? this._rgbToString(colors[i])
-        : 'rgba(150, 150, 150, 0.8)';
+        : 'rgba(90, 92, 92, 0.6)';
 
       ctx.fillStyle = color;
       ctx.fillRect(x, centerY - barH, Math.max(barWidth - 0.5, 0.5), barH);
@@ -362,7 +362,7 @@ export class WaveformRenderer {
     this._drawPlayhead(ctx, w / 2, 0, h);
 
     // Center line
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.04)';
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(0, centerY);
@@ -448,7 +448,7 @@ export class WaveformRenderer {
     ctx.save();
     ctx.shadowColor = this._accent;
     ctx.shadowBlur = 8;
-    ctx.strokeStyle = '#ffffff';
+    ctx.strokeStyle = '#2d2f2f';
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(x, y);
@@ -457,7 +457,7 @@ export class WaveformRenderer {
     ctx.restore();
 
     // Crisp line on top
-    ctx.strokeStyle = '#ffffff';
+    ctx.strokeStyle = '#2d2f2f';
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(x, y);
@@ -482,7 +482,7 @@ export class WaveformRenderer {
     const y = h - 16;
 
     // Background bar
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
     ctx.fillRect(x, y, indicatorW, indicatorH);
 
     // Offset marker — clamp to [-1, 1] range for display
@@ -493,7 +493,7 @@ export class WaveformRenderer {
     ctx.fillRect(markerX - 2, y - 1, 4, indicatorH + 2);
 
     // Center tick
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
     ctx.fillRect(x + indicatorW / 2 - 0.5, y - 1, 1, indicatorH + 2);
   }
 
@@ -509,7 +509,7 @@ export class WaveformRenderer {
    * @param {number} h
    */
   _drawGridPattern(ctx, w, h) {
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.03)';
     ctx.lineWidth = 1;
 
     // Horizontal lines every 16px

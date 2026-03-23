@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sonic Groove - Learning Path</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-high": "#e1e3e3",
+                        "outline-variant": "#acadad",
+                        "on-primary-fixed": "#1a4700",
+                        "tertiary-dim": "#644c00",
+                        "primary-fixed-dim": "#76ec33",
+                        "inverse-primary": "#84fb42",
+                        "primary-dim": "#235b00",
+                        "background": "#f6f6f6",
+                        "secondary-dim": "#7c18ac",
+                        "on-primary-container": "#245c00",
+                        "primary-container": "#84fb42",
+                        "surface-bright": "#f6f6f6",
+                        "surface-dim": "#d3d5d5",
+                        "secondary-container": "#eec2ff",
+                        "error": "#b02500",
+                        "on-secondary-fixed-variant": "#7d19ad",
+                        "on-tertiary-container": "#574300",
+                        "on-surface-variant": "#5a5c5c",
+                        "primary": "#2a6900",
+                        "tertiary": "#725800",
+                        "error-container": "#f95630",
+                        "tertiary-fixed-dim": "#edba00",
+                        "surface-container": "#e7e7e8",
+                        "on-secondary-container": "#7303a3",
+                        "on-tertiary": "#fff1d7",
+                        "on-primary-fixed-variant": "#296700",
+                        "secondary-fixed": "#eec2ff",
+                        "on-error": "#ffefec",
+                        "surface-variant": "#dbdddd",
+                        "secondary-fixed-dim": "#e7afff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#403000",
+                        "surface": "#f6f6f6",
+                        "on-tertiary-fixed-variant": "#634c00",
+                        "surface-container-low": "#f0f1f1",
+                        "surface-container-highest": "#dbdddd",
+                        "on-background": "#2d2f2f",
+                        "on-secondary-fixed": "#56007c",
+                        "tertiary-container": "#fec700",
+                        "on-surface": "#2d2f2f",
+                        "on-secondary": "#feeeff",
+                        "secondary": "#8a2ab9",
+                        "surface-tint": "#2a6900",
+                        "inverse-on-surface": "#9c9d9d",
+                        "error-dim": "#b92902",
+                        "on-primary": "#d5ffb9",
+                        "outline": "#767777",
+                        "on-error-container": "#520c00",
+                        "tertiary-fixed": "#fec700",
+                        "primary-fixed": "#84fb42",
+                        "inverse-surface": "#0c0f0f"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .path-node-active {
+            box-shadow: 0 10px 0 0 #2a6900;
+        }
+        .path-node-locked {
+            box-shadow: 0 10px 0 0 #dbdddd;
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-background">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#f6f6f6] dark:bg-neutral-900">
+<div class="flex items-center gap-4">
+<span class="text-2xl font-black text-[#2d2f2f] dark:text-white tracking-tighter">Sonic Groove</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 px-4 py-1.5 bg-surface-container rounded-full">
+<span class="material-symbols-outlined text-tertiary-fixed" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-headline font-bold text-sm tracking-widest uppercase text-on-surface">12 DAYS</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-1.5 bg-surface-container rounded-full">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="font-headline font-bold text-sm tracking-widest uppercase text-on-surface">2,450 XP</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="User avatar" data-alt="Portrait of a young creative professional with a friendly expression, soft studio lighting, clean minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArv-HMiD_f3BErtUgAgNABx9q_1bkzqWZ-rHp_22mB3raUFzQFHYPi9Af6TQL8rWdUauKbWpivs0xJASRwTrXD39wqTsUiJfGl7XqXWjE91RP_rNZyp_o108pdy4gkmpJLd_m7dGWcLj3txAZiX_RiUJVnvG25UASDAoT4rkdFmCzZW-zYTlD7f4o-yjLNPRxj1EObM_i8DvH1QP83kJF3baVbCR1DQ4IQiKaO7hHb9PqMR-68MiiMMy4n6k5rGUmph6PMKl0TKOU"/>
+</div>
+</div>
+</header>
+<div class="flex pt-16 h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-72 flex flex-col p-6 z-40 bg-white dark:bg-neutral-950 rounded-r-[3rem] shadow-xl dark:shadow-none pt-24">
+<div class="mb-8">
+<h2 class="text-xl font-black text-[#2a6900] dark:text-[#84fb42] mb-1">Sonic Groove</h2>
+<p class="text-[10px] font-['Plus_Jakarta_Sans'] font-bold tracking-widest uppercase text-on-surface-variant">Level 12 Beatmatcher</p>
+</div>
+<div class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-4 bg-[#84fb42] dark:bg-[#2a6900] text-[#2a6900] dark:text-[#84fb42] rounded-full px-6 py-4 shadow-sm transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-['Plus_Jakarta_Sans'] font-bold text-sm tracking-widest uppercase">Learn</span>
+</a>
+<a class="flex items-center gap-4 text-[#5a5c5c] dark:text-neutral-400 px-6 py-4 hover:bg-[#f0f1f1] dark:hover:bg-neutral-800 rounded-full transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">headphones</span>
+<span class="font-['Plus_Jakarta_Sans'] font-bold text-sm tracking-widest uppercase">Practice</span>
+</a>
+<a class="flex items-center gap-4 text-[#5a5c5c] dark:text-neutral-400 px-6 py-4 hover:bg-[#f0f1f1] dark:hover:bg-neutral-800 rounded-full transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-['Plus_Jakarta_Sans'] font-bold text-sm tracking-widest uppercase">Stats</span>
+</a>
+<a class="flex items-center gap-4 text-[#5a5c5c] dark:text-neutral-400 px-6 py-4 hover:bg-[#f0f1f1] dark:hover:bg-neutral-800 rounded-full transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Plus_Jakarta_Sans'] font-bold text-sm tracking-widest uppercase">Profile</span>
+</a>
+</div>
+<button class="mt-auto bg-primary text-on-primary rounded-xl py-4 font-headline font-bold tracking-widest uppercase shadow-lg hover:opacity-90 transition-opacity">
+                Start Mix
+            </button>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-72 flex-grow overflow-y-auto px-8 pb-20">
+<div class="max-w-2xl mx-auto pt-12">
+<!-- Unit Header Card -->
+<div class="relative bg-primary text-on-primary rounded-xl p-8 mb-16 overflow-hidden">
+<div class="relative z-10">
+<h3 class="text-[10px] font-bold tracking-[0.2em] uppercase opacity-80 mb-2">Unit 3</h3>
+<h2 class="text-3xl font-black leading-tight mb-4">Mastering the Crossfader</h2>
+<div class="flex items-center gap-4">
+<div class="flex-grow bg-primary-dim h-4 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full w-[65%] rounded-full"></div>
+</div>
+<span class="font-bold text-sm">65%</span>
+</div>
+</div>
+<!-- Abstract Background Shape -->
+<div class="absolute -right-10 -bottom-10 w-48 h-48 bg-primary-container rounded-full opacity-20 blur-3xl"></div>
+</div>
+<!-- The Learning Path -->
+<div class="flex flex-col items-center gap-12 relative">
+<!-- Path Connector Line -->
+<div class="absolute top-0 bottom-0 w-3 bg-surface-container-high left-1/2 -translate-x-1/2 -z-0 rounded-full"></div>
+<!-- Path Nodes -->
+<!-- Node 1: Completed -->
+<div class="relative z-10 flex flex-col items-center group">
+<div class="w-20 h-20 rounded-full bg-primary-container border-4 border-primary flex items-center justify-center cursor-pointer hover:scale-105 transition-transform path-node-active">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="absolute top-full mt-4 bg-white px-4 py-2 rounded-lg shadow-sm border border-surface-container opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+<span class="font-bold text-xs whitespace-nowrap">Introduction to Faders</span>
+</div>
+</div>
+<!-- Node 2: Current -->
+<div class="relative z-10 flex flex-col items-center -ml-24 group">
+<div class="w-24 h-24 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:scale-105 transition-transform path-node-active ring-8 ring-primary-container/30">
+<span class="material-symbols-outlined text-on-primary text-4xl">music_note</span>
+</div>
+<div class="mt-4 bg-primary text-on-primary px-6 py-2 rounded-xl font-bold text-sm shadow-xl animate-bounce">
+                            START
+                        </div>
+</div>
+<!-- Node 3: Locked -->
+<div class="relative z-10 flex flex-col items-center ml-24 group">
+<div class="w-20 h-20 rounded-full bg-surface-container-highest border-4 border-surface-container-high flex items-center justify-center cursor-not-allowed path-node-locked">
+<span class="material-symbols-outlined text-outline-variant text-3xl">lock</span>
+</div>
+</div>
+<!-- Node 4: Locked Bonus -->
+<div class="relative z-10 flex flex-col items-center group">
+<div class="w-28 h-28 rounded-full bg-surface-container-highest border-4 border-surface-container-high flex items-center justify-center cursor-not-allowed path-node-locked">
+<span class="material-symbols-outlined text-outline-variant text-5xl">equalizer</span>
+</div>
+</div>
+<!-- Node 5: Locked -->
+<div class="relative z-10 flex flex-col items-center -ml-24 group">
+<div class="w-20 h-20 rounded-full bg-surface-container-highest border-4 border-surface-container-high flex items-center justify-center cursor-not-allowed path-node-locked">
+<span class="material-symbols-outlined text-outline-variant text-3xl">lock</span>
+</div>
+</div>
+<!-- Node 6: Unit Milestone -->
+<div class="relative z-10 flex flex-col items-center group mt-8">
+<div class="w-32 h-32 rounded-[2.5rem] bg-secondary-container border-4 border-secondary flex items-center justify-center cursor-not-allowed rotate-3">
+<span class="material-symbols-outlined text-secondary text-6xl -rotate-3">trophy</span>
+</div>
+<p class="mt-4 font-headline font-black text-secondary tracking-widest uppercase text-xs">Unit 3 Final Mix</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Right Side Stats/Widgets -->
+<aside class="hidden xl:flex flex-col w-80 p-8 pt-12 gap-8 overflow-y-auto">
+<!-- XP Progress Card -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-surface-container-low">
+<h3 class="font-headline font-bold text-sm tracking-widest uppercase mb-4 text-on-surface-variant">Daily Goal</h3>
+<div class="flex items-center justify-between mb-2">
+<span class="font-black text-2xl">450 <span class="text-sm font-normal text-on-surface-variant">/ 500 XP</span></span>
+</div>
+<div class="w-full bg-surface-container-high h-3 rounded-full overflow-hidden">
+<div class="bg-tertiary-fixed h-full w-[90%] rounded-full"></div>
+</div>
+</div>
+<!-- Achievement Card -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-surface-container-low">
+<div class="flex items-start justify-between mb-4">
+<h3 class="font-headline font-bold text-sm tracking-widest uppercase text-on-surface-variant">Next Badge</h3>
+<span class="material-symbols-outlined text-secondary">info</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 bg-secondary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-3xl">temp_preferences_custom</span>
+</div>
+<div>
+<p class="font-bold text-sm">Vinyl Virtualist</p>
+<p class="text-xs text-on-surface-variant">4/5 Scratch Lessons</p>
+</div>
+</div>
+</div>
+<!-- Friends Activity -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-surface-container-low">
+<h3 class="font-headline font-bold text-sm tracking-widest uppercase mb-4 text-on-surface-variant">Friend Activity</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<img alt="Friend 1" class="w-10 h-10 rounded-full" data-alt="Close-up portrait of a woman smiling outdoors in golden hour light, blurred park background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBz3WP0qG9FPxE0umMUo4IZTdc0VUIIvLdlt6F9icG0nRj6rGJWgMUBtxAMzczpBfLp1gqPiaxvYb6wHxzwDg8Sjtox9cqEFmLl8qEFXQQrRqH_qIAP_UKDKulF3XDAor7GqSUI4dvSeJbESylFJAMhjxaqpZz5jNRvxYQrVUt3P_4RKqIQYBl15SJ2L-bWt3xxspUq5AhzdVR73MbAMiRxCx-YExYT8GefATxVoBekoHeNkThwgSbWkwPaAo0_c9ZEoxFlTRXMQOo"/>
+<div class="flex-grow">
+<p class="text-xs font-bold">Sarah Beat</p>
+<p class="text-[10px] text-on-surface-variant">Just finished 'Loop Mastery'</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<img alt="Friend 2" class="w-10 h-10 rounded-full" data-alt="Portrait of a young man with glasses, professional creative studio environment with soft blue lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeHTCZNp5XviQjMoDmfxsj2i7uqw0LqQWm5q_JOlrALoIo1XxFLTvstieQHnRNreTHULpIezmvQXyKgi3TKN-UXu4tSN0dO0QIwYDhL3lCACWAaTgsbrDoJJmO8KhQt-e8mpa7zFRHxT8fl72QiXff2FLT1_O4aschhrgqv7VC48Hj4LF7QRv2-vXpROTHhUFEp-pGs9PZutSYWNNdP6c7LekPEY9ib5itqftWh9azmVJoDdeS_Vn_Jc-QY--x1jaruTfmrp1GD_U"/>
+<div class="flex-grow">
+<p class="text-xs font-bold">DJ Pulse</p>
+<p class="text-[10px] text-on-surface-variant">Hit a 30-day streak!</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+<!-- Floating Action Button - Only visible on small screens where sidebar is hidden -->
+<button class="md:hidden fixed bottom-6 right-6 w-16 h-16 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center z-50 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-3xl">play_arrow</span>
+</button>
+</body></html>

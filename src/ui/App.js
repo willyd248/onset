@@ -15,6 +15,7 @@ import { MixerState } from './MixerState.js';
 import { MixerUI } from './MixerUI.js';
 import { MixerBridge } from './MixerBridge.js';
 import { AppShell } from './AppShell.js';
+import { ViewManager } from './ViewManager.js';
 import { LessonEngine } from '../lessons/LessonEngine.js';
 import { PerformanceTips } from './PerformanceTips.js';
 import { Toast } from './Toast.js';
@@ -54,6 +55,9 @@ export class App {
 
     /** @type {AppShell | null} */
     this._shell = null;
+
+    /** @type {ViewManager | null} */
+    this._viewManager = null;
 
     /** @type {LessonEngine | null} */
     this._lessonEngine = null;
@@ -120,6 +124,10 @@ export class App {
     this._shell = new AppShell();
     this._shell.init();
 
+    // 11b. Create and init ViewManager
+    this._viewManager = new ViewManager();
+    this._viewManager.init();
+
     // 12. Create LessonEngine
     this._lessonEngine = new LessonEngine(this._mixerState);
 
@@ -141,8 +149,14 @@ export class App {
     // 18. Init LessonEngine
     this._lessonEngine.init();
 
+    // 18b. Wire session-complete event to show full-screen celebration
+    this._setupSessionCompleteView();
+
     // 19. Wire cue button events from MixerUI to decks
     this._setupCueHandling();
+
+    // 20. Update settings MIDI status
+    this._setupSettingsMIDIStatus();
 
     console.log('onset initialized');
   }
@@ -401,7 +415,71 @@ export class App {
     this._tips.start();
   }
 
-  // ── Cue Handling ─────────────────────────────────────────────
+  // ── Session Complete View ─────────────────────────────────────
+
+  /** @private */
+  _setupSessionCompleteView() {
+    if (!this._lessonEngine || !this._viewManager) return;
+
+    this._lessonEngine.addEventListener('session-complete', (e) => {
+      const stats = /** @type {CustomEvent} */ (e).detail;
+      const el = document.getElementById('session-complete-content');
+      if (el) {
+        el.innerHTML = `
+          <span class="material-symbols-outlined session-complete__icon" style="font-variation-settings: 'FILL' 1;">celebration</span>
+          <h2 class="session-complete__title">Session Complete!</h2>
+          <div class="session-complete__score">${stats.averageScore || 0}</div>
+          <p class="session-complete__label">Average Score</p>
+          <div class="session-complete__metrics">
+            <div class="session-complete__metric">
+              <span class="session-complete__metric-value">${stats.completed || 0}</span>
+              <span class="session-complete__metric-label">Lessons</span>
+            </div>
+            <div class="session-complete__metric">
+              <span class="session-complete__metric-value">${stats.total || 0}</span>
+              <span class="session-complete__metric-label">Total</span>
+            </div>
+          </div>
+          <div class="session-complete__actions">
+            <button class="btn btn--deck-a" id="session-back-btn">Back to Practice</button>
+          </div>
+        `;
+
+        const backBtn = document.getElementById('session-back-btn');
+        if (backBtn) {
+          backBtn.addEventListener('click', () => {
+            this._viewManager.show('practice');
+          }, { once: true });
+        }
+      }
+
+      this._viewManager.show('session-complete');
+    });
+  }
+
+  // ── Settings MIDI Status ────────────────────────────────────
+
+  /** @private */
+  _setupSettingsMIDIStatus() {
+    if (!this._midiController) return;
+
+    const updateSettings = () => {
+      const statusEl = document.getElementById('settings-midi-status');
+      const deviceEl = document.getElementById('settings-midi-device');
+      if (statusEl) {
+        statusEl.textContent = this._midiController.isConnected ? 'Connected' : 'Disconnected';
+      }
+      if (deviceEl && this._midiController.isConnected) {
+        deviceEl.textContent = this._midiController.inputPort?.name || 'MIDI Controller';
+      }
+    };
+
+    this._midiController.addEventListener('connected', updateSettings);
+    this._midiController.addEventListener('disconnected', updateSettings);
+    updateSettings();
+  }
+
+  // ── Cue Handling ────────────────────────────────────────────
 
   /** @private */
   _setupCueHandling() {

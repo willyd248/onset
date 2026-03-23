@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sonic Playground - DJ Practice</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary": "#feeeff",
+              "surface-bright": "#f6f6f6",
+              "inverse-primary": "#84fb42",
+              "primary": "#2a6900",
+              "on-primary-fixed-variant": "#296700",
+              "on-primary": "#d5ffb9",
+              "surface-container-highest": "#dbdddd",
+              "surface-variant": "#dbdddd",
+              "surface-container-low": "#f0f1f1",
+              "surface": "#f6f6f6",
+              "on-tertiary": "#fff1d7",
+              "error": "#b02500",
+              "primary-container": "#84fb42",
+              "tertiary-fixed": "#fec700",
+              "tertiary-dim": "#644c00",
+              "surface-container": "#e7e8e8",
+              "surface-container-lowest": "#ffffff",
+              "secondary-fixed": "#eec2ff",
+              "primary-fixed": "#84fb42",
+              "on-tertiary-fixed": "#403000",
+              "secondary-container": "#eec2ff",
+              "tertiary-fixed-dim": "#edba00",
+              "on-error-container": "#520c00",
+              "background": "#f6f6f6",
+              "surface-container-high": "#e1e3e3",
+              "on-secondary-fixed-variant": "#7d19ad",
+              "inverse-on-surface": "#9c9d9d",
+              "on-surface": "#2d2f2f",
+              "on-primary-container": "#245c00",
+              "error-container": "#f95630",
+              "on-background": "#2d2f2f",
+              "on-secondary-container": "#7303a3",
+              "outline-variant": "#acadad",
+              "on-tertiary-fixed-variant": "#634c00",
+              "on-secondary-fixed": "#56007c",
+              "error-dim": "#b92902",
+              "on-error": "#ffefec",
+              "on-primary-fixed": "#1a4700",
+              "primary-fixed-dim": "#76ec33",
+              "tertiary": "#725800",
+              "outline": "#767777",
+              "surface-tint": "#2a6900",
+              "secondary": "#8a2ab9",
+              "secondary-fixed-dim": "#e7afff",
+              "on-tertiary-container": "#574300",
+              "primary-dim": "#235b00",
+              "tertiary-container": "#fec700",
+              "inverse-surface": "#0c0f0f",
+              "surface-dim": "#d3d5d5",
+              "secondary-dim": "#7c18ac",
+              "on-surface-variant": "#5a5c5c"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .knob-arc {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 25;
+        }
+        .waveform-mask {
+            mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface select-none overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#f6f6f6] dark:bg-neutral-900 shadow-[0_20px_40px_rgba(45,47,47,0.06)] rounded-b-[3rem]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#2a6900] dark:text-[#84fb42]" data-icon="menu">menu</span>
+</div>
+<h1 class="font-['Plus_Jakarta_Sans'] font-black tracking-widest text-[#2a6900] dark:text-[#84fb42] uppercase text-xl">SONIC PLAYGROUND</h1>
+<div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden border-2 border-primary-container">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a smiling young person with curly hair against a soft studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBK-qg5mJ0z4FLAF4dWNiMvB9Z6srmaItN6KC3vavjz1FuD-3wJhicjJVlhQJLB2LfLNfuWHLSU1f8GjNMiQ19p9rrVQ6onM-x379qzMlI_Avd1b9abHCqUocgmtfR6RX742WUU38wAnNKrFwDQpCe4Rwh79U13g8sZOg-hNLQc9bquCVc_2BG-th8UHTwMEC1edcb76pR1oDDKQlQlj4MjZbijYnLqB24yUGqR48N8Adf1I_aOUk3_uArCgTufiijj6iSNICeOZP8"/>
+</div>
+</header>
+<main class="pt-20 pb-32 px-4 flex flex-col gap-4 max-w-md mx-auto">
+<!-- Lesson Progress Bar -->
+<div class="w-full bg-surface-container-high rounded-full h-[1.4rem] overflow-hidden flex items-center p-1">
+<div class="bg-gradient-to-r from-primary-dim to-primary-fixed h-full rounded-full w-3/4 shadow-sm"></div>
+</div>
+<!-- BPM & Stats Display -->
+<div class="flex justify-between items-end px-2">
+<div>
+<span class="font-label text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">BEAT MATCHING 101</span>
+<div class="flex items-center gap-2">
+<span class="text-3xl font-extrabold tracking-tighter">124.0</span>
+<span class="bg-tertiary-container text-on-tertiary-container px-2 py-0.5 rounded-full text-[10px] font-black">BPM</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-2xl" data-icon="local_fire_department" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="text-xl font-extrabold">12</span>
+</div>
+</div>
+</div>
+<!-- Deck A (Primary - Green) -->
+<section class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_10px_30px_rgba(0,0,0,0.02)] border-l-8 border-primary relative overflow-hidden">
+<div class="flex justify-between items-start mb-4">
+<div class="space-y-0.5">
+<p class="font-label text-[10px] font-bold text-primary uppercase tracking-widest">DECK A</p>
+<h2 class="text-lg font-bold leading-tight truncate">Neon Nights (Extended)</h2>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="album" style="font-variation-settings: 'FILL' 1;">album</span>
+</div>
+<!-- Waveform A -->
+<div class="h-20 w-full bg-surface-container-low rounded-lg mb-4 relative overflow-hidden flex items-center justify-center waveform-mask">
+<div class="absolute inset-0 flex items-center justify-around px-2 opacity-40">
+<div class="w-1 h-8 bg-primary rounded-full"></div><div class="w-1 h-12 bg-primary rounded-full"></div><div class="w-1 h-16 bg-primary rounded-full"></div><div class="w-1 h-10 bg-primary rounded-full"></div><div class="w-1 h-14 bg-primary rounded-full"></div><div class="w-1 h-6 bg-primary rounded-full"></div><div class="w-1 h-16 bg-primary rounded-full"></div><div class="w-1 h-10 bg-primary rounded-full"></div><div class="w-1 h-12 bg-primary rounded-full"></div><div class="w-1 h-14 bg-primary rounded-full"></div><div class="w-1 h-8 bg-primary rounded-full"></div>
+</div>
+<div class="w-0.5 h-full bg-primary-container z-10 shadow-[0_0_10px_rgba(132,251,66,0.5)]"></div>
+</div>
+<!-- Deck A Controls Grid -->
+<div class="grid grid-cols-4 gap-4 items-center">
+<div class="col-span-1 flex flex-col gap-3">
+<!-- Vol Fader A -->
+<div class="h-28 w-10 bg-surface-container-high rounded-full relative mx-auto flex flex-col justify-end p-1">
+<div class="absolute top-0 left-0 w-full h-1/2 bg-primary/10 rounded-t-full"></div>
+<div class="w-8 h-8 bg-surface-container-lowest shadow-md rounded-lg flex items-center justify-center border-2 border-primary-container z-10 translate-y-[-40px]">
+<span class="material-symbols-outlined text-primary text-xs" data-icon="drag_handle">drag_handle</span>
+</div>
+</div>
+</div>
+<div class="col-span-2 flex flex-col gap-4">
+<div class="flex justify-around">
+<!-- EQ Knobs A -->
+<div class="flex flex-col items-center gap-1">
+<div class="w-10 h-10 rounded-full bg-surface-container-high border-2 border-primary/20 flex items-center justify-center relative">
+<div class="w-1 h-3 bg-primary rounded-full absolute top-1 origin-bottom rotate-[45deg]"></div>
+</div>
+<span class="font-label text-[8px] font-bold text-on-surface-variant">HIGH</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-10 h-10 rounded-full bg-surface-container-high border-2 border-primary/20 flex items-center justify-center relative">
+<div class="w-1 h-3 bg-primary rounded-full absolute top-1 origin-bottom rotate-[-20deg]"></div>
+</div>
+<span class="font-label text-[8px] font-bold text-on-surface-variant">LOW</span>
+</div>
+</div>
+<!-- Transport A -->
+<div class="flex justify-center gap-3">
+<button class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-on-surface" data-icon="fiber_manual_record">fiber_manual_record</span>
+</button>
+<button class="w-14 h-14 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 active:scale-90 transition-all">
+<span class="material-symbols-outlined text-3xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+<div class="col-span-1 flex flex-col gap-2">
+<div class="w-full aspect-square bg-surface-container-low rounded-lg flex flex-col items-center justify-center text-primary font-bold">
+<span class="text-[10px] opacity-60">SYNC</span>
+<span class="material-symbols-outlined" data-icon="sync">sync</span>
+</div>
+<div class="w-full aspect-square bg-surface-container-low rounded-lg flex flex-col items-center justify-center text-on-surface-variant font-bold">
+<span class="text-[10px] opacity-60">CUE</span>
+<span class="material-symbols-outlined" data-icon="flag">flag</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Deck B (Secondary - Purple) -->
+<section class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_10px_30px_rgba(0,0,0,0.02)] border-l-8 border-secondary relative overflow-hidden">
+<div class="flex justify-between items-start mb-4">
+<div class="space-y-0.5">
+<p class="font-label text-[10px] font-bold text-secondary uppercase tracking-widest">DECK B</p>
+<h2 class="text-lg font-bold leading-tight truncate">Violet Vibes (Club Mix)</h2>
+</div>
+<span class="material-symbols-outlined text-secondary" data-icon="album" style="font-variation-settings: 'FILL' 1;">album</span>
+</div>
+<!-- Waveform B -->
+<div class="h-20 w-full bg-surface-container-low rounded-lg mb-4 relative overflow-hidden flex items-center justify-center waveform-mask">
+<div class="absolute inset-0 flex items-center justify-around px-2 opacity-40">
+<div class="w-1 h-6 bg-secondary rounded-full"></div><div class="w-1 h-10 bg-secondary rounded-full"></div><div class="w-1 h-14 bg-secondary rounded-full"></div><div class="w-1 h-16 bg-secondary rounded-full"></div><div class="w-1 h-10 bg-secondary rounded-full"></div><div class="w-1 h-12 bg-secondary rounded-full"></div><div class="w-1 h-8 bg-secondary rounded-full"></div><div class="w-1 h-14 bg-secondary rounded-full"></div><div class="w-1 h-16 bg-secondary rounded-full"></div><div class="w-1 h-6 bg-secondary rounded-full"></div><div class="w-1 h-10 bg-secondary rounded-full"></div>
+</div>
+<div class="w-0.5 h-full bg-secondary-container z-10 shadow-[0_0_10px_rgba(238,194,255,0.5)]"></div>
+</div>
+<!-- Deck B Controls Grid -->
+<div class="grid grid-cols-4 gap-4 items-center">
+<div class="col-span-1 flex flex-col gap-3">
+<!-- Vol Fader B -->
+<div class="h-28 w-10 bg-surface-container-high rounded-full relative mx-auto flex flex-col justify-end p-1">
+<div class="absolute top-0 left-0 w-full h-1/4 bg-secondary/10 rounded-t-full"></div>
+<div class="w-8 h-8 bg-surface-container-lowest shadow-md rounded-lg flex items-center justify-center border-2 border-secondary-container z-10 translate-y-[-60px]">
+<span class="material-symbols-outlined text-secondary text-xs" data-icon="drag_handle">drag_handle</span>
+</div>
+</div>
+</div>
+<div class="col-span-2 flex flex-col gap-4">
+<div class="flex justify-around">
+<!-- EQ Knobs B -->
+<div class="flex flex-col items-center gap-1">
+<div class="w-10 h-10 rounded-full bg-surface-container-high border-2 border-secondary/20 flex items-center justify-center relative">
+<div class="w-1 h-3 bg-secondary rounded-full absolute top-1 origin-bottom rotate-[-45deg]"></div>
+</div>
+<span class="font-label text-[8px] font-bold text-on-surface-variant">HIGH</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-10 h-10 rounded-full bg-surface-container-high border-2 border-secondary/20 flex items-center justify-center relative">
+<div class="w-1 h-3 bg-secondary rounded-full absolute top-1 origin-bottom rotate-[10deg]"></div>
+</div>
+<span class="font-label text-[8px] font-bold text-on-surface-variant">LOW</span>
+</div>
+</div>
+<!-- Transport B -->
+<div class="flex justify-center gap-3">
+<button class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-on-surface" data-icon="pause">pause</span>
+</button>
+<button class="w-14 h-14 rounded-xl bg-secondary flex items-center justify-center text-on-secondary shadow-lg shadow-secondary/20 active:scale-90 transition-all">
+<span class="material-symbols-outlined text-3xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+<div class="col-span-1 flex flex-col gap-2">
+<div class="w-full aspect-square bg-secondary-container/30 rounded-lg flex flex-col items-center justify-center text-secondary font-bold">
+<span class="text-[10px] opacity-60">SYNC</span>
+<span class="material-symbols-outlined" data-icon="sync">sync</span>
+</div>
+<div class="w-full aspect-square bg-surface-container-low rounded-lg flex flex-col items-center justify-center text-on-surface-variant font-bold">
+<span class="text-[10px] opacity-60">CUE</span>
+<span class="material-symbols-outlined" data-icon="flag">flag</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Master Crossfader -->
+<div class="mt-4 bg-surface-container rounded-xl p-6 flex flex-col gap-4">
+<div class="flex justify-between items-center px-2">
+<span class="font-label text-[10px] font-extrabold text-primary">DECK A</span>
+<span class="font-label text-[10px] font-extrabold text-secondary">DECK B</span>
+</div>
+<div class="w-full h-12 bg-surface-container-high rounded-full relative p-1 flex items-center">
+<div class="absolute left-1/2 -translate-x-1/2 w-0.5 h-6 bg-on-surface/10"></div>
+<!-- Crossfader Handle -->
+<div class="absolute left-1/4 -translate-x-1/2 w-16 h-10 bg-surface-container-lowest rounded-lg shadow-xl flex items-center justify-center border border-outline-variant/10">
+<div class="w-0.5 h-6 bg-primary rounded-full mx-0.5"></div>
+<div class="w-0.5 h-6 bg-secondary rounded-full mx-0.5"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#ffffff] dark:bg-neutral-950 shadow-[0_-10px_30px_rgba(0,0,0,0.04)] rounded-t-[3rem]">
+<div class="flex flex-col items-center justify-center bg-[#84fb42] dark:bg-[#2a6900] text-[#2a6900] dark:text-[#84fb42] rounded-full px-5 py-2 scale-90 transition-all duration-150">
+<span class="material-symbols-outlined" data-icon="headphones" style="font-variation-settings: 'FILL' 1;">headphones</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold uppercase tracking-[0.05em]">PRACTICE</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#5a5c5c] dark:text-neutral-500 px-5 py-2 hover:bg-[#f0f1f1] dark:hover:bg-neutral-800 rounded-full transition-opacity">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold uppercase tracking-[0.05em]">LESSONS</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#5a5c5c] dark:text-neutral-500 px-5 py-2 hover:bg-[#f0f1f1] dark:hover:bg-neutral-800 rounded-full transition-opacity">
+<span class="material-symbols-outlined" data-icon="library_music">library_music</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold uppercase tracking-[0.05em]">LIBRARY</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#5a5c5c] dark:text-neutral-500 px-5 py-2 hover:bg-[#f0f1f1] dark:hover:bg-neutral-800 rounded-full transition-opacity">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold uppercase tracking-[0.05em]">STATS</span>
+</div>
+</nav>
+</body></html>

@@ -59,7 +59,7 @@ export class LessonRenderer {
             </li>
           `).join('')}
         </ul>
-        <button class="btn btn--accent-a glow-a lesson-start-btn" id="start-session-btn">
+        <button class="btn btn--deck-a glow-a lesson-start-btn" id="start-session-btn">
           start session
         </button>
       </div>
@@ -213,7 +213,7 @@ export class LessonRenderer {
         </div>
         ${isLastInSession
           ? '<p class="lesson-complete__hint">great session — good place to take a break</p>'
-          : '<button class="btn btn--accent-a glow-a" id="next-lesson-btn">next lesson</button>'
+          : '<button class="btn btn--deck-a glow-a" id="next-lesson-btn">next lesson</button>'
         }
         <button class="btn btn--ghost" id="end-session-btn">end session</button>
       </div>

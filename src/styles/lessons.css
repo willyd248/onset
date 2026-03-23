@@ -1,12 +1,12 @@
-/* onset — lesson panel styles (Duolingo-inspired) */
+/* onset — lesson panel styles (light theme) */
 
 .lesson-panel {
   grid-area: lessons;
-  background: var(--bg-secondary);
+  background: var(--surface-lowest);
   display: flex;
   flex-direction: column;
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 -8px 24px rgba(45, 47, 47, 0.06);
   max-height: 280px;
   transition: max-height 300ms ease, opacity 300ms ease, padding 300ms ease;
   overflow: hidden;
@@ -23,21 +23,23 @@
   justify-content: space-between;
   align-items: center;
   padding: 12px 20px;
-  background: var(--bg-tertiary);
+  background: var(--surface-container);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
 .lesson-panel__header h2 {
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  color: var(--on-surface);
 }
 
 .lesson-panel__progress {
   font-size: 12px;
-  color: var(--text-secondary);
+  color: var(--on-surface-variant);
   font-variant-numeric: tabular-nums;
+  font-weight: 600;
 }
 
 .lesson-panel__content {
@@ -48,12 +50,12 @@
 }
 
 .lesson-panel__placeholder {
-  color: var(--text-secondary);
+  color: var(--on-surface-variant);
   font-style: italic;
   font-size: 13px;
 }
 
-/* ── Lesson Phase Styles ───────────────────────────────── */
+/* Lesson Phase Styles */
 
 .lesson-phase {
   display: flex;
@@ -64,51 +66,53 @@
 .phase-badge {
   display: inline-block;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  padding: 3px 12px;
-  border-radius: 20px;
+  padding: 3px 14px;
+  border-radius: var(--radius-full);
   width: fit-content;
 }
 
 .lesson-phase--watch .phase-badge {
-  background: rgba(28, 176, 246, 0.15);
-  color: #1cb0f6;
+  background: rgba(28, 176, 246, 0.12);
+  color: var(--info);
 }
 
 .lesson-phase--imagine .phase-badge {
-  background: var(--accent-b-bg);
-  color: var(--accent-b);
+  background: rgba(238, 194, 255, 0.4);
+  color: var(--secondary);
 }
 
 .lesson-phase--do .phase-badge {
-  background: var(--accent-a-bg);
-  color: var(--accent-a);
+  background: rgba(132, 251, 66, 0.2);
+  color: var(--primary);
 }
 
 .lesson-instruction {
   font-size: 16px;
   line-height: 1.6;
-  color: var(--text-primary);
+  color: var(--on-surface);
+  font-weight: 500;
 }
 
 .lesson-hint {
   font-size: 12px;
-  color: var(--text-secondary);
+  color: var(--on-surface-variant);
   font-style: italic;
 }
 
 .lesson-meta {
   font-size: 12px;
-  color: var(--text-secondary);
+  color: var(--on-surface-variant);
   font-variant-numeric: tabular-nums;
+  font-weight: 500;
 }
 
 /* Imagine phase timer */
 .imagine-timer {
   height: 4px;
-  background: var(--bg-tertiary);
+  background: var(--surface-high);
   border-radius: 2px;
   overflow: hidden;
   margin-top: 6px;
@@ -116,7 +120,7 @@
 
 .imagine-timer__bar {
   height: 100%;
-  background: var(--accent-b);
+  background: linear-gradient(90deg, var(--secondary), var(--secondary-container));
   border-radius: 2px;
   animation: imagine-countdown linear forwards;
   transform-origin: left;
@@ -133,28 +137,28 @@
   align-items: center;
   gap: 10px;
   padding: 8px 14px;
-  background: var(--bg-tertiary);
+  background: var(--surface-container);
   border-radius: var(--radius-sm);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--outline-variant);
   width: fit-content;
 }
 
 .lesson-target__label {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--text-secondary);
+  color: var(--on-surface-variant);
 }
 
 .lesson-target__value {
   font-size: 15px;
-  font-weight: 600;
-  color: var(--accent-a);
+  font-weight: 700;
+  color: var(--primary);
   font-variant-numeric: tabular-nums;
 }
 
-/* ── Session List ──────────────────────────────────────── */
+/* Session List */
 
 .lesson-session-start {
   display: flex;
@@ -164,9 +168,10 @@
 
 .lesson-title {
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  color: var(--on-surface);
 }
 
 .lesson-session-list {
@@ -182,25 +187,34 @@
   gap: 10px;
   font-size: 13px;
   padding: 6px 0;
+  color: var(--on-surface);
 }
 
 .lesson-session-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 11px;
-  color: var(--text-secondary);
-  width: 18px;
-  font-weight: 600;
+  color: var(--on-surface-variant);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--surface-container);
+  font-weight: 700;
+  flex-shrink: 0;
 }
 
 .lesson-session-name {
   flex: 1;
+  font-weight: 500;
 }
 
 .lesson-session-cat {
   font-size: 11px;
-  color: var(--text-secondary);
+  color: var(--on-surface-variant);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .lesson-start-btn {
@@ -208,7 +222,7 @@
   align-self: flex-start;
 }
 
-/* ── Step Score ────────────────────────────────────────── */
+/* Step Score */
 
 .lesson-score {
   display: flex;
@@ -221,26 +235,37 @@
 
 .lesson-score__value {
   font-size: 40px;
-  font-weight: 700;
+  font-weight: 900;
   font-variant-numeric: tabular-nums;
 }
 
-.lesson-score--perfect .lesson-score__value { color: var(--success); }
-.lesson-score--good .lesson-score__value { color: var(--info); }
-.lesson-score--ok .lesson-score__value { color: var(--warning); }
-.lesson-score--miss .lesson-score__value { color: var(--error); }
+.lesson-score--perfect .lesson-score__value {
+  color: var(--success);
+}
+
+.lesson-score--good .lesson-score__value {
+  color: var(--info);
+}
+
+.lesson-score--ok .lesson-score__value {
+  color: var(--warning);
+}
+
+.lesson-score--miss .lesson-score__value {
+  color: var(--error);
+}
 
 .lesson-score__label {
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--text-secondary);
+  color: var(--on-surface-variant);
 }
 
 .lesson-score__perfect {
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--success);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -257,11 +282,12 @@
   display: flex;
   gap: 14px;
   font-size: 11px;
-  color: var(--text-secondary);
+  color: var(--on-surface-variant);
   font-variant-numeric: tabular-nums;
+  font-weight: 500;
 }
 
-/* ── Lesson Complete ───────────────────────────────────── */
+/* Lesson Complete */
 
 .lesson-complete {
   display: flex;
@@ -273,22 +299,22 @@
 
 .lesson-complete__title {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--text-secondary);
+  color: var(--on-surface-variant);
 }
 
 .lesson-complete__score {
   font-size: 48px;
-  font-weight: 700;
-  color: var(--accent-a);
+  font-weight: 900;
+  color: var(--primary);
   font-variant-numeric: tabular-nums;
 }
 
 .lesson-complete__pb {
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--success);
   text-transform: uppercase;
   animation: score-pop 0.4s ease;
@@ -296,17 +322,34 @@
 
 .lesson-complete__stats {
   font-size: 12px;
-  color: var(--text-secondary);
+  color: var(--on-surface-variant);
+  font-weight: 500;
 }
 
 .lesson-complete__hint {
   font-size: 12px;
-  color: var(--text-secondary);
+  color: var(--on-surface-variant);
   font-style: italic;
   margin-top: 4px;
 }
 
-/* ── Guitar Hero Feedback on Controls ──────────────────── */
+/* Progress bar */
+.lesson-progress-bar {
+  height: 6px;
+  background: var(--surface-high);
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 4px 0;
+}
+
+.lesson-progress-bar__fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--primary-container));
+  border-radius: 3px;
+  transition: width 300ms ease;
+}
+
+/* Guitar Hero Feedback on Controls */
 
 .lesson-highlight {
   position: relative;
@@ -318,10 +361,10 @@
   content: '';
   position: absolute;
   inset: -4px;
-  border: 2px dashed var(--accent-a);
+  border: 2px dashed var(--primary);
   border-radius: var(--radius-sm);
   pointer-events: none;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .lesson-highlight--arrow::before {
@@ -330,15 +373,15 @@
   left: -16px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--accent-a);
+  color: var(--primary);
   font-size: 14px;
   animation: arrow-bounce 1s ease-in-out infinite;
   pointer-events: none;
 }
 
 @keyframes highlight-pulse {
-  0%, 100% { box-shadow: 0 0 8px rgba(88, 204, 2, 0.3); }
-  50% { box-shadow: 0 0 16px rgba(88, 204, 2, 0.55), 0 0 24px rgba(88, 204, 2, 0.15); }
+  0%, 100% { box-shadow: 0 0 8px rgba(42, 105, 0, 0.2); }
+  50% { box-shadow: 0 0 16px rgba(42, 105, 0, 0.4), 0 0 24px rgba(42, 105, 0, 0.1); }
 }
 
 @keyframes arrow-bounce {
@@ -348,21 +391,21 @@
 
 /* Immediate input feedback (Guitar Hero colors) */
 .feedback-hit {
-  box-shadow: 0 0 12px rgba(88, 204, 2, 0.7), 0 0 24px rgba(88, 204, 2, 0.3) !important;
+  box-shadow: 0 0 12px rgba(42, 105, 0, 0.6), 0 0 24px rgba(42, 105, 0, 0.2) !important;
   transition: box-shadow 50ms ease;
 }
 
 .feedback-hot {
-  box-shadow: 0 0 10px rgba(255, 200, 0, 0.6), 0 0 20px rgba(255, 200, 0, 0.2) !important;
+  box-shadow: 0 0 10px rgba(254, 199, 0, 0.5), 0 0 20px rgba(254, 199, 0, 0.15) !important;
   transition: box-shadow 50ms ease;
 }
 
 .feedback-warm {
-  box-shadow: 0 0 8px rgba(255, 140, 0, 0.5), 0 0 16px rgba(255, 140, 0, 0.2) !important;
+  box-shadow: 0 0 8px rgba(255, 140, 0, 0.4), 0 0 16px rgba(255, 140, 0, 0.15) !important;
   transition: box-shadow 50ms ease;
 }
 
 .feedback-cold {
-  box-shadow: 0 0 8px rgba(255, 75, 75, 0.5), 0 0 16px rgba(255, 75, 75, 0.2) !important;
+  box-shadow: 0 0 8px rgba(176, 37, 0, 0.4), 0 0 16px rgba(176, 37, 0, 0.15) !important;
   transition: box-shadow 50ms ease;
 }

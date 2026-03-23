@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sonic Groove - Profile &amp; Stats</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-high": "#e1e3e3",
+                        "outline-variant": "#acadad",
+                        "on-primary-fixed": "#1a4700",
+                        "tertiary-dim": "#644c00",
+                        "primary-fixed-dim": "#76ec33",
+                        "inverse-primary": "#84fb42",
+                        "primary-dim": "#235b00",
+                        "background": "#f6f6f6",
+                        "secondary-dim": "#7c18ac",
+                        "on-primary-container": "#245c00",
+                        "primary-container": "#84fb42",
+                        "surface-bright": "#f6f6f6",
+                        "surface-dim": "#d3d5d5",
+                        "secondary-container": "#eec2ff",
+                        "error": "#b02500",
+                        "on-secondary-fixed-variant": "#7d19ad",
+                        "on-tertiary-container": "#574300",
+                        "on-surface-variant": "#5a5c5c",
+                        "primary": "#2a6900",
+                        "tertiary": "#725800",
+                        "error-container": "#f95630",
+                        "tertiary-fixed-dim": "#edba00",
+                        "surface-container": "#e7e8e8",
+                        "on-secondary-container": "#7303a3",
+                        "on-tertiary": "#fff1d7",
+                        "on-primary-fixed-variant": "#296700",
+                        "secondary-fixed": "#eec2ff",
+                        "on-error": "#ffefec",
+                        "surface-variant": "#dbdddd",
+                        "secondary-fixed-dim": "#e7afff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#403000",
+                        "surface": "#f6f6f6",
+                        "on-tertiary-fixed-variant": "#634c00",
+                        "surface-container-low": "#f0f1f1",
+                        "surface-container-highest": "#dbdddd",
+                        "on-background": "#2d2f2f",
+                        "on-secondary-fixed": "#56007c",
+                        "tertiary-container": "#fec700",
+                        "on-surface": "#2d2f2f",
+                        "on-secondary": "#feeeff",
+                        "secondary": "#8a2ab9",
+                        "surface-tint": "#2a6900",
+                        "inverse-on-surface": "#9c9d9d",
+                        "error-dim": "#b92902",
+                        "on-primary": "#d5ffb9",
+                        "outline": "#767777",
+                        "on-error-container": "#520c00",
+                        "tertiary-fixed": "#fec700",
+                        "primary-fixed": "#84fb42",
+                        "inverse-surface": "#0c0f0f"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#f6f6f6] dark:bg-neutral-900">
+<div class="flex items-center gap-2">
+<span class="text-2xl font-black text-[#2d2f2f] dark:text-white tracking-tighter">Sonic Groove</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-[#5a5c5c] dark:text-neutral-400 hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="local_fire_department">local_fire_department</span>
+</button>
+<button class="text-[#5a5c5c] dark:text-neutral-400 hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="stars">stars</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="User avatar" data-alt="Close-up portrait of a friendly young man with a modern hairstyle smiling against a clean minimal background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNJE2khMrpEgO6nGr7Q8CghBusNLterrzCuKUXDbGJCzhTb884fgVh9AvH-qppDjFBFQvxfSlyi2a-tGN4ft3kbAojPlxPfU8OvUWgYo2mLfVFcILjbMMLCzGwzXEFea9FcCPl_E1rVcF4azr9dE_Om4HrjKY7unrB1RBO-_pLae5AJoorFuk_eGTTYuLIP8f0ruaGpzsMRm9Ib_2ARo88CAASmQW29s4XS0Slw2LPvNEsPJIo23Kbz-Oadq2MvxSb4918I-g49ug"/>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full bg-[#e7e8e8] dark:bg-neutral-800 h-[2px]"></div>
+</header>
+<!-- SideNavBar (Hidden on Mobile) -->
+<aside class="hidden md:flex fixed left-0 top-0 h-full w-72 flex-col p-6 z-40 bg-white dark:bg-neutral-950 rounded-r-[3rem] shadow-xl dark:shadow-none">
+<div class="text-xl font-black text-[#2a6900] dark:text-[#84fb42] mb-8">Sonic Groove</div>
+<nav class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-4 text-[#5a5c5c] dark:text-neutral-400 px-6 py-4 hover:bg-[#f0f1f1] dark:hover:bg-neutral-800 rounded-full transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-['Plus_Jakarta_Sans'] font-bold text-sm tracking-widest uppercase">Learn</span>
+</a>
+<a class="flex items-center gap-4 text-[#5a5c5c] dark:text-neutral-400 px-6 py-4 hover:bg-[#f0f1f1] dark:hover:bg-neutral-800 rounded-full transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="headphones">headphones</span>
+<span class="font-['Plus_Jakarta_Sans'] font-bold text-sm tracking-widest uppercase">Practice</span>
+</a>
+<a class="flex items-center gap-4 text-[#5a5c5c] dark:text-neutral-400 px-6 py-4 hover:bg-[#f0f1f1] dark:hover:bg-neutral-800 rounded-full transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="font-['Plus_Jakarta_Sans'] font-bold text-sm tracking-widest uppercase">Stats</span>
+</a>
+<a class="flex items-center gap-4 bg-[#84fb42] dark:bg-[#2a6900] text-[#2a6900] dark:text-[#84fb42] rounded-full px-6 py-4 shadow-sm active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Plus_Jakarta_Sans'] font-bold text-sm tracking-widest uppercase">Profile</span>
+</a>
+</nav>
+<div class="mt-auto p-4 bg-surface-container-low rounded-xl flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div>
+<p class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">DJ Apprentice</p>
+<p class="text-sm font-black text-on-surface">Level 12</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="pt-20 pb-24 md:pt-24 md:pl-80 md:pr-12 px-6">
+<div class="max-w-6xl mx-auto space-y-8">
+<!-- Bento Grid Header Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Profile Identity Card -->
+<div class="lg:col-span-5 bg-surface-container-lowest p-8 rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-8xl" data-icon="music_note">music_note</span>
+</div>
+<div class="flex items-center gap-6 relative z-10">
+<div class="w-24 h-24 rounded-full border-4 border-primary-container p-1">
+<img class="w-full h-full rounded-full object-cover" data-alt="Portrait of a young music creator with vibrant studio lighting in the background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkZzVj7PwpTMyTLL6bSLmUFl65JJse7fiLQoqbvpy6y9TW9Lp-JSG54eeta2oUJWqtaN0C5bzotaWkuWsqRLIO7XFvpmyr0HCwQmq2E7FVgr4izDvGYMRpwW0Ox4SVwkqKebL5Liz977MKms9lZd3YJKdTPlQmITxucgEo-pcc0QoEs5XaHjBuYc5ivubMrLPJ0ks3FkmwaW8CsNdjlbVZtNh71-e9gJUJV337TeAKv0qnQgG06WHRr_sxvBW4k9GTG4Av-2EmNfg"/>
+</div>
+<div>
+<h1 class="text-2xl font-black text-on-background">Alex "Vibe" Chen</h1>
+<p class="text-on-surface-variant font-medium">Joined June 2023 • Pro Member</p>
+<div class="mt-2 flex gap-2">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-xs font-bold tracking-widest uppercase">Mastery Class</span>
+</div>
+</div>
+</div>
+<div class="mt-8 grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-4 rounded-lg">
+<p class="text-[0.65rem] font-bold uppercase tracking-widest text-on-surface-variant">Total XP</p>
+<p class="text-2xl font-black text-primary">24,580</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg">
+<p class="text-[0.65rem] font-bold uppercase tracking-widest text-on-surface-variant">Global Rank</p>
+<p class="text-2xl font-black text-secondary">#412</p>
+</div>
+</div>
+</div>
+<!-- Daily Streak Bento -->
+<div class="lg:col-span-3 bg-tertiary-container p-8 rounded-xl flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-6xl text-on-tertiary-fixed mb-2" data-icon="local_fire_department" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<h2 class="text-5xl font-black text-on-tertiary-fixed">14</h2>
+<p class="text-sm font-bold uppercase tracking-widest text-on-tertiary-fixed opacity-80">Day Streak</p>
+<p class="mt-4 text-xs font-medium text-on-tertiary-fixed max-w-[15ch]">Keep spinning to maintain your heat!</p>
+</div>
+<!-- Level Progress Bento -->
+<div class="lg:col-span-4 bg-surface-container-lowest p-8 rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-end mb-2">
+<p class="text-sm font-bold uppercase tracking-widest text-on-surface-variant">Level 12</p>
+<p class="text-xs font-bold text-primary">850 / 1000 XP</p>
+</div>
+<div class="w-full h-6 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary-dim to-primary-fixed w-[85%]"></div>
+</div>
+</div>
+<div class="flex items-center gap-4 mt-6">
+<div class="w-12 h-12 bg-primary-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="bolt">bolt</span>
+</div>
+<p class="text-sm font-medium">150 XP until you reach <span class="font-black">Beatmaster</span> status</p>
+</div>
+</div>
+</div>
+<!-- Stats & Progress Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Weekly Activity Chart -->
+<div class="lg:col-span-8 bg-surface-container-lowest p-8 rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)]">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-xl font-black">Weekly Progress</h3>
+<div class="flex gap-2">
+<button class="px-4 py-1 bg-surface-container text-on-surface-variant text-xs font-bold rounded-full">Last 7 Days</button>
+</div>
+</div>
+<!-- Mock Chart Visualization -->
+<div class="flex items-end justify-between h-48 gap-2">
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-full bg-surface-container-low rounded-t-lg h-[40%] hover:bg-primary-container transition-colors group relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-background text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">45m</div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">Mon</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-full bg-surface-container-low rounded-t-lg h-[65%] hover:bg-primary-container transition-colors group relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-background text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">70m</div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">Tue</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-full bg-surface-container-low rounded-t-lg h-[90%] hover:bg-primary-container transition-colors group relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-background text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">120m</div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">Wed</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-full bg-primary rounded-t-lg h-[100%] group relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-background text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">140m</div>
+</div>
+<span class="text-[10px] font-bold text-primary uppercase">Thu</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-full bg-surface-container-low rounded-t-lg h-[30%] hover:bg-primary-container transition-colors group relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-background text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">30m</div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">Fri</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-full bg-surface-container-low rounded-t-lg h-[50%] hover:bg-primary-container transition-colors group relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-background text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">55m</div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">Sat</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-full bg-surface-container-low rounded-t-lg h-[20%] hover:bg-primary-container transition-colors group relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-background text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">20m</div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">Sun</span>
+</div>
+</div>
+</div>
+<!-- Skill Radar / Breakdown -->
+<div class="lg:col-span-4 bg-secondary p-8 rounded-xl text-on-secondary shadow-[0_20px_40px_rgba(138,42,185,0.15)]">
+<h3 class="text-xl font-black mb-6">Skill Balance</h3>
+<div class="space-y-4">
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-bold uppercase tracking-widest">
+<span>Beatmatching</span>
+<span>92%</span>
+</div>
+<div class="h-2 w-full bg-white/20 rounded-full">
+<div class="h-full bg-white rounded-full w-[92%]"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-bold uppercase tracking-widest">
+<span>Phrasing</span>
+<span>78%</span>
+</div>
+<div class="h-2 w-full bg-white/20 rounded-full">
+<div class="h-full bg-white rounded-full w-[78%]"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-bold uppercase tracking-widest">
+<span>FX Control</span>
+<span>45%</span>
+</div>
+<div class="h-2 w-full bg-white/20 rounded-full">
+<div class="h-full bg-white rounded-full w-[45%]"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-bold uppercase tracking-widest">
+<span>Crowd Reading</span>
+<span>60%</span>
+</div>
+<div class="h-2 w-full bg-white/20 rounded-full">
+<div class="h-full bg-white rounded-full w-[60%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Badges Section -->
+<div class="bg-surface-container-low p-8 rounded-xl">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-xl font-black">Hall of Fame</h3>
+<a class="text-sm font-bold text-primary flex items-center gap-1" href="#">
+                        View All <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</a>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+<!-- Badge 1 -->
+<div class="flex flex-col items-center text-center gap-3">
+<div class="w-20 h-20 rounded-full bg-surface-container-lowest shadow-sm flex items-center justify-center relative group">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="pulse" style="font-variation-settings: 'FILL' 1;">pulse_alert</span>
+<div class="absolute inset-0 border-4 border-primary rounded-full scale-110 opacity-20"></div>
+</div>
+<span class="text-xs font-bold leading-tight">Beat Matcher</span>
+</div>
+<!-- Badge 2 -->
+<div class="flex flex-col items-center text-center gap-3">
+<div class="w-20 h-20 rounded-full bg-surface-container-lowest shadow-sm flex items-center justify-center relative">
+<span class="material-symbols-outlined text-4xl text-secondary" data-icon="gesture" style="font-variation-settings: 'FILL' 1;">gesture</span>
+<div class="absolute inset-0 border-4 border-secondary rounded-full scale-110 opacity-20"></div>
+</div>
+<span class="text-xs font-bold leading-tight">Scratch Pro</span>
+</div>
+<!-- Badge 3 -->
+<div class="flex flex-col items-center text-center gap-3">
+<div class="w-20 h-20 rounded-full bg-surface-container-lowest shadow-sm flex items-center justify-center relative">
+<span class="material-symbols-outlined text-4xl text-tertiary" data-icon="nightlight" style="font-variation-settings: 'FILL' 1;">nightlight</span>
+<div class="absolute inset-0 border-4 border-tertiary rounded-full scale-110 opacity-20"></div>
+</div>
+<span class="text-xs font-bold leading-tight">Night Owl</span>
+</div>
+<!-- Badge 4 -->
+<div class="flex flex-col items-center text-center gap-3">
+<div class="w-20 h-20 rounded-full bg-surface-container-lowest shadow-sm flex items-center justify-center relative">
+<span class="material-symbols-outlined text-4xl text-error-container" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<div class="absolute inset-0 border-4 border-error-container rounded-full scale-110 opacity-20"></div>
+</div>
+<span class="text-xs font-bold leading-tight">FX Wizard</span>
+</div>
+<!-- Locked Badge -->
+<div class="flex flex-col items-center text-center gap-3 opacity-40 grayscale">
+<div class="w-20 h-20 rounded-full bg-surface-container-low border-2 border-dashed border-outline-variant flex items-center justify-center relative">
+<span class="material-symbols-outlined text-4xl" data-icon="lock">lock</span>
+</div>
+<span class="text-xs font-bold leading-tight text-outline">Locker 1</span>
+</div>
+<!-- Locked Badge -->
+<div class="flex flex-col items-center text-center gap-3 opacity-40 grayscale">
+<div class="w-20 h-20 rounded-full bg-surface-container-low border-2 border-dashed border-outline-variant flex items-center justify-center relative">
+<span class="material-symbols-outlined text-4xl" data-icon="lock">lock</span>
+</div>
+<span class="text-xs font-bold leading-tight text-outline">Locker 2</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full h-16 bg-white dark:bg-neutral-950 flex items-center justify-around px-2 z-50">
+<a class="flex flex-col items-center justify-center text-[#5a5c5c]" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#5a5c5c]" href="#">
+<span class="material-symbols-outlined" data-icon="headphones">headphones</span>
+</a>
+<div class="w-12 h-12 bg-primary rounded-full -mt-8 flex items-center justify-center shadow-lg text-on-primary">
+<span class="material-symbols-outlined" data-icon="play_arrow">play_arrow</span>
+</div>
+<a class="flex flex-col items-center justify-center text-[#5a5c5c]" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+</a>
+</nav>
+</body></html>

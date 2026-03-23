@@ -220,14 +220,17 @@ export class MixerUI extends EventTarget {
       const glowClass = deck === 'A' ? 'glow-a-strong' : 'glow-b-strong';
       const baseGlow = deck === 'A' ? 'glow-a' : 'glow-b';
 
+      // Find the icon span inside the button
+      const iconEl = btn.querySelector('.material-symbols-outlined');
+
       if (value) {
         btn.classList.remove(baseGlow);
         btn.classList.add(glowClass);
-        btn.textContent = 'Pause';
+        if (iconEl) iconEl.textContent = 'pause';
       } else {
         btn.classList.remove(glowClass);
         btn.classList.add(baseGlow);
-        btn.textContent = 'Play';
+        if (iconEl) iconEl.textContent = 'play_arrow';
       }
       return;
     }

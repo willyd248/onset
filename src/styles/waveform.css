@@ -1,68 +1,70 @@
-/* onset — waveform display styles (Duolingo-inspired) */
+/* onset — waveform display styles (light theme) */
 
 .waveforms {
   grid-area: waveforms;
   display: grid;
+  min-height: 0;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
   padding: 8px;
-  background: var(--bg-primary);
+  background: var(--background);
 }
 
-.waveform-display {
-  background: var(--bg-secondary);
+.waveform-card {
+  background: var(--surface-lowest);
   display: flex;
   flex-direction: column;
   padding: 12px 16px;
   position: relative;
   overflow: hidden;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-ambient);
 }
 
-.waveform-display__label {
+.waveform-card__label {
   position: absolute;
   top: 10px;
   left: 16px;
-  font-size: 24px;
-  font-weight: 700;
-  opacity: 0.2;
+  font-size: 28px;
+  font-weight: 900;
+  opacity: 0.08;
   pointer-events: none;
+  letter-spacing: 0.02em;
 }
 
-.waveform-display--a .waveform-display__label {
-  color: var(--accent-a);
+.waveform-card__label--a {
+  color: var(--primary);
 }
 
-.waveform-display--b .waveform-display__label {
-  color: var(--accent-b);
+.waveform-card__label--b {
+  color: var(--secondary);
 }
 
-.waveform-display__canvas {
+.waveform-card__canvas {
   flex: 1;
   width: 100%;
   border-radius: var(--radius-sm);
-  background: var(--bg-primary);
+  background: var(--surface-low);
   display: block;
   margin: 0;
   padding: 0;
 }
 
-.waveform-display--a .waveform-display__canvas {
+.waveform-display--a .waveform-card__canvas {
   box-shadow:
-    inset 0 0 16px rgba(88, 204, 2, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    inset 0 0 20px rgba(42, 105, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.03);
 }
 
-.waveform-display--b .waveform-display__canvas {
+.waveform-display--b .waveform-card__canvas {
   box-shadow:
-    inset 0 0 16px rgba(206, 130, 255, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    inset 0 0 20px rgba(138, 42, 185, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.03);
 }
 
-.waveform-display__info {
+.waveform-card__info {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -70,15 +72,28 @@
   font-size: 13px;
 }
 
-.track-name {
-  color: var(--text-secondary);
+.waveform-card__name {
+  color: var(--on-surface-variant);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 60%;
+  font-weight: 500;
 }
 
-.track-time {
-  color: var(--text-secondary);
+.waveform-card__time {
+  color: var(--on-surface-variant);
   font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+/* Drop zone active states */
+.waveform-display--a.drop-active {
+  border: 2px dashed var(--primary) !important;
+  box-shadow: inset 0 0 24px rgba(42, 105, 0, 0.06), 0 0 16px rgba(42, 105, 0, 0.1);
+}
+
+.waveform-display--b.drop-active {
+  border: 2px dashed var(--secondary) !important;
+  box-shadow: inset 0 0 24px rgba(138, 42, 185, 0.06), 0 0 16px rgba(138, 42, 185, 0.1);
 }

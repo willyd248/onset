@@ -6,3 +6,4 @@ export { App } from './App.js';
 export { Toast } from './Toast.js';
 export { ErrorOverlay } from './ErrorOverlay.js';
 export { PerformanceTips } from './PerformanceTips.js';
+export { ViewManager } from './ViewManager.js';

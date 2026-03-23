@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sonic Groove - Practice Mode</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#e1e3e3",
+              "outline-variant": "#acadad",
+              "on-primary-fixed": "#1a4700",
+              "tertiary-dim": "#644c00",
+              "primary-fixed-dim": "#76ec33",
+              "inverse-primary": "#84fb42",
+              "primary-dim": "#235b00",
+              "background": "#f6f6f6",
+              "secondary-dim": "#7c18ac",
+              "on-primary-container": "#245c00",
+              "primary-container": "#84fb42",
+              "surface-bright": "#f6f6f6",
+              "surface-dim": "#d3d5d5",
+              "secondary-container": "#eec2ff",
+              "error": "#b02500",
+              "on-secondary-fixed-variant": "#7d19ad",
+              "on-tertiary-container": "#574300",
+              "on-surface-variant": "#5a5c5c",
+              "primary": "#2a6900",
+              "tertiary": "#725800",
+              "error-container": "#f95630",
+              "tertiary-fixed-dim": "#edba00",
+              "surface-container": "#e7e8e8",
+              "on-secondary-container": "#7303a3",
+              "on-tertiary": "#fff1d7",
+              "on-primary-fixed-variant": "#296700",
+              "secondary-fixed": "#eec2ff",
+              "on-error": "#ffefec",
+              "surface-variant": "#dbdddd",
+              "secondary-fixed-dim": "#e7afff",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-fixed": "#403000",
+              "surface": "#f6f6f6",
+              "on-tertiary-fixed-variant": "#634c00",
+              "surface-container-low": "#f0f1f1",
+              "surface-container-highest": "#dbdddd",
+              "on-background": "#2d2f2f",
+              "on-secondary-fixed": "#56007c",
+              "tertiary-container": "#fec700",
+              "on-surface": "#2d2f2f",
+              "on-secondary": "#feeeff",
+              "secondary": "#8a2ab9",
+              "surface-tint": "#2a6900",
+              "inverse-on-surface": "#9c9d9d",
+              "error-dim": "#b92902",
+              "on-primary": "#d5ffb9",
+              "outline": "#767777",
+              "on-error-container": "#520c00",
+              "tertiary-fixed": "#fec700",
+              "primary-fixed": "#84fb42",
+              "inverse-surface": "#0c0f0f"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .waveform-segment {
+            transition: height 0.2s ease;
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-background min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#f6f6f6] dark:bg-neutral-900">
+<div class="flex items-center gap-4">
+<span class="text-2xl font-black text-[#2d2f2f] dark:text-white tracking-tighter">Sonic Groove</span>
+<div class="bg-[#e7e8e8] dark:bg-neutral-800 h-[2px] w-8 rotate-90"></div>
+<div class="flex items-center gap-2 px-3 py-1 bg-tertiary-container rounded-full shadow-sm">
+<span class="material-symbols-outlined text-on-tertiary-fixed" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-bold text-sm text-on-tertiary-fixed">12 DAY STREAK</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex gap-8 items-center font-['Plus_Jakarta_Sans'] font-bold text-sm tracking-widest uppercase">
+<a class="text-[#5a5c5c] hover:opacity-80 transition-opacity" href="#">Learn</a>
+<a class="text-[#2a6900] dark:text-[#84fb42] hover:opacity-80 transition-opacity" href="#">Practice</a>
+<a class="text-[#5a5c5c] hover:opacity-80 transition-opacity" href="#">Stats</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#2a6900] cursor-pointer">stars</span>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border-2 border-primary-container">
+<img alt="User avatar" data-alt="close-up portrait of a friendly young man smiling with warm studio lighting and a soft grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArwrFdD9q1wAFHI1RX6B78w0qUaMZ-8u5bwGM6GwHKza557w0LO0EPx4ZWoaIF1Z9IDU3QNM4OBidhCAd1qr0rpGgEcnZtwmaoFTQzf72LTGysz4dkX8fYLZBsz2cLZoexpjuZJCOvpIL1nLxYafYO3Lt7m5b4QeIz4GI3tlAe_0EIANfKDcA9qb4jB_IZ1pKCTO_lps9eu6Fq8UFFunucpA0CN2YdZYLhoOOEnuibKll9eSLdNg5oiRuZigFjbTwB70GpUyv-nRg"/>
+</div>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Hidden on small screens) -->
+<aside class="hidden lg:flex fixed left-0 top-0 h-full w-72 flex flex-col p-6 z-40 bg-white dark:bg-neutral-950 rounded-r-[3rem] shadow-[20px_0_40px_rgba(45,47,47,0.06)] pt-24">
+<div class="mb-10 px-4">
+<h2 class="text-xl font-black text-[#2a6900] mb-1">Sonic Groove</h2>
+<p class="text-xs font-bold tracking-widest uppercase text-on-surface-variant">Level 12 Beatmatcher</p>
+</div>
+<nav class="flex flex-col gap-2 font-['Plus_Jakarta_Sans'] font-bold text-sm tracking-widest uppercase">
+<a class="flex items-center gap-4 text-[#5a5c5c] px-6 py-4 hover:bg-[#f0f1f1] rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span>Learn</span>
+</a>
+<a class="flex items-center gap-4 bg-[#84fb42] text-[#2a6900] rounded-full px-6 py-4 shadow-sm translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="headphones">headphones</span>
+<span>Practice</span>
+</a>
+<a class="flex items-center gap-4 text-[#5a5c5c] px-6 py-4 hover:bg-[#f0f1f1] rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span>Stats</span>
+</a>
+<a class="flex items-center gap-4 text-[#5a5c5c] px-6 py-4 hover:bg-[#f0f1f1] rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span>Profile</span>
+</a>
+</nav>
+<div class="mt-auto p-4">
+<button class="w-full py-4 bg-primary text-on-primary font-bold rounded-xl shadow-lg hover:scale-105 active:scale-95 transition-all">
+                Start Mix
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="lg:ml-72 pt-24 px-6 pb-24">
+<div class="max-w-6xl mx-auto space-y-8">
+<!-- Global Waveform Visualization -->
+<section class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_20px_40px_rgba(45,47,47,0.06)] relative overflow-hidden">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="px-3 py-1 bg-secondary-container text-secondary font-bold text-xs rounded-full">MASTER MIX</span>
+<h3 class="font-black text-on-background tracking-tight">SYNCHRONIZED DECK VIEW</h3>
+</div>
+<div class="flex items-center gap-4 text-xs font-bold text-on-surface-variant tracking-widest uppercase">
+<span>128.0 BPM</span>
+<span class="text-primary">02:45 / 04:30</span>
+</div>
+</div>
+<!-- Waveform Canvas Mockup -->
+<div class="h-24 w-full flex items-center justify-center gap-[2px]">
+<!-- Mimicking a dual waveform -->
+<div class="h-12 w-1 bg-primary rounded-full opacity-30"></div>
+<div class="h-16 w-1 bg-primary rounded-full opacity-50"></div>
+<div class="h-20 w-1 bg-primary rounded-full"></div>
+<div class="h-14 w-1 bg-secondary rounded-full"></div>
+<div class="h-10 w-1 bg-primary rounded-full"></div>
+<div class="h-24 w-1 bg-primary rounded-full"></div>
+<div class="h-16 w-1 bg-secondary rounded-full opacity-80"></div>
+<div class="h-8 w-1 bg-primary rounded-full opacity-20"></div>
+<div class="h-14 w-1 bg-primary rounded-full"></div>
+<div class="h-22 w-1 bg-secondary rounded-full"></div>
+<div class="h-16 w-1 bg-primary rounded-full"></div>
+<div class="h-10 w-1 bg-primary rounded-full"></div>
+<div class="h-18 w-1 bg-primary rounded-full"></div>
+<div class="h-14 w-1 bg-secondary rounded-full opacity-60"></div>
+<!-- Playhead -->
+<div class="h-full w-1 bg-on-background z-10 rounded-full mx-1"></div>
+<div class="h-14 w-1 bg-primary rounded-full opacity-30"></div>
+<div class="h-20 w-1 bg-primary rounded-full opacity-50"></div>
+<div class="h-12 w-1 bg-secondary rounded-full"></div>
+<div class="h-24 w-1 bg-primary rounded-full opacity-80"></div>
+<div class="h-10 w-1 bg-primary rounded-full"></div>
+<div class="h-16 w-1 bg-secondary rounded-full"></div>
+<div class="h-18 w-1 bg-primary rounded-full opacity-20"></div>
+<div class="h-12 w-1 bg-primary rounded-full"></div>
+<div class="h-22 w-1 bg-secondary rounded-full"></div>
+<div class="h-16 w-1 bg-primary rounded-full"></div>
+<div class="h-10 w-1 bg-primary rounded-full"></div>
+<div class="h-20 w-1 bg-primary rounded-full"></div>
+<div class="h-14 w-1 bg-secondary rounded-full opacity-30"></div>
+</div>
+</section>
+<!-- Play Decks Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Deck A (Primary - Green) -->
+<section class="bg-primary-container/10 p-8 rounded-xl border-4 border-primary-container flex flex-col items-center">
+<div class="w-full flex justify-between items-center mb-10">
+<div class="flex flex-col">
+<span class="text-[0.7rem] font-bold tracking-[0.2em] uppercase text-primary">Deck A</span>
+<h2 class="text-xl font-black text-primary leading-none uppercase">Neon Jungle</h2>
+</div>
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<!-- Vinyl/Platter Visualization -->
+<div class="relative w-64 h-64 mb-10">
+<div class="absolute inset-0 rounded-full border-[12px] border-surface-container-highest animate-spin" style="animation-duration: 4s;"></div>
+<div class="absolute inset-4 rounded-full bg-neutral-900 flex items-center justify-center">
+<div class="w-24 h-24 rounded-full overflow-hidden border-4 border-primary">
+<img class="w-full h-full object-cover" data-alt="vibrant abstract digital art with neon green and dark silhouettes reminiscent of a jungle pulse" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1m7bxgWxrgi0vRp4m3YiPniWvQ2ucUOmSTMYUmB9B0eEv_WHq2q5OXW1qAVSqLyeaq4wO0bFfKZlavbZaNCCqUPvyzOTcaEU2oVDnkHI6cHK_MVBZowenG_9ToQ1G4z9HLdf2ocaiCFg_RkW941dNQUGdoWVsJlIDGmx04elCkQwV-3QN7DxhwuDsKfdGxY3Z4fyBDk36DzHbq_2tiCcUN9lnpzv1h762rTh1GLDanDGkv-ncY6Tjd6hsZhruAwgFNLMSsunad3s"/>
+</div>
+</div>
+<!-- Stylus/Arm -->
+<div class="absolute -top-4 -right-4 w-12 h-32 origin-top-right rotate-12 transition-transform">
+<div class="w-3 h-full bg-surface-container-highest rounded-full shadow-md"></div>
+<div class="absolute bottom-0 -left-2 w-6 h-4 bg-primary rounded-sm"></div>
+</div>
+</div>
+<!-- Controls: Knobs & Sliders -->
+<div class="grid grid-cols-2 gap-10 w-full">
+<!-- Volume Slider -->
+<div class="flex flex-col items-center gap-4">
+<div class="h-48 w-12 bg-surface-container-high rounded-full relative p-1">
+<div class="absolute bottom-0 left-0 w-full bg-primary rounded-full" style="height: 75%;"></div>
+<div class="absolute left-1/2 -translate-x-1/2 w-14 h-8 bg-surface-container-lowest rounded-lg shadow-lg border-2 border-primary-container cursor-pointer" style="bottom: 70%;"></div>
+</div>
+<span class="text-[0.65rem] font-black tracking-widest uppercase text-on-surface-variant">Volume</span>
+</div>
+<!-- Tempo Slider -->
+<div class="flex flex-col items-center gap-4">
+<div class="h-48 w-4 bg-surface-container-high rounded-full relative">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-8 bg-surface-container-lowest rounded-lg shadow-lg border-2 border-primary-container cursor-pointer"></div>
+</div>
+<span class="text-[0.65rem] font-black tracking-widest uppercase text-on-surface-variant">Tempo</span>
+</div>
+</div>
+<!-- Knobs Row -->
+<div class="grid grid-cols-3 gap-6 mt-12 w-full">
+<div class="flex flex-col items-center gap-2">
+<div class="w-14 h-14 rounded-full bg-surface-container-high border-4 border-primary-container relative">
+<div class="absolute top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-primary rounded-full"></div>
+</div>
+<span class="text-[0.6rem] font-black tracking-widest uppercase text-on-surface-variant">Low</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-14 h-14 rounded-full bg-surface-container-high border-4 border-primary-container relative rotate-45">
+<div class="absolute top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-primary rounded-full"></div>
+</div>
+<span class="text-[0.6rem] font-black tracking-widest uppercase text-on-surface-variant">Mid</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-14 h-14 rounded-full bg-surface-container-high border-4 border-primary-container relative -rotate-90">
+<div class="absolute top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-primary rounded-full"></div>
+</div>
+<span class="text-[0.6rem] font-black tracking-widest uppercase text-on-surface-variant">High</span>
+</div>
+</div>
+</section>
+<!-- Deck B (Secondary - Purple) -->
+<section class="bg-secondary-container/10 p-8 rounded-xl border-4 border-secondary-container flex flex-col items-center">
+<div class="w-full flex justify-between items-center mb-10">
+<div class="flex flex-col">
+<span class="text-[0.7rem] font-bold tracking-[0.2em] uppercase text-secondary">Deck B</span>
+<h2 class="text-xl font-black text-secondary leading-none uppercase">Midnight Echo</h2>
+</div>
+<div class="w-12 h-12 rounded-full border-4 border-secondary flex items-center justify-center text-secondary bg-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">pause</span>
+</div>
+</div>
+<!-- Vinyl/Platter Visualization -->
+<div class="relative w-64 h-64 mb-10">
+<div class="absolute inset-0 rounded-full border-[12px] border-surface-container-highest"></div>
+<div class="absolute inset-4 rounded-full bg-neutral-900 flex items-center justify-center">
+<div class="w-24 h-24 rounded-full overflow-hidden border-4 border-secondary">
+<img class="w-full h-full object-cover" data-alt="deep purple and midnight blue gradient background with subtle light streaks resembling outer space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2I3OpcxB1bKFqTRloCxO9GGZieCYr9Lce_70hf5NZj0P4OxCsnn1iWNPDX8nWgQEiyAO8CH_6GsY0zoxJ0jXKXpg_Hi0A8zZnJ6dZJyzNPeKlGtDjLxKhi_vY0NPcMFA9MrPpHSG1Rbup3wSNmV7aAZ-MkjoTbqq8fJU7aUehiGhJuU5GMPAADIR7E5b6Hj03NX5gtAT3ENUmS_3C7LLqJNa4VTuAoo83OGcfMBvVw1adyXu_GaDkspnqvAuMJdYuK6o0M1K1pzs"/>
+</div>
+</div>
+<!-- Stylus/Arm (Recessed for Inactive) -->
+<div class="absolute -top-4 -right-4 w-12 h-32 origin-top-right rotate-[45deg] transition-transform">
+<div class="w-3 h-full bg-surface-container-highest rounded-full"></div>
+</div>
+</div>
+<!-- Controls: Knobs & Sliders -->
+<div class="grid grid-cols-2 gap-10 w-full">
+<!-- Volume Slider -->
+<div class="flex flex-col items-center gap-4">
+<div class="h-48 w-12 bg-surface-container-high rounded-full relative p-1">
+<div class="absolute bottom-0 left-0 w-full bg-secondary/30 rounded-full" style="height: 40%;"></div>
+<div class="absolute left-1/2 -translate-x-1/2 w-14 h-8 bg-surface-container-lowest rounded-lg shadow-lg border-2 border-secondary-container cursor-pointer" style="bottom: 35%;"></div>
+</div>
+<span class="text-[0.65rem] font-black tracking-widest uppercase text-on-surface-variant">Volume</span>
+</div>
+<!-- Tempo Slider -->
+<div class="flex flex-col items-center gap-4">
+<div class="h-48 w-4 bg-surface-container-high rounded-full relative">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-8 bg-surface-container-lowest rounded-lg shadow-lg border-2 border-secondary-container cursor-pointer"></div>
+</div>
+<span class="text-[0.65rem] font-black tracking-widest uppercase text-on-surface-variant">Tempo</span>
+</div>
+</div>
+<!-- Knobs Row -->
+<div class="grid grid-cols-3 gap-6 mt-12 w-full">
+<div class="flex flex-col items-center gap-2">
+<div class="w-14 h-14 rounded-full bg-surface-container-high border-4 border-secondary-container relative">
+<div class="absolute top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-secondary rounded-full"></div>
+</div>
+<span class="text-[0.6rem] font-black tracking-widest uppercase text-on-surface-variant">Low</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-14 h-14 rounded-full bg-surface-container-high border-4 border-secondary-container relative">
+<div class="absolute top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-secondary rounded-full"></div>
+</div>
+<span class="text-[0.6rem] font-black tracking-widest uppercase text-on-surface-variant">Mid</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-14 h-14 rounded-full bg-surface-container-high border-4 border-secondary-container relative">
+<div class="absolute top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-secondary rounded-full"></div>
+</div>
+<span class="text-[0.6rem] font-black tracking-widest uppercase text-on-surface-variant">High</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Mixer Section (Crossfader) -->
+<section class="max-w-xl mx-auto bg-surface-container-low p-10 rounded-xl flex flex-col items-center">
+<h4 class="text-[0.65rem] font-black tracking-[0.3em] uppercase mb-8 text-on-surface-variant">Crossfader</h4>
+<div class="w-full h-6 bg-surface-container-highest rounded-full relative">
+<div class="absolute left-1/4 -translate-x-1/2 top-1/2 -translate-y-1/2 w-20 h-10 bg-white rounded-lg shadow-xl border-2 border-primary cursor-pointer flex items-center justify-center">
+<div class="w-1 h-6 bg-primary-container rounded-full"></div>
+</div>
+<div class="absolute left-0 top-0 h-full w-1/4 bg-primary/10 rounded-l-full"></div>
+</div>
+<div class="w-full flex justify-between mt-4 px-2">
+<span class="text-xs font-bold text-primary">DECK A</span>
+<span class="text-xs font-bold text-secondary">DECK B</span>
+</div>
+</section>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-white dark:bg-neutral-900 px-6 h-16 flex items-center justify-around z-50 rounded-t-xl shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
+<div class="flex flex-col items-center text-[#5a5c5c]">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="text-[0.6rem] font-bold uppercase tracking-tighter">Learn</span>
+</div>
+<div class="flex flex-col items-center text-[#2a6900]">
+<span class="material-symbols-outlined" data-icon="headphones" style="font-variation-settings: 'FILL' 1;">headphones</span>
+<span class="text-[0.6rem] font-bold uppercase tracking-tighter">Practice</span>
+</div>
+<div class="flex flex-col items-center text-[#5a5c5c]">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="text-[0.6rem] font-bold uppercase tracking-tighter">Stats</span>
+</div>
+<div class="flex flex-col items-center text-[#5a5c5c]">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[0.6rem] font-bold uppercase tracking-tighter">Profile</span>
+</div>
+</nav>
+<!-- Floating Action Button (Only for relevant action) -->
+<button class="fixed right-6 bottom-20 md:bottom-8 w-16 h-16 bg-tertiary-container text-on-tertiary-fixed rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</body></html>

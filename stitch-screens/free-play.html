@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sonic Spark - Free Play</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-tint": "#2a6900",
+                        "tertiary-container": "#fec700",
+                        "on-tertiary-fixed": "#403000",
+                        "on-surface": "#2d2f2f",
+                        "error-dim": "#b92902",
+                        "error": "#b02500",
+                        "secondary-fixed-dim": "#e7afff",
+                        "surface-variant": "#dbdddd",
+                        "tertiary-fixed": "#fec700",
+                        "tertiary": "#725800",
+                        "on-tertiary": "#fff1d7",
+                        "primary": "#2a6900",
+                        "on-primary-container": "#245c00",
+                        "surface-bright": "#f6f6f6",
+                        "on-error-container": "#520c00",
+                        "inverse-primary": "#84fb42",
+                        "background": "#f6f6f6",
+                        "surface-container-high": "#e1e3e3",
+                        "primary-container": "#84fb42",
+                        "secondary-fixed": "#eec2ff",
+                        "error-container": "#f95630",
+                        "secondary-dim": "#7c18ac",
+                        "surface-container": "#e7e8e8",
+                        "on-primary": "#d5ffb9",
+                        "primary-fixed": "#84fb42",
+                        "surface-container-highest": "#dbdddd",
+                        "on-background": "#2d2f2f",
+                        "on-secondary-fixed-variant": "#7d19ad",
+                        "surface-container-low": "#f0f1f1",
+                        "surface-dim": "#d3d5d5",
+                        "on-primary-fixed": "#1a4700",
+                        "secondary": "#8a2ab9",
+                        "on-tertiary-container": "#574300",
+                        "primary-dim": "#235b00",
+                        "secondary-container": "#eec2ff",
+                        "on-primary-fixed-variant": "#296700",
+                        "outline-variant": "#acadad",
+                        "outline": "#767777",
+                        "on-secondary-container": "#7303a3",
+                        "primary-fixed-dim": "#76ec33",
+                        "inverse-surface": "#0c0f0f",
+                        "on-surface-variant": "#5a5c5c",
+                        "on-tertiary-fixed-variant": "#634c00",
+                        "on-secondary-fixed": "#56007c",
+                        "tertiary-dim": "#644c00",
+                        "inverse-on-surface": "#9c9d9d",
+                        "surface": "#f6f6f6",
+                        "on-error": "#ffefec",
+                        "on-secondary": "#feeeff",
+                        "tertiary-fixed-dim": "#edba00",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .waveform-container {
+            background-image: linear-gradient(90deg, transparent 50%, rgba(45, 47, 47, 0.05) 50.5%, transparent 51%);
+            background-size: 20px 100%;
+        }
+        .knob-shadow {
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05), 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body overflow-hidden h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-[#ffffff] dark:bg-gray-950 flex justify-between items-center w-full px-8 py-4 fixed top-0 z-50">
+<div class="text-2xl font-black text-[#2a6900] tracking-tight">Sonic Spark</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-['Plus_Jakarta_Sans'] font-bold text-[#2a6900] border-b-4 border-[#2a6900] pb-1" href="#">Free Play</a>
+<a class="font-['Plus_Jakarta_Sans'] font-bold text-[#5a5c5c] hover:text-[#2a6900] transition-colors" href="#">Library</a>
+<a class="font-['Plus_Jakarta_Sans'] font-bold text-[#5a5c5c] hover:text-[#2a6900] transition-colors" href="#">Settings</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="bg-surface-container border-none rounded-full pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary w-64" placeholder="Search tracks..." type="text"/>
+</div>
+<button class="hover:bg-[#f0f1f1] rounded-full transition-all p-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-[#2a6900]" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<div class="flex flex-1 pt-20">
+<!-- SideNavBar -->
+<aside class="bg-[#f6f6f6] dark:bg-gray-900 fixed left-0 top-0 h-full flex flex-col py-8 gap-4 w-64 pt-24 z-40 shadow-[0_20px_40px_rgba(45,47,47,0.06)] rounded-r-[3rem] hidden lg:flex">
+<div class="px-8 mb-4">
+<h2 class="font-['Plus_Jakarta_Sans'] font-black text-xl text-on-surface">Library</h2>
+<p class="text-on-surface-variant text-xs uppercase tracking-widest font-bold">Your Sounds</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 text-[#5a5c5c] mx-2 px-6 py-3 hover:bg-[#e7e8e8] rounded-full transition-all font-['Plus_Jakarta_Sans'] font-medium label-md uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="queue_music">queue_music</span> All Tracks
+                </a>
+<a class="flex items-center gap-3 text-[#5a5c5c] mx-2 px-6 py-3 hover:bg-[#e7e8e8] rounded-full transition-all font-['Plus_Jakarta_Sans'] font-medium label-md uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="star">star</span> Favorites
+                </a>
+<a class="flex items-center gap-3 text-[#5a5c5c] mx-2 px-6 py-3 hover:bg-[#e7e8e8] rounded-full transition-all font-['Plus_Jakarta_Sans'] font-medium label-md uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="speaker">speaker</span> Bass Packs
+                </a>
+<a class="flex items-center gap-3 text-[#5a5c5c] mx-2 px-6 py-3 hover:bg-[#e7e8e8] rounded-full transition-all font-['Plus_Jakarta_Sans'] font-medium label-md uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="graphic_eq">graphic_eq</span> Synth Loops
+                </a>
+<a class="flex items-center gap-3 text-[#5a5c5c] mx-2 px-6 py-3 hover:bg-[#e7e8e8] rounded-full transition-all font-['Plus_Jakarta_Sans'] font-medium label-md uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="mic">mic</span> Vocal Stems
+                </a>
+</nav>
+<div class="mt-auto px-4">
+<button class="w-full bg-secondary text-on-secondary font-bold py-4 rounded-full flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined">add</span> Add Sound Pack
+                </button>
+</div>
+</aside>
+<!-- Main Content Area: The Mixer -->
+<main class="flex-1 lg:ml-64 p-6 overflow-hidden flex flex-col gap-6">
+<!-- Top Waveform Section -->
+<div class="grid grid-cols-2 gap-6 h-32">
+<!-- Deck A Waveform -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden relative border-l-8 border-primary waveform-container">
+<div class="absolute inset-0 opacity-40">
+<img class="w-full h-full object-cover" data-alt="vibrant neon green sound waveform pattern over a clean digital grid background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9fIXKnoTPB0KDVWcjnZB59ipp1iQ1QfEi8V0cwkkOYjFx4XE-uf3gfEQma7ANBsQxJWx-HO6SyYZ4w9nMzuXTLlP-MJDMmgvCQBlrHfwAAGsR1uMXDJuC6ASc4FrgidnBnWf_tjF4irK5Ko3USGoanZgtasdmrvLB1LAqzXFQHawhDbFerUzVFHVsRPg3xo7cvgRbYXb27vtZWKagRvVsi8W1ztDBYgWLmvfYV9RcQEGYqUEoLZXuG7a-cmYO0EJrSESq7n1WP9Y"/>
+</div>
+<div class="absolute bottom-2 left-4 bg-primary text-on-primary px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase">DECK A - 124 BPM</div>
+</div>
+<!-- Deck B Waveform -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden relative border-r-8 border-secondary waveform-container">
+<div class="absolute inset-0 opacity-40">
+<img class="w-full h-full object-cover" data-alt="vibrant neon purple sound waveform pattern over a clean digital grid background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4pnuGfgkVAmyzGsCMzcbVwCmw2igCyI8_SOUW3HczOIsejFBtZXAGeLj42cnxKNaNt1F-Dd38W7Ai6eW7zY8u-8rPQp0fJW28JKtdpoylG9o7HLo62V1fQZ6rmdEb_L0wFpB1peRMUe7AH4OX0o4DeRHwSSny4DXAcgd2rsVZH_nCmeN605uOHgU_rOLdiRr01ghZjf3KqcAfvRmVpMhXneiyBXgNhzy7VY6juFtWOmtM72Md2Xlvsg7PNkN8fBdWFD1bTIg4M18"/>
+</div>
+<div class="absolute bottom-2 right-4 bg-secondary text-on-secondary px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase">DECK B - 124 BPM</div>
+</div>
+</div>
+<!-- Main Mixer Interface -->
+<div class="flex-1 grid grid-cols-12 gap-6 items-stretch">
+<!-- DECK A CONTROL (LEFT) -->
+<section class="col-span-5 bg-surface-container-low rounded-xl p-6 flex flex-col justify-between shadow-sm">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-6 items-center w-24">
+<!-- Deck A Pitch Fader -->
+<div class="flex flex-col items-center gap-2">
+<span class="label-md font-bold uppercase tracking-widest text-on-surface-variant text-[10px]">Tempo</span>
+<div class="h-48 w-8 bg-surface-container-high rounded-full relative flex items-center justify-center overflow-hidden">
+<div class="absolute top-1/4 w-full h-1 bg-primary/20"></div>
+<div class="absolute top-1/2 w-full h-1 bg-primary"></div>
+<div class="absolute top-3/4 w-full h-1 bg-primary/20"></div>
+<div class="absolute top-[40%] w-12 h-6 bg-surface-container-lowest rounded shadow-lg border-2 border-primary z-10 cursor-ns-resize"></div>
+</div>
+<span class="font-black text-primary text-xl tracking-tighter">0.0%</span>
+</div>
+</div>
+<!-- Deck A EQs and Volume -->
+<div class="flex-1 flex justify-center gap-12 pt-4">
+<!-- EQ Knobs -->
+<div class="flex flex-col gap-8 items-center">
+<div class="flex flex-col items-center gap-2">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest knob-shadow relative flex items-center justify-center border-4 border-surface-container-lowest cursor-pointer group">
+<div class="w-1.5 h-6 bg-primary rounded-full absolute top-1 -rotate-12 group-active:rotate-45 transition-transform duration-200"></div>
+</div>
+<span class="label-md font-bold uppercase tracking-widest text-on-surface-variant text-[10px]">Hi</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest knob-shadow relative flex items-center justify-center border-4 border-surface-container-lowest cursor-pointer group">
+<div class="w-1.5 h-6 bg-primary rounded-full absolute top-1 transition-transform duration-200"></div>
+</div>
+<span class="label-md font-bold uppercase tracking-widest text-on-surface-variant text-[10px]">Mid</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest knob-shadow relative flex items-center justify-center border-4 border-surface-container-lowest cursor-pointer group">
+<div class="w-1.5 h-6 bg-primary rounded-full absolute top-1 rotate-45 transition-transform duration-200"></div>
+</div>
+<span class="label-md font-bold uppercase tracking-widest text-on-surface-variant text-[10px]">Low</span>
+</div>
+</div>
+<!-- Volume Fader -->
+<div class="flex flex-col items-center gap-2">
+<div class="h-64 w-12 bg-surface-container-high rounded-full relative p-1">
+<div class="absolute bottom-1 w-10 h-3/4 bg-primary rounded-full opacity-20"></div>
+<div class="absolute bottom-1/4 left-1 right-1 h-12 bg-surface-container-lowest rounded-lg shadow-xl border-2 border-primary cursor-ns-resize"></div>
+</div>
+<span class="label-md font-bold uppercase tracking-widest text-on-surface-variant text-[10px]">Vol</span>
+</div>
+</div>
+</div>
+<!-- Transport Controls -->
+<div class="flex items-center justify-between mt-8">
+<button class="w-20 h-20 bg-surface-container-high rounded-full flex items-center justify-center text-primary-dim active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">stop_circle</span>
+</button>
+<button class="flex-1 mx-4 h-20 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center gap-3 font-black text-2xl active:scale-95 transition-transform shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                            PLAY
+                        </button>
+<button class="px-6 py-4 bg-primary text-on-primary rounded-full font-black text-sm tracking-widest uppercase active:scale-95 transition-transform">SYNC</button>
+</div>
+</section>
+<!-- CENTRAL MIXER CHANNEL (CENTER) -->
+<section class="col-span-2 flex flex-col justify-between py-10 items-center bg-surface-container-high rounded-xl">
+<div class="flex flex-col items-center gap-12">
+<div class="flex flex-col items-center gap-2">
+<span class="label-md font-bold uppercase tracking-widest text-on-surface-variant text-[10px]">Master</span>
+<div class="w-20 h-20 rounded-full bg-surface-container-lowest knob-shadow relative flex items-center justify-center border-4 border-surface-container-high cursor-pointer">
+<div class="w-2 h-8 bg-on-surface rounded-full absolute top-1"></div>
+</div>
+</div>
+<div class="flex flex-col items-center gap-2">
+<span class="label-md font-bold uppercase tracking-widest text-on-surface-variant text-[10px]">Booth</span>
+<div class="w-14 h-14 rounded-full bg-surface-container-lowest knob-shadow relative flex items-center justify-center border-4 border-surface-container-high cursor-pointer">
+<div class="w-1.5 h-6 bg-on-surface rounded-full absolute top-1 rotate-12"></div>
+</div>
+</div>
+</div>
+<div class="w-1 h-32 bg-surface-container-highest rounded-full flex flex-col items-center justify-between">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+<div class="w-2 h-2 bg-secondary rounded-full"></div>
+</div>
+<div class="bg-surface-container-lowest p-2 rounded-full flex items-center gap-2">
+<button class="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center"><span class="material-symbols-outlined text-xl">headset</span></button>
+<button class="w-10 h-10 bg-secondary/10 text-secondary rounded-full flex items-center justify-center"><span class="material-symbols-outlined text-xl">mic</span></button>
+</div>
+</section>
+<!-- DECK B CONTROL (RIGHT) -->
+<section class="col-span-5 bg-surface-container-low rounded-xl p-6 flex flex-col justify-between shadow-sm">
+<div class="flex flex-row-reverse justify-between items-start">
+<div class="flex flex-col gap-6 items-center w-24">
+<!-- Deck B Pitch Fader -->
+<div class="flex flex-col items-center gap-2">
+<span class="label-md font-bold uppercase tracking-widest text-on-surface-variant text-[10px]">Tempo</span>
+<div class="h-48 w-8 bg-surface-container-high rounded-full relative flex items-center justify-center overflow-hidden">
+<div class="absolute top-1/4 w-full h-1 bg-secondary/20"></div>
+<div class="absolute top-1/2 w-full h-1 bg-secondary"></div>
+<div class="absolute top-3/4 w-full h-1 bg-secondary/20"></div>
+<div class="absolute top-[60%] w-12 h-6 bg-surface-container-lowest rounded shadow-lg border-2 border-secondary z-10 cursor-ns-resize"></div>
+</div>
+<span class="font-black text-secondary text-xl tracking-tighter">+1.2%</span>
+</div>
+</div>
+<!-- Deck B EQs and Volume -->
+<div class="flex-1 flex flex-row-reverse justify-center gap-12 pt-4">
+<!-- EQ Knobs -->
+<div class="flex flex-col gap-8 items-center">
+<div class="flex flex-col items-center gap-2">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest knob-shadow relative flex items-center justify-center border-4 border-surface-container-lowest cursor-pointer group">
+<div class="w-1.5 h-6 bg-secondary rounded-full absolute top-1 rotate-12 transition-transform duration-200"></div>
+</div>
+<span class="label-md font-bold uppercase tracking-widest text-on-surface-variant text-[10px]">Hi</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest knob-shadow relative flex items-center justify-center border-4 border-surface-container-lowest cursor-pointer group">
+<div class="w-1.5 h-6 bg-secondary rounded-full absolute top-1 transition-transform duration-200"></div>
+</div>
+<span class="label-md font-bold uppercase tracking-widest text-on-surface-variant text-[10px]">Mid</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest knob-shadow relative flex items-center justify-center border-4 border-surface-container-lowest cursor-pointer group">
+<div class="w-1.5 h-6 bg-secondary rounded-full absolute top-1 -rotate-45 transition-transform duration-200"></div>
+</div>
+<span class="label-md font-bold uppercase tracking-widest text-on-surface-variant text-[10px]">Low</span>
+</div>
+</div>
+<!-- Volume Fader -->
+<div class="flex flex-col items-center gap-2">
+<div class="h-64 w-12 bg-surface-container-high rounded-full relative p-1">
+<div class="absolute bottom-1 w-10 h-1/2 bg-secondary rounded-full opacity-20"></div>
+<div class="absolute bottom-1/2 left-1 right-1 h-12 bg-surface-container-lowest rounded-lg shadow-xl border-2 border-secondary cursor-ns-resize"></div>
+</div>
+<span class="label-md font-bold uppercase tracking-widest text-on-surface-variant text-[10px]">Vol</span>
+</div>
+</div>
+</div>
+<!-- Transport Controls -->
+<div class="flex flex-row-reverse items-center justify-between mt-8">
+<button class="w-20 h-20 bg-surface-container-high rounded-full flex items-center justify-center text-secondary-dim active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">pause_circle</span>
+</button>
+<button class="flex-1 mx-4 h-20 bg-secondary-container text-on-secondary-container rounded-full flex items-center justify-center gap-3 font-black text-2xl active:scale-95 transition-transform shadow-lg shadow-secondary/20">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                            PLAY
+                        </button>
+<button class="px-6 py-4 bg-secondary text-on-secondary rounded-full font-black text-sm tracking-widest uppercase active:scale-95 transition-transform">SYNC</button>
+</div>
+</section>
+</div>
+<!-- Bottom Crossfader Area -->
+<div class="w-full max-w-2xl mx-auto py-8">
+<div class="flex justify-between items-center mb-2 px-2">
+<span class="label-md font-bold uppercase tracking-widest text-primary text-[10px]">A</span>
+<span class="label-md font-bold uppercase tracking-widest text-on-surface-variant text-[10px]">Crossfader</span>
+<span class="label-md font-bold uppercase tracking-widest text-secondary text-[10px]">B</span>
+</div>
+<div class="h-14 w-full bg-surface-container-high rounded-full p-1 relative flex items-center">
+<div class="absolute left-1 right-1 h-2 bg-surface-container-highest rounded-full"></div>
+<!-- The Handle -->
+<div class="absolute left-1/2 -translate-x-1/2 w-32 h-12 bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] border border-surface-container cursor-ew-resize flex items-center justify-center gap-1 group">
+<div class="w-1 h-6 bg-surface-container-highest rounded-full"></div>
+<div class="w-1.5 h-8 bg-on-surface-variant rounded-full group-hover:bg-primary transition-colors"></div>
+<div class="w-1 h-6 bg-surface-container-highest rounded-full"></div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile Navigation Suppressed per rules (Transactional/Specialist Mode) -->
+</body></html>
