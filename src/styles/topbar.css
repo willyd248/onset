@@ -1,0 +1,47 @@
+/* onset — top bar styles */
+
+.top-bar {
+  grid-area: topbar;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.top-bar__title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.top-bar__title h1 {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.top-bar__subtitle {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.top-bar__status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.midi-status {
+  font-size: 11px;
+  color: var(--text-secondary);
+  padding: 2px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+}
+
+.midi-status.connected {
+  color: #00ff88;
+  border-color: #00ff88;
+}

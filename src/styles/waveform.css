@@ -1,0 +1,64 @@
+/* onset — waveform display styles */
+
+.waveforms {
+  grid-area: waveforms;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border-color);
+}
+
+.waveform-display {
+  background: var(--bg-secondary);
+  display: flex;
+  flex-direction: column;
+  padding: 8px 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.waveform-display__label {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.waveform-display--a .waveform-display__label {
+  color: var(--accent-a);
+}
+
+.waveform-display--b .waveform-display__label {
+  color: var(--accent-b);
+}
+
+.waveform-display__canvas {
+  flex: 1;
+  width: 100%;
+  border-radius: 2px;
+  background: var(--bg-primary);
+}
+
+.waveform-display__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+  font-size: 11px;
+}
+
+.track-name {
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 60%;
+}
+
+.track-time {
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
