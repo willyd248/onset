@@ -435,6 +435,7 @@ input[type="range"] {
 .min-width-overlay--visible {
   opacity: 1;
   pointer-events: auto;
+  background: var(--surface);
 }
 
 .min-width-overlay p {
