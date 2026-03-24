@@ -297,6 +297,12 @@ export class App {
       this._loadTrack(deck, file);
     });
 
+    // No track loaded warning
+    this._mixerUI.addEventListener('no-track', (e) => {
+      const { deck } = /** @type {CustomEvent} */ (e).detail;
+      Toast.show(`Load a track into Deck ${deck} first`);
+    });
+
     // Drag-and-drop from AppShell drop zones
     document.addEventListener('track-drop', (e) => {
       const { deck, file } = /** @type {CustomEvent} */ (e).detail;
@@ -317,6 +323,9 @@ export class App {
     try {
       // Load audio into deck
       await deck.loadTrack(file);
+
+      // Mark track as loaded in state
+      this._mixerState.set(deckName, 'hasTrack', true, 'audio');
 
       // Update track name in UI
       const nameEl = document.getElementById(`track-name-${deckName.toLowerCase()}`);

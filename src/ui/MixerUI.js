@@ -129,13 +129,21 @@ export class MixerUI extends EventTarget {
 
   /** Attach click listeners for transport and load buttons. */
   _attachButtonListeners() {
-    // Play buttons — toggle isPlaying
+    // Play buttons — toggle isPlaying (warn if no track loaded)
     this._buttons['playA']?.addEventListener('click', () => {
+      if (!this._state.get('A', 'hasTrack')) {
+        this.dispatchEvent(new CustomEvent('no-track', { detail: { deck: 'A' } }));
+        return;
+      }
       const current = this._state.get('A', 'isPlaying');
       this._state.set('A', 'isPlaying', !current, 'ui');
     });
 
     this._buttons['playB']?.addEventListener('click', () => {
+      if (!this._state.get('B', 'hasTrack')) {
+        this.dispatchEvent(new CustomEvent('no-track', { detail: { deck: 'B' } }));
+        return;
+      }
       const current = this._state.get('B', 'isPlaying');
       this._state.set('B', 'isPlaying', !current, 'ui');
     });

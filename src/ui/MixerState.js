@@ -20,6 +20,7 @@ export class MixerState extends EventTarget {
         pitch: 0,
         filter: 0,
         isPlaying: false,
+        hasTrack: false,
         hotCues: [null, null, null, null],
       },
       B: {
@@ -31,6 +32,7 @@ export class MixerState extends EventTarget {
         pitch: 0,
         filter: 0,
         isPlaying: false,
+        hasTrack: false,
         hotCues: [null, null, null, null],
       },
       shared: {
