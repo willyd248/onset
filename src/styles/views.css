@@ -5,6 +5,28 @@
   grid-area: content;
   overflow-y: auto;
   min-height: 0;
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.view--visible {
+  opacity: 1;
+}
+
+/* Content slides up slightly on enter */
+.view--visible > :first-child {
+  animation: view-enter 250ms ease both;
+}
+
+@keyframes view-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Non-practice views use flex */
