@@ -1,7 +1,7 @@
 /**
  * MIDI mapping for Hercules DJControl Inpulse 200 MK2.
  *
- * Confirmed via hardware testing (2026-03-23).
+ * All CC assignments confirmed via hardware testing (2026-03-24).
  *
  * Channel layout:
  *   Ch0 — Shared controls (crossfader)
@@ -11,12 +11,12 @@
  *   Ch7 — Deck B performance pads
  *
  * CC assignments (confirmed):
- *   CC0  = Tempo/Pitch fader
- *   CC1  = Gain knob (input trim)
- *   CC2  = High EQ knob
- *   CC4  = Low EQ knob
- *   CC5  = Filter knob
- *   CC7  = Volume fader (UNCONFIRMED — use MIDI debug to verify)
+ *   CC0  = Volume fader
+ *   CC1  = Filter knob
+ *   CC2  = Low EQ knob
+ *   CC4  = High EQ knob
+ *   CC5  = Gain knob (input trim)
+ *   CC8  = Tempo/Pitch fader
  *   CC40 = Jog wheel rotation (relative encoding)
  */
 export const herculesMapping = {
@@ -31,7 +31,7 @@ export const herculesMapping = {
     { name: 'deck-a:filter',     type: 'cc',   channel: 1, number: 1,  action: 'filter',      deck: 'A' },
     { name: 'deck-a:volume',     type: 'cc',   channel: 1, number: 0,  action: 'volume',      deck: 'A' },
     { name: 'deck-a:gain',       type: 'cc',   channel: 1, number: 5,  action: 'gain',        deck: 'A' },
-    { name: 'deck-a:pitch',      type: 'cc',   channel: 1, number: 7,  action: 'pitch',       deck: 'A' },
+    { name: 'deck-a:pitch',      type: 'cc',   channel: 1, number: 8,  action: 'pitch',       deck: 'A' },
 
     // EQ (confirmed: CC2 = Low, CC4 = High — opposite of original assumption)
     { name: 'deck-a:eq-low',     type: 'cc',   channel: 1, number: 2,  action: 'eq-low',      deck: 'A' },
@@ -57,7 +57,7 @@ export const herculesMapping = {
     { name: 'deck-b:filter',     type: 'cc',   channel: 2, number: 1,  action: 'filter',      deck: 'B' },
     { name: 'deck-b:volume',     type: 'cc',   channel: 2, number: 0,  action: 'volume',      deck: 'B' },
     { name: 'deck-b:gain',       type: 'cc',   channel: 2, number: 5,  action: 'gain',        deck: 'B' },
-    { name: 'deck-b:pitch',      type: 'cc',   channel: 2, number: 7,  action: 'pitch',       deck: 'B' },
+    { name: 'deck-b:pitch',      type: 'cc',   channel: 2, number: 8,  action: 'pitch',       deck: 'B' },
 
     // EQ (confirmed: CC2 = Low, CC4 = High)
     { name: 'deck-b:eq-low',     type: 'cc',   channel: 2, number: 2,  action: 'eq-low',      deck: 'B' },
