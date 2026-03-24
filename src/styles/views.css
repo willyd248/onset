@@ -91,11 +91,22 @@
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-ambient);
   transition: all var(--transition-speed) ease;
+  cursor: pointer;
 }
 
 .learn-node:hover {
   transform: translateY(-1px);
   box-shadow: 0 24px 48px rgba(45, 47, 47, 0.08);
+}
+
+.learn-node:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-ambient);
+}
+
+.learn-node--locked {
+  cursor: default;
+  opacity: 0.7;
 }
 
 .learn-node__icon {

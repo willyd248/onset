@@ -36,6 +36,14 @@ export class ViewManager extends EventTarget {
       });
     });
 
+    // Bind learn-node clicks to navigate to practice
+    document.querySelectorAll('.learn-node[data-lesson]').forEach((node) => {
+      node.addEventListener('click', () => {
+        if (node.classList.contains('learn-node--locked')) return;
+        this.show('practice');
+      });
+    });
+
     // Show the default view
     this.show('practice');
   }
