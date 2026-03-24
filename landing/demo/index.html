@@ -12,103 +12,117 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--lime:#84fb42;--lime-dim:#2a6900;--purple:#d9a5ff;--bg:#0a0a0a;--surface:#141414;--surface-hi:#1e1e1e;--text:#e5e2e1;--text-dim:#888;--radius:12px}
+:root{--lime:#84fb42;--lime-dim:#2a6900;--lime-glow:rgba(132,251,66,0.15);--purple:#d9a5ff;--bg:#0a0a0a;--surface:#141414;--surface-hi:#1c1c1c;--surface-border:rgba(255,255,255,0.06);--text:#e5e2e1;--text-dim:#777;--radius:12px}
 body{font-family:'Space Grotesk',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100dvh;display:flex;flex-direction:column;overflow:hidden;-webkit-tap-highlight-color:transparent}
 
-/* Header */
-.demo-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.05)}
+.demo-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--surface-border)}
 .demo-brand{display:flex;align-items:center;gap:8px}
 .demo-brand svg{height:20px;width:auto}
-.demo-step{font-size:12px;font-weight:600;color:var(--text-dim);letter-spacing:0.05em}
+.demo-step{font-size:11px;font-weight:600;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase}
 
-/* Main content area */
-.demo-content{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;gap:24px;position:relative}
+.demo-content{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;position:relative}
+.demo-content>div{display:flex;flex-direction:column;align-items:center;gap:24px;width:100%;max-width:400px}
 
-/* Loading screen */
+/* Spinner */
 .demo-loading{text-align:center}
-.demo-loading h2{font-size:20px;font-weight:700;margin-bottom:8px}
-.demo-loading p{font-size:14px;color:var(--text-dim)}
-.spinner{width:40px;height:40px;border:3px solid var(--surface-hi);border-top-color:var(--lime);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
+.demo-loading h2{font-size:18px;font-weight:600;margin-bottom:6px}
+.demo-loading p{font-size:13px;color:var(--text-dim)}
+.spinner{width:36px;height:36px;border:2px solid var(--surface-hi);border-top-color:var(--lime);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* Lesson instruction */
-.lesson-title{font-size:28px;font-weight:700;text-align:center;line-height:1.2}
-.lesson-subtitle{font-size:15px;color:var(--text-dim);text-align:center;max-width:300px}
+/* Typography */
+.lesson-title{font-size:32px;font-weight:700;text-align:center;line-height:1.1;letter-spacing:-0.02em}
+.lesson-subtitle{font-size:14px;color:var(--text-dim);text-align:center;max-width:280px;line-height:1.5}
+
+/* Chevron arrows */
+.chevron{display:flex;align-items:center;justify-content:center}
+.chevron svg{width:24px;height:24px;stroke:var(--lime);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:0.6}
+.chevron--down{animation:bob-down 1.5s ease-in-out infinite}
+.chevron--right{animation:bob-right 1.5s ease-in-out infinite}
+.chevron--right svg{transform:rotate(-90deg)}
+@keyframes bob-down{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(6px);opacity:0.5}}
+@keyframes bob-right{0%,100%{transform:translateX(0);opacity:1}50%{transform:translateX(6px);opacity:0.5}}
 
 /* Deck indicators */
-.deck-row{display:flex;gap:16px;width:100%;max-width:360px}
-.deck-indicator{flex:1;background:var(--surface);border-radius:var(--radius);padding:12px 16px;text-align:center}
-.deck-indicator__label{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px}
-.deck-indicator__label--a{color:var(--lime)}
-.deck-indicator__label--b{color:var(--purple)}
-.deck-indicator__name{font-size:12px;color:var(--text-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.deck-indicator__status{font-size:11px;margin-top:4px;font-weight:600}
-.deck-indicator__status--playing{color:var(--lime)}
-.deck-indicator__status--stopped{color:var(--text-dim)}
+.deck-row{display:flex;gap:12px;width:100%}
+.deck-card{flex:1;background:var(--surface);border-radius:var(--radius);padding:14px 16px;border-left:3px solid var(--surface-hi);transition:border-color 0.3s ease}
+.deck-card--a{border-left-color:var(--lime)}
+.deck-card--b{border-left-color:var(--purple)}
+.deck-card__label{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px}
+.deck-card__label--a{color:var(--lime)}
+.deck-card__label--b{color:var(--purple)}
+.deck-card__name{font-size:14px;font-weight:600;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.deck-card__status{font-size:11px;font-weight:500;color:var(--text-dim);display:flex;align-items:center;gap:4px}
+.deck-card__status--playing{color:var(--lime)}
+.deck-card__status--playing::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--lime);animation:status-pulse 1.5s ease-in-out infinite}
+@keyframes status-pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 
-/* Play button */
-.play-btn{width:120px;height:120px;border-radius:50%;border:3px solid var(--lime);background:transparent;color:var(--lime);font-size:48px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s ease;position:relative}
-.play-btn:hover,.play-btn:active{background:var(--lime);color:var(--bg);transform:scale(1.05)}
-.play-btn svg{width:48px;height:48px;fill:currentColor;margin-left:4px}
-
-/* Pulse animation for guidance */
-.pulse{animation:pulse-ring 1.5s ease-out infinite}
-@keyframes pulse-ring{0%{box-shadow:0 0 0 0 rgba(132,251,66,0.4)}70%{box-shadow:0 0 0 20px rgba(132,251,66,0)}100%{box-shadow:0 0 0 0 rgba(132,251,66,0)}}
+/* Play button — hardware style */
+.play-btn{width:120px;height:120px;border-radius:50%;border:none;background:var(--surface);color:var(--lime);cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;transition:all 0.2s ease;box-shadow:inset 0 2px 8px rgba(0,0,0,0.4),0 0 0 3px var(--surface-hi)}
+.play-btn svg{width:44px;height:44px;fill:currentColor;margin-left:6px;position:relative;z-index:1}
+.play-btn::after{content:'';position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--lime);opacity:0.3}
+.play-btn--pulse::after{animation:ring-pulse 1.5s ease-out infinite}
+@keyframes ring-pulse{0%{transform:scale(1);opacity:0.4}70%{transform:scale(1.15);opacity:0}100%{transform:scale(1.15);opacity:0}}
+.play-btn:hover{background:var(--surface-hi);transform:scale(1.03)}
+.play-btn:active{transform:scale(0.97)}
+.play-btn--done{background:var(--lime);color:var(--bg);box-shadow:0 0 30px var(--lime-glow)}
+.play-btn--done::after{display:none}
 
 /* Crossfader */
-.crossfader-wrap{width:100%;max-width:340px}
-.crossfader-labels{display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:8px}
+.crossfader-wrap{width:100%}
+.crossfader-labels{display:flex;justify-content:space-between;font-size:14px;font-weight:700;margin-bottom:10px;padding:0 4px}
 .crossfader-labels span:first-child{color:var(--lime)}
 .crossfader-labels span:last-child{color:var(--purple)}
-.crossfader-input{-webkit-appearance:none;appearance:none;width:100%;height:48px;background:var(--surface);border-radius:var(--radius);outline:none;cursor:pointer}
-.crossfader-input::-webkit-slider-thumb{-webkit-appearance:none;width:56px;height:40px;background:var(--lime);border-radius:8px;cursor:grab;border:none}
-.crossfader-input::-moz-range-thumb{width:56px;height:40px;background:var(--lime);border-radius:8px;cursor:grab;border:none}
+.crossfader-track{position:relative;height:56px;background:var(--surface);border-radius:var(--radius);display:flex;align-items:center;padding:0 8px;border:1px solid var(--surface-border)}
+.crossfader-input{-webkit-appearance:none;appearance:none;width:100%;height:100%;background:transparent;cursor:pointer;position:relative;z-index:2}
+.crossfader-input::-webkit-slider-thumb{-webkit-appearance:none;width:48px;height:40px;background:linear-gradient(180deg,#555 0%,#333 100%);border-radius:6px;cursor:grab;border:1px solid rgba(255,255,255,0.1);box-shadow:0 2px 8px rgba(0,0,0,0.5)}
+.crossfader-input::-moz-range-thumb{width:48px;height:40px;background:linear-gradient(180deg,#555 0%,#333 100%);border-radius:6px;cursor:grab;border:1px solid rgba(255,255,255,0.1);box-shadow:0 2px 8px rgba(0,0,0,0.5)}
+.crossfader-input::-webkit-slider-runnable-track{background:transparent}
+.crossfader-label-sub{text-align:center;font-size:10px;color:var(--text-dim);letter-spacing:0.12em;text-transform:uppercase;margin-top:8px}
 
-/* Bass EQ slider */
-.eq-wrap{display:flex;flex-direction:column;align-items:center;gap:8px}
-.eq-label{font-size:13px;font-weight:700;color:var(--lime);letter-spacing:0.05em}
-.eq-slider-container{width:80px;height:200px;background:var(--surface);border-radius:var(--radius);position:relative;display:flex;align-items:center;justify-content:center}
-.eq-slider{-webkit-appearance:none;appearance:none;width:200px;height:60px;background:transparent;transform:rotate(-90deg);cursor:pointer;position:absolute}
-.eq-slider::-webkit-slider-thumb{-webkit-appearance:none;width:48px;height:48px;background:var(--lime);border-radius:8px;cursor:grab;border:none}
-.eq-slider::-moz-range-thumb{width:48px;height:48px;background:var(--lime);border-radius:8px;cursor:grab;border:none}
+/* Bass EQ fader */
+.eq-wrap{display:flex;flex-direction:column;align-items:center;gap:12px}
+.eq-label{font-size:10px;font-weight:700;color:var(--lime);letter-spacing:0.15em;text-transform:uppercase}
+.eq-track{width:72px;height:220px;background:var(--surface);border-radius:var(--radius);position:relative;border:1px solid var(--surface-border);overflow:hidden}
+.eq-fill{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,var(--lime) 0%,var(--lime-dim) 100%);border-radius:0 0 11px 11px;transition:height 0.05s linear;opacity:0.3}
+.eq-slider{-webkit-appearance:none;appearance:none;width:220px;height:72px;background:transparent;transform:rotate(-90deg);transform-origin:center;cursor:pointer;position:absolute;top:50%;left:50%;margin-top:-36px;margin-left:-110px;z-index:2}
+.eq-slider::-webkit-slider-thumb{-webkit-appearance:none;width:56px;height:28px;background:linear-gradient(180deg,#555 0%,#333 100%);border-radius:4px;cursor:grab;border:1px solid rgba(255,255,255,0.15);box-shadow:0 2px 6px rgba(0,0,0,0.5)}
+.eq-slider::-moz-range-thumb{width:56px;height:28px;background:linear-gradient(180deg,#555 0%,#333 100%);border-radius:4px;cursor:grab;border:1px solid rgba(255,255,255,0.15)}
 .eq-slider::-webkit-slider-runnable-track{background:transparent}
-.eq-value{font-size:24px;font-weight:700;color:var(--lime);font-variant-numeric:tabular-nums}
-
-/* Guidance arrow */
-.guide-arrow{font-size:24px;color:var(--lime);animation:bounce-down 1s ease infinite}
-@keyframes bounce-down{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
-.guide-arrow--right{animation:bounce-right 1s ease infinite}
-@keyframes bounce-right{0%,100%{transform:translateX(0)}50%{transform:translateX(8px)}}
+.eq-value{font-size:32px;font-weight:700;color:var(--lime);font-variant-numeric:tabular-nums;letter-spacing:-0.02em}
+.eq-unit{font-size:14px;color:var(--text-dim);font-weight:500;margin-left:2px}
 
 /* Progress bar */
-.progress-bar{width:100%;max-width:360px;height:4px;background:var(--surface);border-radius:2px;overflow:hidden}
-.progress-bar__fill{height:100%;background:var(--lime);border-radius:2px;transition:width 0.3s ease}
+.progress-bar{width:100%;height:3px;background:var(--surface)}
+.progress-bar__fill{height:100%;background:var(--lime);transition:width 0.4s ease}
+
+/* Checkmark */
+.check-circle{width:56px;height:56px;border-radius:50%;background:var(--lime);color:var(--bg);display:flex;align-items:center;justify-content:center;animation:pop-in 0.3s ease}
+.check-circle svg{width:28px;height:28px;fill:currentColor}
+@keyframes pop-in{0%{transform:scale(0)}60%{transform:scale(1.1)}100%{transform:scale(1)}}
 
 /* Celebration */
 .celebration{text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px}
-.celebration h2{font-size:24px;font-weight:700;line-height:1.3}
-.celebration .score{font-size:64px;font-weight:700;color:var(--lime)}
-.celebration .score-label{font-size:13px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;margin-top:-8px}
-.cta-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;font-family:inherit;font-size:15px;font-weight:700;border:none;border-radius:var(--radius);cursor:pointer;transition:all 0.2s ease;text-decoration:none}
+.celebration h2{font-size:22px;font-weight:700;line-height:1.3}
+.score-big{font-size:72px;font-weight:700;color:var(--lime);line-height:1;letter-spacing:-0.04em}
+.score-label{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.12em}
+.cta-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 28px;font-family:inherit;font-size:15px;font-weight:600;border:none;border-radius:var(--radius);cursor:pointer;transition:all 0.2s ease;text-decoration:none;width:100%}
 .cta-btn--primary{background:var(--lime);color:var(--bg)}
 .cta-btn--primary:hover{filter:brightness(1.1);transform:translateY(-1px)}
-.cta-btn--ghost{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.15)}
+.cta-btn--ghost{background:transparent;color:var(--text-dim);border:1px solid var(--surface-border)}
 .cta-btn--ghost:hover{border-color:var(--lime);color:var(--lime)}
-.cta-btns{display:flex;flex-direction:column;gap:10px;width:100%;max-width:280px}
+.cta-btns{display:flex;flex-direction:column;gap:8px;width:100%;max-width:280px}
 
 /* Confetti */
-.confetti{position:fixed;top:-10px;width:10px;height:10px;border-radius:2px;animation:fall linear forwards;pointer-events:none;z-index:100}
+.confetti{position:fixed;top:-10px;border-radius:2px;animation:fall linear forwards;pointer-events:none;z-index:100}
 @keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
 
-/* Footer hint */
-.demo-footer{padding:12px 20px;text-align:center;font-size:12px;color:var(--text-dim);border-top:1px solid rgba(255,255,255,0.05)}
+/* Footer */
+.demo-footer{padding:10px 20px;text-align:center;font-size:11px;color:var(--text-dim);letter-spacing:0.03em}
 
-/* Lesson complete checkmark */
-.check{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:var(--lime);color:var(--bg);font-size:28px;font-weight:700}
-
-/* Transition between lessons */
-.fade-enter{animation:fadeIn 0.3s ease both}
-@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+/* Transition */
+.fade-enter{animation:fadeSlideIn 0.35s ease both}
+@keyframes fadeSlideIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
@@ -116,358 +130,181 @@ body{font-family:'Space Grotesk',system-ui,sans-serif;background:var(--bg);color
 <header class="demo-header">
   <div class="demo-brand">
     <svg viewBox="0 0 120 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="16" r="11" stroke="#84fb42" stroke-width="2.5"/><circle cx="14" cy="16" r="3" fill="#84fb42"/><text x="30" y="23" font-family="'Space Grotesk',system-ui,sans-serif" font-weight="700" font-size="22" fill="#84fb42" letter-spacing="-0.02em">nset</text></svg>
-    <span style="font-size:12px;color:var(--text-dim)">demo</span>
+    <span style="font-size:11px;color:var(--text-dim);letter-spacing:0.08em">DEMO</span>
   </div>
   <div class="demo-step" id="step-indicator"></div>
 </header>
 
-<main class="demo-content" id="demo-content" aria-live="polite">
-  <!-- Content injected by JS -->
-</main>
+<main class="demo-content" id="demo-content" aria-live="polite"></main>
 
 <div class="progress-bar" id="progress-bar" style="display:none">
   <div class="progress-bar__fill" id="progress-fill" style="width:0%"></div>
 </div>
 
-<footer class="demo-footer" id="demo-footer">
-  No controller needed — just your mouse or finger
-</footer>
+<footer class="demo-footer" id="demo-footer">No controller needed — mouse or finger</footer>
 
 <script>
-// ── Audio Engine (minimal) ──────────────────────────────────
-let ctx = null;
-let bufferA = null, bufferB = null;
-let sourceA = null, sourceB = null;
-let gainA = null, gainB = null;
-let eqLowA = null;
-let isPlayingA = false, isPlayingB = false;
+let ctx=null,bufferA=null,bufferB=null,sourceA=null,sourceB=null,gainA=null,gainB=null,eqLowA=null,isPlayingA=false,isPlayingB=false;
 
-async function initAudio() {
-  ctx = new (window.AudioContext || window.webkitAudioContext)();
-
-  // Gains for crossfader
-  gainA = ctx.createGain();
-  gainB = ctx.createGain();
-  gainA.gain.value = 1;
-  gainB.gain.value = 0;
-
-  // Low shelf EQ for Deck A bass
-  eqLowA = ctx.createBiquadFilter();
-  eqLowA.type = 'lowshelf';
-  eqLowA.frequency.value = 250;
-  eqLowA.gain.value = 0;
-
-  gainA.connect(ctx.destination);
-  gainB.connect(ctx.destination);
+async function initAudio(){
+  ctx=new(window.AudioContext||window.webkitAudioContext)();
+  gainA=ctx.createGain();gainB=ctx.createGain();
+  gainA.gain.value=1;gainB.gain.value=0;
+  eqLowA=ctx.createBiquadFilter();eqLowA.type='lowshelf';eqLowA.frequency.value=250;eqLowA.gain.value=0;
+  gainA.connect(ctx.destination);gainB.connect(ctx.destination);
 }
-
-async function loadTrack(url) {
-  const res = await fetch(url);
-  const buf = await res.arrayBuffer();
-  return ctx.decodeAudioData(buf);
+async function loadTrack(url){const r=await fetch(url);const b=await r.arrayBuffer();return ctx.decodeAudioData(b)}
+function playDeck(d){
+  if(d==='A'&&bufferA&&!isPlayingA){sourceA=ctx.createBufferSource();sourceA.buffer=bufferA;sourceA.loop=true;sourceA.connect(eqLowA);eqLowA.connect(gainA);sourceA.start();isPlayingA=true}
+  if(d==='B'&&bufferB&&!isPlayingB){sourceB=ctx.createBufferSource();sourceB.buffer=bufferB;sourceB.loop=true;sourceB.connect(gainB);sourceB.start();isPlayingB=true}
 }
+function setCrossfader(v){const a=v*Math.PI/2;gainA.gain.value=Math.cos(a);gainB.gain.value=Math.sin(a)}
+function setBassEQ(db){if(eqLowA)eqLowA.gain.value=db}
 
-function playDeck(deck) {
-  if (deck === 'A' && bufferA && !isPlayingA) {
-    sourceA = ctx.createBufferSource();
-    sourceA.buffer = bufferA;
-    sourceA.loop = true;
-    sourceA.connect(eqLowA);
-    eqLowA.connect(gainA);
-    sourceA.start();
-    isPlayingA = true;
-  }
-  if (deck === 'B' && bufferB && !isPlayingB) {
-    sourceB = ctx.createBufferSource();
-    sourceB.buffer = bufferB;
-    sourceB.loop = true;
-    sourceB.connect(gainB);
-    sourceB.start();
-    isPlayingB = true;
-  }
-}
+const content=document.getElementById('demo-content');
+const stepEl=document.getElementById('step-indicator');
+const pBar=document.getElementById('progress-bar');
+const pFill=document.getElementById('progress-fill');
+const footer=document.getElementById('demo-footer');
+let scores=[false,false,false];
 
-function setCrossfader(value) {
-  // value: 0 = all A, 1 = all B
-  const angle = value * Math.PI / 2;
-  gainA.gain.value = Math.cos(angle);
-  gainB.gain.value = Math.sin(angle);
-}
+const CHEVRON_DOWN='<div class="chevron chevron--down"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>';
+const CHEVRON_RIGHT='<div class="chevron chevron--right"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>';
 
-function setBassEQ(db) {
-  if (eqLowA) eqLowA.gain.value = db;
-}
+function render(h){content.innerHTML='';const d=document.createElement('div');d.className='fade-enter';d.innerHTML=h;content.appendChild(d)}
 
-// ── State Machine ───────────────────────────────────────────
-const content = document.getElementById('demo-content');
-const stepIndicator = document.getElementById('step-indicator');
-const progressBar = document.getElementById('progress-bar');
-const progressFill = document.getElementById('progress-fill');
-const footer = document.getElementById('demo-footer');
-
-let state = 'loading';
-let lessonScores = [false, false, false];
-
-function render(html) {
-  content.innerHTML = '';
-  const div = document.createElement('div');
-  div.className = 'fade-enter';
-  div.innerHTML = html;
-  content.appendChild(div);
-}
-
-// ── Loading State ───────────────────────────────────────────
-async function startDemo() {
-  stepIndicator.textContent = '';
-  progressBar.style.display = 'none';
-
-  render(`
-    <div class="demo-loading">
-      <div class="spinner"></div>
-      <h2>Setting up the decks...</h2>
-      <p>Loading demo tracks</p>
-    </div>
-  `);
-
-  try {
+async function startDemo(){
+  stepEl.textContent='';pBar.style.display='none';
+  render('<div class="demo-loading"><div class="spinner"></div><h2>Setting up the decks...</h2><p>Loading demo tracks</p></div>');
+  try{
     await initAudio();
-    const [a, b] = await Promise.all([
-      loadTrack('/assets/demo/track-a.mp3'),
-      loadTrack('/assets/demo/track-b.mp3'),
-    ]);
-    bufferA = a;
-    bufferB = b;
-    startLesson1();
-  } catch (err) {
-    render(`
-      <div class="demo-loading">
-        <h2>Could not load demo</h2>
-        <p>Please try refreshing the page.</p>
-      </div>
-    `);
-  }
+    const[a,b]=await Promise.all([loadTrack('/assets/demo/track-a.mp3'),loadTrack('/assets/demo/track-b.mp3')]);
+    bufferA=a;bufferB=b;startLesson1();
+  }catch{render('<div class="demo-loading"><h2>Could not load demo</h2><p>Please try refreshing the page.</p></div>')}
 }
 
-// ── Lesson 1: Hit Play ──────────────────────────────────────
-function startLesson1() {
-  state = 'lesson1';
-  stepIndicator.textContent = '1 of 3';
-  progressBar.style.display = 'block';
-  progressFill.style.width = '0%';
-  footer.textContent = 'Lesson 1 of 3';
-
+function startLesson1(){
+  stepEl.textContent='1 OF 3';pBar.style.display='block';pFill.style.width='0%';footer.textContent='Lesson 1 of 3';
   render(`
     <p class="lesson-title">Hit Play</p>
-    <p class="lesson-subtitle">Press the play button to start Deck A. You'll hear the music instantly.</p>
-    <div class="guide-arrow">↓</div>
-    <button class="play-btn pulse" id="play-btn" aria-label="Play Deck A">
+    <p class="lesson-subtitle">Press play to start Deck A. You'll hear the music instantly.</p>
+    ${CHEVRON_DOWN}
+    <button class="play-btn play-btn--pulse" id="play-btn" aria-label="Play Deck A">
       <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
     </button>
     <div class="deck-row">
-      <div class="deck-indicator">
-        <div class="deck-indicator__label deck-indicator__label--a">Deck A</div>
-        <div class="deck-indicator__name">Vox and Bells</div>
-        <div class="deck-indicator__status deck-indicator__status--stopped" id="status-a">Stopped</div>
+      <div class="deck-card deck-card--a">
+        <div class="deck-card__label deck-card__label--a">Deck A</div>
+        <div class="deck-card__name">Vox and Bells</div>
+        <div class="deck-card__status" id="status-a">Ready</div>
       </div>
-      <div class="deck-indicator">
-        <div class="deck-indicator__label deck-indicator__label--b">Deck B</div>
-        <div class="deck-indicator__name">Through the Beat</div>
-        <div class="deck-indicator__status deck-indicator__status--stopped">Ready</div>
+      <div class="deck-card deck-card--b">
+        <div class="deck-card__label deck-card__label--b">Deck B</div>
+        <div class="deck-card__name">Through the Beat</div>
+        <div class="deck-card__status">Ready</div>
       </div>
     </div>
   `);
-
-  document.getElementById('play-btn').addEventListener('click', () => {
-    if (ctx.state === 'suspended') ctx.resume();
+  document.getElementById('play-btn').addEventListener('click',()=>{
+    if(ctx.state==='suspended')ctx.resume();
     playDeck('A');
-    const statusA = document.getElementById('status-a');
-    if (statusA) {
-      statusA.textContent = '▶ Playing';
-      statusA.className = 'deck-indicator__status deck-indicator__status--playing';
-    }
-    const btn = document.getElementById('play-btn');
-    btn.classList.remove('pulse');
-    btn.style.background = 'var(--lime)';
-    btn.style.color = 'var(--bg)';
-    btn.style.borderColor = 'var(--lime)';
-
-    lessonScores[0] = true;
-    progressFill.style.width = '33%';
-
-    setTimeout(() => {
-      showLessonComplete(1, 'Music is playing!', startLesson2);
-    }, 1500);
-  }, { once: true });
+    const s=document.getElementById('status-a');
+    if(s){s.textContent='Playing';s.className='deck-card__status deck-card__status--playing'}
+    const btn=document.getElementById('play-btn');
+    btn.classList.remove('play-btn--pulse');btn.classList.add('play-btn--done');
+    scores[0]=true;pFill.style.width='33%';
+    setTimeout(()=>showCheck('Music is playing!',startLesson2),1500);
+  },{once:true});
 }
 
-// ── Lesson 2: Blend it in ───────────────────────────────────
-function startLesson2() {
-  state = 'lesson2';
-  stepIndicator.textContent = '2 of 3';
-  footer.textContent = 'Lesson 2 of 3';
-
-  // Start Deck B
-  playDeck('B');
-  setCrossfader(0); // start full A
-
+function startLesson2(){
+  stepEl.textContent='2 OF 3';footer.textContent='Lesson 2 of 3';
+  playDeck('B');setCrossfader(0);
   render(`
     <p class="lesson-title">Blend it in</p>
-    <p class="lesson-subtitle">Drag the crossfader from A all the way to B. Listen to the transition.</p>
+    <p class="lesson-subtitle">Drag the crossfader from A to B. Listen to the mix.</p>
     <div class="deck-row">
-      <div class="deck-indicator">
-        <div class="deck-indicator__label deck-indicator__label--a">Deck A</div>
-        <div class="deck-indicator__name">Vox and Bells</div>
-        <div class="deck-indicator__status deck-indicator__status--playing">▶ Playing</div>
-      </div>
-      <div class="deck-indicator">
-        <div class="deck-indicator__label deck-indicator__label--b">Deck B</div>
-        <div class="deck-indicator__name">Through the Beat</div>
-        <div class="deck-indicator__status deck-indicator__status--playing">▶ Playing</div>
-      </div>
+      <div class="deck-card deck-card--a"><div class="deck-card__label deck-card__label--a">Deck A</div><div class="deck-card__name">Vox and Bells</div><div class="deck-card__status deck-card__status--playing">Playing</div></div>
+      <div class="deck-card deck-card--b"><div class="deck-card__label deck-card__label--b">Deck B</div><div class="deck-card__name">Through the Beat</div><div class="deck-card__status deck-card__status--playing">Playing</div></div>
     </div>
-    <div class="guide-arrow guide-arrow--right">→</div>
+    ${CHEVRON_RIGHT}
     <div class="crossfader-wrap">
       <div class="crossfader-labels"><span>A</span><span>B</span></div>
-      <input type="range" class="crossfader-input pulse" id="crossfader" min="0" max="100" value="0" aria-label="Crossfader">
+      <div class="crossfader-track"><input type="range" class="crossfader-input" id="crossfader" min="0" max="100" value="0" aria-label="Crossfader"></div>
+      <div class="crossfader-label-sub">Crossfade transition</div>
     </div>
   `);
-
-  const cf = document.getElementById('crossfader');
-  let completed = false;
-
-  cf.addEventListener('input', () => {
-    const val = parseInt(cf.value) / 100;
-    setCrossfader(val);
-
-    if (val >= 0.9 && !completed) {
-      completed = true;
-      cf.classList.remove('pulse');
-      lessonScores[1] = true;
-      progressFill.style.width = '66%';
-
-      setTimeout(() => {
-        showLessonComplete(2, 'Smooth transition!', startLesson3);
-      }, 1000);
-    }
+  const cf=document.getElementById('crossfader');let done=false;
+  cf.addEventListener('input',()=>{
+    setCrossfader(parseInt(cf.value)/100);
+    if(parseInt(cf.value)>=90&&!done){done=true;scores[1]=true;pFill.style.width='66%';
+      setTimeout(()=>showCheck('Smooth transition!',startLesson3),1000)}
   });
 }
 
-// ── Lesson 3: Drop the bass ─────────────────────────────────
-function startLesson3() {
-  state = 'lesson3';
-  stepIndicator.textContent = '3 of 3';
-  footer.textContent = 'Lesson 3 of 3 — Final lesson!';
-
-  // Reset crossfader to center, both playing
-  setCrossfader(0.5);
-  setBassEQ(0);
-
+function startLesson3(){
+  stepEl.textContent='3 OF 3';footer.textContent='Final lesson!';
+  setCrossfader(0.5);setBassEQ(0);
   render(`
     <p class="lesson-title">Drop the bass</p>
-    <p class="lesson-subtitle">Pull the bass EQ knob all the way down on Deck A. Listen to the bass disappear.</p>
-    <div class="deck-row">
-      <div class="deck-indicator">
-        <div class="deck-indicator__label deck-indicator__label--a">Deck A</div>
-        <div class="deck-indicator__name">Vox and Bells</div>
-        <div class="deck-indicator__status deck-indicator__status--playing">▶ Playing</div>
-      </div>
-      <div class="deck-indicator">
-        <div class="deck-indicator__label deck-indicator__label--b">Deck B</div>
-        <div class="deck-indicator__name">Through the Beat</div>
-        <div class="deck-indicator__status deck-indicator__status--playing">▶ Playing</div>
-      </div>
-    </div>
-    <div class="guide-arrow">↓</div>
+    <p class="lesson-subtitle">Pull the bass EQ down on Deck A. Hear the bass disappear.</p>
+    ${CHEVRON_DOWN}
     <div class="eq-wrap">
-      <div class="eq-label">BASS EQ — Deck A</div>
-      <div class="eq-slider-container">
-        <input type="range" class="eq-slider pulse" id="eq-bass" min="-24" max="6" value="0" aria-label="Bass EQ Deck A">
+      <div class="eq-label">Bass</div>
+      <div class="eq-track">
+        <div class="eq-fill" id="eq-fill" style="height:50%"></div>
+        <input type="range" class="eq-slider" id="eq-bass" min="-24" max="6" value="0" aria-label="Bass EQ Deck A">
       </div>
-      <div class="eq-value" id="eq-value">0 dB</div>
+      <div><span class="eq-value" id="eq-value">0</span><span class="eq-unit"> dB</span></div>
     </div>
   `);
-
-  const eq = document.getElementById('eq-bass');
-  const eqVal = document.getElementById('eq-value');
-  let completed = false;
-
-  eq.addEventListener('input', () => {
-    const db = parseInt(eq.value);
-    setBassEQ(db);
-    eqVal.textContent = `${db} dB`;
-
-    if (db <= -20 && !completed) {
-      completed = true;
-      eq.classList.remove('pulse');
-      lessonScores[2] = true;
-      progressFill.style.width = '100%';
-
-      setTimeout(() => {
-        showCelebration();
-      }, 1500);
-    }
+  const eq=document.getElementById('eq-bass'),eqVal=document.getElementById('eq-value'),eqFill=document.getElementById('eq-fill');
+  let done=false;
+  eq.addEventListener('input',()=>{
+    const db=parseInt(eq.value);setBassEQ(db);
+    eqVal.textContent=db;
+    const pct=((db+24)/30)*100;
+    eqFill.style.height=Math.max(0,pct)+'%';
+    if(db<=-20&&!done){done=true;scores[2]=true;pFill.style.width='100%';
+      setTimeout(showCelebration,1500)}
   });
 }
 
-// ── Lesson Complete (between lessons) ───────────────────────
-function showLessonComplete(num, message, nextFn) {
+function showCheck(msg,next){
   render(`
-    <div class="check">✓</div>
-    <p class="lesson-title">${message}</p>
-    <p class="lesson-subtitle">Lesson ${num} complete</p>
+    <div class="check-circle"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+    <p class="lesson-title">${msg}</p>
   `);
-
-  setTimeout(nextFn, 2000);
+  setTimeout(next,1800);
 }
 
-// ── Celebration ─────────────────────────────────────────────
-function showCelebration() {
-  state = 'complete';
-  stepIndicator.textContent = 'Complete!';
-  progressBar.style.display = 'none';
-  footer.textContent = '';
-
-  // Stop audio
-  try { sourceA?.stop(); sourceB?.stop(); } catch {}
-
-  const score = lessonScores.filter(Boolean).length;
-
+function showCelebration(){
+  stepEl.textContent='COMPLETE';pBar.style.display='none';footer.textContent='';
+  try{sourceA?.stop();sourceB?.stop()}catch{}
   spawnConfetti();
-
-  const tweetText = encodeURIComponent("I just learned to DJ in 3 minutes with @dimaiowill's onset 🎧 Try it free: onsetdj.com");
-
+  const tw=encodeURIComponent("I just learned to DJ in 3 minutes with @dimaiowill's onset 🎧 Try it free: onsetdj.com");
   render(`
     <div class="celebration">
-      <div class="score">${score}/3</div>
-      <div class="score-label">Lessons Completed</div>
+      <div class="score-big">${scores.filter(Boolean).length}/3</div>
+      <div class="score-label">Lessons completed</div>
       <h2>You just made your first<br>DJ transition! 🎧</h2>
-      <p class="lesson-subtitle">You played a track, blended between two decks, and swapped the bass — the fundamental building blocks of DJing.</p>
+      <p class="lesson-subtitle">You played a track, blended between two decks, and dropped the bass — the fundamentals of DJing.</p>
       <div class="cta-btns">
         <a href="https://app.onsetdj.com?access=1" class="cta-btn cta-btn--primary">Get the full app →</a>
-        <a href="https://twitter.com/intent/tweet?text=${tweetText}" target="_blank" class="cta-btn cta-btn--ghost">Share on X</a>
+        <a href="https://twitter.com/intent/tweet?text=${tw}" target="_blank" class="cta-btn cta-btn--ghost">Share on X</a>
         <a href="/" class="cta-btn cta-btn--ghost" style="font-size:13px">← Back to onsetdj.com</a>
       </div>
     </div>
   `);
 }
 
-function spawnConfetti() {
-  const colors = ['#84fb42', '#d9a5ff', '#fec700', '#fff', '#6be026'];
-  for (let i = 0; i < 50; i++) {
-    const el = document.createElement('div');
-    el.className = 'confetti';
-    el.style.left = Math.random() * 100 + 'vw';
-    el.style.background = colors[Math.floor(Math.random() * colors.length)];
-    el.style.width = (Math.random() * 8 + 4) + 'px';
-    el.style.height = (Math.random() * 8 + 4) + 'px';
-    el.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
-    el.style.animationDelay = (Math.random() * 0.5) + 's';
-    document.body.appendChild(el);
-    el.addEventListener('animationend', () => el.remove());
-  }
+function spawnConfetti(){
+  const c=['#84fb42','#d9a5ff','#fec700','#fff','#6be026'];
+  for(let i=0;i<60;i++){const e=document.createElement('div');e.className='confetti';
+    e.style.cssText=`left:${Math.random()*100}vw;background:${c[~~(Math.random()*c.length)]};width:${Math.random()*8+4}px;height:${Math.random()*8+4}px;animation-duration:${Math.random()*2+1.5}s;animation-delay:${Math.random()*0.5}s`;
+    document.body.appendChild(e);e.addEventListener('animationend',()=>e.remove())}
 }
 
-// ── Init ────────────────────────────────────────────────────
 startDemo();
 </script>
 </body>
