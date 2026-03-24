@@ -22,6 +22,7 @@ import { ScaffoldManager } from './ScaffoldManager.js';
 import { ScoringEngine } from './ScoringEngine.js';
 import { SpacedRepetition } from './SpacedRepetition.js';
 import { SessionManager } from './SessionManager.js';
+import { ProgressManager } from './ProgressManager.js';
 
 /**
  * @typedef {'idle' | 'session_active' | 'phase_watch' | 'phase_imagine' | 'phase_do' | 'step_active' | 'step_scored' | 'lesson_complete' | 'session_complete'} EngineState
@@ -42,6 +43,7 @@ export class LessonEngine extends EventTarget {
     this._validator = new InputValidator(mixerState);
     this._renderer = new LessonRenderer();
     this._session = new SessionManager(this._library);
+    this._progress = new ProgressManager();
 
     /** @type {EngineState} */
     this._state = 'idle';
@@ -90,6 +92,7 @@ export class LessonEngine extends EventTarget {
       return;
     }
 
+    this._progress.startSession();
     this._state = 'session_active';
     this._renderer.renderSessionStart(playlist);
   }
@@ -349,6 +352,13 @@ export class LessonEngine extends EventTarget {
       SpacedRepetition.scoreToQuality(lessonScore.score)
     );
 
+    // Record in progress manager (XP, streaks, lesson tracking)
+    this._progress.recordLessonComplete(
+      this._currentLesson.id,
+      lessonScore.score,
+      this._currentLesson.category
+    );
+
     // Update session rolling accuracy
     this._session.recordLessonScore(lessonScore.score);
 
@@ -362,6 +372,7 @@ export class LessonEngine extends EventTarget {
   _completeSession() {
     this._state = 'session_complete';
     this._session.endSession();
+    this._progress.endSession();
 
     const stats = this._library.getStats();
     this._renderer.renderSessionComplete(stats);
@@ -404,6 +415,11 @@ export class LessonEngine extends EventTarget {
   /** @returns {import('./SessionManager.js').SessionManager} */
   get session() {
     return this._session;
+  }
+
+  /** @returns {import('./ProgressManager.js').ProgressManager} */
+  get progress() {
+    return this._progress;
   }
 
   /** Clean up timers and listeners. */

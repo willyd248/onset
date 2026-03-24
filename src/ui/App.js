@@ -134,8 +134,9 @@ export class App {
     // 13. Create PerformanceTips
     this._tips = new PerformanceTips(this._mixerState);
 
-    // 14. Set up track loading (file inputs + drag-drop)
+    // 14. Set up track loading (file inputs + drag-drop) and empty state
     this._setupTrackLoading();
+    this._emptyStateEl = document.getElementById('practice-empty-state');
 
     // 15. Set up the startup overlay for first user gesture
     this._setupStartupOverlay();
@@ -148,6 +149,9 @@ export class App {
 
     // 18. Init LessonEngine
     this._lessonEngine.init();
+
+    // 18a. Wire progress updates to refresh views
+    this._setupProgressUpdates();
 
     // 18b. Wire session-complete event to show full-screen celebration
     this._setupSessionCompleteView();
@@ -327,6 +331,9 @@ export class App {
       // Mark track as loaded in state
       this._mixerState.set(deckName, 'hasTrack', true, 'audio');
 
+      // Hide empty state
+      if (this._emptyStateEl) this._emptyStateEl.hidden = true;
+
       // Update track name in UI
       const nameEl = document.getElementById(`track-name-${deckName.toLowerCase()}`);
       if (nameEl) {
@@ -486,6 +493,166 @@ export class App {
     this._midiController.addEventListener('connected', updateSettings);
     this._midiController.addEventListener('disconnected', updateSettings);
     updateSettings();
+  }
+
+  // ── Progress Updates ─────────────────────────────────────────
+
+  /** @private */
+  _setupProgressUpdates() {
+    const progress = this._lessonEngine.progress;
+
+    // Refresh views on progress change
+    progress.addEventListener('progress-updated', () => this._refreshAllViews());
+
+    // Also refresh when navigating to these views
+    this._viewManager.addEventListener('view-changed', (e) => {
+      const view = /** @type {CustomEvent} */ (e).detail.view;
+      if (view === 'learn' || view === 'stats' || view === 'profile') {
+        this._refreshAllViews();
+      }
+    });
+
+    // Initial refresh
+    this._refreshAllViews();
+  }
+
+  /** @private */
+  _refreshAllViews() {
+    const summary = this._lessonEngine.progress.getSummary();
+    this._refreshProfileView(summary);
+    this._refreshStatsView(summary);
+    this._refreshLearnView(summary);
+    this._refreshStreakBadge(summary);
+  }
+
+  /** @private */
+  _refreshProfileView(summary) {
+    const levelEl = document.getElementById('profile-level');
+    const xpEl = document.getElementById('profile-xp');
+    const streakEl = document.getElementById('profile-streak');
+    const lessonsEl = document.getElementById('profile-lessons');
+
+    if (levelEl) levelEl.textContent = `Level ${summary.level} — ${summary.levelLabel}`;
+    if (xpEl) xpEl.textContent = String(summary.totalXP);
+    if (streakEl) streakEl.textContent = String(summary.currentStreak);
+    if (lessonsEl) lessonsEl.textContent = String(summary.lessonsCompleted);
+  }
+
+  /** @private */
+  _refreshStatsView(summary) {
+    const lessonsEl = document.getElementById('stat-lessons');
+    const timeEl = document.getElementById('stat-practice-time');
+    const streakEl = document.getElementById('stat-current-streak');
+    const bestEl = document.getElementById('stat-best-streak');
+
+    if (lessonsEl) lessonsEl.textContent = String(summary.lessonsCompleted);
+    if (timeEl) timeEl.textContent = summary.practiceHours < 1
+      ? `${Math.round(summary.practiceHours * 60)}m`
+      : `${summary.practiceHours}h`;
+    if (streakEl) streakEl.textContent = String(summary.currentStreak);
+    if (bestEl) bestEl.textContent = String(summary.bestStreak);
+
+    // Skill balance bars
+    const categories = ['basics', 'eq-mixing', 'beatmatching', 'transitions'];
+    for (const cat of categories) {
+      const el = document.getElementById(`skill-${cat}`);
+      if (el) {
+        const score = summary.categoryScores[cat] || 0;
+        el.style.width = `${score}%`;
+      }
+    }
+  }
+
+  /** @private */
+  _refreshLearnView(summary) {
+    const completed = new Set(summary.completedLessonIds);
+    const catalog = this._lessonEngine.library.getAll();
+
+    // Build a map of lesson node data in order
+    const learnPath = [
+      { id: 'basics-load-play', title: 'Getting Started', desc: 'Load tracks, play & pause' },
+      { id: 'basics-eq-sweep', title: 'Volume & Crossfader', desc: 'Blend between two tracks' },
+      { id: 'beatmatch-pitch', title: 'EQ Basics', desc: 'Shape your sound with Hi, Mid, Low' },
+      { id: 'transition-bass-swap', title: 'Beatmatching', desc: 'Match tempos using the pitch fader' },
+      { id: 'eq-mix-frequency-swap', title: 'Smooth Transitions', desc: 'Combine EQ, volume & crossfader' },
+      { id: 'beatmatch-phase', title: 'Creative Mixing', desc: 'Filters, hot cues & effects' },
+    ];
+
+    const nodes = document.querySelectorAll('.learn-node');
+    nodes.forEach((node, i) => {
+      if (i >= learnPath.length) return;
+      const entry = learnPath[i];
+      const isComplete = completed.has(entry.id);
+
+      // Check if prerequisites are met (previous lesson completed, or first lesson)
+      const lesson = catalog.find(l => l.id === entry.id);
+      const prereqsMet = lesson
+        ? lesson.prerequisiteIds.every(pid => completed.has(pid))
+        : i === 0;
+
+      const isActive = !isComplete && prereqsMet;
+      const isLocked = !isComplete && !prereqsMet;
+
+      // Update classes
+      node.classList.remove('learn-node--complete', 'learn-node--active', 'learn-node--locked');
+      if (isComplete) node.classList.add('learn-node--complete');
+      else if (isActive) node.classList.add('learn-node--active');
+      else node.classList.add('learn-node--locked');
+
+      // Update icon
+      const iconContainer = node.querySelector('.learn-node__icon');
+      if (iconContainer) {
+        iconContainer.classList.remove('learn-node__icon--active', 'learn-node__icon--locked');
+        const icon = iconContainer.querySelector('.material-symbols-outlined');
+        if (icon) {
+          if (isComplete) {
+            icon.textContent = 'check_circle';
+            icon.style.fontVariationSettings = "'FILL' 1";
+          } else if (isActive) {
+            iconContainer.classList.add('learn-node__icon--active');
+            icon.textContent = 'headphones';
+            icon.style.fontVariationSettings = '';
+          } else {
+            iconContainer.classList.add('learn-node__icon--locked');
+            icon.textContent = 'lock';
+            icon.style.fontVariationSettings = '';
+          }
+        }
+      }
+
+      // Update badge
+      const badge = node.querySelector('.learn-node__badge');
+      if (badge) {
+        badge.classList.remove('learn-node__badge--complete', 'learn-node__badge--active', 'learn-node__badge--locked');
+        if (isComplete) {
+          badge.classList.add('learn-node__badge--complete');
+          badge.textContent = 'Done';
+        } else if (isActive) {
+          badge.classList.add('learn-node__badge--active');
+          badge.textContent = 'In Progress';
+        } else {
+          badge.classList.add('learn-node__badge--locked');
+          badge.textContent = 'Locked';
+        }
+      }
+
+      // Update clickability
+      if (isLocked) {
+        node.removeAttribute('role');
+        node.removeAttribute('tabindex');
+        node.removeAttribute('data-lesson');
+      } else {
+        node.setAttribute('role', 'button');
+        node.setAttribute('tabindex', '0');
+        node.setAttribute('data-lesson', entry.id);
+      }
+    });
+  }
+
+  /** @private */
+  _refreshStreakBadge(summary) {
+    const countEl = document.getElementById('streak-count');
+    if (countEl) countEl.textContent = String(summary.currentStreak);
   }
 
   // ── Cue Handling ────────────────────────────────────────────

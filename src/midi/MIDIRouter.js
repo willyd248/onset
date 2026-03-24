@@ -17,6 +17,9 @@ export class MIDIRouter extends EventTarget {
     this._onMIDIMessage = this._onMIDIMessage.bind(this);
     this._debug = false;
 
+    /** @type {Map<string, number>} Previous CC values for wrap-around detection */
+    this._prevCC = new Map();
+
     this._attachListener();
 
     // Re-attach when controller connects
@@ -86,8 +89,28 @@ export class MIDIRouter extends EventTarget {
         // Relative encoding: 64 = stopped, >64 = forward, <64 = backward
         value = data2 - 64;
       } else {
+        // Wrap-around detection for absolute CC knobs.
+        // Physical knobs that spin past 127→0 or 0→127 produce a large jump.
+        // Detect this and clamp to the boundary instead of jumping.
+        const ccKey = `${channel}:${data1}`;
+        const prev = this._prevCC.get(ccKey);
+        let raw = data2;
+
+        if (prev !== undefined) {
+          const delta = raw - prev;
+          // A jump of more than 64 in a single message is a wrap-around
+          if (delta > 64) {
+            // Wrapped low→high (e.g. 2→125): clamp to 0
+            raw = 0;
+          } else if (delta < -64) {
+            // Wrapped high→low (e.g. 125→2): clamp to 127
+            raw = 127;
+          }
+        }
+        this._prevCC.set(ccKey, data2);
+
         // Normalize 0-127 → 0.0-1.0
-        value = data2 / 127;
+        value = raw / 127;
       }
     } else {
       // Note: velocity as 0-127, boolean for pressed

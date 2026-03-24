@@ -6,4 +6,5 @@ export { ScaffoldManager } from './ScaffoldManager.js';
 export { ScoringEngine } from './ScoringEngine.js';
 export { SpacedRepetition } from './SpacedRepetition.js';
 export { SessionManager } from './SessionManager.js';
+export { ProgressManager } from './ProgressManager.js';
 export { LESSON_CATALOG, CATEGORIES } from './lesson-schema.js';

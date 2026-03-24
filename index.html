@@ -70,6 +70,12 @@
           </button>
         </div>
 
+        <div class="practice-empty-state" id="practice-empty-state">
+          <span class="material-symbols-outlined" style="font-size:48px; color: var(--color-text-muted, #999);">library_music</span>
+          <p style="font-size:18px; font-weight:600; margin: 12px 0 4px;">No tracks loaded</p>
+          <p style="color: var(--color-text-muted, #999); font-size:14px;">Drag an audio file onto a deck or click <strong>Load Track</strong> to get started</p>
+        </div>
+
         <section class="waveforms">
           <div class="waveform-card waveform-display--a">
             <div class="waveform-card__label waveform-card__label--a">A</div>
@@ -329,19 +335,19 @@
           <h2 class="stats-page__title">Your Stats</h2>
           <div class="stats-grid">
             <div class="stat-card">
-              <span class="stat-card__value" id="stat-lessons">1</span>
+              <span class="stat-card__value" id="stat-lessons">0</span>
               <span class="stat-card__label">Lessons Completed</span>
             </div>
             <div class="stat-card">
-              <span class="stat-card__value">0h</span>
+              <span class="stat-card__value" id="stat-practice-time">0h</span>
               <span class="stat-card__label">Practice Time</span>
             </div>
             <div class="stat-card">
-              <span class="stat-card__value">0</span>
+              <span class="stat-card__value" id="stat-current-streak">0</span>
               <span class="stat-card__label">Current Streak</span>
             </div>
             <div class="stat-card">
-              <span class="stat-card__value">0</span>
+              <span class="stat-card__value" id="stat-best-streak">0</span>
               <span class="stat-card__label">Best Streak</span>
             </div>
           </div>
@@ -349,20 +355,20 @@
             <h3>Skill Balance</h3>
             <div class="skill-bars">
               <div class="skill-bar">
-                <span class="skill-bar__label">Volume Control</span>
-                <div class="skill-bar__track"><div class="skill-bar__fill" style="width:0%"></div></div>
+                <span class="skill-bar__label">Basics</span>
+                <div class="skill-bar__track"><div class="skill-bar__fill" id="skill-basics" style="width:0%"></div></div>
               </div>
               <div class="skill-bar">
                 <span class="skill-bar__label">EQ Mixing</span>
-                <div class="skill-bar__track"><div class="skill-bar__fill skill-bar__fill--b" style="width:0%"></div></div>
+                <div class="skill-bar__track"><div class="skill-bar__fill skill-bar__fill--b" id="skill-eq-mixing" style="width:0%"></div></div>
               </div>
               <div class="skill-bar">
                 <span class="skill-bar__label">Beatmatching</span>
-                <div class="skill-bar__track"><div class="skill-bar__fill" style="width:0%"></div></div>
+                <div class="skill-bar__track"><div class="skill-bar__fill" id="skill-beatmatching" style="width:0%"></div></div>
               </div>
               <div class="skill-bar">
                 <span class="skill-bar__label">Transitions</span>
-                <div class="skill-bar__track"><div class="skill-bar__fill skill-bar__fill--b" style="width:0%"></div></div>
+                <div class="skill-bar__track"><div class="skill-bar__fill skill-bar__fill--b" id="skill-transitions" style="width:0%"></div></div>
               </div>
             </div>
           </div>
@@ -377,19 +383,19 @@
               <span class="material-symbols-outlined" style="font-size:48px;">person</span>
             </div>
             <h2 class="profile-card__name">DJ Learner</h2>
-            <p class="profile-card__level">Level 1 — Beginner</p>
+            <p class="profile-card__level" id="profile-level">Level 1 — Beginner</p>
           </div>
           <div class="profile-stats">
             <div class="profile-stat">
-              <span class="profile-stat__value">0</span>
+              <span class="profile-stat__value" id="profile-xp">0</span>
               <span class="profile-stat__label">Total XP</span>
             </div>
             <div class="profile-stat">
-              <span class="profile-stat__value">0</span>
-              <span class="profile-stat__label">Achievements</span>
+              <span class="profile-stat__value" id="profile-streak">0</span>
+              <span class="profile-stat__label">Day Streak</span>
             </div>
             <div class="profile-stat">
-              <span class="profile-stat__value" id="profile-lessons">1</span>
+              <span class="profile-stat__value" id="profile-lessons">0</span>
               <span class="profile-stat__label">Lessons</span>
             </div>
           </div>

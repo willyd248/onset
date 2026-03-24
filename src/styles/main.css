@@ -450,6 +450,22 @@ input[type="range"] {
   color: var(--on-surface-variant);
 }
 
+/* Practice empty state */
+.practice-empty-state {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--on-surface);
+}
+
+.practice-empty-state[hidden] {
+  display: none;
+}
+
 /* File drop zone active state — see waveform.css for deck-specific styles */
 .drop-active {
   transition: all var(--transition-speed) ease;

@@ -75,6 +75,12 @@ export class AppShell {
       this._lessonsBtn?.classList.remove('mode-btn--active');
       this._lessonPanel?.classList.add('lesson-panel--collapsed');
     }
+
+    // Hide/show lesson panel header in free play mode
+    const headerEl = this._lessonPanel?.querySelector('.lesson-panel__header');
+    if (headerEl) {
+      headerEl.style.display = mode === 'freeplay' ? 'none' : '';
+    }
   }
 
   /** @returns {AppMode} */
