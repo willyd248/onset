@@ -36,11 +36,18 @@ export class ViewManager extends EventTarget {
       });
     });
 
-    // Bind learn-node clicks to navigate to practice
+    // Bind learn-node clicks and keyboard to navigate to practice
     document.querySelectorAll('.learn-node[data-lesson]').forEach((node) => {
-      node.addEventListener('click', () => {
+      const handler = () => {
         if (node.classList.contains('learn-node--locked')) return;
         this.show('practice');
+      };
+      node.addEventListener('click', handler);
+      node.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handler();
+        }
       });
     });
 

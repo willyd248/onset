@@ -5,6 +5,13 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>onset — learn to DJ</title>
+    <meta name="description" content="Learn to DJ with interactive lessons, real-time feedback, and MIDI controller support. Master beatmatching, EQ mixing, and transitions.">
+    <meta name="theme-color" content="#2a6900">
+    <meta property="og:title" content="onset — learn to DJ">
+    <meta property="og:description" content="Interactive DJ lessons with Web Audio and MIDI controller support">
+    <meta property="og:image" content="/og-image.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -25,32 +32,32 @@
           <span class="top-bar__subtitle">learn to DJ</span>
         </div>
 
-        <nav class="top-bar__nav" id="main-nav">
+        <nav class="top-bar__nav" id="main-nav" aria-label="Main navigation">
           <button class="nav-btn" data-view="learn">
-            <span class="material-symbols-outlined">school</span>
+            <span class="material-symbols-outlined" aria-hidden="true">school</span>
             Learn
           </button>
           <button class="nav-btn nav-btn--active" data-view="practice">
-            <span class="material-symbols-outlined">headphones</span>
+            <span class="material-symbols-outlined" aria-hidden="true">headphones</span>
             Practice
           </button>
           <button class="nav-btn" data-view="stats">
-            <span class="material-symbols-outlined">bar_chart</span>
+            <span class="material-symbols-outlined" aria-hidden="true">bar_chart</span>
             Stats
           </button>
           <button class="nav-btn" data-view="profile">
-            <span class="material-symbols-outlined">person</span>
+            <span class="material-symbols-outlined" aria-hidden="true">person</span>
             Profile
           </button>
           <button class="nav-btn" data-view="settings">
-            <span class="material-symbols-outlined">settings</span>
+            <span class="material-symbols-outlined" aria-hidden="true">settings</span>
             Settings
           </button>
         </nav>
 
         <div class="top-bar__right">
-          <span class="streak-badge" id="streak-badge">
-            <span class="material-symbols-outlined streak-icon" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+          <span class="streak-badge" id="streak-badge" aria-label="Practice streak">
+            <span class="material-symbols-outlined streak-icon" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">local_fire_department</span>
             <span class="streak-count" id="streak-count">0</span>
           </span>
           <span class="midi-status disconnected" id="midi-status">MIDI: disconnected</span>
@@ -61,25 +68,25 @@
       <div id="view-practice" class="view view--active">
         <div class="practice-modes">
           <button class="mode-btn mode-btn--active" id="mode-lessons">
-            <span class="material-symbols-outlined" style="font-size:16px;">school</span>
+            <span class="material-symbols-outlined" style="font-size:16px;" aria-hidden="true">school</span>
             Lessons
           </button>
           <button class="mode-btn" id="mode-freeplay">
-            <span class="material-symbols-outlined" style="font-size:16px;">headphones</span>
+            <span class="material-symbols-outlined" style="font-size:16px;" aria-hidden="true">headphones</span>
             Free Play
           </button>
         </div>
 
         <div class="practice-empty-state" id="practice-empty-state">
-          <span class="material-symbols-outlined" style="font-size:48px; color: var(--color-text-muted, #999);">library_music</span>
+          <span class="material-symbols-outlined" style="font-size:48px; color: var(--on-surface-variant);" aria-hidden="true">library_music</span>
           <p style="font-size:18px; font-weight:600; margin: 12px 0 4px;">No tracks loaded</p>
-          <p style="color: var(--color-text-muted, #999); font-size:14px;">Drag an audio file onto a deck or click <strong>Load Track</strong> to get started</p>
+          <p style="color: var(--on-surface-variant); font-size:14px;">Drag an audio file onto a deck or click <strong>Load Track</strong> to get started</p>
         </div>
 
-        <section class="waveforms">
+        <section class="waveforms" aria-label="Waveform displays">
           <div class="waveform-card waveform-display--a">
             <div class="waveform-card__label waveform-card__label--a">A</div>
-            <canvas class="waveform-card__canvas" id="waveform-a"></canvas>
+            <canvas class="waveform-card__canvas" id="waveform-a" role="img" aria-label="Deck A waveform display"></canvas>
             <div class="waveform-card__info">
               <span class="waveform-card__name" id="track-name-a">no track loaded</span>
               <span class="waveform-card__time" id="track-time-a">0:00 / 0:00</span>
@@ -87,7 +94,7 @@
           </div>
           <div class="waveform-card waveform-display--b">
             <div class="waveform-card__label waveform-card__label--b">B</div>
-            <canvas class="waveform-card__canvas" id="waveform-b"></canvas>
+            <canvas class="waveform-card__canvas" id="waveform-b" role="img" aria-label="Deck B waveform display"></canvas>
             <div class="waveform-card__info">
               <span class="waveform-card__name" id="track-name-b">no track loaded</span>
               <span class="waveform-card__time" id="track-time-b">0:00 / 0:00</span>
@@ -95,13 +102,13 @@
           </div>
         </section>
 
-        <section class="mixer">
+        <section class="mixer" aria-label="DJ Mixer">
           <!-- Deck A -->
-          <div class="deck deck--a">
+          <div class="deck deck--a" role="group" aria-label="Deck A">
             <div class="deck__header">
               <span class="deck__badge deck__badge--a">Deck A</span>
               <button class="deck__load-btn" id="load-a">
-                <span class="material-symbols-outlined">upload_file</span>
+                <span class="material-symbols-outlined" aria-hidden="true">upload_file</span>
                 Load Track
               </button>
               <input type="file" id="file-a" accept="audio/*" hidden />
@@ -110,63 +117,63 @@
             <div class="deck__controls">
               <div class="deck__knobs">
                 <div class="knob-group">
-                  <label class="knob-group__label">Gain</label>
-                  <input type="range" class="knob" id="gain-a" min="0" max="200" value="100" orient="vertical" />
+                  <label class="knob-group__label" for="gain-a">Gain</label>
+                  <input type="range" class="knob" id="gain-a" aria-label="Deck A gain" min="0" max="200" value="100" orient="vertical" />
                 </div>
                 <div class="knob-group">
-                  <label class="knob-group__label">Hi</label>
-                  <input type="range" class="knob" id="eq-high-a" min="-24" max="6" value="0" orient="vertical" />
+                  <label class="knob-group__label" for="eq-high-a">Hi</label>
+                  <input type="range" class="knob" id="eq-high-a" aria-label="Deck A high EQ" min="-24" max="6" value="0" orient="vertical" />
                 </div>
                 <div class="knob-group">
-                  <label class="knob-group__label">Mid</label>
-                  <input type="range" class="knob" id="eq-mid-a" min="-24" max="6" value="0" orient="vertical" />
+                  <label class="knob-group__label" for="eq-mid-a">Mid</label>
+                  <input type="range" class="knob" id="eq-mid-a" aria-label="Deck A mid EQ" min="-24" max="6" value="0" orient="vertical" />
                 </div>
                 <div class="knob-group">
-                  <label class="knob-group__label">Low</label>
-                  <input type="range" class="knob" id="eq-low-a" min="-24" max="6" value="0" orient="vertical" />
+                  <label class="knob-group__label" for="eq-low-a">Low</label>
+                  <input type="range" class="knob" id="eq-low-a" aria-label="Deck A low EQ" min="-24" max="6" value="0" orient="vertical" />
                 </div>
                 <div class="knob-group">
-                  <label class="knob-group__label">Filter</label>
-                  <input type="range" class="knob" id="filter-a" min="0" max="100" value="50" orient="vertical" />
+                  <label class="knob-group__label" for="filter-a">Filter</label>
+                  <input type="range" class="knob" id="filter-a" aria-label="Deck A filter" min="0" max="100" value="50" orient="vertical" />
                 </div>
               </div>
 
               <div class="deck__faders">
                 <div class="fader-group">
-                  <label class="fader-group__label">Volume</label>
-                  <input type="range" class="fader" id="volume-a" min="0" max="100" value="80" orient="vertical" />
+                  <label class="fader-group__label" for="volume-a">Volume</label>
+                  <input type="range" class="fader" id="volume-a" aria-label="Deck A volume" min="0" max="100" value="80" orient="vertical" />
                 </div>
                 <div class="fader-group">
-                  <label class="fader-group__label">Pitch</label>
-                  <input type="range" class="fader" id="pitch-a" min="-8" max="8" value="0" step="0.1" orient="vertical" />
+                  <label class="fader-group__label" for="pitch-a">Pitch</label>
+                  <input type="range" class="fader" id="pitch-a" aria-label="Deck A pitch" min="-8" max="8" value="0" step="0.1" orient="vertical" />
                 </div>
               </div>
             </div>
 
             <div class="deck__transport">
-              <button class="transport-btn transport-btn--play transport-btn--a" id="play-a">
-                <span class="material-symbols-outlined">play_arrow</span>
+              <button class="transport-btn transport-btn--play transport-btn--a" id="play-a" aria-label="Play Deck A">
+                <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>
               </button>
-              <button class="transport-btn transport-btn--a" id="cue-a">
-                <span class="material-symbols-outlined">stop</span>
+              <button class="transport-btn transport-btn--a" id="cue-a" aria-label="Cue Deck A">
+                <span class="material-symbols-outlined" aria-hidden="true">stop</span>
               </button>
-              <button class="transport-btn transport-btn--a" id="sync-a">
-                <span class="material-symbols-outlined">sync</span>
+              <button class="transport-btn transport-btn--a" id="sync-a" aria-label="Sync Deck A">
+                <span class="material-symbols-outlined" aria-hidden="true">sync</span>
               </button>
             </div>
 
             <div class="deck__pads">
-              <button class="pad-btn pad-btn--a" id="pad-1-a">1</button>
-              <button class="pad-btn pad-btn--a" id="pad-2-a">2</button>
-              <button class="pad-btn pad-btn--a" id="pad-3-a">3</button>
-              <button class="pad-btn pad-btn--a" id="pad-4-a">4</button>
+              <button class="pad-btn pad-btn--a" id="pad-1-a" aria-label="Hot cue 1, Deck A">1</button>
+              <button class="pad-btn pad-btn--a" id="pad-2-a" aria-label="Hot cue 2, Deck A">2</button>
+              <button class="pad-btn pad-btn--a" id="pad-3-a" aria-label="Hot cue 3, Deck A">3</button>
+              <button class="pad-btn pad-btn--a" id="pad-4-a" aria-label="Hot cue 4, Deck A">4</button>
             </div>
           </div>
 
           <!-- Crossfader -->
           <div class="crossfader-section">
-            <div class="crossfader-section__label">Crossfader</div>
-            <input type="range" class="crossfader-section__input" id="crossfader" min="-100" max="100" value="0" />
+            <label class="crossfader-section__label" for="crossfader">Crossfader</label>
+            <input type="range" class="crossfader-section__input" id="crossfader" aria-label="Crossfader" min="-100" max="100" value="0" />
             <div class="crossfader-section__markers">
               <span>A</span>
               <span>B</span>
@@ -174,11 +181,11 @@
           </div>
 
           <!-- Deck B -->
-          <div class="deck deck--b">
+          <div class="deck deck--b" role="group" aria-label="Deck B">
             <div class="deck__header">
               <span class="deck__badge deck__badge--b">Deck B</span>
               <button class="deck__load-btn" id="load-b">
-                <span class="material-symbols-outlined">upload_file</span>
+                <span class="material-symbols-outlined" aria-hidden="true">upload_file</span>
                 Load Track
               </button>
               <input type="file" id="file-b" accept="audio/*" hidden />
@@ -187,56 +194,56 @@
             <div class="deck__controls">
               <div class="deck__knobs">
                 <div class="knob-group">
-                  <label class="knob-group__label">Gain</label>
-                  <input type="range" class="knob" id="gain-b" min="0" max="200" value="100" orient="vertical" />
+                  <label class="knob-group__label" for="gain-b">Gain</label>
+                  <input type="range" class="knob" id="gain-b" aria-label="Deck B gain" min="0" max="200" value="100" orient="vertical" />
                 </div>
                 <div class="knob-group">
-                  <label class="knob-group__label">Hi</label>
-                  <input type="range" class="knob" id="eq-high-b" min="-24" max="6" value="0" orient="vertical" />
+                  <label class="knob-group__label" for="eq-high-b">Hi</label>
+                  <input type="range" class="knob" id="eq-high-b" aria-label="Deck B high EQ" min="-24" max="6" value="0" orient="vertical" />
                 </div>
                 <div class="knob-group">
-                  <label class="knob-group__label">Mid</label>
-                  <input type="range" class="knob" id="eq-mid-b" min="-24" max="6" value="0" orient="vertical" />
+                  <label class="knob-group__label" for="eq-mid-b">Mid</label>
+                  <input type="range" class="knob" id="eq-mid-b" aria-label="Deck B mid EQ" min="-24" max="6" value="0" orient="vertical" />
                 </div>
                 <div class="knob-group">
-                  <label class="knob-group__label">Low</label>
-                  <input type="range" class="knob" id="eq-low-b" min="-24" max="6" value="0" orient="vertical" />
+                  <label class="knob-group__label" for="eq-low-b">Low</label>
+                  <input type="range" class="knob" id="eq-low-b" aria-label="Deck B low EQ" min="-24" max="6" value="0" orient="vertical" />
                 </div>
                 <div class="knob-group">
-                  <label class="knob-group__label">Filter</label>
-                  <input type="range" class="knob" id="filter-b" min="0" max="100" value="50" orient="vertical" />
+                  <label class="knob-group__label" for="filter-b">Filter</label>
+                  <input type="range" class="knob" id="filter-b" aria-label="Deck B filter" min="0" max="100" value="50" orient="vertical" />
                 </div>
               </div>
 
               <div class="deck__faders">
                 <div class="fader-group">
-                  <label class="fader-group__label">Volume</label>
-                  <input type="range" class="fader" id="volume-b" min="0" max="100" value="80" orient="vertical" />
+                  <label class="fader-group__label" for="volume-b">Volume</label>
+                  <input type="range" class="fader" id="volume-b" aria-label="Deck B volume" min="0" max="100" value="80" orient="vertical" />
                 </div>
                 <div class="fader-group">
-                  <label class="fader-group__label">Pitch</label>
-                  <input type="range" class="fader" id="pitch-b" min="-8" max="8" value="0" step="0.1" orient="vertical" />
+                  <label class="fader-group__label" for="pitch-b">Pitch</label>
+                  <input type="range" class="fader" id="pitch-b" aria-label="Deck B pitch" min="-8" max="8" value="0" step="0.1" orient="vertical" />
                 </div>
               </div>
             </div>
 
             <div class="deck__transport">
-              <button class="transport-btn transport-btn--play transport-btn--b" id="play-b">
-                <span class="material-symbols-outlined">play_arrow</span>
+              <button class="transport-btn transport-btn--play transport-btn--b" id="play-b" aria-label="Play Deck B">
+                <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>
               </button>
-              <button class="transport-btn transport-btn--b" id="cue-b">
-                <span class="material-symbols-outlined">stop</span>
+              <button class="transport-btn transport-btn--b" id="cue-b" aria-label="Cue Deck B">
+                <span class="material-symbols-outlined" aria-hidden="true">stop</span>
               </button>
-              <button class="transport-btn transport-btn--b" id="sync-b">
-                <span class="material-symbols-outlined">sync</span>
+              <button class="transport-btn transport-btn--b" id="sync-b" aria-label="Sync Deck B">
+                <span class="material-symbols-outlined" aria-hidden="true">sync</span>
               </button>
             </div>
 
             <div class="deck__pads">
-              <button class="pad-btn pad-btn--b" id="pad-1-b">1</button>
-              <button class="pad-btn pad-btn--b" id="pad-2-b">2</button>
-              <button class="pad-btn pad-btn--b" id="pad-3-b">3</button>
-              <button class="pad-btn pad-btn--b" id="pad-4-b">4</button>
+              <button class="pad-btn pad-btn--b" id="pad-1-b" aria-label="Hot cue 1, Deck B">1</button>
+              <button class="pad-btn pad-btn--b" id="pad-2-b" aria-label="Hot cue 2, Deck B">2</button>
+              <button class="pad-btn pad-btn--b" id="pad-3-b" aria-label="Hot cue 3, Deck B">3</button>
+              <button class="pad-btn pad-btn--b" id="pad-4-b" aria-label="Hot cue 4, Deck B">4</button>
             </div>
           </div>
         </section>
@@ -260,24 +267,13 @@
             <p class="learn-header__subtitle">Master the fundamentals one skill at a time</p>
           </div>
           <div class="learn-path">
-            <div class="learn-node learn-node--complete" data-lesson="getting-started" role="button" tabindex="0">
-              <div class="learn-node__icon">
-                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-              </div>
-              <div class="learn-node__info">
-                <h3>Getting Started</h3>
-                <p>Load tracks, play &amp; pause</p>
-              </div>
-              <span class="learn-node__badge learn-node__badge--complete">Done</span>
-            </div>
-            <div class="learn-path__connector"></div>
-            <div class="learn-node learn-node--active" data-lesson="volume-crossfader" role="button" tabindex="0">
+            <div class="learn-node learn-node--active" data-lesson="basics-load-play" role="button" tabindex="0">
               <div class="learn-node__icon learn-node__icon--active">
                 <span class="material-symbols-outlined">headphones</span>
               </div>
               <div class="learn-node__info">
-                <h3>Volume &amp; Crossfader</h3>
-                <p>Blend between two tracks</p>
+                <h3>Load &amp; Play</h3>
+                <p>Load a track onto a deck and start playback</p>
               </div>
               <span class="learn-node__badge learn-node__badge--active">In Progress</span>
             </div>
@@ -287,8 +283,8 @@
                 <span class="material-symbols-outlined">lock</span>
               </div>
               <div class="learn-node__info">
-                <h3>EQ Basics</h3>
-                <p>Shape your sound with Hi, Mid, Low</p>
+                <h3>EQ Sweep</h3>
+                <p>Learn how EQ knobs shape the sound</p>
               </div>
               <span class="learn-node__badge learn-node__badge--locked">Locked</span>
             </div>
@@ -298,8 +294,8 @@
                 <span class="material-symbols-outlined">lock</span>
               </div>
               <div class="learn-node__info">
-                <h3>Beatmatching</h3>
-                <p>Match tempos using the pitch fader</p>
+                <h3>Pitch Matching</h3>
+                <p>Match the BPM of Deck B to Deck A</p>
               </div>
               <span class="learn-node__badge learn-node__badge--locked">Locked</span>
             </div>
@@ -309,8 +305,8 @@
                 <span class="material-symbols-outlined">lock</span>
               </div>
               <div class="learn-node__info">
-                <h3>Smooth Transitions</h3>
-                <p>Combine EQ, volume &amp; crossfader</p>
+                <h3>The Bass Swap</h3>
+                <p>Swap bass frequencies between decks at a phrase boundary</p>
               </div>
               <span class="learn-node__badge learn-node__badge--locked">Locked</span>
             </div>
@@ -320,8 +316,19 @@
                 <span class="material-symbols-outlined">lock</span>
               </div>
               <div class="learn-node__info">
-                <h3>Creative Mixing</h3>
-                <p>Filters, hot cues &amp; effects</p>
+                <h3>Frequency Swap</h3>
+                <p>Swap mids and highs between decks for a smooth blend</p>
+              </div>
+              <span class="learn-node__badge learn-node__badge--locked">Locked</span>
+            </div>
+            <div class="learn-path__connector"></div>
+            <div class="learn-node learn-node--locked">
+              <div class="learn-node__icon learn-node__icon--locked">
+                <span class="material-symbols-outlined">lock</span>
+              </div>
+              <div class="learn-node__info">
+                <h3>Phase Alignment</h3>
+                <p>Nudge Deck B so its beats land on top of Deck A's</p>
               </div>
               <span class="learn-node__badge learn-node__badge--locked">Locked</span>
             </div>
@@ -380,7 +387,7 @@
         <div class="profile-page">
           <div class="profile-card">
             <div class="profile-card__avatar">
-              <span class="material-symbols-outlined" style="font-size:48px;">person</span>
+              <span class="material-symbols-outlined" style="font-size:48px;" aria-hidden="true">person</span>
             </div>
             <h2 class="profile-card__name">DJ Learner</h2>
             <p class="profile-card__level" id="profile-level">Level 1 — Beginner</p>
@@ -412,7 +419,7 @@
           <h2 class="settings-page__title">Settings</h2>
           <div class="settings-section">
             <h3 class="settings-section__title">
-              <span class="material-symbols-outlined">piano</span>
+              <span class="material-symbols-outlined" aria-hidden="true">piano</span>
               MIDI Controller
             </h3>
             <div class="settings-row">
@@ -427,7 +434,7 @@
           </div>
           <div class="settings-section">
             <h3 class="settings-section__title">
-              <span class="material-symbols-outlined">volume_up</span>
+              <span class="material-symbols-outlined" aria-hidden="true">volume_up</span>
               Audio Output
             </h3>
             <div class="settings-row">
@@ -438,16 +445,38 @@
           </div>
           <div class="settings-section">
             <h3 class="settings-section__title">
-              <span class="material-symbols-outlined">tune</span>
+              <span class="material-symbols-outlined" aria-hidden="true">tune</span>
               Lesson Preferences
             </h3>
             <div class="settings-row">
-              <span class="settings-row__label">Difficulty</span>
-              <span class="settings-row__value">Beginner</span>
+              <label class="settings-row__label" for="settings-difficulty">Difficulty</label>
+              <select id="settings-difficulty" class="settings-select">
+                <option value="beginner" selected>Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </select>
             </div>
             <div class="settings-row">
-              <span class="settings-row__label">Session Length</span>
-              <span class="settings-row__value">~15 minutes</span>
+              <label class="settings-row__label" for="settings-session-length">Session Length</label>
+              <select id="settings-session-length" class="settings-select">
+                <option value="10">~10 minutes</option>
+                <option value="15" selected>~15 minutes</option>
+                <option value="20">~20 minutes</option>
+              </select>
+            </div>
+          </div>
+          <div class="settings-section">
+            <h3 class="settings-section__title">
+              <span class="material-symbols-outlined" aria-hidden="true">palette</span>
+              Appearance
+            </h3>
+            <div class="settings-row">
+              <label class="settings-row__label" for="settings-theme">Theme</label>
+              <select id="settings-theme" class="settings-select">
+                <option value="system" selected>System</option>
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+              </select>
             </div>
           </div>
         </div>
@@ -460,7 +489,7 @@
       </div>
 
       <!-- ========== MIN WIDTH OVERLAY ========== -->
-      <div class="min-width-overlay" id="min-width-overlay">
+      <div class="min-width-overlay" id="min-width-overlay" aria-hidden="true">
         <span class="material-symbols-outlined" style="font-size: 48px; margin-bottom: 12px;">desktop_windows</span>
         <p>Please use a wider screen</p>
         <span>Onset needs at least 1200px</span>

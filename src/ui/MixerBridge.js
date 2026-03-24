@@ -71,6 +71,9 @@ export class MixerBridge {
         // State pitch is -8 to +8 (percent). Audio engine wants rate 0.92–1.08.
         d.setPitch(1 + /** @type {number} */ (value) / 100);
         break;
+      case 'filter':
+        d.setFilter(/** @type {number} */ (value));
+        break;
       case 'isPlaying':
         if (value) {
           d.play();

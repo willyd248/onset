@@ -47,11 +47,18 @@ export class Deck extends EventTarget {
     this._gainNode = this._ctx.createGain();
     this._gainNode.gain.value = 0.8;
 
-    // Chain: preGain → eqLow → eqMid → eqHigh → gain(volume)
+    // Filter (lowpass/highpass sweep)
+    this._filter = this._ctx.createBiquadFilter();
+    this._filter.type = 'lowpass';
+    this._filter.frequency.value = 20000; // fully open
+    this._filter.Q.value = 0.707;
+
+    // Chain: preGain → eqLow → eqMid → eqHigh → filter → gain(volume)
     this._preGainNode.connect(this._eqLow);
     this._eqLow.connect(this._eqMid);
     this._eqMid.connect(this._eqHigh);
-    this._eqHigh.connect(this._gainNode);
+    this._eqHigh.connect(this._filter);
+    this._filter.connect(this._gainNode);
   }
 
   /**
@@ -60,6 +67,15 @@ export class Deck extends EventTarget {
    * @returns {Promise<void>}
    */
   async loadTrack(file) {
+    // Validate file type
+    const allowedTypes = ['audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/flac', 'audio/mp4', 'audio/aac', 'audio/webm', 'audio/x-m4a'];
+    const allowedExtensions = ['.mp3', '.wav', '.ogg', '.flac', '.m4a', '.aac', '.webm', '.opus'];
+    const ext = (file.name.toLowerCase().match(/\.[^.]+$/)?.[0]) || '';
+
+    if (!allowedTypes.includes(file.type) && !allowedExtensions.includes(ext)) {
+      throw new Error(`Unsupported file type: ${file.type || ext}. Use MP3, WAV, OGG, or FLAC.`);
+    }
+
     if (this._isPlaying) {
       this.pause();
     }
@@ -165,6 +181,28 @@ export class Deck extends EventTarget {
    */
   setEQHigh(value) {
     this._eqHigh.gain.value = Math.max(-24, Math.min(6, value));
+  }
+
+  /**
+   * Set filter sweep. 0.5 = neutral (fully open).
+   * Below 0.5 = lowpass sweep down, above 0.5 = highpass sweep up.
+   * @param {number} value — 0.0 to 1.0
+   */
+  setFilter(value) {
+    value = Math.max(0, Math.min(1, value));
+    if (value < 0.48) {
+      this._filter.type = 'lowpass';
+      const normalized = value / 0.48; // 0 → 1
+      this._filter.frequency.value = 200 + normalized * 19800; // 200Hz → 20kHz
+    } else if (value > 0.52) {
+      this._filter.type = 'highpass';
+      const normalized = (value - 0.52) / 0.48; // 0 → 1
+      this._filter.frequency.value = 20 + normalized * 4980; // 20Hz → 5kHz
+    } else {
+      // Dead zone around center = fully open
+      this._filter.type = 'lowpass';
+      this._filter.frequency.value = 20000;
+    }
   }
 
   /**

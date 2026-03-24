@@ -51,6 +51,14 @@ export class AudioEngine extends EventTarget {
       await this._ctx.resume();
     }
     this._initialized = true;
+
+    // Auto-resume if browser suspends the context (tab blur, resource limits)
+    this._ctx.addEventListener('statechange', () => {
+      if (this._initialized && this._ctx.state === 'suspended') {
+        this._ctx.resume().catch(() => {});
+      }
+    });
+
     this.dispatchEvent(new Event('initialized'));
   }
 

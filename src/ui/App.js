@@ -20,6 +20,7 @@ import { LessonEngine } from '../lessons/LessonEngine.js';
 import { PerformanceTips } from './PerformanceTips.js';
 import { Toast } from './Toast.js';
 import { ErrorOverlay } from './ErrorOverlay.js';
+import { SettingsManager } from './SettingsManager.js';
 
 export class App {
   constructor() {
@@ -162,6 +163,14 @@ export class App {
     // 20. Update settings MIDI status
     this._setupSettingsMIDIStatus();
 
+    // 21a. Init settings manager (theme, difficulty, session length)
+    this._settingsManager = new SettingsManager();
+
+    // 21. Save practice time on page unload
+    window.addEventListener('beforeunload', () => {
+      this._lessonEngine.progress.endSession();
+    });
+
     console.log('onset initialized');
   }
 
@@ -204,6 +213,12 @@ export class App {
           this._mixerBridge.init();
         }
       }
+    });
+
+    this._midiController.addEventListener('disconnected', () => {
+      // Allow re-creation on next connect
+      this._midiRouter = null;
+      this._ledFeedback = null;
     });
 
     this._midiController.addEventListener('error', () => {
@@ -323,6 +338,11 @@ export class App {
   async _loadTrack(deckName, file) {
     const deck = this._decks[deckName];
     const renderer = this._waveformRenderers[deckName];
+    const nameEl = document.getElementById(`track-name-${deckName.toLowerCase()}`);
+    const trackName = file.name.replace(/\.[^/.]+$/, '');
+
+    // Show loading state
+    if (nameEl) nameEl.textContent = 'Loading...';
 
     try {
       // Load audio into deck
@@ -334,10 +354,10 @@ export class App {
       // Hide empty state
       if (this._emptyStateEl) this._emptyStateEl.hidden = true;
 
-      // Update track name in UI
-      const nameEl = document.getElementById(`track-name-${deckName.toLowerCase()}`);
+      // Update track name in UI with tooltip for long names
       if (nameEl) {
-        nameEl.textContent = file.name.replace(/\.[^/.]+$/, '');
+        nameEl.textContent = trackName;
+        nameEl.title = trackName;
       }
 
       // Generate waveform data from the decoded buffer
@@ -351,10 +371,11 @@ export class App {
         renderer.start(() => deck.currentTime);
       }
     } catch (err) {
-      ErrorOverlay.show(
-        'Could not load track',
-        'The audio file could not be decoded. Please try a different file (MP3, WAV, OGG, or FLAC).'
-      );
+      if (nameEl) nameEl.textContent = 'no track loaded';
+      const message = err.message?.startsWith('Unsupported file type')
+        ? err.message
+        : 'The audio file could not be decoded. Please try a different file (MP3, WAV, OGG, or FLAC).';
+      ErrorOverlay.show('Could not load track', message);
     }
   }
 
@@ -422,12 +443,14 @@ export class App {
 
   /** @private */
   _enterLessonsMode() {
+    this._lessonEngine.progress.endSession(); // close any free play session
     this._tips.stop();
     this._lessonEngine.startSession();
   }
 
   /** @private */
   _enterFreePlayMode() {
+    this._lessonEngine.progress.startSession();
     this._tips.start();
   }
 
@@ -568,15 +591,15 @@ export class App {
     const completed = new Set(summary.completedLessonIds);
     const catalog = this._lessonEngine.library.getAll();
 
-    // Build a map of lesson node data in order
-    const learnPath = [
-      { id: 'basics-load-play', title: 'Getting Started', desc: 'Load tracks, play & pause' },
-      { id: 'basics-eq-sweep', title: 'Volume & Crossfader', desc: 'Blend between two tracks' },
-      { id: 'beatmatch-pitch', title: 'EQ Basics', desc: 'Shape your sound with Hi, Mid, Low' },
-      { id: 'transition-bass-swap', title: 'Beatmatching', desc: 'Match tempos using the pitch fader' },
-      { id: 'eq-mix-frequency-swap', title: 'Smooth Transitions', desc: 'Combine EQ, volume & crossfader' },
-      { id: 'beatmatch-phase', title: 'Creative Mixing', desc: 'Filters, hot cues & effects' },
+    // Build learn path from catalog data — ordered IDs, titles from catalog
+    const orderedIds = [
+      'basics-load-play', 'basics-eq-sweep', 'beatmatch-pitch',
+      'transition-bass-swap', 'eq-mix-frequency-swap', 'beatmatch-phase',
     ];
+    const learnPath = orderedIds.map(id => {
+      const lesson = catalog.find(l => l.id === id);
+      return { id, title: lesson?.title ?? id, desc: lesson?.description ?? '' };
+    });
 
     const nodes = document.querySelectorAll('.learn-node');
     nodes.forEach((node, i) => {

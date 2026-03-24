@@ -53,6 +53,21 @@
   padding: 0;
 }
 
+/* Focus styles for keyboard navigation */
+:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.transport-btn:focus-visible,
+.pad-btn:focus-visible {
+  outline-color: var(--primary-container);
+}
+
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
   background: var(--background);
@@ -466,7 +481,98 @@ input[type="range"] {
   display: none;
 }
 
+/* Settings select controls */
+.settings-select {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--on-surface);
+  background: var(--surface-container);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: border-color var(--transition-speed) ease;
+}
+
+.settings-select:hover {
+  border-color: var(--primary);
+}
+
 /* File drop zone active state — see waveform.css for deck-specific styles */
 .drop-active {
   transition: all var(--transition-speed) ease;
+}
+
+/* ── Dark Mode ─────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --primary: #84fb42;
+    --primary-container: #1d5200;
+    --primary-dim: #6de030;
+    --on-primary: #0d3900;
+    --on-primary-container: #a5ff6e;
+    --secondary: #d9a5ff;
+    --secondary-container: #5e0089;
+    --secondary-dim: #c88af5;
+    --on-secondary: #3a0057;
+    --on-secondary-container: #eec2ff;
+    --tertiary: #fec700;
+    --tertiary-container: #4a3800;
+    --on-tertiary-container: #ffe08a;
+    --background: #1a1c1c;
+    --surface: #1a1c1c;
+    --surface-lowest: #111313;
+    --surface-low: #1e2020;
+    --surface-container: #252727;
+    --surface-high: #2f3131;
+    --surface-highest: #3a3c3c;
+    --on-background: #e2e3e3;
+    --on-surface: #e2e3e3;
+    --on-surface-variant: #c0c1c1;
+    --outline: #8a8b8b;
+    --outline-variant: #454747;
+    --error: #ff7a56;
+    --error-container: #8c1d00;
+    --success: #84fb42;
+    --shadow-ambient: 0 20px 40px rgba(0, 0, 0, 0.3);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --shadow-glow-a: 0 10px 30px rgba(132, 251, 66, 0.2);
+    --shadow-glow-b: 0 10px 30px rgba(217, 165, 255, 0.2);
+  }
+}
+
+[data-theme="dark"] {
+  --primary: #84fb42;
+  --primary-container: #1d5200;
+  --primary-dim: #6de030;
+  --on-primary: #0d3900;
+  --on-primary-container: #a5ff6e;
+  --secondary: #d9a5ff;
+  --secondary-container: #5e0089;
+  --secondary-dim: #c88af5;
+  --on-secondary: #3a0057;
+  --on-secondary-container: #eec2ff;
+  --tertiary: #fec700;
+  --tertiary-container: #4a3800;
+  --on-tertiary-container: #ffe08a;
+  --background: #1a1c1c;
+  --surface: #1a1c1c;
+  --surface-lowest: #111313;
+  --surface-low: #1e2020;
+  --surface-container: #252727;
+  --surface-high: #2f3131;
+  --surface-highest: #3a3c3c;
+  --on-background: #e2e3e3;
+  --on-surface: #e2e3e3;
+  --on-surface-variant: #c0c1c1;
+  --outline: #8a8b8b;
+  --outline-variant: #454747;
+  --error: #ff7a56;
+  --error-container: #8c1d00;
+  --success: #84fb42;
+  --shadow-ambient: 0 20px 40px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-glow-a: 0 10px 30px rgba(132, 251, 66, 0.2);
+  --shadow-glow-b: 0 10px 30px rgba(217, 165, 255, 0.2);
 }
