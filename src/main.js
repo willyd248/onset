@@ -1,9 +1,4 @@
-import './styles/main.css';
-import './styles/topbar.css';
-import './styles/waveform.css';
-import './styles/mixer.css';
-import './styles/lessons.css';
-import './styles/views.css';
+import './styles/custom.css';
 
 import { App } from './ui/App.js';
 

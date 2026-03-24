@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="light">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -23,483 +23,620 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#e1e3e3",
+              "outline-variant": "#acadad",
+              "on-primary-fixed": "#1a4700",
+              "tertiary-dim": "#644c00",
+              "primary-fixed-dim": "#76ec33",
+              "inverse-primary": "#84fb42",
+              "primary-dim": "#235b00",
+              "background": "#f6f6f6",
+              "secondary-dim": "#7c18ac",
+              "on-primary-container": "#245c00",
+              "primary-container": "#84fb42",
+              "surface-bright": "#f6f6f6",
+              "surface-dim": "#d3d5d5",
+              "secondary-container": "#eec2ff",
+              "error": "#b02500",
+              "on-secondary-fixed-variant": "#7d19ad",
+              "on-tertiary-container": "#574300",
+              "on-surface-variant": "#5a5c5c",
+              "primary": "#2a6900",
+              "tertiary": "#725800",
+              "error-container": "#f95630",
+              "tertiary-fixed-dim": "#edba00",
+              "surface-container": "#e7e8e8",
+              "on-secondary-container": "#7303a3",
+              "on-tertiary": "#fff1d7",
+              "on-primary-fixed-variant": "#296700",
+              "secondary-fixed": "#eec2ff",
+              "on-error": "#ffefec",
+              "surface-variant": "#dbdddd",
+              "secondary-fixed-dim": "#e7afff",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-fixed": "#403000",
+              "surface": "#f6f6f6",
+              "on-tertiary-fixed-variant": "#634c00",
+              "surface-container-low": "#f0f1f1",
+              "surface-container-highest": "#dbdddd",
+              "on-background": "#2d2f2f",
+              "on-secondary-fixed": "#56007c",
+              "tertiary-container": "#fec700",
+              "on-surface": "#2d2f2f",
+              "on-secondary": "#feeeff",
+              "secondary": "#8a2ab9",
+              "surface-tint": "#2a6900",
+              "inverse-on-surface": "#9c9d9d",
+              "error-dim": "#b92902",
+              "on-primary": "#d5ffb9",
+              "outline": "#767777",
+              "on-error-container": "#520c00",
+              "tertiary-fixed": "#fec700",
+              "primary-fixed": "#84fb42",
+              "inverse-surface": "#0c0f0f"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans", "sans-serif"],
+              "body": ["Plus Jakarta Sans", "sans-serif"],
+              "label": ["Plus Jakarta Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
   </head>
-  <body>
-    <div id="app">
-      <!-- ========== TOP BAR ========== -->
-      <header class="top-bar">
-        <div class="top-bar__brand">
-          <img src="/logo.svg" alt="onset" class="top-bar__logo" height="24" />
-          <span class="top-bar__subtitle">learn to DJ</span>
-        </div>
+  <body class="bg-background font-body text-on-background min-h-screen overflow-hidden">
+    <div id="app" class="h-screen grid grid-cols-[auto_1fr] grid-rows-[64px_1fr]" style="grid-template-areas: 'sidebar topbar' 'sidebar content';">
 
-        <nav class="top-bar__nav" id="main-nav" aria-label="Main navigation">
-          <button class="nav-btn" data-view="learn">
+      <!-- ========== SIDEBAR NAVIGATION ========== -->
+      <aside class="hidden lg:flex fixed left-0 top-0 h-full w-60 flex-col p-5 z-40 bg-white rounded-r-xl shadow-[20px_0_40px_rgba(45,47,47,0.06)] pt-6" style="grid-area: sidebar;">
+        <div class="mb-8 px-3">
+          <div class="flex items-center gap-2 mb-0.5">
+            <img src="/logo.svg" alt="onset" class="h-6 w-auto" height="24" />
+            <span class="text-xs font-bold tracking-widest uppercase text-on-surface-variant">learn to DJ</span>
+          </div>
+        </div>
+        <nav class="flex flex-col gap-1 font-body font-bold text-sm tracking-widest uppercase" id="main-nav" aria-label="Main navigation">
+          <button class="nav-btn flex items-center gap-3 text-on-surface-variant px-5 py-3 hover:bg-surface-container-low rounded-full transition-all" data-view="learn">
             <span class="material-symbols-outlined" aria-hidden="true">school</span>
-            Learn
+            <span>Learn</span>
           </button>
-          <button class="nav-btn nav-btn--active" data-view="practice">
+          <button class="nav-btn nav-btn--active flex items-center gap-3 bg-primary-container text-primary rounded-full px-5 py-3 shadow-sm transition-all" data-view="practice">
             <span class="material-symbols-outlined" aria-hidden="true">headphones</span>
-            Practice
+            <span>Practice</span>
           </button>
-          <button class="nav-btn" data-view="stats">
+          <button class="nav-btn flex items-center gap-3 text-on-surface-variant px-5 py-3 hover:bg-surface-container-low rounded-full transition-all" data-view="stats">
             <span class="material-symbols-outlined" aria-hidden="true">bar_chart</span>
-            Stats
+            <span>Stats</span>
           </button>
-          <button class="nav-btn" data-view="profile">
+          <button class="nav-btn flex items-center gap-3 text-on-surface-variant px-5 py-3 hover:bg-surface-container-low rounded-full transition-all" data-view="profile">
             <span class="material-symbols-outlined" aria-hidden="true">person</span>
-            Profile
+            <span>Profile</span>
           </button>
-          <button class="nav-btn" data-view="settings">
+          <button class="nav-btn flex items-center gap-3 text-on-surface-variant px-5 py-3 hover:bg-surface-container-low rounded-full transition-all" data-view="settings">
             <span class="material-symbols-outlined" aria-hidden="true">settings</span>
-            Settings
+            <span>Settings</span>
           </button>
         </nav>
+      </aside>
 
-        <div class="top-bar__right">
-          <span class="streak-badge" id="streak-badge" aria-label="Practice streak" aria-live="polite">
-            <span class="material-symbols-outlined streak-icon" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">local_fire_department</span>
-            <span class="streak-count" id="streak-count">0</span>
+      <!-- ========== TOP BAR ========== -->
+      <header class="top-bar fixed top-0 left-0 lg:left-60 right-0 z-30 flex justify-between items-center px-6 h-16 bg-surface-container-lowest" style="grid-area: topbar;">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl font-black text-primary tracking-tighter lg:hidden">onset</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="streak-badge flex items-center gap-1.5 bg-tertiary-container rounded-full px-3.5 py-1 shadow-sm" id="streak-badge" aria-label="Practice streak" aria-live="polite">
+            <span class="material-symbols-outlined text-on-tertiary-container text-lg streak-icon" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">local_fire_department</span>
+            <span class="font-bold text-sm text-on-tertiary-container streak-count" id="streak-count">0</span>
+            <span class="font-bold text-xs text-on-tertiary-container tracking-wider uppercase hidden sm:inline">days</span>
           </span>
-          <span class="midi-status disconnected" id="midi-status">MIDI: disconnected</span>
+          <span class="midi-status flex items-center text-xs font-semibold px-3.5 py-1 border-2 rounded-full disconnected" id="midi-status">MIDI: disconnected</span>
         </div>
       </header>
 
-      <!-- ========== VIEW: PRACTICE (mixer) ========== -->
-      <div id="view-practice" class="view view--active">
-        <div class="practice-modes">
-          <button class="mode-btn mode-btn--active" id="mode-lessons">
-            <span class="material-symbols-outlined" style="font-size:16px;" aria-hidden="true">school</span>
-            Lessons
-          </button>
-          <button class="mode-btn" id="mode-freeplay">
-            <span class="material-symbols-outlined" style="font-size:16px;" aria-hidden="true">headphones</span>
-            Free Play
-          </button>
+      <!-- ========== MAIN CONTENT ========== -->
+      <main class="lg:ml-60 mt-16 overflow-y-auto" style="grid-area: content;">
+
+        <!-- ========== VIEW: PRACTICE (mixer) ========== -->
+        <div id="view-practice" class="view view--active px-4 pb-4">
+          <!-- Practice Mode Toggle -->
+          <div class="practice-modes flex gap-0 bg-surface-container rounded-full p-0.5 justify-self-center mx-auto w-fit mt-3 mb-4">
+            <button class="mode-btn mode-btn--active flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider rounded-full px-4 py-1.5 transition-all" id="mode-lessons">
+              <span class="material-symbols-outlined" style="font-size:16px;" aria-hidden="true">school</span>
+              Lessons
+            </button>
+            <button class="mode-btn flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-on-surface-variant rounded-full px-4 py-1.5 transition-all hover:text-on-surface" id="mode-freeplay">
+              <span class="material-symbols-outlined" style="font-size:16px;" aria-hidden="true">headphones</span>
+              Free Play
+            </button>
+          </div>
+
+          <!-- Practice Empty State -->
+          <div class="practice-empty-state flex flex-col items-center justify-center text-center py-12 px-6" id="practice-empty-state">
+            <span class="material-symbols-outlined text-on-surface-variant" style="font-size:48px;" aria-hidden="true">library_music</span>
+            <p class="text-lg font-semibold mt-3 mb-1">No tracks loaded</p>
+            <p class="text-on-surface-variant text-sm">Drag an audio file onto a deck or click <strong>Load Track</strong> to get started</p>
+            <button class="demo-tracks-btn inline-flex items-center gap-1.5 mt-4 px-5 py-2.5 font-bold text-sm text-white bg-primary rounded-full hover:bg-primary-dim transition-all shadow-sm" id="demo-tracks-btn">
+              <span class="material-symbols-outlined" style="font-size:18px;" aria-hidden="true">play_circle</span>
+              Try with demo tracks
+            </button>
+          </div>
+
+          <!-- Waveform Section -->
+          <section class="waveforms grid grid-cols-2 gap-3 mb-4" aria-label="Waveform displays">
+            <div class="waveform-card waveform-display--a bg-surface-container-lowest rounded-xl p-3 relative overflow-hidden shadow-[0_20px_40px_rgba(45,47,47,0.06)]">
+              <div class="waveform-card__label waveform-card__label--a absolute top-2 left-4 text-2xl font-black text-primary opacity-[0.08] pointer-events-none">A</div>
+              <canvas class="waveform-card__canvas w-full rounded-lg bg-surface-container-low block" id="waveform-a" role="img" aria-label="Deck A waveform display" style="height: 64px;"></canvas>
+              <div class="waveform-card__info flex justify-between items-center mt-2 text-xs">
+                <span class="waveform-card__name text-on-surface-variant font-medium truncate max-w-[60%]" id="track-name-a">no track loaded</span>
+                <span class="waveform-card__bpm text-primary font-bold tabular-nums" id="track-bpm-a"></span>
+                <span class="waveform-card__time text-on-surface-variant font-semibold tabular-nums" id="track-time-a">0:00 / 0:00</span>
+              </div>
+            </div>
+            <div class="waveform-card waveform-display--b bg-surface-container-lowest rounded-xl p-3 relative overflow-hidden shadow-[0_20px_40px_rgba(45,47,47,0.06)]">
+              <div class="waveform-card__label waveform-card__label--b absolute top-2 left-4 text-2xl font-black text-secondary opacity-[0.08] pointer-events-none">B</div>
+              <canvas class="waveform-card__canvas w-full rounded-lg bg-surface-container-low block" id="waveform-b" role="img" aria-label="Deck B waveform display" style="height: 64px;"></canvas>
+              <div class="waveform-card__info flex justify-between items-center mt-2 text-xs">
+                <span class="waveform-card__name text-on-surface-variant font-medium truncate max-w-[60%]" id="track-name-b">no track loaded</span>
+                <span class="waveform-card__bpm text-secondary font-bold tabular-nums" id="track-bpm-b"></span>
+                <span class="waveform-card__time text-on-surface-variant font-semibold tabular-nums" id="track-time-b">0:00 / 0:00</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Mixer Section -->
+          <section class="mixer grid grid-cols-[1fr_auto_1fr] gap-3" aria-label="DJ Mixer">
+            <!-- Deck A -->
+            <div class="deck deck--a bg-primary-container/10 p-5 rounded-xl border-4 border-primary-container flex flex-col shadow-[0_20px_40px_rgba(45,47,47,0.06)]" role="group" aria-label="Deck A">
+              <div class="deck__header flex justify-between items-center mb-4">
+                <div class="flex flex-col">
+                  <span class="deck__badge deck__badge--a text-[0.65rem] font-bold tracking-[0.15em] uppercase text-primary">Deck A</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button class="deck__load-btn flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-on-surface-variant bg-transparent border-none cursor-pointer px-2 py-1 rounded-lg hover:bg-surface-container hover:text-on-surface transition-all" id="load-a">
+                    <span class="material-symbols-outlined text-lg" aria-hidden="true">upload_file</span>
+                    Load
+                  </button>
+                  <input type="file" id="file-a" accept="audio/*" hidden />
+                </div>
+              </div>
+
+              <!-- Transport -->
+              <div class="deck__transport flex gap-2 justify-center mb-4">
+                <button class="transport-btn transport-btn--play transport-btn--a w-11 h-11 rounded-2xl bg-primary text-white flex items-center justify-center cursor-pointer border-none transition-all hover:bg-primary-dim active:scale-95" id="play-a" aria-label="Play Deck A">
+                  <span class="material-symbols-outlined text-xl" aria-hidden="true">play_arrow</span>
+                </button>
+                <button class="transport-btn transport-btn--a w-11 h-11 rounded-2xl border-2 border-primary text-primary bg-surface-container-lowest flex items-center justify-center cursor-pointer transition-all hover:bg-primary-container/20 active:scale-95" id="cue-a" aria-label="Cue Deck A">
+                  <span class="material-symbols-outlined text-xl" aria-hidden="true">stop</span>
+                </button>
+                <button class="transport-btn transport-btn--a w-11 h-11 rounded-2xl border-2 border-primary text-primary bg-surface-container-lowest flex items-center justify-center cursor-pointer transition-all hover:bg-primary-container/20 active:scale-95" id="sync-a" aria-label="Sync Deck A">
+                  <span class="material-symbols-outlined text-xl" aria-hidden="true">sync</span>
+                </button>
+              </div>
+
+              <!-- Controls: Faders -->
+              <div class="deck__controls flex gap-4 justify-center mb-4">
+                <div class="deck__faders flex gap-4 justify-center">
+                  <div class="fader-group flex flex-col items-center gap-1.5">
+                    <label class="fader-group__label text-[0.6rem] font-black tracking-widest uppercase text-on-surface-variant" for="volume-a">Volume</label>
+                    <input type="range" class="fader accent-primary" id="volume-a" aria-label="Deck A volume" min="0" max="100" value="80" orient="vertical" />
+                  </div>
+                  <div class="fader-group flex flex-col items-center gap-1.5">
+                    <label class="fader-group__label text-[0.6rem] font-black tracking-widest uppercase text-on-surface-variant" for="pitch-a">Tempo</label>
+                    <input type="range" class="fader accent-primary" id="pitch-a" aria-label="Deck A pitch" min="-8" max="8" value="0" step="0.1" orient="vertical" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- EQ Knobs -->
+              <div class="deck__knobs flex gap-3 justify-center mb-3">
+                <div class="knob-group flex flex-col items-center gap-1.5">
+                  <input type="range" class="knob accent-primary" id="eq-low-a" aria-label="Deck A low EQ" min="-24" max="6" value="0" orient="vertical" />
+                  <label class="knob-group__label text-[0.55rem] font-black tracking-widest uppercase text-on-surface-variant" for="eq-low-a">Low</label>
+                </div>
+                <div class="knob-group flex flex-col items-center gap-1.5">
+                  <input type="range" class="knob accent-primary" id="eq-mid-a" aria-label="Deck A mid EQ" min="-24" max="6" value="0" orient="vertical" />
+                  <label class="knob-group__label text-[0.55rem] font-black tracking-widest uppercase text-on-surface-variant" for="eq-mid-a">Mid</label>
+                </div>
+                <div class="knob-group flex flex-col items-center gap-1.5">
+                  <input type="range" class="knob accent-primary" id="eq-high-a" aria-label="Deck A high EQ" min="-24" max="6" value="0" orient="vertical" />
+                  <label class="knob-group__label text-[0.55rem] font-black tracking-widest uppercase text-on-surface-variant" for="eq-high-a">High</label>
+                </div>
+              </div>
+
+              <!-- Hidden controls (gain, filter) - still accessible by JS -->
+              <div class="hidden">
+                <input type="range" class="knob" id="gain-a" aria-label="Deck A gain" min="0" max="200" value="100" orient="vertical" />
+                <input type="range" class="knob" id="filter-a" aria-label="Deck A filter" min="0" max="100" value="50" orient="vertical" />
+              </div>
+
+              <!-- Hot Cue Pads -->
+              <div class="deck__pads grid grid-cols-4 gap-1.5 mt-2">
+                <button class="pad-btn pad-btn--a w-9 h-9 rounded-lg border-2 border-primary text-primary bg-surface-container-lowest font-bold text-xs cursor-pointer transition-all hover:bg-primary-container/20 active:scale-95" id="pad-1-a" aria-label="Hot cue 1, Deck A">1</button>
+                <button class="pad-btn pad-btn--a w-9 h-9 rounded-lg border-2 border-primary text-primary bg-surface-container-lowest font-bold text-xs cursor-pointer transition-all hover:bg-primary-container/20 active:scale-95" id="pad-2-a" aria-label="Hot cue 2, Deck A">2</button>
+                <button class="pad-btn pad-btn--a w-9 h-9 rounded-lg border-2 border-primary text-primary bg-surface-container-lowest font-bold text-xs cursor-pointer transition-all hover:bg-primary-container/20 active:scale-95" id="pad-3-a" aria-label="Hot cue 3, Deck A">3</button>
+                <button class="pad-btn pad-btn--a w-9 h-9 rounded-lg border-2 border-primary text-primary bg-surface-container-lowest font-bold text-xs cursor-pointer transition-all hover:bg-primary-container/20 active:scale-95" id="pad-4-a" aria-label="Hot cue 4, Deck A">4</button>
+              </div>
+            </div>
+
+            <!-- Crossfader -->
+            <div class="crossfader-section bg-surface-container-low p-5 rounded-xl flex flex-col items-center justify-center min-w-[160px] shadow-[0_20px_40px_rgba(45,47,47,0.06)]">
+              <label class="crossfader-section__label text-[0.6rem] font-black tracking-[0.2em] uppercase text-on-surface-variant mb-3" for="crossfader">Crossfader</label>
+              <input type="range" class="crossfader-section__input w-full h-6" id="crossfader" aria-label="Crossfader" min="-100" max="100" value="0" />
+              <div class="crossfader-section__markers flex justify-between w-full mt-2 px-1">
+                <span class="text-xs font-bold text-primary">A</span>
+                <span class="text-xs font-bold text-secondary">B</span>
+              </div>
+            </div>
+
+            <!-- Deck B -->
+            <div class="deck deck--b bg-secondary-container/10 p-5 rounded-xl border-4 border-secondary-container flex flex-col shadow-[0_20px_40px_rgba(45,47,47,0.06)]" role="group" aria-label="Deck B">
+              <div class="deck__header flex justify-between items-center mb-4">
+                <div class="flex flex-col">
+                  <span class="deck__badge deck__badge--b text-[0.65rem] font-bold tracking-[0.15em] uppercase text-secondary">Deck B</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button class="deck__load-btn flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-on-surface-variant bg-transparent border-none cursor-pointer px-2 py-1 rounded-lg hover:bg-surface-container hover:text-on-surface transition-all" id="load-b">
+                    <span class="material-symbols-outlined text-lg" aria-hidden="true">upload_file</span>
+                    Load
+                  </button>
+                  <input type="file" id="file-b" accept="audio/*" hidden />
+                </div>
+              </div>
+
+              <!-- Transport -->
+              <div class="deck__transport flex gap-2 justify-center mb-4">
+                <button class="transport-btn transport-btn--play transport-btn--b w-11 h-11 rounded-2xl bg-secondary text-white flex items-center justify-center cursor-pointer border-none transition-all hover:bg-secondary-dim active:scale-95" id="play-b" aria-label="Play Deck B">
+                  <span class="material-symbols-outlined text-xl" aria-hidden="true">play_arrow</span>
+                </button>
+                <button class="transport-btn transport-btn--b w-11 h-11 rounded-2xl border-2 border-secondary text-secondary bg-surface-container-lowest flex items-center justify-center cursor-pointer transition-all hover:bg-secondary-container/20 active:scale-95" id="cue-b" aria-label="Cue Deck B">
+                  <span class="material-symbols-outlined text-xl" aria-hidden="true">stop</span>
+                </button>
+                <button class="transport-btn transport-btn--b w-11 h-11 rounded-2xl border-2 border-secondary text-secondary bg-surface-container-lowest flex items-center justify-center cursor-pointer transition-all hover:bg-secondary-container/20 active:scale-95" id="sync-b" aria-label="Sync Deck B">
+                  <span class="material-symbols-outlined text-xl" aria-hidden="true">sync</span>
+                </button>
+              </div>
+
+              <!-- Controls: Faders -->
+              <div class="deck__controls flex gap-4 justify-center mb-4">
+                <div class="deck__faders flex gap-4 justify-center">
+                  <div class="fader-group flex flex-col items-center gap-1.5">
+                    <label class="fader-group__label text-[0.6rem] font-black tracking-widest uppercase text-on-surface-variant" for="volume-b">Volume</label>
+                    <input type="range" class="fader accent-secondary" id="volume-b" aria-label="Deck B volume" min="0" max="100" value="80" orient="vertical" />
+                  </div>
+                  <div class="fader-group flex flex-col items-center gap-1.5">
+                    <label class="fader-group__label text-[0.6rem] font-black tracking-widest uppercase text-on-surface-variant" for="pitch-b">Tempo</label>
+                    <input type="range" class="fader accent-secondary" id="pitch-b" aria-label="Deck B pitch" min="-8" max="8" value="0" step="0.1" orient="vertical" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- EQ Knobs -->
+              <div class="deck__knobs flex gap-3 justify-center mb-3">
+                <div class="knob-group flex flex-col items-center gap-1.5">
+                  <input type="range" class="knob accent-secondary" id="eq-low-b" aria-label="Deck B low EQ" min="-24" max="6" value="0" orient="vertical" />
+                  <label class="knob-group__label text-[0.55rem] font-black tracking-widest uppercase text-on-surface-variant" for="eq-low-b">Low</label>
+                </div>
+                <div class="knob-group flex flex-col items-center gap-1.5">
+                  <input type="range" class="knob accent-secondary" id="eq-mid-b" aria-label="Deck B mid EQ" min="-24" max="6" value="0" orient="vertical" />
+                  <label class="knob-group__label text-[0.55rem] font-black tracking-widest uppercase text-on-surface-variant" for="eq-mid-b">Mid</label>
+                </div>
+                <div class="knob-group flex flex-col items-center gap-1.5">
+                  <input type="range" class="knob accent-secondary" id="eq-high-b" aria-label="Deck B high EQ" min="-24" max="6" value="0" orient="vertical" />
+                  <label class="knob-group__label text-[0.55rem] font-black tracking-widest uppercase text-on-surface-variant" for="eq-high-b">High</label>
+                </div>
+              </div>
+
+              <!-- Hidden controls (gain, filter) -->
+              <div class="hidden">
+                <input type="range" class="knob" id="gain-b" aria-label="Deck B gain" min="0" max="200" value="100" orient="vertical" />
+                <input type="range" class="knob" id="filter-b" aria-label="Deck B filter" min="0" max="100" value="50" orient="vertical" />
+              </div>
+
+              <!-- Hot Cue Pads -->
+              <div class="deck__pads grid grid-cols-4 gap-1.5 mt-2">
+                <button class="pad-btn pad-btn--b w-9 h-9 rounded-lg border-2 border-secondary text-secondary bg-surface-container-lowest font-bold text-xs cursor-pointer transition-all hover:bg-secondary-container/20 active:scale-95" id="pad-1-b" aria-label="Hot cue 1, Deck B">1</button>
+                <button class="pad-btn pad-btn--b w-9 h-9 rounded-lg border-2 border-secondary text-secondary bg-surface-container-lowest font-bold text-xs cursor-pointer transition-all hover:bg-secondary-container/20 active:scale-95" id="pad-2-b" aria-label="Hot cue 2, Deck B">2</button>
+                <button class="pad-btn pad-btn--b w-9 h-9 rounded-lg border-2 border-secondary text-secondary bg-surface-container-lowest font-bold text-xs cursor-pointer transition-all hover:bg-secondary-container/20 active:scale-95" id="pad-3-b" aria-label="Hot cue 3, Deck B">3</button>
+                <button class="pad-btn pad-btn--b w-9 h-9 rounded-lg border-2 border-secondary text-secondary bg-surface-container-lowest font-bold text-xs cursor-pointer transition-all hover:bg-secondary-container/20 active:scale-95" id="pad-4-b" aria-label="Hot cue 4, Deck B">4</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Lesson Panel -->
+          <section class="lesson-panel bg-surface-container-lowest rounded-t-xl shadow-[0_-8px_24px_rgba(45,47,47,0.06)] mt-3 overflow-hidden" style="max-height: 280px;">
+            <div class="lesson-panel__header flex justify-between items-center px-5 py-3 bg-surface-container rounded-t-xl">
+              <h2 class="text-sm font-extrabold uppercase tracking-widest text-on-surface">Lessons</h2>
+              <span class="lesson-panel__progress text-xs text-on-surface-variant tabular-nums font-semibold" id="lesson-progress" aria-live="polite"></span>
+            </div>
+            <div class="lesson-panel__content flex-1 overflow-y-auto px-5 py-4 text-sm" id="lesson-content" aria-live="polite" aria-atomic="true">
+              <p class="lesson-panel__placeholder text-on-surface-variant italic text-xs">Load a track to get started</p>
+            </div>
+          </section>
         </div>
 
-        <div class="practice-empty-state" id="practice-empty-state">
-          <span class="material-symbols-outlined" style="font-size:48px; color: var(--on-surface-variant);" aria-hidden="true">library_music</span>
-          <p style="font-size:18px; font-weight:600; margin: 12px 0 4px;">No tracks loaded</p>
-          <p style="color: var(--on-surface-variant); font-size:14px;">Drag an audio file onto a deck or click <strong>Load Track</strong> to get started</p>
-          <button class="demo-tracks-btn" id="demo-tracks-btn">
-            <span class="material-symbols-outlined" style="font-size:18px;" aria-hidden="true">play_circle</span>
-            Try with demo tracks
-          </button>
-        </div>
-
-        <section class="waveforms" aria-label="Waveform displays">
-          <div class="waveform-card waveform-display--a">
-            <div class="waveform-card__label waveform-card__label--a">A</div>
-            <canvas class="waveform-card__canvas" id="waveform-a" role="img" aria-label="Deck A waveform display"></canvas>
-            <div class="waveform-card__info">
-              <span class="waveform-card__name" id="track-name-a">no track loaded</span>
-              <span class="waveform-card__bpm" id="track-bpm-a"></span>
-              <span class="waveform-card__time" id="track-time-a">0:00 / 0:00</span>
-            </div>
-          </div>
-          <div class="waveform-card waveform-display--b">
-            <div class="waveform-card__label waveform-card__label--b">B</div>
-            <canvas class="waveform-card__canvas" id="waveform-b" role="img" aria-label="Deck B waveform display"></canvas>
-            <div class="waveform-card__info">
-              <span class="waveform-card__name" id="track-name-b">no track loaded</span>
-              <span class="waveform-card__bpm" id="track-bpm-b"></span>
-              <span class="waveform-card__time" id="track-time-b">0:00 / 0:00</span>
-            </div>
-          </div>
-        </section>
-
-        <section class="mixer" aria-label="DJ Mixer">
-          <!-- Deck A -->
-          <div class="deck deck--a" role="group" aria-label="Deck A">
-            <div class="deck__header">
-              <span class="deck__badge deck__badge--a">Deck A</span>
-              <button class="deck__load-btn" id="load-a">
-                <span class="material-symbols-outlined" aria-hidden="true">upload_file</span>
-                Load Track
-              </button>
-              <input type="file" id="file-a" accept="audio/*" hidden />
+        <!-- ========== VIEW: LEARN (learning path dashboard) ========== -->
+        <div id="view-learn" class="view" style="display:none">
+          <div class="learn-dashboard max-w-3xl mx-auto px-6 py-8">
+            <!-- Current Unit Header -->
+            <div class="learn-header bg-primary text-white rounded-xl p-8 mb-8 shadow-lg">
+              <p class="text-xs font-bold tracking-[0.2em] uppercase opacity-80 mb-2">Current Unit</p>
+              <h2 class="learn-header__title text-3xl font-black mb-3">Your DJ Journey</h2>
+              <p class="learn-header__subtitle text-sm opacity-80 font-medium">Master the fundamentals one skill at a time</p>
             </div>
 
-            <div class="deck__controls">
-              <div class="deck__knobs">
-                <div class="knob-group">
-                  <label class="knob-group__label" for="gain-a">Gain</label>
-                  <input type="range" class="knob" id="gain-a" aria-label="Deck A gain" min="0" max="200" value="100" orient="vertical" />
+            <!-- Learning Path -->
+            <div class="learn-path flex flex-col items-center gap-0">
+              <div class="learn-node learn-node--active flex items-center gap-4 w-full p-5 bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] transition-all cursor-pointer hover:-translate-y-0.5" data-lesson="basics-load-play" role="button" tabindex="0">
+                <div class="learn-node__icon learn-node__icon--active w-14 h-14 rounded-full bg-primary text-white flex items-center justify-center flex-shrink-0 shadow-md">
+                  <span class="material-symbols-outlined text-2xl">headphones</span>
                 </div>
-                <div class="knob-group">
-                  <label class="knob-group__label" for="eq-high-a">Hi</label>
-                  <input type="range" class="knob" id="eq-high-a" aria-label="Deck A high EQ" min="-24" max="6" value="0" orient="vertical" />
+                <div class="learn-node__info flex-1">
+                  <h3 class="text-base font-bold text-on-surface mb-0.5">Load &amp; Play</h3>
+                  <p class="text-xs text-on-surface-variant font-medium">Load a track onto a deck and start playback</p>
                 </div>
-                <div class="knob-group">
-                  <label class="knob-group__label" for="eq-mid-a">Mid</label>
-                  <input type="range" class="knob" id="eq-mid-a" aria-label="Deck A mid EQ" min="-24" max="6" value="0" orient="vertical" />
+                <span class="learn-node__badge learn-node__badge--active bg-primary text-white text-[0.65rem] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full flex-shrink-0">In Progress</span>
+              </div>
+              <div class="learn-path__connector w-1 h-6 bg-surface-container-high rounded-full"></div>
+              <div class="learn-node learn-node--locked flex items-center gap-4 w-full p-5 bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] opacity-60 cursor-default">
+                <div class="learn-node__icon learn-node__icon--locked w-14 h-14 rounded-full bg-surface-container-high text-outline flex items-center justify-center flex-shrink-0">
+                  <span class="material-symbols-outlined text-2xl">lock</span>
                 </div>
-                <div class="knob-group">
-                  <label class="knob-group__label" for="eq-low-a">Low</label>
-                  <input type="range" class="knob" id="eq-low-a" aria-label="Deck A low EQ" min="-24" max="6" value="0" orient="vertical" />
+                <div class="learn-node__info flex-1">
+                  <h3 class="text-base font-bold text-outline mb-0.5">EQ Sweep</h3>
+                  <p class="text-xs text-outline-variant font-medium">Learn how EQ knobs shape the sound</p>
                 </div>
-                <div class="knob-group">
-                  <label class="knob-group__label" for="filter-a">Filter</label>
-                  <input type="range" class="knob" id="filter-a" aria-label="Deck A filter" min="0" max="100" value="50" orient="vertical" />
+                <span class="learn-node__badge learn-node__badge--locked bg-surface-container-high text-outline text-[0.65rem] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full flex-shrink-0">Locked</span>
+              </div>
+              <div class="learn-path__connector w-1 h-6 bg-surface-container-high rounded-full"></div>
+              <div class="learn-node learn-node--locked flex items-center gap-4 w-full p-5 bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] opacity-60 cursor-default">
+                <div class="learn-node__icon learn-node__icon--locked w-14 h-14 rounded-full bg-surface-container-high text-outline flex items-center justify-center flex-shrink-0">
+                  <span class="material-symbols-outlined text-2xl">lock</span>
                 </div>
-              </div>
-
-              <div class="deck__faders">
-                <div class="fader-group">
-                  <label class="fader-group__label" for="volume-a">Volume</label>
-                  <input type="range" class="fader" id="volume-a" aria-label="Deck A volume" min="0" max="100" value="80" orient="vertical" />
+                <div class="learn-node__info flex-1">
+                  <h3 class="text-base font-bold text-outline mb-0.5">Pitch Matching</h3>
+                  <p class="text-xs text-outline-variant font-medium">Match the BPM of Deck B to Deck A</p>
                 </div>
-                <div class="fader-group">
-                  <label class="fader-group__label" for="pitch-a">Pitch</label>
-                  <input type="range" class="fader" id="pitch-a" aria-label="Deck A pitch" min="-8" max="8" value="0" step="0.1" orient="vertical" />
+                <span class="learn-node__badge learn-node__badge--locked bg-surface-container-high text-outline text-[0.65rem] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full flex-shrink-0">Locked</span>
+              </div>
+              <div class="learn-path__connector w-1 h-6 bg-surface-container-high rounded-full"></div>
+              <div class="learn-node learn-node--locked flex items-center gap-4 w-full p-5 bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] opacity-60 cursor-default">
+                <div class="learn-node__icon learn-node__icon--locked w-14 h-14 rounded-full bg-surface-container-high text-outline flex items-center justify-center flex-shrink-0">
+                  <span class="material-symbols-outlined text-2xl">lock</span>
                 </div>
-              </div>
-            </div>
-
-            <div class="deck__transport">
-              <button class="transport-btn transport-btn--play transport-btn--a" id="play-a" aria-label="Play Deck A">
-                <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>
-              </button>
-              <button class="transport-btn transport-btn--a" id="cue-a" aria-label="Cue Deck A">
-                <span class="material-symbols-outlined" aria-hidden="true">stop</span>
-              </button>
-              <button class="transport-btn transport-btn--a" id="sync-a" aria-label="Sync Deck A">
-                <span class="material-symbols-outlined" aria-hidden="true">sync</span>
-              </button>
-            </div>
-
-            <div class="deck__pads">
-              <button class="pad-btn pad-btn--a" id="pad-1-a" aria-label="Hot cue 1, Deck A">1</button>
-              <button class="pad-btn pad-btn--a" id="pad-2-a" aria-label="Hot cue 2, Deck A">2</button>
-              <button class="pad-btn pad-btn--a" id="pad-3-a" aria-label="Hot cue 3, Deck A">3</button>
-              <button class="pad-btn pad-btn--a" id="pad-4-a" aria-label="Hot cue 4, Deck A">4</button>
-            </div>
-          </div>
-
-          <!-- Crossfader -->
-          <div class="crossfader-section">
-            <label class="crossfader-section__label" for="crossfader">Crossfader</label>
-            <input type="range" class="crossfader-section__input" id="crossfader" aria-label="Crossfader" min="-100" max="100" value="0" />
-            <div class="crossfader-section__markers">
-              <span>A</span>
-              <span>B</span>
-            </div>
-          </div>
-
-          <!-- Deck B -->
-          <div class="deck deck--b" role="group" aria-label="Deck B">
-            <div class="deck__header">
-              <span class="deck__badge deck__badge--b">Deck B</span>
-              <button class="deck__load-btn" id="load-b">
-                <span class="material-symbols-outlined" aria-hidden="true">upload_file</span>
-                Load Track
-              </button>
-              <input type="file" id="file-b" accept="audio/*" hidden />
-            </div>
-
-            <div class="deck__controls">
-              <div class="deck__knobs">
-                <div class="knob-group">
-                  <label class="knob-group__label" for="gain-b">Gain</label>
-                  <input type="range" class="knob" id="gain-b" aria-label="Deck B gain" min="0" max="200" value="100" orient="vertical" />
+                <div class="learn-node__info flex-1">
+                  <h3 class="text-base font-bold text-outline mb-0.5">The Bass Swap</h3>
+                  <p class="text-xs text-outline-variant font-medium">Swap bass frequencies between decks at a phrase boundary</p>
                 </div>
-                <div class="knob-group">
-                  <label class="knob-group__label" for="eq-high-b">Hi</label>
-                  <input type="range" class="knob" id="eq-high-b" aria-label="Deck B high EQ" min="-24" max="6" value="0" orient="vertical" />
+                <span class="learn-node__badge learn-node__badge--locked bg-surface-container-high text-outline text-[0.65rem] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full flex-shrink-0">Locked</span>
+              </div>
+              <div class="learn-path__connector w-1 h-6 bg-surface-container-high rounded-full"></div>
+              <div class="learn-node learn-node--locked flex items-center gap-4 w-full p-5 bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] opacity-60 cursor-default">
+                <div class="learn-node__icon learn-node__icon--locked w-14 h-14 rounded-full bg-surface-container-high text-outline flex items-center justify-center flex-shrink-0">
+                  <span class="material-symbols-outlined text-2xl">lock</span>
                 </div>
-                <div class="knob-group">
-                  <label class="knob-group__label" for="eq-mid-b">Mid</label>
-                  <input type="range" class="knob" id="eq-mid-b" aria-label="Deck B mid EQ" min="-24" max="6" value="0" orient="vertical" />
+                <div class="learn-node__info flex-1">
+                  <h3 class="text-base font-bold text-outline mb-0.5">Frequency Swap</h3>
+                  <p class="text-xs text-outline-variant font-medium">Swap mids and highs between decks for a smooth blend</p>
                 </div>
-                <div class="knob-group">
-                  <label class="knob-group__label" for="eq-low-b">Low</label>
-                  <input type="range" class="knob" id="eq-low-b" aria-label="Deck B low EQ" min="-24" max="6" value="0" orient="vertical" />
+                <span class="learn-node__badge learn-node__badge--locked bg-surface-container-high text-outline text-[0.65rem] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full flex-shrink-0">Locked</span>
+              </div>
+              <div class="learn-path__connector w-1 h-6 bg-surface-container-high rounded-full"></div>
+              <div class="learn-node learn-node--locked flex items-center gap-4 w-full p-5 bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] opacity-60 cursor-default">
+                <div class="learn-node__icon learn-node__icon--locked w-14 h-14 rounded-full bg-surface-container-high text-outline flex items-center justify-center flex-shrink-0">
+                  <span class="material-symbols-outlined text-2xl">lock</span>
                 </div>
-                <div class="knob-group">
-                  <label class="knob-group__label" for="filter-b">Filter</label>
-                  <input type="range" class="knob" id="filter-b" aria-label="Deck B filter" min="0" max="100" value="50" orient="vertical" />
+                <div class="learn-node__info flex-1">
+                  <h3 class="text-base font-bold text-outline mb-0.5">Phase Alignment</h3>
+                  <p class="text-xs text-outline-variant font-medium">Nudge Deck B so its beats land on top of Deck A's</p>
                 </div>
-              </div>
-
-              <div class="deck__faders">
-                <div class="fader-group">
-                  <label class="fader-group__label" for="volume-b">Volume</label>
-                  <input type="range" class="fader" id="volume-b" aria-label="Deck B volume" min="0" max="100" value="80" orient="vertical" />
-                </div>
-                <div class="fader-group">
-                  <label class="fader-group__label" for="pitch-b">Pitch</label>
-                  <input type="range" class="fader" id="pitch-b" aria-label="Deck B pitch" min="-8" max="8" value="0" step="0.1" orient="vertical" />
-                </div>
-              </div>
-            </div>
-
-            <div class="deck__transport">
-              <button class="transport-btn transport-btn--play transport-btn--b" id="play-b" aria-label="Play Deck B">
-                <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>
-              </button>
-              <button class="transport-btn transport-btn--b" id="cue-b" aria-label="Cue Deck B">
-                <span class="material-symbols-outlined" aria-hidden="true">stop</span>
-              </button>
-              <button class="transport-btn transport-btn--b" id="sync-b" aria-label="Sync Deck B">
-                <span class="material-symbols-outlined" aria-hidden="true">sync</span>
-              </button>
-            </div>
-
-            <div class="deck__pads">
-              <button class="pad-btn pad-btn--b" id="pad-1-b" aria-label="Hot cue 1, Deck B">1</button>
-              <button class="pad-btn pad-btn--b" id="pad-2-b" aria-label="Hot cue 2, Deck B">2</button>
-              <button class="pad-btn pad-btn--b" id="pad-3-b" aria-label="Hot cue 3, Deck B">3</button>
-              <button class="pad-btn pad-btn--b" id="pad-4-b" aria-label="Hot cue 4, Deck B">4</button>
-            </div>
-          </div>
-        </section>
-
-        <section class="lesson-panel">
-          <div class="lesson-panel__header">
-            <h2>Lessons</h2>
-            <span class="lesson-panel__progress" id="lesson-progress" aria-live="polite"></span>
-          </div>
-          <div class="lesson-panel__content" id="lesson-content" aria-live="polite" aria-atomic="true">
-            <p class="lesson-panel__placeholder">Load a track to get started</p>
-          </div>
-        </section>
-      </div>
-
-      <!-- ========== VIEW: LEARN (learning path dashboard) ========== -->
-      <div id="view-learn" class="view" style="display:none">
-        <div class="learn-dashboard">
-          <div class="learn-header">
-            <h2 class="learn-header__title">Your DJ Journey</h2>
-            <p class="learn-header__subtitle">Master the fundamentals one skill at a time</p>
-          </div>
-          <div class="learn-path">
-            <div class="learn-node learn-node--active" data-lesson="basics-load-play" role="button" tabindex="0">
-              <div class="learn-node__icon learn-node__icon--active">
-                <span class="material-symbols-outlined">headphones</span>
-              </div>
-              <div class="learn-node__info">
-                <h3>Load &amp; Play</h3>
-                <p>Load a track onto a deck and start playback</p>
-              </div>
-              <span class="learn-node__badge learn-node__badge--active">In Progress</span>
-            </div>
-            <div class="learn-path__connector"></div>
-            <div class="learn-node learn-node--locked">
-              <div class="learn-node__icon learn-node__icon--locked">
-                <span class="material-symbols-outlined">lock</span>
-              </div>
-              <div class="learn-node__info">
-                <h3>EQ Sweep</h3>
-                <p>Learn how EQ knobs shape the sound</p>
-              </div>
-              <span class="learn-node__badge learn-node__badge--locked">Locked</span>
-            </div>
-            <div class="learn-path__connector"></div>
-            <div class="learn-node learn-node--locked">
-              <div class="learn-node__icon learn-node__icon--locked">
-                <span class="material-symbols-outlined">lock</span>
-              </div>
-              <div class="learn-node__info">
-                <h3>Pitch Matching</h3>
-                <p>Match the BPM of Deck B to Deck A</p>
-              </div>
-              <span class="learn-node__badge learn-node__badge--locked">Locked</span>
-            </div>
-            <div class="learn-path__connector"></div>
-            <div class="learn-node learn-node--locked">
-              <div class="learn-node__icon learn-node__icon--locked">
-                <span class="material-symbols-outlined">lock</span>
-              </div>
-              <div class="learn-node__info">
-                <h3>The Bass Swap</h3>
-                <p>Swap bass frequencies between decks at a phrase boundary</p>
-              </div>
-              <span class="learn-node__badge learn-node__badge--locked">Locked</span>
-            </div>
-            <div class="learn-path__connector"></div>
-            <div class="learn-node learn-node--locked">
-              <div class="learn-node__icon learn-node__icon--locked">
-                <span class="material-symbols-outlined">lock</span>
-              </div>
-              <div class="learn-node__info">
-                <h3>Frequency Swap</h3>
-                <p>Swap mids and highs between decks for a smooth blend</p>
-              </div>
-              <span class="learn-node__badge learn-node__badge--locked">Locked</span>
-            </div>
-            <div class="learn-path__connector"></div>
-            <div class="learn-node learn-node--locked">
-              <div class="learn-node__icon learn-node__icon--locked">
-                <span class="material-symbols-outlined">lock</span>
-              </div>
-              <div class="learn-node__info">
-                <h3>Phase Alignment</h3>
-                <p>Nudge Deck B so its beats land on top of Deck A's</p>
-              </div>
-              <span class="learn-node__badge learn-node__badge--locked">Locked</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ========== VIEW: STATS ========== -->
-      <div id="view-stats" class="view" style="display:none">
-        <div class="stats-page">
-          <h2 class="stats-page__title">Your Stats</h2>
-          <div class="stats-grid">
-            <div class="stat-card">
-              <span class="stat-card__value" id="stat-lessons">0</span>
-              <span class="stat-card__label">Lessons Completed</span>
-            </div>
-            <div class="stat-card">
-              <span class="stat-card__value" id="stat-practice-time">0h</span>
-              <span class="stat-card__label">Practice Time</span>
-            </div>
-            <div class="stat-card">
-              <span class="stat-card__value" id="stat-current-streak">0</span>
-              <span class="stat-card__label">Current Streak</span>
-            </div>
-            <div class="stat-card">
-              <span class="stat-card__value" id="stat-best-streak">0</span>
-              <span class="stat-card__label">Best Streak</span>
-            </div>
-          </div>
-          <div class="stats-section">
-            <h3>Skill Balance</h3>
-            <div class="skill-bars">
-              <div class="skill-bar">
-                <span class="skill-bar__label">Basics</span>
-                <div class="skill-bar__track"><div class="skill-bar__fill" id="skill-basics" style="width:0%"></div></div>
-              </div>
-              <div class="skill-bar">
-                <span class="skill-bar__label">EQ Mixing</span>
-                <div class="skill-bar__track"><div class="skill-bar__fill skill-bar__fill--b" id="skill-eq-mixing" style="width:0%"></div></div>
-              </div>
-              <div class="skill-bar">
-                <span class="skill-bar__label">Beatmatching</span>
-                <div class="skill-bar__track"><div class="skill-bar__fill" id="skill-beatmatching" style="width:0%"></div></div>
-              </div>
-              <div class="skill-bar">
-                <span class="skill-bar__label">Transitions</span>
-                <div class="skill-bar__track"><div class="skill-bar__fill skill-bar__fill--b" id="skill-transitions" style="width:0%"></div></div>
+                <span class="learn-node__badge learn-node__badge--locked bg-surface-container-high text-outline text-[0.65rem] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full flex-shrink-0">Locked</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- ========== VIEW: PROFILE ========== -->
-      <div id="view-profile" class="view" style="display:none">
-        <div class="profile-page">
-          <div class="profile-card">
-            <div class="profile-card__avatar">
-              <span class="material-symbols-outlined" style="font-size:48px;" aria-hidden="true">person</span>
+        <!-- ========== VIEW: STATS ========== -->
+        <div id="view-stats" class="view" style="display:none">
+          <div class="stats-page max-w-3xl mx-auto px-6 py-8">
+            <h2 class="stats-page__title text-2xl font-black text-on-surface mb-6">Your Stats</h2>
+            <div class="stats-grid grid grid-cols-2 gap-4 mb-8">
+              <div class="stat-card bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] p-6 flex flex-col items-center gap-2">
+                <span class="stat-card__value text-4xl font-black text-primary" id="stat-lessons">0</span>
+                <span class="stat-card__label text-xs font-bold uppercase tracking-wider text-on-surface-variant">Lessons Completed</span>
+              </div>
+              <div class="stat-card bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] p-6 flex flex-col items-center gap-2">
+                <span class="stat-card__value text-4xl font-black text-primary" id="stat-practice-time">0h</span>
+                <span class="stat-card__label text-xs font-bold uppercase tracking-wider text-on-surface-variant">Practice Time</span>
+              </div>
+              <div class="stat-card bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] p-6 flex flex-col items-center gap-2">
+                <span class="stat-card__value text-4xl font-black text-primary" id="stat-current-streak">0</span>
+                <span class="stat-card__label text-xs font-bold uppercase tracking-wider text-on-surface-variant">Current Streak</span>
+              </div>
+              <div class="stat-card bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] p-6 flex flex-col items-center gap-2">
+                <span class="stat-card__value text-4xl font-black text-primary" id="stat-best-streak">0</span>
+                <span class="stat-card__label text-xs font-bold uppercase tracking-wider text-on-surface-variant">Best Streak</span>
+              </div>
             </div>
-            <h2 class="profile-card__name">DJ Learner</h2>
-            <p class="profile-card__level" id="profile-level">Level 1 — Beginner</p>
-          </div>
-          <div class="profile-stats">
-            <div class="profile-stat">
-              <span class="profile-stat__value" id="profile-xp">0</span>
-              <span class="profile-stat__label">Total XP</span>
-            </div>
-            <div class="profile-stat">
-              <span class="profile-stat__value" id="profile-streak">0</span>
-              <span class="profile-stat__label">Day Streak</span>
-            </div>
-            <div class="profile-stat">
-              <span class="profile-stat__value" id="profile-lessons">0</span>
-              <span class="profile-stat__label">Lessons</span>
-            </div>
-          </div>
-          <div class="profile-achievements">
-            <h3>Achievements</h3>
-            <p class="profile-achievements__empty">Complete lessons to earn badges</p>
-          </div>
-        </div>
-      </div>
 
-      <!-- ========== VIEW: SETTINGS ========== -->
-      <div id="view-settings" class="view" style="display:none">
-        <div class="settings-page">
-          <h2 class="settings-page__title">Settings</h2>
-          <div class="settings-section">
-            <h3 class="settings-section__title">
-              <span class="material-symbols-outlined" aria-hidden="true">piano</span>
-              MIDI Controller
-            </h3>
-            <div class="settings-row">
-              <span class="settings-row__label">Status</span>
-              <span class="settings-row__value" id="settings-midi-status">Disconnected</span>
-            </div>
-            <div class="settings-row">
-              <span class="settings-row__label">Controller</span>
-              <span class="settings-row__value" id="settings-midi-device">None detected</span>
-            </div>
-            <p class="settings-hint">Connect a MIDI controller via USB. Onset auto-detects the Hercules DJControl Inpulse 200 MK2.</p>
-          </div>
-          <div class="settings-section">
-            <h3 class="settings-section__title">
-              <span class="material-symbols-outlined" aria-hidden="true">volume_up</span>
-              Audio Output
-            </h3>
-            <div class="settings-row">
-              <span class="settings-row__label">Output</span>
-              <span class="settings-row__value">System Default</span>
-            </div>
-            <p class="settings-hint">Audio output is controlled by your system settings.</p>
-          </div>
-          <div class="settings-section">
-            <h3 class="settings-section__title">
-              <span class="material-symbols-outlined" aria-hidden="true">tune</span>
-              Lesson Preferences
-            </h3>
-            <div class="settings-row">
-              <label class="settings-row__label" for="settings-difficulty">Difficulty</label>
-              <select id="settings-difficulty" class="settings-select">
-                <option value="beginner" selected>Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-              </select>
-            </div>
-            <div class="settings-row">
-              <label class="settings-row__label" for="settings-session-length">Session Length</label>
-              <select id="settings-session-length" class="settings-select">
-                <option value="10">~10 minutes</option>
-                <option value="15" selected>~15 minutes</option>
-                <option value="20">~20 minutes</option>
-              </select>
-            </div>
-          </div>
-          <div class="settings-section">
-            <h3 class="settings-section__title">
-              <span class="material-symbols-outlined" aria-hidden="true">palette</span>
-              Appearance
-            </h3>
-            <div class="settings-row">
-              <label class="settings-row__label" for="settings-theme">Theme</label>
-              <select id="settings-theme" class="settings-select">
-                <option value="system" selected>System</option>
-                <option value="light">Light</option>
-                <option value="dark">Dark</option>
-              </select>
+            <!-- Skill Balance -->
+            <div class="stats-section bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] p-6">
+              <h3 class="text-sm font-extrabold uppercase tracking-wider text-on-surface mb-4">Skill Balance</h3>
+              <div class="skill-bars flex flex-col gap-4">
+                <div class="skill-bar flex flex-col gap-1.5">
+                  <div class="flex justify-between items-center">
+                    <span class="skill-bar__label text-xs font-bold text-on-surface-variant uppercase tracking-wider">Basics</span>
+                  </div>
+                  <div class="skill-bar__track h-2 bg-surface-container-high rounded-full overflow-hidden">
+                    <div class="skill-bar__fill h-full bg-gradient-to-r from-primary-dim to-primary-container rounded-full transition-all duration-500" id="skill-basics" style="width:0%"></div>
+                  </div>
+                </div>
+                <div class="skill-bar flex flex-col gap-1.5">
+                  <div class="flex justify-between items-center">
+                    <span class="skill-bar__label text-xs font-bold text-on-surface-variant uppercase tracking-wider">EQ Mixing</span>
+                  </div>
+                  <div class="skill-bar__track h-2 bg-surface-container-high rounded-full overflow-hidden">
+                    <div class="skill-bar__fill skill-bar__fill--b h-full bg-gradient-to-r from-secondary-dim to-secondary-container rounded-full transition-all duration-500" id="skill-eq-mixing" style="width:0%"></div>
+                  </div>
+                </div>
+                <div class="skill-bar flex flex-col gap-1.5">
+                  <div class="flex justify-between items-center">
+                    <span class="skill-bar__label text-xs font-bold text-on-surface-variant uppercase tracking-wider">Beatmatching</span>
+                  </div>
+                  <div class="skill-bar__track h-2 bg-surface-container-high rounded-full overflow-hidden">
+                    <div class="skill-bar__fill h-full bg-gradient-to-r from-primary-dim to-primary-container rounded-full transition-all duration-500" id="skill-beatmatching" style="width:0%"></div>
+                  </div>
+                </div>
+                <div class="skill-bar flex flex-col gap-1.5">
+                  <div class="flex justify-between items-center">
+                    <span class="skill-bar__label text-xs font-bold text-on-surface-variant uppercase tracking-wider">Transitions</span>
+                  </div>
+                  <div class="skill-bar__track h-2 bg-surface-container-high rounded-full overflow-hidden">
+                    <div class="skill-bar__fill skill-bar__fill--b h-full bg-gradient-to-r from-secondary-dim to-secondary-container rounded-full transition-all duration-500" id="skill-transitions" style="width:0%"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- ========== VIEW: SESSION COMPLETE ========== -->
-      <div id="view-session-complete" class="view" style="display:none">
-        <div class="session-complete-screen" id="session-complete-content" aria-live="assertive" aria-atomic="true">
+        <!-- ========== VIEW: PROFILE ========== -->
+        <div id="view-profile" class="view" style="display:none">
+          <div class="profile-page max-w-3xl mx-auto px-6 py-8 flex flex-col gap-5">
+            <!-- Profile Card -->
+            <div class="profile-card bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] p-8 flex flex-col items-center gap-3">
+              <div class="profile-card__avatar w-20 h-20 rounded-full bg-primary-container/30 text-primary flex items-center justify-center mb-2 border-4 border-primary-container">
+                <span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">person</span>
+              </div>
+              <h2 class="profile-card__name text-2xl font-black text-on-surface">DJ Learner</h2>
+              <p class="profile-card__level text-sm font-semibold text-on-surface-variant" id="profile-level">Level 1 — Beginner</p>
+            </div>
+
+            <!-- Profile Stats -->
+            <div class="profile-stats grid grid-cols-3 gap-3">
+              <div class="profile-stat bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] p-5 flex flex-col items-center gap-1">
+                <span class="profile-stat__value text-3xl font-black text-primary" id="profile-xp">0</span>
+                <span class="profile-stat__label text-[0.65rem] font-bold uppercase tracking-wider text-on-surface-variant">Total XP</span>
+              </div>
+              <div class="profile-stat bg-tertiary-container rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] p-5 flex flex-col items-center gap-1">
+                <span class="profile-stat__value text-3xl font-black text-on-tertiary-container" id="profile-streak">0</span>
+                <span class="profile-stat__label text-[0.65rem] font-bold uppercase tracking-wider text-on-tertiary-container">Day Streak</span>
+              </div>
+              <div class="profile-stat bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] p-5 flex flex-col items-center gap-1">
+                <span class="profile-stat__value text-3xl font-black text-primary" id="profile-lessons">0</span>
+                <span class="profile-stat__label text-[0.65rem] font-bold uppercase tracking-wider text-on-surface-variant">Lessons</span>
+              </div>
+            </div>
+
+            <!-- Achievements -->
+            <div class="profile-achievements bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] p-6">
+              <h3 class="text-sm font-extrabold uppercase tracking-wider text-on-surface mb-3">Achievements</h3>
+              <p class="profile-achievements__empty text-sm text-on-surface-variant italic">Complete lessons to earn badges</p>
+            </div>
+          </div>
         </div>
-      </div>
+
+        <!-- ========== VIEW: SETTINGS ========== -->
+        <div id="view-settings" class="view" style="display:none">
+          <div class="settings-page max-w-3xl mx-auto px-6 py-8">
+            <h2 class="settings-page__title text-2xl font-black text-on-surface mb-2">Settings</h2>
+            <p class="text-sm text-on-surface-variant mb-6">Tune your sonic instrument to perfection.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- MIDI Controller -->
+              <div class="settings-section bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] p-6">
+                <h3 class="settings-section__title flex items-center gap-2 text-sm font-extrabold uppercase tracking-wider text-on-surface mb-4">
+                  <span class="material-symbols-outlined text-primary text-xl" aria-hidden="true">piano</span>
+                  MIDI Controller
+                </h3>
+                <div class="settings-row flex justify-between items-center py-2.5 border-b border-surface-container">
+                  <span class="settings-row__label text-sm font-semibold text-on-surface">Status</span>
+                  <span class="settings-row__value text-sm font-medium text-on-surface-variant" id="settings-midi-status">Disconnected</span>
+                </div>
+                <div class="settings-row flex justify-between items-center py-2.5">
+                  <span class="settings-row__label text-sm font-semibold text-on-surface">Controller</span>
+                  <span class="settings-row__value text-sm font-medium text-on-surface-variant" id="settings-midi-device">None detected</span>
+                </div>
+                <p class="settings-hint text-xs text-outline mt-3 leading-relaxed">Connect a MIDI controller via USB. Onset auto-detects the Hercules DJControl Inpulse 200 MK2.</p>
+              </div>
+
+              <!-- Audio Output -->
+              <div class="settings-section bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] p-6">
+                <h3 class="settings-section__title flex items-center gap-2 text-sm font-extrabold uppercase tracking-wider text-on-surface mb-4">
+                  <span class="material-symbols-outlined text-primary text-xl" aria-hidden="true">volume_up</span>
+                  Audio Output
+                </h3>
+                <div class="settings-row flex justify-between items-center py-2.5">
+                  <span class="settings-row__label text-sm font-semibold text-on-surface">Output</span>
+                  <span class="settings-row__value text-sm font-medium text-on-surface-variant">System Default</span>
+                </div>
+                <p class="settings-hint text-xs text-outline mt-3 leading-relaxed">Audio output is controlled by your system settings.</p>
+              </div>
+
+              <!-- Lesson Preferences -->
+              <div class="settings-section bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] p-6">
+                <h3 class="settings-section__title flex items-center gap-2 text-sm font-extrabold uppercase tracking-wider text-on-surface mb-4">
+                  <span class="material-symbols-outlined text-primary text-xl" aria-hidden="true">tune</span>
+                  Lesson Preferences
+                </h3>
+                <div class="settings-row flex justify-between items-center py-2.5 border-b border-surface-container">
+                  <label class="settings-row__label text-sm font-semibold text-on-surface" for="settings-difficulty">Difficulty</label>
+                  <select id="settings-difficulty" class="settings-select text-sm font-medium text-on-surface bg-surface-container border border-outline-variant rounded-lg px-3 py-1.5 cursor-pointer hover:border-primary transition-colors">
+                    <option value="beginner" selected>Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                  </select>
+                </div>
+                <div class="settings-row flex justify-between items-center py-2.5">
+                  <label class="settings-row__label text-sm font-semibold text-on-surface" for="settings-session-length">Session Length</label>
+                  <select id="settings-session-length" class="settings-select text-sm font-medium text-on-surface bg-surface-container border border-outline-variant rounded-lg px-3 py-1.5 cursor-pointer hover:border-primary transition-colors">
+                    <option value="10">~10 minutes</option>
+                    <option value="15" selected>~15 minutes</option>
+                    <option value="20">~20 minutes</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Appearance -->
+              <div class="settings-section bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] p-6">
+                <h3 class="settings-section__title flex items-center gap-2 text-sm font-extrabold uppercase tracking-wider text-on-surface mb-4">
+                  <span class="material-symbols-outlined text-primary text-xl" aria-hidden="true">palette</span>
+                  Appearance
+                </h3>
+                <div class="settings-row flex justify-between items-center py-2.5">
+                  <label class="settings-row__label text-sm font-semibold text-on-surface" for="settings-theme">Theme</label>
+                  <select id="settings-theme" class="settings-select text-sm font-medium text-on-surface bg-surface-container border border-outline-variant rounded-lg px-3 py-1.5 cursor-pointer hover:border-primary transition-colors">
+                    <option value="system" selected>System</option>
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== VIEW: SESSION COMPLETE ========== -->
+        <div id="view-session-complete" class="view" style="display:none">
+          <div class="session-complete-screen flex flex-col items-center justify-center min-h-full p-12 text-center gap-6" id="session-complete-content" aria-live="assertive" aria-atomic="true">
+          </div>
+        </div>
+      </main>
 
       <!-- ========== MIN WIDTH OVERLAY ========== -->
-      <div class="min-width-overlay" id="min-width-overlay" aria-hidden="true">
-        <span class="material-symbols-outlined" style="font-size: 48px; margin-bottom: 12px;">desktop_windows</span>
-        <p>Please use a wider screen</p>
-        <span>Onset needs at least 1200px</span>
+      <div class="min-width-overlay fixed inset-0 z-[9999] hidden flex-col items-center justify-center gap-2 bg-background" id="min-width-overlay" aria-hidden="true">
+        <span class="material-symbols-outlined text-on-surface-variant" style="font-size: 48px; margin-bottom: 12px;">desktop_windows</span>
+        <p class="text-lg font-extrabold uppercase tracking-widest text-on-surface">Please use a wider screen</p>
+        <span class="text-sm text-on-surface-variant">Onset needs at least 1200px</span>
       </div>
     </div>
     <script type="module" src="/src/main.js"></script>
