@@ -27,15 +27,15 @@ export const herculesMapping = {
     { name: 'deck-a:cue',        type: 'note', channel: 1, number: 6,  action: 'cue',         deck: 'A' },
     { name: 'deck-a:sync',       type: 'note', channel: 1, number: 5,  action: 'sync',        deck: 'A' },
 
-    // Faders & knobs
-    { name: 'deck-a:gain',       type: 'cc',   channel: 1, number: 1,  action: 'gain',        deck: 'A' },
-    { name: 'deck-a:pitch',      type: 'cc',   channel: 1, number: 0,  action: 'pitch',       deck: 'A' },
-    { name: 'deck-a:filter',     type: 'cc',   channel: 1, number: 5,  action: 'filter',      deck: 'A' },
-    { name: 'deck-a:volume',     type: 'cc',   channel: 1, number: 7,  action: 'volume',      deck: 'A' }, // UNCONFIRMED CC — use MIDI debug to verify
+    // Faders & knobs (confirmed via hardware testing 2026-03-24)
+    { name: 'deck-a:filter',     type: 'cc',   channel: 1, number: 1,  action: 'filter',      deck: 'A' },
+    { name: 'deck-a:volume',     type: 'cc',   channel: 1, number: 0,  action: 'volume',      deck: 'A' },
+    { name: 'deck-a:gain',       type: 'cc',   channel: 1, number: 5,  action: 'gain',        deck: 'A' },
+    { name: 'deck-a:pitch',      type: 'cc',   channel: 1, number: 7,  action: 'pitch',       deck: 'A' },
 
-    // EQ
-    { name: 'deck-a:eq-high',    type: 'cc',   channel: 1, number: 2,  action: 'eq-high',     deck: 'A' },
-    { name: 'deck-a:eq-low',     type: 'cc',   channel: 1, number: 4,  action: 'eq-low',      deck: 'A' },
+    // EQ (confirmed: CC2 = Low, CC4 = High — opposite of original assumption)
+    { name: 'deck-a:eq-low',     type: 'cc',   channel: 1, number: 2,  action: 'eq-low',      deck: 'A' },
+    { name: 'deck-a:eq-high',    type: 'cc',   channel: 1, number: 4,  action: 'eq-high',     deck: 'A' },
 
     // Jog wheel
     { name: 'deck-a:jog-touch',  type: 'note', channel: 1, number: 8,  action: 'jog-touch',   deck: 'A' },
@@ -53,15 +53,15 @@ export const herculesMapping = {
     { name: 'deck-b:cue',        type: 'note', channel: 2, number: 6,  action: 'cue',         deck: 'B' },
     { name: 'deck-b:sync',       type: 'note', channel: 2, number: 5,  action: 'sync',        deck: 'B' },
 
-    // Faders & knobs
-    { name: 'deck-b:gain',       type: 'cc',   channel: 2, number: 1,  action: 'gain',        deck: 'B' },
-    { name: 'deck-b:pitch',      type: 'cc',   channel: 2, number: 0,  action: 'pitch',       deck: 'B' },
-    { name: 'deck-b:filter',     type: 'cc',   channel: 2, number: 5,  action: 'filter',      deck: 'B' },
-    { name: 'deck-b:volume',     type: 'cc',   channel: 2, number: 7,  action: 'volume',      deck: 'B' }, // UNCONFIRMED CC — use MIDI debug to verify
+    // Faders & knobs (confirmed via hardware testing 2026-03-24)
+    { name: 'deck-b:filter',     type: 'cc',   channel: 2, number: 1,  action: 'filter',      deck: 'B' },
+    { name: 'deck-b:volume',     type: 'cc',   channel: 2, number: 0,  action: 'volume',      deck: 'B' },
+    { name: 'deck-b:gain',       type: 'cc',   channel: 2, number: 5,  action: 'gain',        deck: 'B' },
+    { name: 'deck-b:pitch',      type: 'cc',   channel: 2, number: 7,  action: 'pitch',       deck: 'B' },
 
-    // EQ
-    { name: 'deck-b:eq-high',    type: 'cc',   channel: 2, number: 2,  action: 'eq-high',     deck: 'B' },
-    { name: 'deck-b:eq-low',     type: 'cc',   channel: 2, number: 4,  action: 'eq-low',      deck: 'B' },
+    // EQ (confirmed: CC2 = Low, CC4 = High)
+    { name: 'deck-b:eq-low',     type: 'cc',   channel: 2, number: 2,  action: 'eq-low',      deck: 'B' },
+    { name: 'deck-b:eq-high',    type: 'cc',   channel: 2, number: 4,  action: 'eq-high',     deck: 'B' },
 
     // Jog wheel
     { name: 'deck-b:jog-touch',  type: 'note', channel: 2, number: 8,  action: 'jog-touch',   deck: 'B' },
