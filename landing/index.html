@@ -100,7 +100,7 @@
 <span class="hidden md:block text-[10px] uppercase tracking-widest text-on-surface-variant/50 border-l border-white/10 pl-4">Learn to DJ</span>
 </div>
 <a href="#signup" class="bg-gradient-to-r from-[#84fb42] to-[#1f5100] text-[#133800] px-5 py-2 rounded-lg font-semibold text-sm hover:opacity-90 transition-opacity">
-                Get early access
+                Try it free
             </a>
 </div>
 </nav>
@@ -118,7 +118,7 @@
 <form id="hero-form" class="flex flex-col sm:flex-row gap-2 max-w-md">
 <input type="email" required class="bg-surface-container-lowest border-0 border-b border-outline-variant/30 focus:ring-0 focus:border-primary-container transition-all flex-grow text-white py-3" placeholder="Enter your email"/>
 <button type="submit" class="bg-primary-container text-on-primary-container px-6 py-3 font-headline font-bold rounded-lg hover:brightness-110 transition-all">
-                            Get early access
+                            Try it free
                         </button>
 </form>
 <p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant/40">Free forever for core features. No credit card.</p>
@@ -272,12 +272,12 @@
 <!-- Final CTA -->
 <section id="signup" class="max-w-5xl mx-auto px-8 py-32 text-center relative overflow-hidden">
 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary-container/5 blur-[120px] rounded-full -z-10"></div>
-<h2 class="font-headline text-5xl md:text-6xl font-bold mb-8 tracking-tighter">Ready to learn?</h2>
+<h2 class="font-headline text-5xl md:text-6xl font-bold mb-8 tracking-tighter">Ready to try it?</h2>
 <div class="max-w-md mx-auto">
 <form id="footer-form" class="flex flex-col sm:flex-row gap-2">
 <input type="email" required class="bg-surface-container-lowest border-0 border-b border-outline-variant/30 focus:ring-0 focus:border-primary-container transition-all flex-grow text-white py-3" placeholder="Enter your email"/>
 <button type="submit" class="bg-primary-container text-on-primary-container px-6 py-3 font-headline font-bold rounded-lg hover:brightness-110 transition-all">
-                        Get early access
+                        Try it free
                     </button>
 </form>
 <p class="mt-6 text-on-surface-variant/50 text-xs uppercase tracking-widest font-label">No spam. Just launch updates.</p>
@@ -300,6 +300,8 @@
 </div>
 </footer>
 <script>
+const APP_URL = 'https://app.onsetdj.com?access=1';
+
 async function handleSubmit(e) {
   e.preventDefault();
   const form = e.target;
@@ -308,7 +310,7 @@ async function handleSubmit(e) {
   const email = emailInput.value.trim();
   if (!email) return;
   btn.disabled = true;
-  btn.textContent = 'Joining...';
+  btn.textContent = 'Loading...';
   try {
     const res = await fetch('/api/subscribe', {
       method: 'POST',
@@ -316,10 +318,8 @@ async function handleSubmit(e) {
       body: JSON.stringify({ email }),
     });
     if (res.ok) {
-      btn.textContent = "You're in!";
-      btn.style.background = '#2a6900';
-      emailInput.value = '';
-      emailInput.disabled = true;
+      btn.textContent = 'Launching...';
+      window.location.href = APP_URL;
     } else { throw new Error(); }
   } catch {
     btn.textContent = 'Try again';
