@@ -337,7 +337,12 @@ export class App {
    * @param {'A' | 'B'} deckName
    * @param {File} file
    */
-  async _loadTrack(deckName, file) {
+  /**
+   * @param {'A' | 'B'} deckName
+   * @param {File} file
+   * @param {{ skipVisuals?: boolean }} [opts]
+   */
+  async _loadTrack(deckName, file, opts = {}) {
     const deck = this._decks[deckName];
     const renderer = this._waveformRenderers[deckName];
     const nameEl = document.getElementById(`track-name-${deckName.toLowerCase()}`);
@@ -362,9 +367,9 @@ export class App {
         nameEl.title = trackName;
       }
 
-      // Generate waveform data and detect BPM — deferred to avoid blocking main thread
+      // Generate waveform data and detect BPM (skip for demo tracks to avoid blocking)
       const buffer = deck._buffer;
-      if (buffer) {
+      if (buffer && !opts.skipVisuals) {
         const bpmDeckName = deckName.toLowerCase();
         const scheduleDeferred = (fn) => {
           if (typeof requestIdleCallback === 'function') {
@@ -374,7 +379,6 @@ export class App {
           }
         };
 
-        // Waveform generation (deferred)
         scheduleDeferred(() => {
           try {
             const waveformData = new WaveformData(buffer);
@@ -384,7 +388,6 @@ export class App {
           } catch { /* waveform is best-effort */ }
         });
 
-        // BPM detection (deferred after waveform)
         setTimeout(() => {
           scheduleDeferred(() => {
             try {
@@ -442,7 +445,7 @@ export class App {
     const response = await fetch(url);
     const blob = await response.blob();
     const file = new File([blob], `${displayName}.mp3`, { type: 'audio/mpeg' });
-    await this._loadTrack(deckName, file);
+    await this._loadTrack(deckName, file, { skipVisuals: true });
   }
 
   // ── MIDI Status Updates ──────────────────────────────────────
