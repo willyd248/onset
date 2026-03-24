@@ -197,51 +197,47 @@ export class App {
 
   /** @private */
   async _initMIDI() {
-    this._midiController.addEventListener('connected', (e) => {
-      const detail = /** @type {CustomEvent} */ (e).detail;
-      // Create router and LED feedback when controller connects
-      if (!this._midiRouter) {
-        this._midiRouter = new MIDIRouter(this._midiController, herculesMapping);
-        this._ledFeedback = new LEDFeedback(this._midiController);
+    const wireUpRouter = () => {
+      if (this._midiRouter) return; // already wired
+      this._midiRouter = new MIDIRouter(this._midiController, herculesMapping);
+      this._ledFeedback = new LEDFeedback(this._midiController);
 
-        // If bridge already exists, we need to re-create it with the router
-        if (this._mixerBridge && this._decks && this._crossfader) {
-          this._mixerBridge = new MixerBridge(
-            this._mixerState,
-            this._decks,
-            this._crossfader,
-            this._midiRouter
-          );
-          this._mixerBridge.init();
-        }
+      // Re-create bridge with the new router
+      if (this._mixerBridge && this._decks && this._crossfader) {
+        this._mixerBridge = new MixerBridge(
+          this._mixerState,
+          this._decks,
+          this._crossfader,
+          this._midiRouter
+        );
+        this._mixerBridge.init();
       }
-    });
+
+      // Auto-enable debug mode for mapping verification
+      this._midiRouter.setDebug(true);
+      console.log('[onset] MIDI router wired to MixerBridge — debug ON');
+    };
+
+    this._midiController.addEventListener('connected', () => wireUpRouter());
 
     this._midiController.addEventListener('disconnected', () => {
-      // Allow re-creation on next connect
       this._midiRouter = null;
       this._ledFeedback = null;
     });
 
     this._midiController.addEventListener('error', () => {
-      // Web MIDI not supported — no overlay, just update status
-      if (this._shell) {
-        this._shell.setConnectionStatus('no-midi');
-      }
+      if (this._shell) this._shell.setConnectionStatus('no-midi');
     });
 
     this._midiController.addEventListener('permission-denied', () => {
-      if (this._shell) {
-        this._shell.setConnectionStatus('no-midi');
-      }
+      if (this._shell) this._shell.setConnectionStatus('no-midi');
     });
 
     await this._midiController.init();
 
-    // Set up router and LED feedback immediately if controller is already connected
+    // If already connected after init, wire up immediately
     if (this._midiController.isConnected) {
-      this._midiRouter = new MIDIRouter(this._midiController, herculesMapping);
-      this._ledFeedback = new LEDFeedback(this._midiController);
+      wireUpRouter();
     }
   }
 
