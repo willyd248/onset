@@ -171,6 +171,17 @@ function createAudioContext(){
   gainA.connect(ctx.destination);gainB.connect(ctx.destination);
 }
 
+function unlockiOSAudio(){
+  // Play a short silent buffer to force iOS to route audio to speakers
+  if(!ctx)return;
+  const b=ctx.createBuffer(1,1,22050);
+  const s=ctx.createBufferSource();
+  s.buffer=b;
+  s.connect(ctx.destination);
+  s.start(0);
+  s.stop(ctx.currentTime+0.001);
+}
+
 async function decodeTracks(){
   // Convert cached blobs to ArrayBuffers for decoding
   const[abA,abB]=await Promise.all([blobA.arrayBuffer(),blobB.arrayBuffer()]);
@@ -237,6 +248,8 @@ function startLesson1(){
     btn.style.opacity='0.5';btn.style.pointerEvents='none';
     // MUST be synchronous — no awaits before this line. iOS Safari requires it.
     createAudioContext();
+    // Play a silent buffer to "warm up" iOS audio output
+    unlockiOSAudio();
     // Now we can do async work — context is already created and resumed
     await decodeTracks();
     playDeck('A');
