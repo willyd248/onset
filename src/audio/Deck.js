@@ -97,15 +97,8 @@ export class Deck extends EventTarget {
     this._source = this._ctx.createBufferSource();
     this._source.buffer = this._buffer;
     this._source.playbackRate.value = this._playbackRate;
+    this._source.loop = true;
     this._source.connect(this._preGainNode);
-
-    this._source.onended = () => {
-      if (this._isPlaying) {
-        this._isPlaying = false;
-        this._offset = 0;
-        this.dispatchEvent(new Event('ended'));
-      }
-    };
 
     this._source.start(0, this._offset);
     this._startTime = this._ctx.currentTime;
