@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>onset — learn to DJ</title>
     <meta name="description" content="Learn to DJ with interactive lessons, real-time feedback, and MIDI controller support. Master beatmatching, EQ mixing, and transitions.">
@@ -89,6 +90,7 @@
             <canvas class="waveform-card__canvas" id="waveform-a" role="img" aria-label="Deck A waveform display"></canvas>
             <div class="waveform-card__info">
               <span class="waveform-card__name" id="track-name-a">no track loaded</span>
+              <span class="waveform-card__bpm" id="track-bpm-a"></span>
               <span class="waveform-card__time" id="track-time-a">0:00 / 0:00</span>
             </div>
           </div>
@@ -97,6 +99,7 @@
             <canvas class="waveform-card__canvas" id="waveform-b" role="img" aria-label="Deck B waveform display"></canvas>
             <div class="waveform-card__info">
               <span class="waveform-card__name" id="track-name-b">no track loaded</span>
+              <span class="waveform-card__bpm" id="track-bpm-b"></span>
               <span class="waveform-card__time" id="track-time-b">0:00 / 0:00</span>
             </div>
           </div>
@@ -496,5 +499,10 @@
       </div>
     </div>
     <script type="module" src="/src/main.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+      }
+    </script>
   </body>
 </html>

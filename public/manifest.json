@@ -1,0 +1,16 @@
+{
+  "name": "onset — learn to DJ",
+  "short_name": "onset",
+  "description": "Interactive DJ lessons with Web Audio and MIDI controller support",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1c1c",
+  "theme_color": "#2a6900",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

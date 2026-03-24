@@ -11,6 +11,7 @@ import { LEDFeedback } from '../midi/LEDFeedback.js';
 import { herculesMapping } from '../midi/hercules-mapping.js';
 import { WaveformData } from '../visuals/WaveformData.js';
 import { WaveformRenderer } from '../visuals/WaveformRenderer.js';
+import { BPMDetector } from '../visuals/BPMDetector.js';
 import { MixerState } from './MixerState.js';
 import { MixerUI } from './MixerUI.js';
 import { MixerBridge } from './MixerBridge.js';
@@ -360,16 +361,24 @@ export class App {
         nameEl.title = trackName;
       }
 
-      // Generate waveform data from the decoded buffer
+      // Generate waveform data and detect BPM from the decoded buffer
       const buffer = deck._buffer;
       if (buffer) {
         const waveformData = new WaveformData(buffer);
         waveformData.generate();
-
-        // Set data on renderer and start rendering
         renderer.setData(waveformData);
         renderer.start(() => deck.currentTime);
+
+        // Detect and display BPM
+        try {
+          const { bpm } = BPMDetector.detect(buffer);
+          const bpmEl = document.getElementById(`track-bpm-${deckName.toLowerCase()}`);
+          if (bpmEl) bpmEl.textContent = `${bpm} BPM`;
+        } catch { /* BPM detection is best-effort */ }
       }
+
+      // Restore hot cues for this track
+      this._restoreHotCues(deckName, trackName);
     } catch (err) {
       if (nameEl) nameEl.textContent = 'no track loaded';
       const message = err.message?.startsWith('Unsupported file type')
@@ -688,5 +697,41 @@ export class App {
         this._decks[deck].cue();
       }
     });
+
+    // Save hot cues when they change
+    this._mixerState.addEventListener('change', (e) => {
+      const { deck, param } = /** @type {CustomEvent} */ (e).detail;
+      if (param === 'hotCues' && (deck === 'A' || deck === 'B')) {
+        const nameEl = document.getElementById(`track-name-${deck.toLowerCase()}`);
+        if (nameEl && nameEl.textContent !== 'no track loaded' && nameEl.textContent !== 'Loading...') {
+          this._saveHotCues(deck, nameEl.textContent);
+        }
+      }
+    });
+  }
+
+  // ── Hot Cue Persistence ─────────────────────────────────────
+
+  /** @private */
+  _saveHotCues(deck, trackName) {
+    try {
+      const key = 'onset:hotcues';
+      const data = JSON.parse(localStorage.getItem(key) || '{}');
+      const cues = this._mixerState.get(deck, 'hotCues');
+      data[trackName] = cues;
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch { /* best-effort */ }
+  }
+
+  /** @private */
+  _restoreHotCues(deck, trackName) {
+    try {
+      const key = 'onset:hotcues';
+      const data = JSON.parse(localStorage.getItem(key) || '{}');
+      const cues = data[trackName];
+      if (cues && Array.isArray(cues)) {
+        this._mixerState.set(deck, 'hotCues', cues, 'audio');
+      }
+    } catch { /* best-effort */ }
   }
 }

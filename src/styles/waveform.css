@@ -81,6 +81,13 @@
   font-weight: 500;
 }
 
+.waveform-card__bpm {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
 .waveform-card__time {
   color: var(--on-surface-variant);
   font-variant-numeric: tabular-nums;
