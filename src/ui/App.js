@@ -353,8 +353,10 @@ export class App {
       // Mark track as loaded in state
       this._mixerState.set(deckName, 'hasTrack', true, 'audio');
 
-      // Hide empty state
+      // Hide empty state, show waveform section
       if (this._emptyStateEl) this._emptyStateEl.hidden = true;
+      const wfSection = document.getElementById('waveform-section');
+      if (wfSection) wfSection.classList.remove('hidden');
 
       // Update track name in UI with tooltip for long names
       if (nameEl) {

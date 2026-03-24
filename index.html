@@ -171,8 +171,8 @@
             </button>
           </div>
 
-          <!-- Waveform Section -->
-          <section class="waveforms grid grid-cols-2 gap-3 mb-4" aria-label="Waveform displays">
+          <!-- Waveform Section (hidden when no tracks) -->
+          <section class="waveforms grid grid-cols-2 gap-3 mb-4 hidden" id="waveform-section" aria-label="Waveform displays">
             <div class="waveform-card waveform-display--a bg-surface-container-lowest rounded-xl p-3 relative overflow-hidden shadow-[0_20px_40px_rgba(45,47,47,0.06)]">
               <div class="waveform-card__label waveform-card__label--a absolute top-2 left-4 text-2xl font-black text-primary opacity-[0.08] pointer-events-none">A</div>
               <canvas class="waveform-card__canvas w-full rounded-lg bg-surface-container-low block" id="waveform-a" role="img" aria-label="Deck A waveform display" style="height: 64px;"></canvas>
@@ -210,17 +210,29 @@
                 </div>
               </div>
 
-              <!-- Transport -->
-              <div class="deck__transport flex gap-2 justify-center mb-4">
-                <button class="transport-btn transport-btn--play transport-btn--a w-11 h-11 rounded-2xl bg-primary text-white flex items-center justify-center cursor-pointer border-none transition-all hover:bg-primary-dim active:scale-95" id="play-a" aria-label="Play Deck A">
-                  <span class="material-symbols-outlined text-xl" aria-hidden="true">play_arrow</span>
-                </button>
-                <button class="transport-btn transport-btn--a w-11 h-11 rounded-2xl border-2 border-primary text-primary bg-surface-container-lowest flex items-center justify-center cursor-pointer transition-all hover:bg-primary-container/20 active:scale-95" id="cue-a" aria-label="Cue Deck A">
-                  <span class="material-symbols-outlined text-xl" aria-hidden="true">stop</span>
-                </button>
-                <button class="transport-btn transport-btn--a w-11 h-11 rounded-2xl border-2 border-primary text-primary bg-surface-container-lowest flex items-center justify-center cursor-pointer transition-all hover:bg-primary-container/20 active:scale-95" id="sync-a" aria-label="Sync Deck A">
-                  <span class="material-symbols-outlined text-xl" aria-hidden="true">sync</span>
-                </button>
+              <!-- Vinyl + Transport -->
+              <div class="flex items-center justify-center gap-5 mb-4">
+                <div class="relative w-28 h-28 flex-shrink-0">
+                  <div class="absolute inset-0 rounded-full bg-neutral-900 vinyl-spin vinyl-paused" id="vinyl-a">
+                    <div class="absolute inset-[20%] rounded-full border border-neutral-700/50"></div>
+                    <div class="absolute inset-[35%] rounded-full border border-neutral-700/30"></div>
+                    <div class="absolute inset-[42%] rounded-full bg-primary/20 border-2 border-primary/60"></div>
+                    <div class="absolute inset-[47%] rounded-full bg-primary"></div>
+                  </div>
+                </div>
+                <div class="deck__transport flex flex-col items-center gap-2">
+                  <button class="transport-btn transport-btn--play transport-btn--a w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center cursor-pointer border-none transition-all hover:bg-primary-dim active:scale-95 shadow-lg" id="play-a" aria-label="Play Deck A">
+                    <span class="material-symbols-outlined text-2xl" aria-hidden="true">play_arrow</span>
+                  </button>
+                  <div class="flex gap-1.5">
+                    <button class="transport-btn transport-btn--a w-8 h-8 rounded-full border-2 border-surface-high text-on-surface-variant flex items-center justify-center cursor-pointer transition-all hover:border-primary hover:text-primary active:scale-95" id="cue-a" aria-label="Cue Deck A">
+                      <span class="material-symbols-outlined" style="font-size:16px;" aria-hidden="true">stop</span>
+                    </button>
+                    <button class="transport-btn transport-btn--a w-8 h-8 rounded-full border-2 border-surface-high text-on-surface-variant flex items-center justify-center cursor-pointer transition-all hover:border-primary hover:text-primary active:scale-95" id="sync-a" aria-label="Sync Deck A">
+                      <span class="material-symbols-outlined" style="font-size:16px;" aria-hidden="true">sync</span>
+                    </button>
+                  </div>
+                </div>
               </div>
 
               <!-- Controls: Faders -->
@@ -293,17 +305,29 @@
                 </div>
               </div>
 
-              <!-- Transport -->
-              <div class="deck__transport flex gap-2 justify-center mb-4">
-                <button class="transport-btn transport-btn--play transport-btn--b w-11 h-11 rounded-2xl bg-secondary text-white flex items-center justify-center cursor-pointer border-none transition-all hover:bg-secondary-dim active:scale-95" id="play-b" aria-label="Play Deck B">
-                  <span class="material-symbols-outlined text-xl" aria-hidden="true">play_arrow</span>
-                </button>
-                <button class="transport-btn transport-btn--b w-11 h-11 rounded-2xl border-2 border-secondary text-secondary bg-surface-container-lowest flex items-center justify-center cursor-pointer transition-all hover:bg-secondary-container/20 active:scale-95" id="cue-b" aria-label="Cue Deck B">
-                  <span class="material-symbols-outlined text-xl" aria-hidden="true">stop</span>
-                </button>
-                <button class="transport-btn transport-btn--b w-11 h-11 rounded-2xl border-2 border-secondary text-secondary bg-surface-container-lowest flex items-center justify-center cursor-pointer transition-all hover:bg-secondary-container/20 active:scale-95" id="sync-b" aria-label="Sync Deck B">
-                  <span class="material-symbols-outlined text-xl" aria-hidden="true">sync</span>
-                </button>
+              <!-- Vinyl + Transport -->
+              <div class="flex items-center justify-center gap-5 mb-4">
+                <div class="relative w-28 h-28 flex-shrink-0">
+                  <div class="absolute inset-0 rounded-full bg-neutral-900 vinyl-spin vinyl-paused" id="vinyl-b">
+                    <div class="absolute inset-[20%] rounded-full border border-neutral-700/50"></div>
+                    <div class="absolute inset-[35%] rounded-full border border-neutral-700/30"></div>
+                    <div class="absolute inset-[42%] rounded-full bg-secondary/20 border-2 border-secondary/60"></div>
+                    <div class="absolute inset-[47%] rounded-full bg-secondary"></div>
+                  </div>
+                </div>
+                <div class="deck__transport flex flex-col items-center gap-2">
+                  <button class="transport-btn transport-btn--play transport-btn--b w-12 h-12 rounded-full bg-secondary text-white flex items-center justify-center cursor-pointer border-none transition-all hover:bg-secondary-dim active:scale-95 shadow-lg" id="play-b" aria-label="Play Deck B">
+                    <span class="material-symbols-outlined text-2xl" aria-hidden="true">play_arrow</span>
+                  </button>
+                  <div class="flex gap-1.5">
+                    <button class="transport-btn transport-btn--b w-8 h-8 rounded-full border-2 border-surface-high text-on-surface-variant flex items-center justify-center cursor-pointer transition-all hover:border-secondary hover:text-secondary active:scale-95" id="cue-b" aria-label="Cue Deck B">
+                      <span class="material-symbols-outlined" style="font-size:16px;" aria-hidden="true">stop</span>
+                    </button>
+                    <button class="transport-btn transport-btn--b w-8 h-8 rounded-full border-2 border-surface-high text-on-surface-variant flex items-center justify-center cursor-pointer transition-all hover:border-secondary hover:text-secondary active:scale-95" id="sync-b" aria-label="Sync Deck B">
+                      <span class="material-symbols-outlined" style="font-size:16px;" aria-hidden="true">sync</span>
+                    </button>
+                  </div>
+                </div>
               </div>
 
               <!-- Controls: Faders -->

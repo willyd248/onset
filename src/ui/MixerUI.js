@@ -231,14 +231,19 @@ export class MixerUI extends EventTarget {
       // Find the icon span inside the button
       const iconEl = btn.querySelector('.material-symbols-outlined');
 
+      // Toggle vinyl spin
+      const vinylEl = document.getElementById(deck === 'A' ? 'vinyl-a' : 'vinyl-b');
+
       if (value) {
         btn.classList.remove(baseGlow);
         btn.classList.add(glowClass);
         if (iconEl) iconEl.textContent = 'pause';
+        if (vinylEl) vinylEl.classList.remove('vinyl-paused');
       } else {
         btn.classList.remove(glowClass);
         btn.classList.add(baseGlow);
         if (iconEl) iconEl.textContent = 'play_arrow';
+        if (vinylEl) vinylEl.classList.add('vinyl-paused');
       }
       return;
     }
