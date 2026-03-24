@@ -14,7 +14,7 @@ No score. No feedback. No idea what I did wrong.
 
 So I built onset — it's like Guitar Hero for learning to DJ. Watches your controller inputs and scores every move.
 
-Drop your email for early access: onset.willkuether.com
+Drop your email for early access: onsetdj.com
 
 ### Tweet 2 (Problem → Solution)
 The DJ learning pipeline is broken:
@@ -71,7 +71,7 @@ It's free, runs in Chrome, and works with a $100 Hercules controller. Currently 
 
 If you know someone learning to DJ, I'd appreciate a share. And if you have feedback — I'm all ears.
 
-onset.willkuether.com"
+onsetdj.com"
 
 ### Channel 3: DJ TechTools Forum
 **Where**: djtechtools.com/community — the largest DJ technology forum
@@ -93,7 +93,7 @@ Tech stack: vanilla JS, Web Audio API, Web MIDI API, runs entirely in the browse
 
 Would love feedback from this community. What features would make this useful for your students or practice sessions?
 
-Link: onset.willkuether.com"
+Link: onsetdj.com"
 
 ## Demo Script (60 seconds)
 
@@ -122,14 +122,14 @@ Link: onset.willkuether.com"
          it's free. Unlike Serato, it's built for learning."
 
 [55-60s] CTA: "Link in the description. Free forever. No credit card.
-         onset.willkuether.com"
+         onsetdj.com"
 ```
 
 ## Deployment Checklist
 1. Deploy `landing/` folder to Vercel as a separate project (onset-landing)
 2. Set env vars: `RESEND_API_KEY`, `RESEND_AUDIENCE_ID`
-3. Connect subdomain: `onset.willkuether.com` → landing page
-4. Connect subdomain: `app.onset.willkuether.com` → main app (or keep on same domain with routing)
+3. Connect subdomain: `onsetdj.com` → landing page
+4. Connect subdomain: `app.onsetdj.com` → main app (or keep on same domain with routing)
 5. Record Loom video (60 seconds, use demo script above)
 6. Replace demo placeholder in landing page with Loom embed
 7. Post X thread
