@@ -145,29 +145,37 @@ body{font-family:'Space Grotesk',system-ui,sans-serif;background:var(--bg);color
 
 <script>
 let ctx=null,bufferA=null,bufferB=null,sourceA=null,sourceB=null,gainA=null,gainB=null,eqLowA=null,isPlayingA=false,isPlayingB=false;
-// Raw ArrayBuffers fetched on page load (before user gesture)
-let rawA=null,rawB=null;
+// Track URLs for fetching inside the gesture on mobile
+const TRACK_A_URL='/assets/demo/track-a.mp3';
+const TRACK_B_URL='/assets/demo/track-b.mp3';
+// Cache for pre-fetched blobs (Blob stays valid, unlike ArrayBuffer)
+let blobA=null,blobB=null;
 
 async function prefetchTracks(){
   const[a,b]=await Promise.all([
-    fetch('/assets/demo/track-a.mp3').then(r=>r.arrayBuffer()),
-    fetch('/assets/demo/track-b.mp3').then(r=>r.arrayBuffer()),
+    fetch(TRACK_A_URL).then(r=>r.blob()),
+    fetch(TRACK_B_URL).then(r=>r.blob()),
   ]);
-  rawA=a;rawB=b;
+  blobA=a;blobB=b;
 }
 
-// Called from inside the first user gesture (play button click)
-async function initAudioAndDecode(){
+// Called SYNCHRONOUSLY at the top of a click handler — no awaits before this
+function createAudioContext(){
+  if(ctx) return;
   ctx=new(window.AudioContext||window.webkitAudioContext)();
-  // Context created inside gesture — will be running, not suspended
-  if(ctx.state==='suspended') await ctx.resume();
+  // resume() must be called synchronously inside the gesture
+  ctx.resume();
   gainA=ctx.createGain();gainB=ctx.createGain();
   gainA.gain.value=1;gainB.gain.value=0;
   eqLowA=ctx.createBiquadFilter();eqLowA.type='lowshelf';eqLowA.frequency.value=250;eqLowA.gain.value=0;
   gainA.connect(ctx.destination);gainB.connect(ctx.destination);
-  // Decode the pre-fetched raw audio
-  bufferA=await ctx.decodeAudioData(rawA);
-  bufferB=await ctx.decodeAudioData(rawB);
+}
+
+async function decodeTracks(){
+  // Convert cached blobs to ArrayBuffers for decoding
+  const[abA,abB]=await Promise.all([blobA.arrayBuffer(),blobB.arrayBuffer()]);
+  bufferA=await ctx.decodeAudioData(abA);
+  bufferB=await ctx.decodeAudioData(abB);
 }
 
 function playDeck(d){
@@ -195,7 +203,10 @@ async function startDemo(){
   try{
     await prefetchTracks();
     startLesson1();
-  }catch{render('<div class="demo-loading"><h2>Could not load demo</h2><p>Please try refreshing the page.</p></div>')}
+  }catch(e){
+    console.error('Demo load failed:',e);
+    render('<div class="demo-loading"><h2>Could not load demo</h2><p>Please try refreshing the page.</p></div>');
+  }
 }
 
 function startLesson1(){
@@ -224,8 +235,10 @@ function startLesson1(){
     const btn=document.getElementById('play-btn');
     btn.classList.remove('play-btn--pulse');
     btn.style.opacity='0.5';btn.style.pointerEvents='none';
-    // Create AudioContext and decode inside this user gesture — required for mobile
-    await initAudioAndDecode();
+    // MUST be synchronous — no awaits before this line. iOS Safari requires it.
+    createAudioContext();
+    // Now we can do async work — context is already created and resumed
+    await decodeTracks();
     playDeck('A');
     btn.style.opacity='';btn.style.pointerEvents='';
     btn.classList.add('play-btn--done');
