@@ -99,8 +99,8 @@ export class App {
     this._mixerState = new MixerState();
     this._mixerUI = new MixerUI(this._mixerState);
 
-    // 7. Init MIDI (non-blocking — may fail if no permission or no device)
-    await this._initMIDI();
+    // 7. Init MIDI (truly non-blocking — don't await, let it resolve in background)
+    this._initMIDI().catch(() => {});
 
     // 8. Create MixerBridge and wire it up
     this._mixerBridge = new MixerBridge(
