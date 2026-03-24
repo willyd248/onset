@@ -68,10 +68,10 @@ export const herculesMapping = {
     { name: 'deck-b:jog-rotate', type: 'cc',   channel: 2, number: 40, action: 'jog-rotate',  deck: 'B' },
 
     // Performance pads (Ch7)
-    { name: 'deck-b:pad-1',      type: 'note', channel: 7, number: 16, action: 'pad', deck: 'B', pad: 1 },
-    { name: 'deck-b:pad-2',      type: 'note', channel: 7, number: 17, action: 'pad', deck: 'B', pad: 2 },
-    { name: 'deck-b:pad-3',      type: 'note', channel: 7, number: 18, action: 'pad', deck: 'B', pad: 3 },
-    { name: 'deck-b:pad-4',      type: 'note', channel: 7, number: 19, action: 'pad', deck: 'B', pad: 4 },
+    { name: 'deck-b:pad-1',      type: 'note', channel: 7, number: 0,  action: 'pad', deck: 'B', pad: 1 },
+    { name: 'deck-b:pad-2',      type: 'note', channel: 7, number: 1,  action: 'pad', deck: 'B', pad: 2 },
+    { name: 'deck-b:pad-3',      type: 'note', channel: 7, number: 2,  action: 'pad', deck: 'B', pad: 3 },
+    { name: 'deck-b:pad-4',      type: 'note', channel: 7, number: 3,  action: 'pad', deck: 'B', pad: 4 },
 
     // ── Shared (Ch0) ───────────────────────────────────
     { name: 'crossfader',        type: 'cc',   channel: 0, number: 0,  action: 'crossfader',  deck: null },
