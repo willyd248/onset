@@ -26,6 +26,11 @@
   letter-spacing: 0.04em;
 }
 
+.top-bar__logo {
+  height: 24px;
+  width: auto;
+}
+
 .top-bar__subtitle {
   font-size: 13px;
   color: var(--on-surface-variant);

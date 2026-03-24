@@ -370,12 +370,15 @@ export class App {
         renderer.setData(waveformData);
         renderer.start(() => deck.currentTime);
 
-        // Detect and display BPM
-        try {
-          const { bpm } = BPMDetector.detect(buffer);
-          const bpmEl = document.getElementById(`track-bpm-${deckName.toLowerCase()}`);
-          if (bpmEl) bpmEl.textContent = `${bpm} BPM`;
-        } catch { /* BPM detection is best-effort */ }
+        // Detect and display BPM (deferred to avoid blocking main thread)
+        const bpmDeckName = deckName.toLowerCase();
+        setTimeout(() => {
+          try {
+            const { bpm } = BPMDetector.detect(buffer);
+            const bpmEl = document.getElementById(`track-bpm-${bpmDeckName}`);
+            if (bpmEl) bpmEl.textContent = `${bpm} BPM`;
+          } catch { /* BPM detection is best-effort */ }
+        }, 100);
       }
 
       // Restore hot cues for this track
@@ -398,13 +401,15 @@ export class App {
 
     btn.addEventListener('click', async () => {
       btn.disabled = true;
-      btn.textContent = 'Loading...';
+      btn.textContent = 'Loading Deck A...';
 
       try {
-        await Promise.all([
-          this._loadDemoTrack('A', '/assets/277448__frankum__vox-and-bells.mp3', 'Vox and Bells'),
-          this._loadDemoTrack('B', '/assets/384304__frankum__trought-the-beat-techno-house-track-loop-125bpm.mp3', 'Through the Beat (125 BPM)'),
-        ]);
+        // Load sequentially to avoid two simultaneous heavy decodes
+        await this._loadDemoTrack('A', '/assets/277448__frankum__vox-and-bells.mp3', 'Vox and Bells');
+        btn.textContent = 'Loading Deck B...';
+        // Yield to the main thread between loads
+        await new Promise(r => setTimeout(r, 50));
+        await this._loadDemoTrack('B', '/assets/384304__frankum__trought-the-beat-techno-house-track-loop-125bpm.mp3', 'Through the Beat (125 BPM)');
       } catch (err) {
         btn.disabled = false;
         btn.textContent = 'Try with demo tracks';
