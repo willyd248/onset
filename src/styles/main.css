@@ -25,9 +25,9 @@
   --surface-highest: #dbdddd;
   --on-background: #2d2f2f;
   --on-surface: #2d2f2f;
-  --on-surface-variant: #5a5c5c;
-  --outline: #767777;
-  --outline-variant: #acadad;
+  --on-surface-variant: #454747;
+  --outline: #5e6060;
+  --outline-variant: #8a8b8b;
   --error: #b02500;
   --error-container: #f95630;
   --success: #2a6900;
@@ -530,7 +530,7 @@ input[type="range"] {
     --on-background: #e2e3e3;
     --on-surface: #e2e3e3;
     --on-surface-variant: #c0c1c1;
-    --outline: #8a8b8b;
+    --outline: #9a9b9b;
     --outline-variant: #454747;
     --error: #ff7a56;
     --error-container: #8c1d00;

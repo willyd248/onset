@@ -57,7 +57,7 @@
         </nav>
 
         <div class="top-bar__right">
-          <span class="streak-badge" id="streak-badge" aria-label="Practice streak">
+          <span class="streak-badge" id="streak-badge" aria-label="Practice streak" aria-live="polite">
             <span class="material-symbols-outlined streak-icon" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">local_fire_department</span>
             <span class="streak-count" id="streak-count">0</span>
           </span>
@@ -254,9 +254,9 @@
         <section class="lesson-panel">
           <div class="lesson-panel__header">
             <h2>Lessons</h2>
-            <span class="lesson-panel__progress" id="lesson-progress"></span>
+            <span class="lesson-panel__progress" id="lesson-progress" aria-live="polite"></span>
           </div>
-          <div class="lesson-panel__content" id="lesson-content">
+          <div class="lesson-panel__content" id="lesson-content" aria-live="polite" aria-atomic="true">
             <p class="lesson-panel__placeholder">Load a track to get started</p>
           </div>
         </section>
@@ -487,7 +487,7 @@
 
       <!-- ========== VIEW: SESSION COMPLETE ========== -->
       <div id="view-session-complete" class="view" style="display:none">
-        <div class="session-complete-screen" id="session-complete-content">
+        <div class="session-complete-screen" id="session-complete-content" aria-live="assertive" aria-atomic="true">
         </div>
       </div>
 
