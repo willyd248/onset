@@ -145,15 +145,31 @@ body{font-family:'Space Grotesk',system-ui,sans-serif;background:var(--bg);color
 
 <script>
 let ctx=null,bufferA=null,bufferB=null,sourceA=null,sourceB=null,gainA=null,gainB=null,eqLowA=null,isPlayingA=false,isPlayingB=false;
+// Raw ArrayBuffers fetched on page load (before user gesture)
+let rawA=null,rawB=null;
 
-async function initAudio(){
+async function prefetchTracks(){
+  const[a,b]=await Promise.all([
+    fetch('/assets/demo/track-a.mp3').then(r=>r.arrayBuffer()),
+    fetch('/assets/demo/track-b.mp3').then(r=>r.arrayBuffer()),
+  ]);
+  rawA=a;rawB=b;
+}
+
+// Called from inside the first user gesture (play button click)
+async function initAudioAndDecode(){
   ctx=new(window.AudioContext||window.webkitAudioContext)();
+  // Context created inside gesture — will be running, not suspended
+  if(ctx.state==='suspended') await ctx.resume();
   gainA=ctx.createGain();gainB=ctx.createGain();
   gainA.gain.value=1;gainB.gain.value=0;
   eqLowA=ctx.createBiquadFilter();eqLowA.type='lowshelf';eqLowA.frequency.value=250;eqLowA.gain.value=0;
   gainA.connect(ctx.destination);gainB.connect(ctx.destination);
+  // Decode the pre-fetched raw audio
+  bufferA=await ctx.decodeAudioData(rawA);
+  bufferB=await ctx.decodeAudioData(rawB);
 }
-async function loadTrack(url){const r=await fetch(url);const b=await r.arrayBuffer();return ctx.decodeAudioData(b)}
+
 function playDeck(d){
   if(d==='A'&&bufferA&&!isPlayingA){sourceA=ctx.createBufferSource();sourceA.buffer=bufferA;sourceA.loop=true;sourceA.connect(eqLowA);eqLowA.connect(gainA);sourceA.start();isPlayingA=true}
   if(d==='B'&&bufferB&&!isPlayingB){sourceB=ctx.createBufferSource();sourceB.buffer=bufferB;sourceB.loop=true;sourceB.connect(gainB);sourceB.start();isPlayingB=true}
@@ -177,9 +193,8 @@ async function startDemo(){
   stepEl.textContent='';pBar.style.display='none';
   render('<div class="demo-loading"><div class="spinner"></div><h2>Setting up the decks...</h2><p>Loading demo tracks</p></div>');
   try{
-    await initAudio();
-    const[a,b]=await Promise.all([loadTrack('/assets/demo/track-a.mp3'),loadTrack('/assets/demo/track-b.mp3')]);
-    bufferA=a;bufferB=b;startLesson1();
+    await prefetchTracks();
+    startLesson1();
   }catch{render('<div class="demo-loading"><h2>Could not load demo</h2><p>Please try refreshing the page.</p></div>')}
 }
 
@@ -205,13 +220,17 @@ function startLesson1(){
       </div>
     </div>
   `);
-  document.getElementById('play-btn').addEventListener('click',()=>{
-    if(ctx.state==='suspended')ctx.resume();
+  document.getElementById('play-btn').addEventListener('click',async()=>{
+    const btn=document.getElementById('play-btn');
+    btn.classList.remove('play-btn--pulse');
+    btn.style.opacity='0.5';btn.style.pointerEvents='none';
+    // Create AudioContext and decode inside this user gesture — required for mobile
+    await initAudioAndDecode();
     playDeck('A');
+    btn.style.opacity='';btn.style.pointerEvents='';
+    btn.classList.add('play-btn--done');
     const s=document.getElementById('status-a');
     if(s){s.textContent='Playing';s.className='deck-card__status deck-card__status--playing'}
-    const btn=document.getElementById('play-btn');
-    btn.classList.remove('play-btn--pulse');btn.classList.add('play-btn--done');
     scores[0]=true;pFill.style.width='33%';
     setTimeout(()=>showCheck('Music is playing!',startLesson2),1500);
   },{once:true});
