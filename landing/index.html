@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>onset — learn to DJ</title>
+<meta name="description" content="Interactive DJ lessons with real-time feedback on your actual controller. Master beatmatching, EQ mixing, and transitions — right in the browser.">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:title" content="onset — learn to DJ">
+<meta property="og:description" content="Interactive DJ lessons that watch your moves, score your mixing, and build your skills.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary": "#47176a",
+              "tertiary-container": "#ffd4e8",
+              "surface-container-high": "#2a2a2a",
+              "primary-fixed-dim": "#6be026",
+              "error-container": "#93000a",
+              "primary-container": "#84fb42",
+              "on-primary-fixed-variant": "#1f5100",
+              "on-surface": "#e5e2e1",
+              "on-secondary-container": "#d4a0fa",
+              "inverse-surface": "#e5e2e1",
+              "on-secondary-fixed-variant": "#5f3182",
+              "surface-bright": "#3a3939",
+              "secondary-fixed": "#f2daff",
+              "surface-container-low": "#1c1b1b",
+              "secondary-container": "#5f3182",
+              "on-tertiary-fixed-variant": "#5c3e4e",
+              "on-surface-variant": "#becbb1",
+              "surface-container-lowest": "#0e0e0e",
+              "secondary-fixed-dim": "#e1b6ff",
+              "surface-container-highest": "#353534",
+              "on-primary": "#133800",
+              "surface-tint": "#6be026",
+              "inverse-primary": "#2b6c00",
+              "surface-container": "#201f1f",
+              "on-primary-fixed": "#082100",
+              "on-secondary-fixed": "#2e004e",
+              "primary-fixed": "#87fe45",
+              "surface-dim": "#131313",
+              "on-background": "#e5e2e1",
+              "surface": "#131313",
+              "tertiary-fixed-dim": "#e4bbcf",
+              "outline": "#88957d",
+              "tertiary": "#fffbff",
+              "secondary": "#e1b6ff",
+              "primary": "#f8ffed",
+              "on-error": "#690005",
+              "tertiary-fixed": "#ffd8ea",
+              "on-primary-container": "#2d7100",
+              "inverse-on-surface": "#313030",
+              "error": "#ffb4ab",
+              "outline-variant": "#3f4a36",
+              "background": "#131313",
+              "surface-variant": "#353534",
+              "on-tertiary": "#432837",
+              "on-error-container": "#ffdad6",
+              "on-tertiary-fixed": "#2c1322",
+              "on-tertiary-container": "#7a596a"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Manrope"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glow-lime { box-shadow: 0 0 40px 10px rgba(132, 251, 66, 0.1); }
+        .glow-purple { box-shadow: 0 0 40px 10px rgba(217, 165, 255, 0.1); }
+        .geometric-bg {
+            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- Sticky Nav -->
+<nav class="fixed top-0 w-full z-50 bg-[#131313]/80 backdrop-blur-xl border-b border-white/5 font-headline">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<span class="text-2xl font-bold tracking-tighter text-[#84fb42]">onset</span>
+<span class="hidden md:block text-[10px] uppercase tracking-widest text-on-surface-variant/50 border-l border-white/10 pl-4">Learn to DJ</span>
+</div>
+<a href="#signup" class="bg-gradient-to-r from-[#84fb42] to-[#1f5100] text-[#133800] px-5 py-2 rounded-lg font-semibold text-sm hover:opacity-90 transition-opacity">
+                Get early access
+            </a>
+</div>
+</nav>
+<main class="geometric-bg pt-20">
+<!-- Hero Section -->
+<section class="max-w-7xl mx-auto px-8 py-24 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="space-y-8">
+<h1 class="font-headline text-5xl md:text-7xl font-bold tracking-tight leading-[0.95] text-white">
+                    Learn to DJ with <span class="text-primary-container">real-time feedback</span> on your actual controller.
+                </h1>
+<p class="text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-xl">
+                    Interactive lessons that watch your moves, score your mixing, and build your skills — right in the browser. No downloads. No $150 classes.
+                </p>
+<div class="flex flex-col gap-4">
+<form id="hero-form" class="flex flex-col sm:flex-row gap-2 max-w-md">
+<input type="email" required class="bg-surface-container-lowest border-0 border-b border-outline-variant/30 focus:ring-0 focus:border-primary-container transition-all flex-grow text-white py-3" placeholder="Enter your email"/>
+<button type="submit" class="bg-primary-container text-on-primary-container px-6 py-3 font-headline font-bold rounded-lg hover:brightness-110 transition-all">
+                            Get early access
+                        </button>
+</form>
+<p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant/40">Free forever for core features. No credit card.</p>
+</div>
+</div>
+<!-- Hero Visual -->
+<div class="relative aspect-square flex items-center justify-center">
+<div class="absolute inset-0 glow-lime rounded-full opacity-20 blur-3xl"></div>
+<div class="w-full h-full bg-surface-container-low border border-white/5 rounded-xl p-8 flex flex-col justify-between overflow-hidden relative">
+<div class="flex justify-between items-end h-64 gap-2">
+<!-- Deck A Viz -->
+<div class="flex-1 flex items-end gap-1 h-full">
+<div class="w-2 bg-primary-container h-1/2 opacity-20"></div>
+<div class="w-2 bg-primary-container h-3/4"></div>
+<div class="w-2 bg-primary-container h-1/3"></div>
+<div class="w-2 bg-primary-container h-2/3"></div>
+<div class="w-2 bg-primary-container h-full"></div>
+</div>
+<!-- Deck B Viz -->
+<div class="flex-1 flex items-end justify-end gap-1 h-full">
+<div class="w-2 bg-secondary h-1/2"></div>
+<div class="w-2 bg-secondary h-full opacity-20"></div>
+<div class="w-2 bg-secondary h-2/3"></div>
+<div class="w-2 bg-secondary h-3/4"></div>
+<div class="w-2 bg-secondary h-1/4"></div>
+</div>
+</div>
+<!-- Crossfader -->
+<div class="h-1 bg-white/10 w-full relative mt-8">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full flex items-center justify-center border-4 border-surface shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+<div class="w-1 h-3 bg-surface rounded-full"></div>
+</div>
+</div>
+<div class="flex justify-between font-label text-[10px] tracking-widest text-on-surface-variant/50 pt-4">
+<span>DECK_A // 124 BPM</span>
+<span>DECK_B // 126 BPM</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Problem Section -->
+<section class="max-w-7xl mx-auto px-8 py-24 border-t border-white/5">
+<h2 class="font-headline text-3xl font-bold mb-16 tracking-tight">Learning to DJ is stuck in 2010</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="p-8 bg-surface-container-low border border-white/5 rounded-xl hover:border-primary-container/30 transition-colors group">
+<span class="material-symbols-outlined text-primary-container mb-6 text-3xl">smart_display</span>
+<h3 class="font-headline text-xl font-bold mb-4 text-white">YouTube tutorials</h3>
+<p class="text-on-surface-variant leading-relaxed">Passive watching with zero feedback. You never know if you're actually hitting the phrase or drifting off-beat.</p>
+</div>
+<div class="p-8 bg-surface-container-low border border-white/5 rounded-xl hover:border-secondary/30 transition-colors">
+<span class="material-symbols-outlined text-secondary mb-6 text-3xl">payments</span>
+<h3 class="font-headline text-xl font-bold mb-4 text-white">DJ schools</h3>
+<p class="text-on-surface-variant leading-relaxed">High barriers to entry with $50-$150/hr rates. Inaccessible for most beginners just starting their journey.</p>
+</div>
+<div class="p-8 bg-surface-container-low border border-white/5 rounded-xl hover:border-white/20 transition-colors">
+<span class="material-symbols-outlined text-on-surface mb-6 text-3xl">terminal</span>
+<h3 class="font-headline text-xl font-bold mb-4 text-white">Pro DJ software</h3>
+<p class="text-on-surface-variant leading-relaxed">Built for professional performance in a club, not for teaching technical fundamentals to a novice.</p>
+</div>
+</div>
+</section>
+<!-- How It Works -->
+<section class="bg-surface-container-lowest py-32">
+<div class="max-w-7xl mx-auto px-8">
+<h2 class="font-headline text-4xl font-bold mb-20 tracking-tight text-center">How onset works</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+<!-- Steps -->
+<div class="relative space-y-6">
+<div class="w-12 h-12 bg-surface-container-highest border border-white/10 rounded-lg flex items-center justify-center font-headline font-bold text-xl">1</div>
+<h3 class="font-headline text-2xl font-bold">Watch</h3>
+<p class="text-on-surface-variant leading-relaxed">See the technique demonstrated with interactive overlays showing exactly where faders and knobs should be.</p>
+</div>
+<div class="relative space-y-6">
+<div class="w-12 h-12 bg-surface-container-highest border border-white/10 rounded-lg flex items-center justify-center font-headline font-bold text-xl">2</div>
+<h3 class="font-headline text-2xl font-bold">Imagine</h3>
+<p class="text-on-surface-variant leading-relaxed">Mental rehearsal through our guided visualizer before you touch the decks. Lock in the structure of the track.</p>
+</div>
+<div class="relative space-y-6">
+<div class="w-12 h-12 bg-primary-container text-on-primary-container border border-primary-container rounded-lg flex items-center justify-center font-headline font-bold text-xl">3</div>
+<h3 class="font-headline text-2xl font-bold">Do it</h3>
+<p class="text-on-surface-variant leading-relaxed">Your turn. We track your MIDI signals in real-time, scoring you on accuracy, timing, and phrase alignment.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Grid -->
+<section class="max-w-7xl mx-auto px-8 py-32">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="p-10 bg-surface-container-low border border-white/5 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary-container/5 blur-3xl group-hover:bg-primary-container/10 transition-all"></div>
+<h3 class="font-headline text-2xl font-bold mb-4">Real-time scoring</h3>
+<p class="text-on-surface-variant max-w-sm">Every nudge of the jog wheel and every EQ swap is analyzed against the target transition with millisecond precision.</p>
+</div>
+<div class="p-10 bg-surface-container-low border border-white/5 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary/5 blur-3xl group-hover:bg-secondary/10 transition-all"></div>
+<h3 class="font-headline text-2xl font-bold mb-4">MIDI controller support</h3>
+<p class="text-on-surface-variant max-w-sm">Plug and play with any modern DJ controller. No extra software needed — it works directly through WebMIDI.</p>
+</div>
+<div class="p-10 bg-surface-container-low border border-white/5 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-white/5 blur-3xl group-hover:bg-white/10 transition-all"></div>
+<h3 class="font-headline text-2xl font-bold mb-4">Adaptive difficulty</h3>
+<p class="text-on-surface-variant max-w-sm">Onset learns your weak points and suggests custom exercises to tighten your beatmatching and phrasing.</p>
+</div>
+<div class="p-10 bg-surface-container-low border border-white/5 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary-container/5 blur-3xl group-hover:bg-primary-container/10 transition-all"></div>
+<h3 class="font-headline text-2xl font-bold mb-4">XP and streaks</h3>
+<p class="text-on-surface-variant max-w-sm">Gamified progress tracking keeps you on the decks every day. Level up your DJ rank as you master new genres.</p>
+</div>
+</div>
+</section>
+<!-- Demo Placeholder -->
+<section class="max-w-7xl mx-auto px-8 py-24 text-center">
+<h2 class="font-headline text-4xl font-bold mb-12 tracking-tight">See it in action</h2>
+<div class="aspect-video w-full max-w-5xl mx-auto bg-surface-container-lowest border border-white/10 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden group cursor-pointer shadow-2xl">
+<div class="absolute inset-0 bg-gradient-to-tr from-primary-container/5 to-secondary/5 opacity-50"></div>
+<!-- Abstract UI lines -->
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute top-1/2 w-full h-px bg-white"></div>
+<div class="absolute left-1/4 h-full w-px bg-white"></div>
+<div class="absolute right-1/4 h-full w-px bg-white"></div>
+</div>
+<div class="w-20 h-20 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container scale-100 group-hover:scale-110 transition-transform duration-500 z-10">
+<span class="material-symbols-outlined text-4xl" data-weight="fill">play_arrow</span>
+</div>
+<span class="mt-6 font-label tracking-[0.2em] text-white/40 uppercase">Demo video</span>
+<div class="absolute inset-0 glow-lime opacity-0 group-hover:opacity-20 transition-opacity"></div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section class="max-w-3xl mx-auto px-8 py-32">
+<h2 class="font-headline text-3xl font-bold mb-12 tracking-tight">Frequently Asked Questions</h2>
+<div class="space-y-4">
+<div class="p-6 bg-surface-container border border-white/5 rounded-xl">
+<h4 class="font-headline font-bold mb-2">Do I need a DJ controller?</h4>
+<p class="text-on-surface-variant text-sm">Not yet. You can use mouse and keyboard for basic lessons. But a controller like the Hercules Inpulse 200 MK2 (~$100) makes it 10x better. We're also building a phone-as-controller feature.</p>
+</div>
+<div class="p-6 bg-surface-container border border-white/5 rounded-xl">
+<h4 class="font-headline font-bold mb-2">What music can I practice with?</h4>
+<p class="text-on-surface-variant text-sm">Any audio files you own — MP3, WAV, OGG, FLAC. Drag them onto a deck and go. Onset auto-detects BPM and generates a beat grid.</p>
+</div>
+<div class="p-6 bg-surface-container border border-white/5 rounded-xl">
+<h4 class="font-headline font-bold mb-2">Is it free?</h4>
+<p class="text-on-surface-variant text-sm">Core features are free forever. No credit card, no trial period. We'll offer premium lessons and analytics later, but the fundamentals stay free.</p>
+</div>
+<div class="p-6 bg-surface-container border border-white/5 rounded-xl">
+<h4 class="font-headline font-bold mb-2">What browsers work?</h4>
+<p class="text-on-surface-variant text-sm">Chrome, Edge, and Firefox on desktop (1200px+ screen). Web Audio and Web MIDI APIs are required. Safari has limited MIDI support.</p>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section id="signup" class="max-w-5xl mx-auto px-8 py-32 text-center relative overflow-hidden">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary-container/5 blur-[120px] rounded-full -z-10"></div>
+<h2 class="font-headline text-5xl md:text-6xl font-bold mb-8 tracking-tighter">Ready to learn?</h2>
+<div class="max-w-md mx-auto">
+<form id="footer-form" class="flex flex-col sm:flex-row gap-2">
+<input type="email" required class="bg-surface-container-lowest border-0 border-b border-outline-variant/30 focus:ring-0 focus:border-primary-container transition-all flex-grow text-white py-3" placeholder="Enter your email"/>
+<button type="submit" class="bg-primary-container text-on-primary-container px-6 py-3 font-headline font-bold rounded-lg hover:brightness-110 transition-all">
+                        Get early access
+                    </button>
+</form>
+<p class="mt-6 text-on-surface-variant/50 text-xs uppercase tracking-widest font-label">No spam. Just launch updates.</p>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#0e0e0e] w-full py-12 border-t border-white/5 font-label">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto gap-6">
+<div class="flex items-center gap-4">
+<span class="text-lg font-bold text-[#84fb42]">onset</span>
+<span class="text-white/40">© 2026 onset. Precision Digital DJing.</span>
+</div>
+<div class="flex gap-8 items-center">
+<a class="text-white/40 hover:text-[#d9a5ff] transition-colors" href="#">Terms</a>
+<a class="text-white/40 hover:text-[#d9a5ff] transition-colors" href="#">Privacy</a>
+<a class="text-white/40 hover:text-[#d9a5ff] transition-colors" href="#">Discord</a>
+<span class="text-white/40 border-l border-white/10 pl-8 opacity-80 hover:opacity-100 transition-opacity">Built by @dimaiowill</span>
+</div>
+</div>
+</footer>
+<script>
+async function handleSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const emailInput = form.querySelector('input[type="email"]');
+  const btn = form.querySelector('button');
+  const email = emailInput.value.trim();
+  if (!email) return;
+  btn.disabled = true;
+  btn.textContent = 'Joining...';
+  try {
+    const res = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    if (res.ok) {
+      btn.textContent = "You're in!";
+      btn.style.background = '#2a6900';
+      emailInput.value = '';
+      emailInput.disabled = true;
+    } else { throw new Error(); }
+  } catch {
+    btn.textContent = 'Try again';
+    btn.disabled = false;
+  }
+}
+document.getElementById('hero-form').addEventListener('submit', handleSubmit);
+document.getElementById('footer-form').addEventListener('submit', handleSubmit);
+</script>
+</body></html>
