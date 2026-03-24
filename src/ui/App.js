@@ -405,11 +405,10 @@ export class App {
 
       try {
         // Load sequentially to avoid two simultaneous heavy decodes
-        await this._loadDemoTrack('A', '/assets/277448__frankum__vox-and-bells.mp3', 'Vox and Bells');
+        await this._loadDemoTrack('A', '/assets/demo/track-a.mp3', 'Vox and Bells');
         btn.textContent = 'Loading Deck B...';
-        // Yield to the main thread between loads
         await new Promise(r => setTimeout(r, 50));
-        await this._loadDemoTrack('B', '/assets/384304__frankum__trought-the-beat-techno-house-track-loop-125bpm.mp3', 'Through the Beat (125 BPM)');
+        await this._loadDemoTrack('B', '/assets/demo/track-b.mp3', 'Through the Beat');
       } catch (err) {
         btn.disabled = false;
         btn.textContent = 'Try with demo tracks';

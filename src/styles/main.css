@@ -436,20 +436,16 @@ input[type="range"] {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #f6f6f6;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--transition-speed) ease;
+  background: var(--background);
 }
 
 .min-width-overlay--visible {
-  opacity: 1;
-  pointer-events: auto;
+  display: flex;
 }
 
 .min-width-overlay p {
