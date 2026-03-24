@@ -481,6 +481,33 @@ input[type="range"] {
   display: none;
 }
 
+.demo-tracks-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  padding: 10px 20px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--on-primary);
+  background: var(--primary);
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
+
+.demo-tracks-btn:hover {
+  background: var(--primary-dim);
+  box-shadow: var(--shadow-glow-a);
+}
+
+.demo-tracks-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* Settings select controls */
 .settings-select {
   font-family: inherit;

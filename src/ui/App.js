@@ -139,6 +139,7 @@ export class App {
     // 14. Set up track loading (file inputs + drag-drop) and empty state
     this._setupTrackLoading();
     this._emptyStateEl = document.getElementById('practice-empty-state');
+    this._setupDemoTracks();
 
     // 15. Set up the startup overlay for first user gesture
     this._setupStartupOverlay();
@@ -386,6 +387,43 @@ export class App {
         : 'The audio file could not be decoded. Please try a different file (MP3, WAV, OGG, or FLAC).';
       ErrorOverlay.show('Could not load track', message);
     }
+  }
+
+  // ── Demo Tracks ─────────────────────────────────────────────
+
+  /** @private */
+  _setupDemoTracks() {
+    const btn = document.getElementById('demo-tracks-btn');
+    if (!btn) return;
+
+    btn.addEventListener('click', async () => {
+      btn.disabled = true;
+      btn.textContent = 'Loading...';
+
+      try {
+        await Promise.all([
+          this._loadDemoTrack('A', '/assets/277448__frankum__vox-and-bells.mp3', 'Vox and Bells'),
+          this._loadDemoTrack('B', '/assets/384304__frankum__trought-the-beat-techno-house-track-loop-125bpm.mp3', 'Through the Beat (125 BPM)'),
+        ]);
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'Try with demo tracks';
+        Toast.show('Could not load demo tracks');
+      }
+    });
+  }
+
+  /**
+   * Fetch a demo track by URL and load it into a deck.
+   * @param {'A' | 'B'} deckName
+   * @param {string} url
+   * @param {string} displayName
+   */
+  async _loadDemoTrack(deckName, url, displayName) {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const file = new File([blob], `${displayName}.mp3`, { type: 'audio/mpeg' });
+    await this._loadTrack(deckName, file);
   }
 
   // ── MIDI Status Updates ──────────────────────────────────────
