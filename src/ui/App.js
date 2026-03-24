@@ -362,23 +362,38 @@ export class App {
         nameEl.title = trackName;
       }
 
-      // Generate waveform data and detect BPM from the decoded buffer
+      // Generate waveform data and detect BPM — deferred to avoid blocking main thread
       const buffer = deck._buffer;
       if (buffer) {
-        const waveformData = new WaveformData(buffer);
-        waveformData.generate();
-        renderer.setData(waveformData);
-        renderer.start(() => deck.currentTime);
-
-        // Detect and display BPM (deferred to avoid blocking main thread)
         const bpmDeckName = deckName.toLowerCase();
-        setTimeout(() => {
+        const scheduleDeferred = (fn) => {
+          if (typeof requestIdleCallback === 'function') {
+            requestIdleCallback(fn, { timeout: 2000 });
+          } else {
+            setTimeout(fn, 200);
+          }
+        };
+
+        // Waveform generation (deferred)
+        scheduleDeferred(() => {
           try {
-            const { bpm } = BPMDetector.detect(buffer);
-            const bpmEl = document.getElementById(`track-bpm-${bpmDeckName}`);
-            if (bpmEl) bpmEl.textContent = `${bpm} BPM`;
-          } catch { /* BPM detection is best-effort */ }
-        }, 100);
+            const waveformData = new WaveformData(buffer);
+            waveformData.generate();
+            renderer.setData(waveformData);
+            renderer.start(() => deck.currentTime);
+          } catch { /* waveform is best-effort */ }
+        });
+
+        // BPM detection (deferred after waveform)
+        setTimeout(() => {
+          scheduleDeferred(() => {
+            try {
+              const { bpm } = BPMDetector.detect(buffer);
+              const bpmEl = document.getElementById(`track-bpm-${bpmDeckName}`);
+              if (bpmEl) bpmEl.textContent = `${bpm} BPM`;
+            } catch { /* BPM detection is best-effort */ }
+          });
+        }, 500);
       }
 
       // Restore hot cues for this track
