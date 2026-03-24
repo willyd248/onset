@@ -98,6 +98,7 @@ export class MixerBridge {
   /** MIDI router events → state updates. */
   _subscribeToMIDI() {
     const router = /** @type {import('../midi/MIDIRouter.js').MIDIRouter} */ (this._router);
+    console.log('[MixerBridge] MIDI subscriptions active — router:', !!router);
 
     // Gain knobs (MIDI sends 0-1, normalize to 0-2, center=1.0)
     router.addEventListener('deck-a:gain', (e) => {

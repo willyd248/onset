@@ -213,9 +213,8 @@ export class App {
         this._mixerBridge.init();
       }
 
-      // Auto-enable debug mode for mapping verification
-      this._midiRouter.setDebug(true);
-      console.log('[onset] MIDI router wired to MixerBridge — debug ON');
+      console.log('[onset] MIDI router wired to MixerBridge');
+      console.log('[onset] Triple-click MIDI status to enable debug logging');
     };
 
     this._midiController.addEventListener('connected', () => wireUpRouter());
