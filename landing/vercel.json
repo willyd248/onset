@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/drip/day3",
+      "schedule": "0 10 * * *"
+    },
+    {
+      "path": "/api/drip/day7",
+      "schedule": "0 10 * * *"
+    }
+  ]
+}
