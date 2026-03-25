@@ -142,6 +142,6 @@ export class ScaffoldManager {
 
   /** @private */
   _save() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(Object.fromEntries(this._states)));
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(Object.fromEntries(this._states))); } catch { /* quota exceeded */ }
   }
 }

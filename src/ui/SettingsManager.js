@@ -34,7 +34,7 @@ export class SettingsManager {
 
   /** @private */
   _save() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(this._settings));
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(this._settings)); } catch { /* quota exceeded */ }
   }
 
   /** @private */

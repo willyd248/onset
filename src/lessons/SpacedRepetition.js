@@ -128,7 +128,9 @@ export class SpacedRepetition {
 
   /** @private */
   _save() {
-    const obj = Object.fromEntries(this._records);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+    try {
+      const obj = Object.fromEntries(this._records);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+    } catch { /* quota exceeded */ }
   }
 }

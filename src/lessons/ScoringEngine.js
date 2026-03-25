@@ -219,6 +219,6 @@ export class ScoringEngine {
 
   /** @private */
   _saveBests() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(Object.fromEntries(this._personalBests)));
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(Object.fromEntries(this._personalBests))); } catch { /* quota exceeded */ }
   }
 }

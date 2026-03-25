@@ -292,6 +292,6 @@ export class LessonLibrary {
 
   /** @private */
   _save() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(Object.fromEntries(this._progress)));
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(Object.fromEntries(this._progress))); } catch { /* quota exceeded */ }
   }
 }

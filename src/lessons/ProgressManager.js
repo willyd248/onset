@@ -205,6 +205,6 @@ export class ProgressManager extends EventTarget {
 
   /** @private */
   _save() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(this._data));
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(this._data)); } catch { /* quota exceeded */ }
   }
 }
