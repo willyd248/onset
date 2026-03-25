@@ -1,5 +1,19 @@
 /* onset — custom styles that Tailwind CDN can't handle */
 
+/* ── Vinyl Record Spin Animation ─────────────────────────── */
+@keyframes vinyl-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.vinyl-spin {
+  animation: vinyl-rotate 2s linear infinite;
+}
+
+.vinyl-paused {
+  animation-play-state: paused;
+}
+
 /* ── CSS Variables (needed by JS and dark mode) ─────────── */
 :root {
   --primary: #2a6900;
