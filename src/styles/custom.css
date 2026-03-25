@@ -549,3 +549,26 @@ input[type="range"][orient="vertical"] {
   --shadow-glow-a: 0 10px 30px rgba(132, 251, 66, 0.2);
   --shadow-glow-b: 0 10px 30px rgba(217, 165, 255, 0.2);
 }
+
+/* ── Dark Mode Overrides for Overlays ───────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .toast {
+    background: rgba(37, 39, 39, 0.92);
+  }
+  :root:not([data-theme="light"]) .error-overlay {
+    background: rgba(26, 28, 28, 0.96);
+  }
+  :root:not([data-theme="light"]) .startup-overlay {
+    background: rgba(26, 28, 28, 0.98);
+  }
+}
+
+[data-theme="dark"] .toast {
+  background: rgba(37, 39, 39, 0.92);
+}
+[data-theme="dark"] .error-overlay {
+  background: rgba(26, 28, 28, 0.96);
+}
+[data-theme="dark"] .startup-overlay {
+  background: rgba(26, 28, 28, 0.98);
+}
