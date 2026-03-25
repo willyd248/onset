@@ -66,6 +66,12 @@ export class LessonEngine extends EventTarget {
     /** @type {number | null} */
     this._timeLimitId = null;
 
+    /** @type {number | null} */
+    this._watchTimerId = null;
+
+    /** @type {number | null} */
+    this._scoreTimerId = null;
+
     /** @type {number} */
     this._stepScoreDisplayMs = 1500;
 
@@ -182,7 +188,10 @@ export class LessonEngine extends EventTarget {
     this._renderer.renderWatchPhase(step.instruction);
 
     // Auto-advance after 4 seconds per watch step
-    setTimeout(() => this._showWatchStep(steps, index + 1), 4000);
+    this._watchTimerId = setTimeout(() => {
+      this._watchTimerId = null;
+      this._showWatchStep(steps, index + 1);
+    }, 4000);
   }
 
   // ── Imagine Phase ─────────────────────────────────────
@@ -333,7 +342,8 @@ export class LessonEngine extends EventTarget {
     this._renderer.renderStepScore(stepScore);
 
     // Advance after score display
-    setTimeout(() => {
+    this._scoreTimerId = setTimeout(() => {
+      this._scoreTimerId = null;
       this._activateStep(steps, index + 1);
     }, this._stepScoreDisplayMs);
   }
@@ -371,6 +381,13 @@ export class LessonEngine extends EventTarget {
 
   _completeSession() {
     this._state = 'session_complete';
+
+    // Clear any in-flight phase timers
+    if (this._watchTimerId) { clearTimeout(this._watchTimerId); this._watchTimerId = null; }
+    if (this._scoreTimerId) { clearTimeout(this._scoreTimerId); this._scoreTimerId = null; }
+    if (this._imagineTimerId) { clearTimeout(this._imagineTimerId); this._imagineTimerId = null; }
+    if (this._timeLimitId) { clearTimeout(this._timeLimitId); this._timeLimitId = null; }
+
     this._session.endSession();
     this._progress.endSession();
 
@@ -426,6 +443,8 @@ export class LessonEngine extends EventTarget {
   destroy() {
     if (this._imagineTimerId) clearTimeout(this._imagineTimerId);
     if (this._timeLimitId) clearTimeout(this._timeLimitId);
+    if (this._watchTimerId) clearTimeout(this._watchTimerId);
+    if (this._scoreTimerId) clearTimeout(this._scoreTimerId);
     this._validator.destroy();
   }
 }
