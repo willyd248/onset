@@ -122,6 +122,45 @@ export class AppShell {
 
     if (deckA) this._setupDropZone(deckA, 'a');
     if (deckB) this._setupDropZone(deckB, 'b');
+
+    // Full-page drop zone so drag-and-drop works even when waveform section is hidden
+    this._initFullPageDrop();
+  }
+
+  /**
+   * Set up a full-page drop listener that catches audio files when the
+   * waveform-specific drop zones are hidden (e.g. on first load).
+   * Loads into deck A if empty, else deck B, else replaces deck A.
+   * @private
+   */
+  _initFullPageDrop() {
+    const practiceView = document.getElementById('view-practice');
+    const target = practiceView || document;
+
+    target.addEventListener('dragover', (e) => {
+      e.preventDefault();
+    });
+
+    target.addEventListener('drop', (e) => {
+      // If the drop was already handled by a waveform drop zone, skip
+      if (e.defaultPrevented) return;
+      e.preventDefault();
+
+      const file = e.dataTransfer?.files[0];
+      if (!file || !file.type.startsWith('audio/')) return;
+
+      // Determine which deck to load into: first empty, else replace A
+      const nameA = document.getElementById('track-name-a')?.textContent || '';
+      const hasTrackA = nameA !== 'no track loaded' && nameA !== '' && nameA !== 'Loading...';
+      const deck = hasTrackA ? 'b' : 'a';
+
+      target.dispatchEvent(
+        new CustomEvent('track-drop', {
+          bubbles: true,
+          detail: { deck, file },
+        })
+      );
+    });
   }
 
   /**
