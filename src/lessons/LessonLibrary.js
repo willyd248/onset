@@ -94,13 +94,18 @@ export class LessonLibrary {
   /**
    * Build a session playlist (3-5 lessons, 10-15 minutes).
    * @param {number} [userAccuracy=0.7]
+   * @param {{ maxMinutes?: number, difficulty?: string }} [opts={}]
    * @returns {import('./lesson-schema.js').LessonDef[]}
    */
-  buildSession(userAccuracy = 0.7) {
+  buildSession(userAccuracy = 0.7, opts = {}) {
     const session = [];
     let totalMinutes = 0;
-    const maxMinutes = 15;
+    const maxMinutes = opts.maxMinutes || 15;
     const usedIds = new Set();
+
+    // Map difficulty setting to a numeric ceiling
+    const difficultyCeiling = opts.difficulty === 'advanced' ? 5
+      : opts.difficulty === 'intermediate' ? 3 : 2;
 
     // Reset recent categories for fresh session
     this._recentCategories = [];
@@ -108,6 +113,9 @@ export class LessonLibrary {
     while (totalMinutes < maxMinutes && session.length < 5) {
       const next = this.selectNext(userAccuracy);
       if (!next || usedIds.has(next.id)) break;
+
+      // Skip lessons above the user's difficulty ceiling
+      if (next.difficulty > difficultyCeiling) break;
 
       session.push(next);
       usedIds.add(next.id);

@@ -27,7 +27,14 @@ export class SessionManager extends EventTarget {
    * @returns {import('./lesson-schema.js').LessonDef[]} the session playlist
    */
   startSession() {
-    this._playlist = this._library.buildSession(this._rollingAccuracy);
+    // Read user settings for session length and difficulty
+    let settings = {};
+    try { settings = JSON.parse(localStorage.getItem('onset:settings') || '{}'); } catch { /* use defaults */ }
+    const opts = {
+      maxMinutes: settings.sessionLength || 15,
+      difficulty: settings.difficulty || 'beginner',
+    };
+    this._playlist = this._library.buildSession(this._rollingAccuracy, opts);
     this._currentIndex = -1;
     this._sessionStartTime = Date.now();
     this._isActive = true;
