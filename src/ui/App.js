@@ -780,6 +780,14 @@ export class App {
 
   /** @private */
   _setupCueHandling() {
+    // UI sync buttons → copy pitch from other deck
+    this._mixerUI.addEventListener('sync', (e) => {
+      const { deck } = /** @type {CustomEvent} */ (e).detail;
+      const otherDeck = deck === 'A' ? 'B' : 'A';
+      const otherPitch = this._mixerState.get(otherDeck, 'pitch');
+      this._mixerState.set(deck, 'pitch', otherPitch, 'ui');
+    });
+
     this._mixerUI.addEventListener('cue', (e) => {
       const { deck } = /** @type {CustomEvent} */ (e).detail;
       if (this._decks[deck]) {
