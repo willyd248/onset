@@ -23,6 +23,13 @@ import { ScoringEngine } from './ScoringEngine.js';
 import { SpacedRepetition } from './SpacedRepetition.js';
 import { SessionManager } from './SessionManager.js';
 import { ProgressManager } from './ProgressManager.js';
+import {
+  trackSessionStarted,
+  trackSessionEnded,
+  trackLessonStarted,
+  trackLessonCompleted,
+  trackLessonAbandoned,
+} from '../analytics.js';
 
 /**
  * @typedef {'idle' | 'session_active' | 'phase_watch' | 'phase_imagine' | 'phase_do' | 'step_active' | 'step_scored' | 'lesson_complete' | 'session_complete'} EngineState
@@ -99,6 +106,7 @@ export class LessonEngine extends EventTarget {
     }
 
     this._progress.startSession();
+    trackSessionStarted();
     this._state = 'session_active';
     this._renderer.renderSessionStart(playlist);
   }
@@ -116,7 +124,9 @@ export class LessonEngine extends EventTarget {
 
     this._currentLesson = lesson;
     this._phaseIndex = 0;
+    this._lessonStartMs = performance.now();
     this._scoring.startLesson(lesson.id);
+    trackLessonStarted({ lessonId: lesson.id, lessonName: lesson.title || lesson.id });
 
     // Collect all 'do' phase steps for progress tracking
     this._doSteps = [];
@@ -391,6 +401,13 @@ export class LessonEngine extends EventTarget {
     // Update session rolling accuracy
     this._session.recordLessonScore(lessonScore.score);
 
+    const lessonDurationMs = Math.round(performance.now() - (this._lessonStartMs || 0));
+    trackLessonCompleted({
+      lessonId: this._currentLesson.id,
+      score: lessonScore.score,
+      durationMs: lessonDurationMs,
+    });
+
     this._renderer.renderLessonComplete(lessonScore, this._session.isLastLesson);
 
     this.dispatchEvent(new CustomEvent('lesson-complete', {
@@ -407,8 +424,30 @@ export class LessonEngine extends EventTarget {
     if (this._imagineTimerId) { clearTimeout(this._imagineTimerId); this._imagineTimerId = null; }
     if (this._timeLimitId) { clearTimeout(this._timeLimitId); this._timeLimitId = null; }
 
+    // If a lesson was in-flight, track it as abandoned
+    const inFlightStates = ['phase_watch', 'phase_imagine', 'phase_do', 'step_active', 'step_scored'];
+    if (this._currentLesson && inFlightStates.includes(this._state)) {
+      const phaseMap = {
+        phase_watch: 'Watch',
+        phase_imagine: 'Imagine',
+        phase_do: 'Do',
+        step_active: 'Do',
+        step_scored: 'Do',
+      };
+      trackLessonAbandoned({
+        lessonId: this._currentLesson.id,
+        phase: phaseMap[this._state] || 'Watch',
+      });
+    }
+
     this._session.endSession();
     this._progress.endSession();
+
+    const summary = this._progress.getSummary();
+    trackSessionEnded({
+      totalXP: summary.totalXP,
+      lessonsCompleted: summary.lessonsCompleted,
+    });
 
     const stats = this._library.getStats();
     this._renderer.renderSessionComplete(stats);

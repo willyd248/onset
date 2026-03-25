@@ -5,7 +5,8 @@ export default async function handler(req, res) {
 
   const { email } = req.body || {};
 
-  if (!email || !email.includes('@')) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email || !emailRegex.test(email)) {
     return res.status(400).json({ error: 'Valid email required' });
   }
 
