@@ -36,20 +36,27 @@ export class ViewManager extends EventTarget {
       });
     });
 
-    // Bind learn-node clicks and keyboard to navigate to practice
-    document.querySelectorAll('.learn-path-node[data-lesson], .learn-node[data-lesson]').forEach((node) => {
-      const handler = () => {
-        if (node.classList.contains('learn-node--locked') || node.querySelector('.learn-node--locked')) return;
-        this.show('practice');
+    // Bind learn-node clicks via event delegation so dynamically-updated nodes work
+    const learnContainer = document.querySelector('.learn-path') || document.querySelector('.learn-dashboard');
+    if (learnContainer) {
+      const findClickableNode = (target) => {
+        const node = target.closest('.learn-path-node[data-lesson]');
+        if (!node) return null;
+        if (node.querySelector('.learn-node--locked')) return null;
+        return node;
       };
-      node.addEventListener('click', handler);
-      node.addEventListener('keydown', (e) => {
+      learnContainer.addEventListener('click', (e) => {
+        if (findClickableNode(e.target)) this.show('practice');
+      });
+      learnContainer.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          handler();
+          if (findClickableNode(e.target)) {
+            e.preventDefault();
+            this.show('practice');
+          }
         }
       });
-    });
+    }
 
     // Show the default view
     this.show('practice');
