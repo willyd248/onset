@@ -51,15 +51,31 @@ export class SettingsManager {
 
   /** @private */
   _bindControls() {
-    const difficultyEl = /** @type {HTMLSelectElement} */ (document.getElementById('settings-difficulty'));
+    const difficultyRadios = document.querySelectorAll('input[name="difficulty"]');
     const sessionEl = /** @type {HTMLSelectElement} */ (document.getElementById('settings-session-length'));
     const themeEl = /** @type {HTMLSelectElement} */ (document.getElementById('settings-theme'));
 
-    if (difficultyEl) {
-      difficultyEl.value = this._settings.difficulty;
-      difficultyEl.addEventListener('change', () => {
-        this._settings.difficulty = difficultyEl.value;
-        this._save();
+    if (difficultyRadios.length > 0) {
+      difficultyRadios.forEach(radio => {
+        if (radio.value === this._settings.difficulty) {
+          radio.checked = true;
+          radio.closest('.difficulty-card')?.classList.add('bg-primary/10', 'border-primary');
+          radio.closest('.difficulty-card')?.classList.remove('bg-surface-container', 'border-transparent');
+        }
+        radio.addEventListener('change', () => {
+          this._settings.difficulty = radio.value;
+          this._save();
+          difficultyRadios.forEach(r => {
+            const card = r.closest('.difficulty-card');
+            if (r.checked) {
+              card?.classList.add('bg-primary/10', 'border-primary');
+              card?.classList.remove('bg-surface-container', 'border-transparent');
+            } else {
+              card?.classList.remove('bg-primary/10', 'border-primary');
+              card?.classList.add('bg-surface-container', 'border-transparent');
+            }
+          });
+        });
       });
     }
 
