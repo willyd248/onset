@@ -327,10 +327,28 @@ export class LessonEngine extends EventTarget {
     const result = this._validator.validate(step.target);
     const elapsedMs = performance.now() - (this._stepStartMs || 0);
 
+    // Calculate phrase alignment using beat grid if available, else neutral 50
+    const actionTimeMs = performance.now() - (this._stepStartMs || 0);
+    let phraseScore = 50;
+    try {
+      const deckA = document.getElementById('track-bpm-a')?.textContent;
+      const deckB = document.getElementById('track-bpm-b')?.textContent;
+      const bpmText = deckA || deckB || '';
+      const bpmMatch = bpmText.match(/(\d+)/);
+      const bpm = bpmMatch ? parseInt(bpmMatch[1], 10) : 0;
+      if (bpm > 0) {
+        // Approximate a beat grid from BPM (no pre-computed grid available)
+        const beatInterval = 60 / bpm;
+        const numBeats = Math.ceil(300 / beatInterval); // ~5 minutes of beats
+        const beatGrid = Array.from({ length: numBeats }, (_, i) => i * beatInterval);
+        phraseScore = ScoringEngine.calcPhraseAlignment(actionTimeMs, beatGrid, bpm);
+      }
+    } catch { /* fall back to neutral 50 */ }
+
     const rawScores = {
       accuracy: timedOut ? Math.min(result.accuracy, 40) : result.accuracy,
       timing: ScoringEngine.calcTiming(elapsedMs, step.timeLimitMs),
-      phrase: 50, // Default — real phrase scoring needs beat grid context
+      phrase: phraseScore,
     };
 
     const stepScore = this._scoring.scoreStep(step.id, rawScores, step.scoreWeights);
