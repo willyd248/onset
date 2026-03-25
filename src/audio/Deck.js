@@ -219,10 +219,16 @@ export class Deck extends EventTarget {
 
   /** @returns {number} Current playback position in seconds */
   get currentTime() {
+    let time;
     if (this._isPlaying) {
-      return this._offset + (this._ctx.currentTime - this._startTime) * this._playbackRate;
+      time = this._offset + (this._ctx.currentTime - this._startTime) * this._playbackRate;
+    } else {
+      time = this._offset;
     }
-    return this._offset;
+    if (this._buffer) {
+      time = time % this._buffer.duration;
+    }
+    return time;
   }
 
   /** @returns {number} Track duration in seconds, or 0 if no track */
