@@ -276,23 +276,13 @@ export class App {
       if (this._audioResumed) return;
       this._audioResumed = true;
 
-      try {
-        await this._engine.init();
-      } catch (err) {
-        ErrorOverlay.show(
-          'Audio error',
-          'Could not start the audio system. Please reload and try again.'
-        );
-        return;
-      }
-
-      // Remove overlay
+      // Always remove overlay first — never block UI regardless of audio state
       overlay.classList.remove('startup-overlay--visible');
       overlay.addEventListener('transitionend', () => {
         overlay.remove();
       }, { once: true });
 
-      // Fallback removal
+      // Fallback removal (in case transitionend doesn't fire)
       setTimeout(() => {
         if (overlay.parentNode) overlay.remove();
       }, 500);
@@ -300,6 +290,13 @@ export class App {
       // Remove listeners
       document.removeEventListener('click', resumeAudio);
       document.removeEventListener('keydown', resumeAudio);
+
+      // Then try to init audio (non-blocking)
+      try {
+        await this._engine.init();
+      } catch (err) {
+        Toast.show('Audio system error — reload to try again');
+      }
     };
 
     document.addEventListener('click', resumeAudio);
