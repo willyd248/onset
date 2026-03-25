@@ -54,6 +54,16 @@ export class WaveformData {
     this._beatGrid = beatGrid;
   }
 
+  /**
+   * Generate only peak amplitude data (fast, no frequency analysis or BPM detection).
+   * Use for demo tracks or short clips where full analysis would block the main thread.
+   */
+  generatePeaksOnly() {
+    const mono = this._getMono();
+    this._overviewPeaks = WaveformData._extractPeaks(mono, 100);
+    this._zoomedPeaks = WaveformData._extractPeaks(mono, 10);
+  }
+
   /** @returns {Float32Array} */
   get overviewPeaks() {
     return this._overviewPeaks;

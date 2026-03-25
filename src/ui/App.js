@@ -509,7 +509,21 @@ export class App {
     const response = await fetch(url);
     const blob = await response.blob();
     const file = new File([blob], `${displayName}.mp3`, { type: 'audio/mpeg' });
-    await this._loadTrack(deckName, file);
+    await this._loadTrack(deckName, file, { skipVisuals: true });
+
+    // Generate fast peaks-only waveform for demo tracks (skip expensive frequency/BPM analysis)
+    const deck = this._decks[deckName];
+    const renderer = this._waveformRenderers[deckName];
+    if (deck?._buffer && renderer) {
+      setTimeout(() => {
+        try {
+          const waveformData = new WaveformData(deck._buffer);
+          waveformData.generatePeaksOnly();
+          renderer.setData(waveformData);
+          renderer.start(() => deck.currentTime);
+        } catch { /* waveform is best-effort */ }
+      }, 100);
+    }
   }
 
   // ── MIDI Status Updates ──────────────────────────────────────
