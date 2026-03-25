@@ -424,6 +424,9 @@ export class App {
       return `${m}:${s.toString().padStart(2, '0')}`;
     };
 
+    const syncBpmEl = document.getElementById('sync-bpm');
+    const syncTimeEl = document.getElementById('sync-time');
+
     const update = () => {
       for (const deckName of ['A', 'B']) {
         const deck = this._decks[deckName];
@@ -433,6 +436,22 @@ export class App {
         const dur = formatTime(deck.duration);
         el.textContent = `${cur} / ${dur}`;
       }
+
+      // Update sync bar: show BPM and time of the currently playing deck (or A by default)
+      if (syncBpmEl || syncTimeEl) {
+        const activeDeck = this._decks.B?.isPlaying ? 'B' : 'A';
+        const deck = this._decks[activeDeck];
+        if (syncBpmEl) {
+          const bpmEl = document.getElementById(`track-bpm-${activeDeck.toLowerCase()}`);
+          syncBpmEl.textContent = bpmEl?.textContent || '--- BPM';
+        }
+        if (syncTimeEl && deck) {
+          const cur = formatTime(deck.currentTime);
+          const dur = formatTime(deck.duration);
+          syncTimeEl.textContent = `${cur} / ${dur}`;
+        }
+      }
+
       requestAnimationFrame(update);
     };
 
@@ -603,11 +622,16 @@ export class App {
     const updateSettings = () => {
       const statusEl = document.getElementById('settings-midi-status');
       const deviceEl = document.getElementById('settings-midi-device');
+      const dotEl = document.getElementById('settings-midi-dot');
+      const isConnected = this._midiController.isConnected;
       if (statusEl) {
-        statusEl.textContent = this._midiController.isConnected ? 'Connected' : 'Disconnected';
+        statusEl.textContent = isConnected ? 'Connected' : 'Disconnected';
       }
-      if (deviceEl && this._midiController.isConnected) {
+      if (deviceEl && isConnected) {
         deviceEl.textContent = this._midiController.inputPort?.name || 'MIDI Controller';
+      }
+      if (dotEl) {
+        dotEl.style.background = isConnected ? '#2a6900' : '#b02500';
       }
     };
 
@@ -668,6 +692,18 @@ export class App {
     if (xpEl) xpEl.textContent = String(summary.totalXP);
     if (streakEl) streakEl.textContent = String(summary.currentStreak);
     if (lessonsEl) lessonsEl.textContent = String(summary.lessonsCompleted);
+
+    // Level progress bar
+    const levelProgressEl = document.getElementById('profile-level-progress');
+    if (levelProgressEl) {
+      const levelInfo = this._lessonEngine.progress.getLevel();
+      const xpIntoLevel = summary.totalXP - levelInfo.xp;
+      const xpNeeded = levelInfo.nextLevelXP - levelInfo.xp;
+      const pct = xpNeeded > 0 && isFinite(xpNeeded)
+        ? Math.min(100, Math.round((xpIntoLevel / xpNeeded) * 100))
+        : 100;
+      levelProgressEl.style.width = `${pct}%`;
+    }
   }
 
   /** @private */
@@ -771,6 +807,30 @@ export class App {
         wrapper.setAttribute('data-lesson', entry.id);
       }
     });
+
+    // Unit progress bar — completed / total lessons in the current unit
+    const unitProgressEl = document.getElementById('learn-unit-progress');
+    if (unitProgressEl) {
+      const total = orderedIds.length;
+      const completedCount = orderedIds.filter(id => completed.has(id)).length;
+      const pct = total > 0 ? Math.round((completedCount / total) * 100) : 0;
+      unitProgressEl.style.width = `${pct}%`;
+    }
+
+    // Daily XP and daily progress widgets
+    const dailyXpEl = document.getElementById('learn-daily-xp');
+    const dailyProgressEl = document.getElementById('learn-daily-progress');
+    if (dailyXpEl) dailyXpEl.textContent = String(summary.totalXP);
+    if (dailyProgressEl) {
+      // Show XP progress toward next level as the daily progress bar
+      const levelInfo = this._lessonEngine.progress.getLevel();
+      const xpIntoLevel = summary.totalXP - levelInfo.xp;
+      const xpNeeded = levelInfo.nextLevelXP - levelInfo.xp;
+      const pct = xpNeeded > 0 && isFinite(xpNeeded)
+        ? Math.min(100, Math.round((xpIntoLevel / xpNeeded) * 100))
+        : 100;
+      dailyProgressEl.style.width = `${pct}%`;
+    }
   }
 
   /** @private */

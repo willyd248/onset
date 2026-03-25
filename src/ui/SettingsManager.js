@@ -15,6 +15,7 @@ export class SettingsManager {
   get difficulty() { return this._settings.difficulty; }
   get sessionLength() { return this._settings.sessionLength; }
   get theme() { return this._settings.theme; }
+  get autoAdvance() { return this._settings.autoAdvance; }
 
   /** @private */
   _load() {
@@ -26,10 +27,11 @@ export class SettingsManager {
           difficulty: data.difficulty || 'beginner',
           sessionLength: data.sessionLength || 15,
           theme: data.theme || 'system',
+          autoAdvance: data.autoAdvance !== undefined ? data.autoAdvance : true,
         };
       }
     } catch { /* start fresh */ }
-    return { difficulty: 'beginner', sessionLength: 15, theme: 'system' };
+    return { difficulty: 'beginner', sessionLength: 15, theme: 'system', autoAdvance: true };
   }
 
   /** @private */
@@ -93,6 +95,29 @@ export class SettingsManager {
         this._settings.theme = themeEl.value;
         this._save();
         this._applyTheme();
+      });
+    }
+
+    // Auto-advance toggle
+    const autoAdvanceBtn = /** @type {HTMLButtonElement} */ (document.getElementById('settings-auto-advance'));
+    if (autoAdvanceBtn) {
+      const thumb = autoAdvanceBtn.querySelector('div');
+      const applyState = (on) => {
+        if (on) {
+          autoAdvanceBtn.classList.add('bg-primary');
+          autoAdvanceBtn.classList.remove('bg-outline-variant');
+          if (thumb) { thumb.style.transform = 'translateX(0)'; }
+        } else {
+          autoAdvanceBtn.classList.remove('bg-primary');
+          autoAdvanceBtn.classList.add('bg-outline-variant');
+          if (thumb) { thumb.style.transform = 'translateX(-24px)'; }
+        }
+      };
+      applyState(this._settings.autoAdvance);
+      autoAdvanceBtn.addEventListener('click', () => {
+        this._settings.autoAdvance = !this._settings.autoAdvance;
+        this._save();
+        applyState(this._settings.autoAdvance);
       });
     }
   }
