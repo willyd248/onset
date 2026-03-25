@@ -37,9 +37,9 @@ export class ViewManager extends EventTarget {
     });
 
     // Bind learn-node clicks and keyboard to navigate to practice
-    document.querySelectorAll('.learn-node[data-lesson]').forEach((node) => {
+    document.querySelectorAll('.learn-path-node[data-lesson], .learn-node[data-lesson]').forEach((node) => {
       const handler = () => {
-        if (node.classList.contains('learn-node--locked')) return;
+        if (node.classList.contains('learn-node--locked') || node.querySelector('.learn-node--locked')) return;
         this.show('practice');
       };
       node.addEventListener('click', handler);
