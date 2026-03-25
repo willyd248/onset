@@ -787,6 +787,24 @@ export class App {
       }
     });
 
+    // UI pad buttons → hot cue set/jump
+    this._mixerUI.addEventListener('pad', (e) => {
+      const { deck, pad } = /** @type {CustomEvent} */ (e).detail;
+      if (!this._decks[deck]) return;
+      const cues = this._mixerState.get(deck, 'hotCues');
+      const deckObj = this._decks[deck];
+      const idx = pad - 1;
+      if (cues[idx] === null) {
+        // Set hot cue at current position
+        cues[idx] = deckObj.currentTime;
+        this._mixerState.set(deck, 'hotCues', [...cues], 'ui');
+      } else {
+        // Jump to hot cue
+        deckObj.setCuePoint(cues[idx]);
+        deckObj.cue();
+      }
+    });
+
     // Save hot cues when they change
     this._mixerState.addEventListener('change', (e) => {
       const { deck, param } = /** @type {CustomEvent} */ (e).detail;
