@@ -427,7 +427,23 @@ export class App {
     const syncBpmEl = document.getElementById('sync-bpm');
     const syncTimeEl = document.getElementById('sync-time');
 
+    // Track whether the time update loop should be running
+    this._timeUpdateActive = true;
+
+    // Pause/resume the loop when views change
+    this._viewManager.addEventListener('view-changed', (e) => {
+      const view = /** @type {CustomEvent} */ (e).detail.view;
+      if (view === 'practice') {
+        this._timeUpdateActive = true;
+        requestAnimationFrame(update);
+      } else {
+        this._timeUpdateActive = false;
+      }
+    });
+
     const update = () => {
+      if (!this._timeUpdateActive) return;
+
       for (const deckName of ['A', 'B']) {
         const deck = this._decks[deckName];
         const el = timeEls[deckName];
