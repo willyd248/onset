@@ -4,11 +4,13 @@
  */
 export class ErrorOverlay {
   /**
-   * Show a critical error overlay.
+   * Show an error overlay.
    * @param {string} title — short error heading
    * @param {string} message — user-friendly description
+   * @param {object} [opts]
+   * @param {boolean} [opts.dismissable=false] — if true, show a dismiss button instead of forcing reload
    */
-  static show(title, message) {
+  static show(title, message, opts = {}) {
     // Prevent duplicate overlays
     const existing = document.querySelector('.error-overlay');
     if (existing) existing.remove();
@@ -24,16 +26,27 @@ export class ErrorOverlay {
     msgEl.className = 'error-overlay__message';
     msgEl.textContent = message;
 
-    const btn = document.createElement('button');
-    btn.className = 'btn error-overlay__btn';
-    btn.textContent = 'RELOAD';
-    btn.addEventListener('click', () => {
-      window.location.reload();
-    });
-
     el.appendChild(titleEl);
     el.appendChild(msgEl);
-    el.appendChild(btn);
+
+    if (opts.dismissable) {
+      const dismissBtn = document.createElement('button');
+      dismissBtn.className = 'btn error-overlay__btn';
+      dismissBtn.textContent = 'DISMISS';
+      dismissBtn.addEventListener('click', () => {
+        el.classList.remove('error-overlay--visible');
+        setTimeout(() => el.remove(), 150);
+      });
+      el.appendChild(dismissBtn);
+    } else {
+      const btn = document.createElement('button');
+      btn.className = 'btn error-overlay__btn';
+      btn.textContent = 'RELOAD';
+      btn.addEventListener('click', () => {
+        window.location.reload();
+      });
+      el.appendChild(btn);
+    }
 
     document.body.appendChild(el);
 

@@ -404,7 +404,7 @@ export class App {
       const message = err.message?.startsWith('Unsupported file type')
         ? err.message
         : 'The audio file could not be decoded. Please try a different file (MP3, WAV, OGG, or FLAC).';
-      ErrorOverlay.show('Could not load track', message);
+      ErrorOverlay.show('Could not load track', message, { dismissable: true });
     }
   }
 
