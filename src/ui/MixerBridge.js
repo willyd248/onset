@@ -20,16 +20,7 @@ export class MixerBridge {
 
   /** Wire up all subscriptions. */
   init() {
-    this._subscribeToState();
-    if (this._router) {
-      this._subscribeToMIDI();
-    }
-    this._subscribeToDecks();
-  }
-
-  /** State changes → audio engine updates. */
-  _subscribeToState() {
-    this._state.addEventListener('change', (e) => {
+    this._stateListener = (e) => {
       const { deck, param, value, source } = /** @type {CustomEvent} */ (e).detail;
 
       // Route to the correct audio engine call
@@ -38,7 +29,21 @@ export class MixerBridge {
       } else if (deck === 'shared') {
         this._applySharedParam(param, value);
       }
-    });
+    };
+    this._state.addEventListener('change', this._stateListener);
+
+    if (this._router) {
+      this._subscribeToMIDI();
+    }
+    this._subscribeToDecks();
+  }
+
+  /** Remove listeners to prevent leaks. */
+  destroy() {
+    if (this._stateListener) {
+      this._state.removeEventListener('change', this._stateListener);
+      this._stateListener = null;
+    }
   }
 
   /**

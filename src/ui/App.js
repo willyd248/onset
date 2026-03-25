@@ -207,6 +207,7 @@ export class App {
 
       // Re-create bridge with the new router
       if (this._mixerBridge && this._decks && this._crossfader) {
+        this._mixerBridge.destroy();
         this._mixerBridge = new MixerBridge(
           this._mixerState,
           this._decks,
