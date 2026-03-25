@@ -152,6 +152,14 @@ export class MixerBridge {
       this._state.set('B', 'eqHigh', this._midiToEQ(/** @type {CustomEvent} */ (e).detail.value), 'midi');
     });
 
+    // EQ mid (MIDI sends 0-1, normalize to -24..+6 dB)
+    this._on(router, 'deck-a:eq-mid', (e) => {
+      this._state.set('A', 'eqMid', this._midiToEQ(/** @type {CustomEvent} */ (e).detail.value), 'midi');
+    });
+    this._on(router, 'deck-b:eq-mid', (e) => {
+      this._state.set('B', 'eqMid', this._midiToEQ(/** @type {CustomEvent} */ (e).detail.value), 'midi');
+    });
+
     // EQ low (MIDI sends 0-1, normalize to -24..+6 dB)
     this._on(router, 'deck-a:eq-low', (e) => {
       this._state.set('A', 'eqLow', this._midiToEQ(/** @type {CustomEvent} */ (e).detail.value), 'midi');

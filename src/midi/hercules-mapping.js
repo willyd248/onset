@@ -14,6 +14,7 @@
  *   CC0  = Volume fader
  *   CC1  = Filter knob
  *   CC2  = Low EQ knob
+ *   CC3  = Mid EQ knob
  *   CC4  = High EQ knob
  *   CC5  = Gain knob (input trim)
  *   CC8  = Tempo/Pitch fader
@@ -33,8 +34,9 @@ export const herculesMapping = {
     { name: 'deck-a:gain',       type: 'cc',   channel: 1, number: 5,  action: 'gain',        deck: 'A' },
     { name: 'deck-a:pitch',      type: 'cc',   channel: 1, number: 8,  action: 'pitch',       deck: 'A' },
 
-    // EQ (confirmed: CC2 = Low, CC4 = High — opposite of original assumption)
+    // EQ (confirmed: CC2 = Low, CC3 = Mid, CC4 = High)
     { name: 'deck-a:eq-low',     type: 'cc',   channel: 1, number: 2,  action: 'eq-low',      deck: 'A' },
+    { name: 'deck-a:eq-mid',     type: 'cc',   channel: 1, number: 3,  action: 'eq-mid',      deck: 'A' },
     { name: 'deck-a:eq-high',    type: 'cc',   channel: 1, number: 4,  action: 'eq-high',     deck: 'A' },
 
     // Jog wheel
@@ -59,8 +61,9 @@ export const herculesMapping = {
     { name: 'deck-b:gain',       type: 'cc',   channel: 2, number: 5,  action: 'gain',        deck: 'B' },
     { name: 'deck-b:pitch',      type: 'cc',   channel: 2, number: 8,  action: 'pitch',       deck: 'B' },
 
-    // EQ (confirmed: CC2 = Low, CC4 = High)
+    // EQ (confirmed: CC2 = Low, CC3 = Mid, CC4 = High)
     { name: 'deck-b:eq-low',     type: 'cc',   channel: 2, number: 2,  action: 'eq-low',      deck: 'B' },
+    { name: 'deck-b:eq-mid',     type: 'cc',   channel: 2, number: 3,  action: 'eq-mid',      deck: 'B' },
     { name: 'deck-b:eq-high',    type: 'cc',   channel: 2, number: 4,  action: 'eq-high',     deck: 'B' },
 
     // Jog wheel
