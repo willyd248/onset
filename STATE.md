@@ -31,7 +31,7 @@
 - Track time/XP on stats and profile pages
 - Mobile-responsive layout
 - More lesson content
-- Filter knob audio implementation (currently state-only)
+
 
 ## Tech Stack
 - Vanilla JS (ES6 modules), no framework
