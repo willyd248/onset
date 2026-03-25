@@ -244,6 +244,7 @@ export class LessonEngine extends EventTarget {
     const step = steps[index];
     this._stepIndex = index;
     this._state = 'step_active';
+    this._stepStartMs = performance.now();
 
     // Get scaffold level for this technique
     const scaffoldLevel = this._scaffold.getLevel(
@@ -324,7 +325,7 @@ export class LessonEngine extends EventTarget {
 
     // Calculate scores
     const result = this._validator.validate(step.target);
-    const elapsedMs = performance.now(); // Approximate
+    const elapsedMs = performance.now() - (this._stepStartMs || 0);
 
     const rawScores = {
       accuracy: timedOut ? Math.min(result.accuracy, 40) : result.accuracy,
