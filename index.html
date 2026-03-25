@@ -300,10 +300,20 @@
                 </div>
               </div>
 
-              <!-- Hidden controls (gain, filter) -->
-              <div class="hidden">
-                <input type="range" class="knob" id="gain-a" aria-label="Deck A gain" min="0" max="200" value="100" orient="vertical" />
-                <input type="range" class="knob" id="filter-a" aria-label="Deck A filter" min="0" max="100" value="50" orient="vertical" />
+              <!-- Gain + Filter Knobs (alongside EQ) -->
+              <div class="deck__knobs-extra flex gap-3 justify-center mb-2">
+                <div class="knob-group flex flex-col items-center gap-1">
+                  <div class="knob-rotary-container">
+                    <input type="range" class="knob knob-rotary accent-primary" id="gain-a" aria-label="Deck A gain" min="0" max="200" value="100" orient="vertical" />
+                  </div>
+                  <label class="knob-group__label text-[0.5rem] font-black tracking-widest uppercase text-on-surface-variant" for="gain-a">Gain</label>
+                </div>
+                <div class="knob-group flex flex-col items-center gap-1">
+                  <div class="knob-rotary-container">
+                    <input type="range" class="knob knob-rotary accent-primary" id="filter-a" aria-label="Deck A filter" min="0" max="100" value="50" orient="vertical" />
+                  </div>
+                  <label class="knob-group__label text-[0.5rem] font-black tracking-widest uppercase text-on-surface-variant" for="filter-a">Filter</label>
+                </div>
               </div>
 
               <!-- Hot Cue Pads -->
@@ -396,10 +406,20 @@
                 </div>
               </div>
 
-              <!-- Hidden controls (gain, filter) -->
-              <div class="hidden">
-                <input type="range" class="knob" id="gain-b" aria-label="Deck B gain" min="0" max="200" value="100" orient="vertical" />
-                <input type="range" class="knob" id="filter-b" aria-label="Deck B filter" min="0" max="100" value="50" orient="vertical" />
+              <!-- Gain + Filter Knobs (alongside EQ) -->
+              <div class="deck__knobs-extra flex gap-3 justify-center mb-2">
+                <div class="knob-group flex flex-col items-center gap-1">
+                  <div class="knob-rotary-container">
+                    <input type="range" class="knob knob-rotary accent-secondary" id="gain-b" aria-label="Deck B gain" min="0" max="200" value="100" orient="vertical" />
+                  </div>
+                  <label class="knob-group__label text-[0.5rem] font-black tracking-widest uppercase text-on-surface-variant" for="gain-b">Gain</label>
+                </div>
+                <div class="knob-group flex flex-col items-center gap-1">
+                  <div class="knob-rotary-container">
+                    <input type="range" class="knob knob-rotary accent-secondary" id="filter-b" aria-label="Deck B filter" min="0" max="100" value="50" orient="vertical" />
+                  </div>
+                  <label class="knob-group__label text-[0.5rem] font-black tracking-widest uppercase text-on-surface-variant" for="filter-b">Filter</label>
+                </div>
               </div>
 
               <!-- Hot Cue Pads -->
