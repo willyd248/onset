@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Onset</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: #f6f6f6;
+      color: #2d2f2f;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100%;
+    }
+    a { color: #2a6900; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .site-header {
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .logo { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; color: #2d2f2f; text-decoration: none; }
+    .logo span { color: #2a6900; }
+    .header-divider { width: 1px; height: 20px; background: #e7e8e8; margin: 0 4px; }
+    .header-label { font-size: 13px; color: #767777; font-weight: 600; }
+    .header-spacer { flex: 1; }
+    .back-link { font-size: 13px; color: #767777; text-decoration: none; font-weight: 600; }
+    .back-link:hover { color: #2a6900; text-decoration: none; }
+
+    .page-wrapper { max-width: 780px; margin: 0 auto; padding: 56px 24px 80px; }
+    .page-hero { margin-bottom: 48px; }
+    .page-hero h1 { font-size: 28px; font-weight: 900; margin-bottom: 10px; letter-spacing: -0.4px; color: #2d2f2f; }
+    .page-hero .meta { font-size: 13px; color: #767777; font-weight: 500; }
+    .page-hero .meta span { color: #2a6900; font-weight: 700; }
+
+    .section { margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid #e7e8e8; }
+    .section:last-of-type { border-bottom: none; }
+    .section h2 {
+      font-size: 15px; font-weight: 700; color: #2d2f2f;
+      margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .section h2::before {
+      content: ''; display: block; width: 3px; height: 15px;
+      background: #2a6900; border-radius: 2px;
+    }
+    .section p { color: #5a5c5c; font-size: 14px; margin-bottom: 12px; font-weight: 500; }
+    .section p:last-child { margin-bottom: 0; }
+
+    ul.styled-list { list-style: none; padding: 0; margin: 12px 0 0; display: flex; flex-direction: column; gap: 8px; }
+    ul.styled-list li { font-size: 14px; color: #5a5c5c; padding-left: 18px; position: relative; font-weight: 500; }
+    ul.styled-list li::before { content: '–'; position: absolute; left: 0; color: #2a6900; font-weight: 700; }
+
+    .data-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 16px; border: 1px solid #e7e8e8; border-radius: 1rem; overflow: hidden; }
+    .data-table thead tr { background: #f0f1f1; }
+    .data-table th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #767777; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #e7e8e8; }
+    .data-table td { padding: 10px 14px; color: #5a5c5c; border-bottom: 1px solid #f0f1f1; vertical-align: top; font-weight: 500; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tbody tr:nth-child(even) { background: #f6f6f6; }
+    .data-table tbody tr:nth-child(odd) { background: #ffffff; }
+
+    .callout { background: rgba(42,105,0,0.06); border: 1px solid rgba(42,105,0,0.2); border-radius: 1rem; padding: 14px 18px; font-size: 13px; color: #5a5c5c; margin-top: 16px; font-weight: 500; }
+    .callout strong { color: #2a6900; }
+
+    .contact-box { background: #ffffff; border: 1px solid #e7e8e8; border-radius: 1rem; padding: 20px 24px; margin-top: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .contact-box p { font-size: 14px; color: #5a5c5c; margin-bottom: 10px; font-weight: 500; }
+    .contact-box p:last-child { margin-bottom: 0; }
+
+    .page-footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid #e7e8e8; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .page-footer p { font-size: 12px; color: #acadad; font-weight: 500; }
+    .page-footer nav { display: flex; gap: 16px; }
+    .page-footer nav a { font-size: 12px; color: #767777; text-decoration: none; font-weight: 600; }
+    .page-footer nav a:hover { color: #2a6900; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo">On<span>set</span></a>
+    <div class="header-divider"></div>
+    <span class="header-label">Privacy Policy</span>
+    <div class="header-spacer"></div>
+    <a href="/" class="back-link">← Back</a>
+  </header>
+
+  <div class="page-wrapper">
+
+    <div class="page-hero">
+      <h1>Privacy Policy</h1>
+      <p class="meta">Effective date: <span>January 1, 2025</span> &nbsp;·&nbsp; Last updated: <span>March 25, 2026</span></p>
+    </div>
+
+    <div class="section">
+      <h2>Overview</h2>
+      <p>Onset is an interactive DJ learning platform that uses your browser's audio and MIDI capabilities to provide hands-on training. This Privacy Policy explains what information Onset collects, how it is used, and your rights regarding your data.</p>
+      <p>By using Onset, you agree to the practices described in this policy.</p>
+    </div>
+
+    <div class="section">
+      <h2>Information We Collect</h2>
+      <table class="data-table">
+        <thead>
+          <tr><th>Category</th><th>What we collect</th><th>Why</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Account information</strong></td>
+            <td>Email address, username, password hash (via Supabase Auth)</td>
+            <td>Authentication and account management</td>
+          </tr>
+          <tr>
+            <td><strong>Learning progress</strong></td>
+            <td>Completed lessons, scores, skill levels, practice session history</td>
+            <td>Tracking your progress and personalizing the curriculum</td>
+          </tr>
+          <tr>
+            <td><strong>Browser/device data</strong></td>
+            <td>Browser type, OS, screen resolution, audio/MIDI device capabilities</td>
+            <td>Compatibility and performance optimization</td>
+          </tr>
+          <tr>
+            <td><strong>Usage data</strong></td>
+            <td>Pages visited, features used, session duration, error events</td>
+            <td>Improving the platform and diagnosing issues</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <strong>Audio processing:</strong> Audio processed through the Web Audio API is handled entirely in your browser and is never transmitted to our servers. We do not record, store, or analyze your microphone input or audio output.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Local Storage and Browser Data</h2>
+      <p>Onset uses browser localStorage to persist the following data locally on your device:</p>
+      <ul class="styled-list">
+        <li>Current lesson and module progress (before sync to account)</li>
+        <li>Audio and MIDI configuration preferences</li>
+        <li>UI settings and layout preferences</li>
+        <li>Session tokens provided by Supabase Auth</li>
+      </ul>
+      <p style="margin-top: 12px;">This data remains on your device and is not transmitted except as described in this policy. You can clear it at any time via your browser's storage settings.</p>
+    </div>
+
+    <div class="section">
+      <h2>Web Audio and Web MIDI APIs</h2>
+      <p>Onset uses the Web Audio API and Web MIDI API to provide interactive DJ training. These APIs are browser-native and operate entirely client-side. Your browser will prompt you for permission before granting access to audio output or MIDI devices.</p>
+      <p>We do not intercept, record, or transmit audio signals or MIDI data to our servers. All audio and MIDI processing occurs locally in your browser in real time.</p>
+    </div>
+
+    <div class="section">
+      <h2>Third-Party Services</h2>
+      <ul class="styled-list">
+        <li><strong>Supabase:</strong> Provides authentication and database services. Stores your account and progress data. See <a href="https://supabase.com/privacy">supabase.com/privacy</a>.</li>
+        <li><strong>Vercel:</strong> Hosts and serves the application. See <a href="https://vercel.com/legal/privacy-policy">vercel.com/legal/privacy-policy</a>.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Your Rights</h2>
+      <ul class="styled-list">
+        <li><strong>Access:</strong> Request a copy of your account and progress data</li>
+        <li><strong>Deletion:</strong> Request deletion of your account and all associated data</li>
+        <li><strong>Correction:</strong> Update or correct your account information at any time via settings</li>
+        <li><strong>Portability:</strong> Request an export of your learning history</li>
+      </ul>
+      <p style="margin-top: 14px;">To exercise these rights, contact <a href="mailto:privacy@onset.app">privacy@onset.app</a>.</p>
+    </div>
+
+    <div class="section">
+      <h2>Data Retention</h2>
+      <p>We retain your account and progress data for as long as your account is active. Upon account deletion, your data is removed from our systems within 30 days and from backups within 90 days.</p>
+    </div>
+
+    <div class="section">
+      <h2>Children's Privacy</h2>
+      <p>Onset is intended for users 16 years of age and older. We do not knowingly collect personal information from children under 16.</p>
+    </div>
+
+    <div class="section">
+      <h2>Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. Material changes will be communicated via in-app notice or email. Continued use after changes constitutes acceptance.</p>
+    </div>
+
+    <div class="section">
+      <h2>Contact</h2>
+      <div class="contact-box">
+        <p>Privacy inquiries: <a href="mailto:privacy@onset.app">privacy@onset.app</a></p>
+        <p>General support: <a href="mailto:support@onset.app">support@onset.app</a></p>
+      </div>
+    </div>
+
+    <footer class="page-footer">
+      <p>© 2025 Onset. All rights reserved.</p>
+      <nav>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/">Home</a>
+      </nav>
+    </footer>
+
+  </div>
+</body>
+</html>
