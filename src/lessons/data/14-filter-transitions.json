@@ -1,0 +1,109 @@
+{
+  "id": "filter-transitions",
+  "title": "Filter Transitions",
+  "description": "Use EQ sweeps to simulate high-pass and low-pass filter effects — smoothly sweep out frequencies as you transition.",
+  "category": "transitions",
+  "technique": "filter-transition",
+  "difficulty": 3,
+  "estimatedMinutes": 9,
+  "prerequisiteIds": ["curriculum-eq-mixing"],
+  "requiredTracks": {
+    "count": 2,
+    "bpmRange": [120, 135],
+    "characteristics": "melodic tracks with clear high and low frequency content"
+  },
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: on Deck A, the HIGH EQ slowly sweeps from 0 dB down to -24 dB. The highs melt away — simulating a low-pass filter.",
+          "highlight": "deck-a:eq-high",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqHigh", "value": -24, "tolerance": 3 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: while Deck A darkens, Deck B's HIGH EQ sweeps up from -24 dB to 0 dB. Brightness transfers between decks.",
+          "highlight": "deck-b:eq-high",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqHigh", "value": 0, "tolerance": 3 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: the bass swap completes the transition. Deck A's lows are killed as Deck B's come in full.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_kill", "deck": "A", "param": "eqLow" },
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.3, "phrase": 0.3 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "Imagine you are slowly turning a dial from bright to dark on one track while doing the opposite on the other. The listener hears the music shift like sunlight slowly being replaced by evening. The filter transition is a slow, hypnotic journey between two worlds.",
+      "durationMs": 7000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "partial",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Both decks playing and beatmatched. Set up Deck B with its HIGH EQ cut to -24 dB before you bring it in.",
+          "highlight": "deck-b:eq-high",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqHigh", "value": -24, "tolerance": 4 },
+          "scoreWeights": { "accuracy": 0.8, "timing": 0.2, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Bring Deck B's volume up to 80%. It sounds dark and heavy since its highs are cut.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.8, "tolerance": 0.1 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.3, "phrase": 0 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Now begin the filter sweep. Slowly lower Deck A's HIGH EQ from 0 dB toward -24 dB. Take 8 bars.",
+          "highlight": "deck-a:eq-high",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqHigh", "value": -24, "tolerance": 4 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.4, "phrase": 0.2 }
+        },
+        {
+          "id": "d4",
+          "instruction": "As Deck A darkens, sweep Deck B's HIGH EQ up from -24 dB to 0 dB at the same rate. The brightness transfers.",
+          "highlight": "deck-b:eq-high",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqHigh", "value": 0, "tolerance": 4 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.4, "phrase": 0.2 }
+        },
+        {
+          "id": "d5",
+          "instruction": "At a phrase boundary, complete the transition — kill Deck A's LOW EQ and bring Deck B's LOW EQ to center.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": -24, "tolerance": 4 },
+          "timeLimitMs": 10000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.3, "phrase": 0.4 }
+        },
+        {
+          "id": "d6",
+          "instruction": "Confirm Deck B's LOW EQ is at center (0 dB). Then fade Deck A's volume down to zero.",
+          "highlight": "deck-b:eq-low",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqLow", "value": 0, "tolerance": 3 },
+          "timeLimitMs": 10000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        },
+        {
+          "id": "d7",
+          "instruction": "Fade Deck A's volume to zero. The filter transition is complete.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0, "tolerance": 0.05 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.4, "phrase": 0 }
+        }
+      ]
+    }
+  ]
+}

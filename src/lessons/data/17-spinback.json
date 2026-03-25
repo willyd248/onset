@@ -1,0 +1,97 @@
+{
+  "id": "spinback",
+  "title": "Spinback Effect",
+  "description": "Use a reverse jog wheel spin to create a dramatic spinback — a classic DJ effect that signals the end of a section.",
+  "category": "transitions",
+  "technique": "spinback",
+  "difficulty": 3,
+  "estimatedMinutes": 7,
+  "prerequisiteIds": ["baby-scratch", "crossfader-basics"],
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: Deck A plays normally. At the transition point, the jog wheel spins backward hard — a fast reverse.",
+          "highlight": "deck-a:jog",
+          "target": { "type": "beat_aligned", "tolerance": 100 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: as the spinback plays, the crossfader cuts to Deck B. The new track launches over the reverse sound.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 1, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: Deck A's volume is brought down immediately after the spinback. Deck B plays solo.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "Imagine grabbing a spinning record and whipping it backwards — that high-pitched reverse squeal is the spinback. It is theatrical and definitive. It says: 'THIS part is done, and THAT part begins.' It is best used at major structural breaks, not random moments.",
+      "durationMs": 7000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "partial",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Set up both decks: Deck A playing at 80% volume, Deck B beatmatched and ready, volume at zero.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 2 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.2, "phrase": 0.1 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Identify a strong transition moment on Deck A — the end of a phrase, the last beat of a breakdown.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.2, "timing": 0.2, "phrase": 0.6 }
+        },
+        {
+          "id": "d3",
+          "instruction": "At the transition point — grab the jog wheel and spin it backward hard and fast. Feel the reverse sound.",
+          "highlight": "deck-a:jog",
+          "target": { "type": "beat_aligned", "tolerance": 100 },
+          "timeLimitMs": 8000,
+          "scoreWeights": { "accuracy": 0.2, "timing": 0.5, "phrase": 0.3 }
+        },
+        {
+          "id": "d4",
+          "instruction": "While the spinback plays — bring Deck B's volume up to 80% immediately.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.8, "tolerance": 0.1 },
+          "timeLimitMs": 5000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.5, "phrase": 0 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Snap the crossfader to Deck B. Deck A's reverse fades into silence as Deck B takes over.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 1, "tolerance": 0.15 },
+          "timeLimitMs": 5000,
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.6, "phrase": 0 }
+        },
+        {
+          "id": "d6",
+          "instruction": "Bring Deck A's volume all the way down. The spinback is done. Deck B is the mix.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0, "tolerance": 0.1 },
+          "timeLimitMs": 10000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.4, "phrase": 0 }
+        }
+      ]
+    }
+  ]
+}

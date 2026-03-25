@@ -1,0 +1,101 @@
+{
+  "id": "gain-staging",
+  "title": "Gain Staging",
+  "description": "Set proper gain levels so both decks play at consistent loudness — the invisible skill that makes everything sound better.",
+  "category": "basics",
+  "technique": "gain-staging",
+  "difficulty": 2,
+  "estimatedMinutes": 7,
+  "prerequisiteIds": ["curriculum-setup"],
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: Deck A is playing at 80% volume. This is the standard reference level.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0.8, "tolerance": 0.05 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: Deck B starts at a very low volume — nearly inaudible in the mix.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.2, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: Deck B's volume rises to match Deck A's level before the transition begins.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.8, "tolerance": 0.05 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "Think of gain staging like matching the brightness of two lamps before you swap them. If one is blindingly bright and the other is dim, the switch will be jarring. Match them first — then swap.",
+      "durationMs": 5000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "full",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Set Deck A's volume fader to 80%. This is your reference level for the session.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0.8, "tolerance": 0.05 },
+          "scoreWeights": { "accuracy": 0.8, "timing": 0.2, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Load a new track on Deck B. Keep Deck B's volume at zero for now.",
+          "highlight": "deck-b:play",
+          "target": { "type": "button_press", "deck": "B" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Start Deck B playing. Raise its volume slowly to 20% — just loud enough to hear it in your headphones.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.2, "tolerance": 0.08 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.3, "phrase": 0 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Listen to Deck B's loudness. Does it sound similar to Deck A, or does it need adjustment?",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Bring Deck B's volume up to 80% — matching Deck A. Now both decks are at the same level.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.8, "tolerance": 0.05 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.8, "timing": 0.2, "phrase": 0 }
+        },
+        {
+          "id": "d6",
+          "instruction": "Listen to both decks together. They should feel balanced — neither one louder than the other.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d7",
+          "instruction": "Now lower Deck A's volume to 0% — fade it out entirely. Deck B is the only source.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0, "tolerance": 0.05 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.3, "phrase": 0 }
+        }
+      ]
+    }
+  ]
+}

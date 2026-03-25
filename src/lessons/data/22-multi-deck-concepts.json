@@ -1,0 +1,103 @@
+{
+  "id": "multi-deck-concepts",
+  "title": "Multi-Deck Mixing Concepts",
+  "description": "Think beyond two decks — use one deck for loops, one for the main track, and manage transitions between all sources.",
+  "category": "transitions",
+  "technique": "multi-deck",
+  "difficulty": 4,
+  "estimatedMinutes": 12,
+  "prerequisiteIds": ["loop-basics", "curriculum-transitions"],
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: Deck A plays the main track. Deck B is set to a 2-bar loop — a percussion break that layers on top.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.5, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: Deck B's loop plays at 50% volume beneath Deck A — an accent, not a replacement. Then it fades.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: Deck A transitions to a new track. Deck B was the bridge — it kept the energy up during the changeover.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0.8, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "Two decks let you A-B between tracks. But what if you treat Deck B as a texture layer rather than the next song? Drop in a drum loop, an acapella, a riser — while Deck A keeps the main track going. Then when the moment is right, transition Deck A to the next song. You have three elements working: main track, layer, next track.",
+      "durationMs": 8000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "partial",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Deck A plays your main track at 80% volume. This is the anchor — the crowd is focused here.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0.8, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 0.8, "timing": 0.2, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Set up a loop on Deck B — ideally a 4-bar percussion break or a complementary element. Keep Deck B's volume at zero for now.",
+          "highlight": "deck-b:cue",
+          "target": { "type": "button_press", "deck": "B", "param": "cue" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Beatmatch Deck B's loop to Deck A. The loop must be in perfect time or it will clash.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 1 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.2, "phrase": 0.1 }
+        },
+        {
+          "id": "d4",
+          "instruction": "At a phrase boundary — bring Deck B's loop in at 40% volume. It should sit under the main track, not over it.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.4, "tolerance": 0.1 },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Let both play together for 8 bars. Listen to the layered texture. The bass from Deck A and the percussion from Deck B should lock.",
+          "highlight": null,
+          "target": { "type": "beat_aligned", "tolerance": 60 },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.3, "phrase": 0.4 }
+        },
+        {
+          "id": "d6",
+          "instruction": "Start fading Deck A. As it drops, keep Deck B's loop at 40% — the loop bridges the gap.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0.4, "tolerance": 0.1 },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        },
+        {
+          "id": "d7",
+          "instruction": "Fade Deck A to zero. The loop continues. Bring Deck B up to 80% — the loop is now the main track.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.8, "tolerance": 0.1 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.4, "phrase": 0 }
+        }
+      ]
+    }
+  ]
+}

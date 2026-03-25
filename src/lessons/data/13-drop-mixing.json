@@ -1,0 +1,109 @@
+{
+  "id": "drop-mixing",
+  "title": "Drop Mixing",
+  "description": "Cut to a new track exactly on the drop — the most impactful transition in electronic music.",
+  "category": "transitions",
+  "technique": "drop-mix",
+  "difficulty": 3,
+  "estimatedMinutes": 10,
+  "prerequisiteIds": ["curriculum-transitions"],
+  "requiredTracks": {
+    "count": 2,
+    "bpmRange": [128, 140],
+    "maxBpmDifference": 4,
+    "characteristics": "tracks with clear build-ups and drops — EDM, techno, or house"
+  },
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: Deck A is in its build-up. The tension is rising. Deck B is beatmatched and ready.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: at the exact moment of the drop, the crossfader cuts hard to Deck B. The new track explodes in.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 1, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: Deck A fades out immediately. Deck B is now at full volume with its drop in full effect.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "A drop mix is a surgical strike. You do not blend — you cut. The crowd does not expect it. One moment they are in Track A's build-up, the next they are inside Track B's drop. The key is absolute precision on timing — a beat late kills the effect.",
+      "durationMs": 7000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "partial",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Beatmatch Deck B to Deck A. For a drop mix, the BPMs must be exact — within 1 BPM.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 1 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.2, "phrase": 0.1 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Cue Deck B to its drop — the first beat after the build-up. Use the Cue button to mark that point.",
+          "highlight": "deck-b:cue",
+          "target": { "type": "button_press", "deck": "B", "param": "cue" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Listen to Deck A. It is building up. Count the bars — how many until the drop? Anticipate the moment.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "timeLimitMs": 45000,
+          "scoreWeights": { "accuracy": 0.2, "timing": 0.3, "phrase": 0.5 }
+        },
+        {
+          "id": "d4",
+          "instruction": "One bar before the drop — start Deck B playing from its cue point. It plays silent in the background, aligned.",
+          "highlight": "deck-b:play",
+          "target": { "type": "button_press", "deck": "B", "param": "isPlaying" },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.5, "phrase": 0.2 }
+        },
+        {
+          "id": "d5",
+          "instruction": "On the exact first beat of the drop — snap the crossfader all the way to Deck B. Quick. Decisive. On the one.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 1, "tolerance": 0.1 },
+          "timeLimitMs": 8000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.4, "phrase": 0.3 }
+        },
+        {
+          "id": "d6",
+          "instruction": "Kill Deck A's volume immediately. Do not leave it lingering — the cut should be clean.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0, "tolerance": 0.1 },
+          "timeLimitMs": 5000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.4, "phrase": 0 }
+        },
+        {
+          "id": "d7",
+          "instruction": "Listen to Deck B's drop playing. Did it hit on time? A perfect drop mix feels like one continuous track, not a switch.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    }
+  ]
+}

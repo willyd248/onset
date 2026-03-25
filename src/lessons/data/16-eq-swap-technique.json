@@ -1,0 +1,131 @@
+{
+  "id": "eq-swap-technique",
+  "title": "Full EQ Swap",
+  "description": "Execute a complete three-band EQ swap — transfer bass, mids, and highs between decks in a single fluid motion.",
+  "category": "eq-mixing",
+  "technique": "full-eq-swap",
+  "difficulty": 3,
+  "estimatedMinutes": 10,
+  "prerequisiteIds": ["eq-mix-frequency-swap", "curriculum-eq-mixing"],
+  "requiredTracks": {
+    "count": 2,
+    "bpmRange": [120, 135],
+    "characteristics": "tracks with full frequency content — bass, mids, and distinct highs"
+  },
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: Deck A plays with all EQ at center. Deck B has all three bands cut before entering.",
+          "highlight": "deck-b:eq-low",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqLow", "value": -24, "tolerance": 3 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: at the phrase drop, all three of Deck A's EQ bands cut simultaneously as Deck B's all rise to center.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_kill", "deck": "A", "param": "eqLow" },
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.3, "phrase": 0.3 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: the swap is complete. Deck B drives the full frequency spectrum. Deck A is silent.",
+          "highlight": "deck-b:eq-low",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqLow", "value": 0, "tolerance": 3 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "The full EQ swap is like a relay race handoff. Deck A holds the baton — the complete sound — while Deck B waits silent. At the perfect moment, Deck A releases and Deck B catches, all in one beat. No overlap, no gap.",
+      "durationMs": 6000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "partial",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Prepare Deck B: cut ALL three EQ bands to -24 dB — LOW, MID, and HIGH. Deck B is completely muted via EQ.",
+          "highlight": "deck-b:eq-low",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqLow", "value": -24, "tolerance": 4 },
+          "scoreWeights": { "accuracy": 0.8, "timing": 0.2, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Cut Deck B's MID EQ to -24 dB as well.",
+          "highlight": "deck-b:eq-mid",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqMid", "value": -24, "tolerance": 4 },
+          "scoreWeights": { "accuracy": 0.8, "timing": 0.2, "phrase": 0 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Cut Deck B's HIGH EQ to -24 dB. All three bands down — Deck B is EQ-muted.",
+          "highlight": "deck-b:eq-high",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqHigh", "value": -24, "tolerance": 4 },
+          "scoreWeights": { "accuracy": 0.8, "timing": 0.2, "phrase": 0 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Bring Deck B's volume to 80%. Even though it is playing, you hear nothing — the EQ mutes it.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.8, "tolerance": 0.1 },
+          "timeLimitMs": 10000,
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.3, "phrase": 0 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Listen to Deck A. Wait for the phrase boundary — that moment when the musical sentence completes.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "timeLimitMs": 35000,
+          "scoreWeights": { "accuracy": 0.2, "timing": 0.2, "phrase": 0.6 }
+        },
+        {
+          "id": "d6",
+          "instruction": "At the phrase drop — cut Deck A's LOW EQ to -24 dB and simultaneously restore Deck B's LOW to 0 dB. Bass swaps.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": -24, "tolerance": 4 },
+          "timeLimitMs": 8000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.3, "phrase": 0.4 }
+        },
+        {
+          "id": "d7",
+          "instruction": "Restore Deck B's LOW EQ to center (0 dB) — the bass handoff.",
+          "highlight": "deck-b:eq-low",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqLow", "value": 0, "tolerance": 3 },
+          "timeLimitMs": 5000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        },
+        {
+          "id": "d8",
+          "instruction": "Now swap the mids — cut Deck A's MID and bring Deck B's MID to center.",
+          "highlight": "deck-a:eq-mid",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqMid", "value": -24, "tolerance": 4 },
+          "timeLimitMs": 8000,
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.3, "phrase": 0.3 }
+        },
+        {
+          "id": "d9",
+          "instruction": "Restore Deck B's MID EQ to center (0 dB).",
+          "highlight": "deck-b:eq-mid",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqMid", "value": 0, "tolerance": 3 },
+          "timeLimitMs": 5000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        },
+        {
+          "id": "d10",
+          "instruction": "Complete the swap — cut Deck A's HIGH EQ and restore Deck B's HIGH. Deck B now owns the full spectrum.",
+          "highlight": "deck-a:eq-high",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqHigh", "value": -24, "tolerance": 4 },
+          "timeLimitMs": 8000,
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.3, "phrase": 0.3 }
+        }
+      ]
+    }
+  ]
+}

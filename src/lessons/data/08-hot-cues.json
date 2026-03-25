@@ -1,0 +1,93 @@
+{
+  "id": "hot-cues",
+  "title": "Hot Cue Setting & Recall",
+  "description": "Set cue points at key moments in a track and recall them instantly — your map through the music.",
+  "category": "basics",
+  "technique": "hot-cues",
+  "difficulty": 1,
+  "estimatedMinutes": 5,
+  "prerequisiteIds": ["curriculum-setup"],
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: the track plays and reaches the first downbeat. Hot Cue 1 is set by pressing the cue button.",
+          "highlight": "deck-a:cue",
+          "target": { "type": "button_press", "deck": "A", "param": "cue" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: the track continues playing to a second key moment — the breakdown. Hot Cue 2 is set there.",
+          "highlight": "deck-a:cue",
+          "target": { "type": "button_press", "deck": "A", "param": "cue" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: pressing Cue 1 instantly jumps back to the first downbeat. Hot cues are instant bookmarks.",
+          "highlight": "deck-a:cue",
+          "target": { "type": "button_press", "deck": "A", "param": "cue" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "Think of hot cues as bookmarks in a book. You can jump instantly to the intro, the drop, the breakdown, or the outro without scrubbing. Set them once, use them every time you play that track.",
+      "durationMs": 5000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "full",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Play a track on Deck A. Let it run until you hear the first strong downbeat — the beginning of a musical phrase.",
+          "highlight": "deck-a:play",
+          "target": { "type": "button_press", "deck": "A", "param": "isPlaying" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "At the downbeat, press Cue on Deck A to mark this position. You have just set a cue point.",
+          "highlight": "deck-a:cue",
+          "target": { "type": "button_press", "deck": "A", "param": "cue" },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Let the track continue playing for another 16 bars. Listen for the next key section.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Now press Cue again to jump back to your saved point instantly. Notice how it snaps right back to the downbeat.",
+          "highlight": "deck-a:cue",
+          "target": { "type": "button_press", "deck": "A", "param": "cue" },
+          "timeLimitMs": 10000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.4, "phrase": 0 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Press Play to start from your cue point. The track resumes from the exact downbeat you marked.",
+          "highlight": "deck-a:play",
+          "target": { "type": "button_press", "deck": "A", "param": "isPlaying" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d6",
+          "instruction": "Practice the Cue → Play workflow twice more. Cue to return to the start, Play to launch from that position.",
+          "highlight": "deck-a:cue",
+          "target": { "type": "button_press", "deck": "A", "param": "cue" },
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.3, "phrase": 0 }
+        }
+      ]
+    }
+  ]
+}
