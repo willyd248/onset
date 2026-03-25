@@ -699,8 +699,8 @@ export class App {
       return { id, title: lesson?.title ?? id, desc: lesson?.description ?? '' };
     });
 
-    const nodes = document.querySelectorAll('.learn-node');
-    nodes.forEach((node, i) => {
+    const pathNodes = document.querySelectorAll('.learn-path-node');
+    pathNodes.forEach((wrapper, i) => {
       if (i >= learnPath.length) return;
       const entry = learnPath[i];
       const isComplete = completed.has(entry.id);
@@ -714,58 +714,50 @@ export class App {
       const isActive = !isComplete && prereqsMet;
       const isLocked = !isComplete && !prereqsMet;
 
-      // Update classes
-      node.classList.remove('learn-node--complete', 'learn-node--active', 'learn-node--locked');
-      if (isComplete) node.classList.add('learn-node--complete');
-      else if (isActive) node.classList.add('learn-node--active');
-      else node.classList.add('learn-node--locked');
-
-      // Update icon
-      const iconContainer = node.querySelector('.learn-node__icon');
-      if (iconContainer) {
-        iconContainer.classList.remove('learn-node__icon--active', 'learn-node__icon--locked');
-        const icon = iconContainer.querySelector('.material-symbols-outlined');
-        if (icon) {
-          if (isComplete) {
-            icon.textContent = 'check_circle';
-            icon.style.fontVariationSettings = "'FILL' 1";
-          } else if (isActive) {
-            iconContainer.classList.add('learn-node__icon--active');
-            icon.textContent = 'headphones';
-            icon.style.fontVariationSettings = '';
-          } else {
-            iconContainer.classList.add('learn-node__icon--locked');
-            icon.textContent = 'lock';
-            icon.style.fontVariationSettings = '';
-          }
-        }
+      // Update inner .learn-node classes
+      const circle = wrapper.querySelector('.learn-node');
+      if (circle) {
+        circle.classList.remove('learn-node--complete', 'learn-node--active', 'learn-node--locked', 'learn-node--milestone');
+        if (isComplete) circle.classList.add('learn-node--complete');
+        else if (isActive) circle.classList.add('learn-node--active');
+        else circle.classList.add('learn-node--locked');
       }
 
-      // Update badge
-      const badge = node.querySelector('.learn-node__badge');
-      if (badge) {
-        badge.classList.remove('learn-node__badge--complete', 'learn-node__badge--active', 'learn-node__badge--locked');
+      // Update icon text content
+      const icon = wrapper.querySelector('.material-symbols-outlined');
+      if (icon) {
         if (isComplete) {
-          badge.classList.add('learn-node__badge--complete');
-          badge.textContent = 'Done';
+          icon.textContent = 'check';
+          icon.style.fontVariationSettings = "'FILL' 1";
         } else if (isActive) {
-          badge.classList.add('learn-node__badge--active');
-          badge.textContent = 'In Progress';
+          icon.textContent = 'music_note';
+          icon.style.fontVariationSettings = "'FILL' 1";
         } else {
-          badge.classList.add('learn-node__badge--locked');
-          badge.textContent = 'Locked';
+          icon.textContent = 'lock';
+          icon.style.fontVariationSettings = '';
         }
       }
 
-      // Update clickability
+      // Add/remove START button for the active node
+      const existingBtn = wrapper.querySelector('button');
+      if (isActive && !existingBtn) {
+        const btn = document.createElement('button');
+        btn.className = 'mt-3 bg-primary text-white text-xs font-extrabold uppercase tracking-wider px-6 py-2 rounded-full shadow-[0_4px_0_#1a4700] active:translate-y-0.5 active:shadow-[0_2px_0_#1a4700] transition-all';
+        btn.textContent = 'Start';
+        wrapper.appendChild(btn);
+      } else if (!isActive && existingBtn) {
+        existingBtn.remove();
+      }
+
+      // Update clickability on the wrapper
       if (isLocked) {
-        node.removeAttribute('role');
-        node.removeAttribute('tabindex');
-        node.removeAttribute('data-lesson');
+        wrapper.removeAttribute('role');
+        wrapper.removeAttribute('tabindex');
+        wrapper.removeAttribute('data-lesson');
       } else {
-        node.setAttribute('role', 'button');
-        node.setAttribute('tabindex', '0');
-        node.setAttribute('data-lesson', entry.id);
+        wrapper.setAttribute('role', 'button');
+        wrapper.setAttribute('tabindex', '0');
+        wrapper.setAttribute('data-lesson', entry.id);
       }
     });
   }
