@@ -91,13 +91,19 @@ export class WaveformRenderer {
     this._loop();
   }
 
-  /** Stop the render loop */
+  /** Stop the render loop (preserves the position callback for restart). */
   stop() {
     if (this._rafId !== null) {
       cancelAnimationFrame(this._rafId);
       this._rafId = null;
     }
-    this._getPlaybackPosition = null;
+  }
+
+  /** Restart the render loop using the previously supplied position callback. */
+  restart() {
+    if (this._getPlaybackPosition && this._rafId === null) {
+      this._loop();
+    }
   }
 
   /**
@@ -113,6 +119,7 @@ export class WaveformRenderer {
    */
   destroy() {
     this.stop();
+    this._getPlaybackPosition = null;
     window.removeEventListener('resize', this._onResize);
   }
 

@@ -631,6 +631,17 @@ export class App {
       if (view === 'learn' || view === 'stats' || view === 'profile') {
         this._refreshAllViews();
       }
+
+      // Stop waveform renderers when leaving practice view, restart when returning
+      if (this._waveformRenderers) {
+        if (view === 'practice') {
+          this._waveformRenderers.A.restart();
+          this._waveformRenderers.B.restart();
+        } else {
+          this._waveformRenderers.A.stop();
+          this._waveformRenderers.B.stop();
+        }
+      }
     });
 
     // Initial refresh
