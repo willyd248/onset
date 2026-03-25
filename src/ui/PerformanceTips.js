@@ -20,6 +20,7 @@ export class PerformanceTips {
 
   /** Begin checking conditions periodically. */
   start() {
+    this.stop();
     this._shownTips.clear();
     this._lastTipTime = 0;
     this._intervalId = setInterval(() => this._check(), 5000);
