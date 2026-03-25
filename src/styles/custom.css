@@ -477,6 +477,90 @@ input[type="range"][orient="vertical"] {
   cursor: not-allowed;
 }
 
+/* ── Fader Track Styling ─────────────────────────────── */
+.fader-track {
+  width: 28px;
+  height: 120px;
+  background: var(--surface-container-high, #e1e3e3);
+  border-radius: 9999px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fader-track .fader {
+  width: 28px;
+  height: 100px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  writing-mode: vertical-lr;
+  direction: rtl;
+  cursor: pointer;
+}
+
+.fader-track .fader::-webkit-slider-track {
+  width: 8px;
+  background: transparent;
+  border-radius: 9999px;
+}
+
+.fader-track .fader::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 12px;
+  border-radius: 6px;
+  background: var(--surface-container-lowest, #ffffff);
+  border: 2px solid var(--outline-variant, #acadad);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  cursor: grab;
+}
+
+/* ── Rotary EQ Knob Styling ──────────────────────────── */
+.knob-rotary-container {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--surface-container-high, #e1e3e3);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.knob-rotary-container .knob {
+  width: 48px;
+  height: 48px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  z-index: 2;
+}
+
+/* Indicator dot — positioned at top center, rotates based on value */
+.knob-rotary-container::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary, #2a6900);
+}
+
+.deck--b .knob-rotary-container::after {
+  background: var(--secondary, #8a2ab9);
+}
+
 /* ── Dark Mode ───────────────────────────────────────────── */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {

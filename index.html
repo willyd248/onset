@@ -224,7 +224,7 @@
               <div class="deck__header flex justify-between items-center mb-3">
                 <div class="flex items-center gap-2">
                   <span class="deck__badge deck__badge--a text-[0.65rem] font-bold tracking-[0.15em] uppercase text-primary">Deck A</span>
-                  <span class="text-[0.6rem] text-on-surface-variant font-medium truncate max-w-[100px]" id="track-name-a-header"></span>
+                  <span class="deck__track-name text-sm font-bold text-on-surface truncate max-w-[180px]" id="track-name-a-header">No track</span>
                 </div>
                 <div class="flex items-center gap-1">
                   <button class="deck__load-btn flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-on-surface-variant bg-transparent border-none cursor-pointer px-2 py-1 rounded-lg hover:bg-surface-container hover:text-on-surface transition-all" id="load-a">
@@ -237,7 +237,7 @@
 
               <!-- Vinyl + Transport -->
               <div class="flex items-center justify-center gap-4 mb-3">
-                <div class="relative w-20 h-20 flex-shrink-0">
+                <div class="relative w-40 h-40 flex-shrink-0">
                   <div class="absolute inset-0 rounded-full bg-neutral-900 vinyl-spin vinyl-paused" id="vinyl-a">
                     <div class="absolute inset-[20%] rounded-full border border-neutral-700/50"></div>
                     <div class="absolute inset-[35%] rounded-full border border-neutral-700/30"></div>
@@ -265,11 +265,15 @@
                 <div class="deck__faders flex gap-4 justify-center">
                   <div class="fader-group flex flex-col items-center gap-1">
                     <label class="fader-group__label text-[0.55rem] font-black tracking-widest uppercase text-on-surface-variant" for="volume-a">Vol</label>
-                    <input type="range" class="fader accent-primary" id="volume-a" aria-label="Deck A volume" min="0" max="100" value="80" orient="vertical" style="height:100px" />
+                    <div class="fader-track">
+                      <input type="range" class="fader accent-primary" id="volume-a" aria-label="Deck A volume" min="0" max="100" value="80" orient="vertical" style="height:100px" />
+                    </div>
                   </div>
                   <div class="fader-group flex flex-col items-center gap-1">
                     <label class="fader-group__label text-[0.55rem] font-black tracking-widest uppercase text-on-surface-variant" for="pitch-a">Tempo</label>
-                    <input type="range" class="fader accent-primary" id="pitch-a" aria-label="Deck A pitch" min="-8" max="8" value="0" step="0.1" orient="vertical" style="height:100px" />
+                    <div class="fader-track">
+                      <input type="range" class="fader accent-primary" id="pitch-a" aria-label="Deck A pitch" min="-8" max="8" value="0" step="0.1" orient="vertical" style="height:100px" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -277,20 +281,20 @@
               <!-- EQ Knobs -->
               <div class="deck__knobs flex gap-3 justify-center mb-2">
                 <div class="knob-group flex flex-col items-center gap-1">
-                  <div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center relative">
-                    <input type="range" class="knob accent-primary" id="eq-low-a" aria-label="Deck A low EQ" min="-24" max="6" value="0" orient="vertical" />
+                  <div class="knob-rotary-container">
+                    <input type="range" class="knob knob-rotary accent-primary" id="eq-low-a" aria-label="Deck A low EQ" min="-24" max="6" value="0" orient="vertical" />
                   </div>
                   <label class="knob-group__label text-[0.5rem] font-black tracking-widest uppercase text-on-surface-variant" for="eq-low-a">Low</label>
                 </div>
                 <div class="knob-group flex flex-col items-center gap-1">
-                  <div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center relative">
-                    <input type="range" class="knob accent-primary" id="eq-mid-a" aria-label="Deck A mid EQ" min="-24" max="6" value="0" orient="vertical" />
+                  <div class="knob-rotary-container">
+                    <input type="range" class="knob knob-rotary accent-primary" id="eq-mid-a" aria-label="Deck A mid EQ" min="-24" max="6" value="0" orient="vertical" />
                   </div>
                   <label class="knob-group__label text-[0.5rem] font-black tracking-widest uppercase text-on-surface-variant" for="eq-mid-a">Mid</label>
                 </div>
                 <div class="knob-group flex flex-col items-center gap-1">
-                  <div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center relative">
-                    <input type="range" class="knob accent-primary" id="eq-high-a" aria-label="Deck A high EQ" min="-24" max="6" value="0" orient="vertical" />
+                  <div class="knob-rotary-container">
+                    <input type="range" class="knob knob-rotary accent-primary" id="eq-high-a" aria-label="Deck A high EQ" min="-24" max="6" value="0" orient="vertical" />
                   </div>
                   <label class="knob-group__label text-[0.5rem] font-black tracking-widest uppercase text-on-surface-variant" for="eq-high-a">High</label>
                 </div>
@@ -316,7 +320,7 @@
               <div class="deck__header flex justify-between items-center mb-3">
                 <div class="flex items-center gap-2">
                   <span class="deck__badge deck__badge--b text-[0.65rem] font-bold tracking-[0.15em] uppercase text-secondary">Deck B</span>
-                  <span class="text-[0.6rem] text-on-surface-variant font-medium truncate max-w-[100px]" id="track-name-b-header"></span>
+                  <span class="deck__track-name text-sm font-bold text-on-surface truncate max-w-[180px]" id="track-name-b-header">No track</span>
                 </div>
                 <div class="flex items-center gap-1">
                   <button class="deck__load-btn flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-on-surface-variant bg-transparent border-none cursor-pointer px-2 py-1 rounded-lg hover:bg-surface-container hover:text-on-surface transition-all" id="load-b">
@@ -329,7 +333,7 @@
 
               <!-- Vinyl + Transport -->
               <div class="flex items-center justify-center gap-4 mb-3">
-                <div class="relative w-20 h-20 flex-shrink-0">
+                <div class="relative w-40 h-40 flex-shrink-0">
                   <div class="absolute inset-0 rounded-full bg-neutral-900 vinyl-spin vinyl-paused" id="vinyl-b">
                     <div class="absolute inset-[20%] rounded-full border border-neutral-700/50"></div>
                     <div class="absolute inset-[35%] rounded-full border border-neutral-700/30"></div>
@@ -357,11 +361,15 @@
                 <div class="deck__faders flex gap-4 justify-center">
                   <div class="fader-group flex flex-col items-center gap-1">
                     <label class="fader-group__label text-[0.55rem] font-black tracking-widest uppercase text-on-surface-variant" for="volume-b">Vol</label>
-                    <input type="range" class="fader accent-secondary" id="volume-b" aria-label="Deck B volume" min="0" max="100" value="80" orient="vertical" style="height:100px" />
+                    <div class="fader-track">
+                      <input type="range" class="fader accent-secondary" id="volume-b" aria-label="Deck B volume" min="0" max="100" value="80" orient="vertical" style="height:100px" />
+                    </div>
                   </div>
                   <div class="fader-group flex flex-col items-center gap-1">
                     <label class="fader-group__label text-[0.55rem] font-black tracking-widest uppercase text-on-surface-variant" for="pitch-b">Tempo</label>
-                    <input type="range" class="fader accent-secondary" id="pitch-b" aria-label="Deck B pitch" min="-8" max="8" value="0" step="0.1" orient="vertical" style="height:100px" />
+                    <div class="fader-track">
+                      <input type="range" class="fader accent-secondary" id="pitch-b" aria-label="Deck B pitch" min="-8" max="8" value="0" step="0.1" orient="vertical" style="height:100px" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -369,20 +377,20 @@
               <!-- EQ Knobs -->
               <div class="deck__knobs flex gap-3 justify-center mb-2">
                 <div class="knob-group flex flex-col items-center gap-1">
-                  <div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center relative">
-                    <input type="range" class="knob accent-secondary" id="eq-low-b" aria-label="Deck B low EQ" min="-24" max="6" value="0" orient="vertical" />
+                  <div class="knob-rotary-container">
+                    <input type="range" class="knob knob-rotary accent-secondary" id="eq-low-b" aria-label="Deck B low EQ" min="-24" max="6" value="0" orient="vertical" />
                   </div>
                   <label class="knob-group__label text-[0.5rem] font-black tracking-widest uppercase text-on-surface-variant" for="eq-low-b">Low</label>
                 </div>
                 <div class="knob-group flex flex-col items-center gap-1">
-                  <div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center relative">
-                    <input type="range" class="knob accent-secondary" id="eq-mid-b" aria-label="Deck B mid EQ" min="-24" max="6" value="0" orient="vertical" />
+                  <div class="knob-rotary-container">
+                    <input type="range" class="knob knob-rotary accent-secondary" id="eq-mid-b" aria-label="Deck B mid EQ" min="-24" max="6" value="0" orient="vertical" />
                   </div>
                   <label class="knob-group__label text-[0.5rem] font-black tracking-widest uppercase text-on-surface-variant" for="eq-mid-b">Mid</label>
                 </div>
                 <div class="knob-group flex flex-col items-center gap-1">
-                  <div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center relative">
-                    <input type="range" class="knob accent-secondary" id="eq-high-b" aria-label="Deck B high EQ" min="-24" max="6" value="0" orient="vertical" />
+                  <div class="knob-rotary-container">
+                    <input type="range" class="knob knob-rotary accent-secondary" id="eq-high-b" aria-label="Deck B high EQ" min="-24" max="6" value="0" orient="vertical" />
                   </div>
                   <label class="knob-group__label text-[0.5rem] font-black tracking-widest uppercase text-on-surface-variant" for="eq-high-b">High</label>
                 </div>
