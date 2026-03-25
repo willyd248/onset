@@ -136,7 +136,10 @@ export class MixerUI extends EventTarget {
         return;
       }
       const current = this._state.get('A', 'isPlaying');
-      this._state.set('A', 'isPlaying', !current, 'ui');
+      const newVal = !current;
+      this._state.set('A', 'isPlaying', newVal, 'ui');
+      // Manually update DOM since UI-sourced changes are skipped by subscriber
+      this._updateDOM('A', 'isPlaying', newVal);
     });
 
     this._buttons['playB']?.addEventListener('click', () => {
@@ -145,7 +148,9 @@ export class MixerUI extends EventTarget {
         return;
       }
       const current = this._state.get('B', 'isPlaying');
-      this._state.set('B', 'isPlaying', !current, 'ui');
+      const newVal = !current;
+      this._state.set('B', 'isPlaying', newVal, 'ui');
+      this._updateDOM('B', 'isPlaying', newVal);
     });
 
     // Cue buttons — dispatch cue event

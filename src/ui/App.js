@@ -173,6 +173,9 @@ export class App {
       this._lessonEngine.progress.endSession();
     });
 
+    // 22. Start time display update loop
+    this._startTimeUpdates();
+
     console.log('onset initialized');
   }
 
@@ -407,6 +410,37 @@ export class App {
     }
   }
 
+  // ── Time Display Updates ────────────────────────────────────
+
+  /** @private */
+  _startTimeUpdates() {
+    const timeEls = {
+      A: document.getElementById('track-time-a'),
+      B: document.getElementById('track-time-b'),
+    };
+
+    const formatTime = (seconds) => {
+      if (!seconds || !isFinite(seconds)) return '0:00';
+      const m = Math.floor(seconds / 60);
+      const s = Math.floor(seconds % 60);
+      return `${m}:${s.toString().padStart(2, '0')}`;
+    };
+
+    const update = () => {
+      for (const deckName of ['A', 'B']) {
+        const deck = this._decks[deckName];
+        const el = timeEls[deckName];
+        if (!deck || !el) continue;
+        const cur = formatTime(deck.currentTime);
+        const dur = formatTime(deck.duration);
+        el.textContent = `${cur} / ${dur}`;
+      }
+      requestAnimationFrame(update);
+    };
+
+    requestAnimationFrame(update);
+  }
+
   // ── Demo Tracks ─────────────────────────────────────────────
 
   /** @private */
@@ -442,7 +476,7 @@ export class App {
     const response = await fetch(url);
     const blob = await response.blob();
     const file = new File([blob], `${displayName}.mp3`, { type: 'audio/mpeg' });
-    await this._loadTrack(deckName, file, { skipVisuals: true });
+    await this._loadTrack(deckName, file);
   }
 
   // ── MIDI Status Updates ──────────────────────────────────────
