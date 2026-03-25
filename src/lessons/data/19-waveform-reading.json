@@ -1,0 +1,94 @@
+{
+  "id": "waveform-reading",
+  "title": "Reading the Waveform",
+  "description": "Learn to read waveform displays to find drops, breakdowns, and mix points before you hear them.",
+  "category": "basics",
+  "technique": "waveform-reading",
+  "difficulty": 2,
+  "estimatedMinutes": 6,
+  "prerequisiteIds": ["curriculum-setup"],
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: the waveform display shows dense peaks where there is heavy audio — kick drums appear as sharp transients.",
+          "highlight": "deck-a:play",
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: a breakdown appears as a quiet, thin section in the waveform. After it, the full section resumes — that is the drop.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: the cue point is placed at the start of the dense section — right at the drop. This is your mix-out point.",
+          "highlight": "deck-a:cue",
+          "target": { "type": "button_press", "deck": "A", "param": "cue" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "The waveform is a map of your track. Tall, dense mountains are the loud, energetic sections. Valleys and thin lines are the breakdowns. Before the valley ends, the mountain rises again — that is your drop. Reading this map means you always know what is coming before you hear it.",
+      "durationMs": 6000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "full",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Load a track on Deck A. Look at the waveform display — can you see sections that are denser than others?",
+          "highlight": "deck-a:play",
+          "target": { "type": "button_press", "deck": "A", "param": "isPlaying" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Look ahead in the waveform. Identify where the next thin section is — that is the upcoming breakdown.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d3",
+          "instruction": "After the breakdown, find where the waveform gets dense again — that is the upcoming drop. Set a cue point at that dense section.",
+          "highlight": "deck-a:cue",
+          "target": { "type": "button_press", "deck": "A", "param": "cue" },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.2, "phrase": 0.3 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Let the track play through. When the playhead reaches your cue — does the sound match what you predicted from the waveform?",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Now load a second track on Deck B. Find a good mix-in point on Deck B's waveform — look for a dense start after a breakdown.",
+          "highlight": "deck-b:cue",
+          "target": { "type": "button_press", "deck": "B", "param": "cue" },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.2, "phrase": 0.3 }
+        },
+        {
+          "id": "d6",
+          "instruction": "Set a cue point on Deck B at that mix-in point. You now have both tracks mapped — ready to transition at the right visual moment.",
+          "highlight": "deck-b:cue",
+          "target": { "type": "button_press", "deck": "B", "param": "cue" },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        }
+      ]
+    }
+  ]
+}

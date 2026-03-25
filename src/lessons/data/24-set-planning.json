@@ -1,0 +1,111 @@
+{
+  "id": "set-planning",
+  "title": "DJ Set Planning & Flow",
+  "description": "Think like a DJ for a full set — plan your energy arc, key your tracks, and build a sequence that tells a story from first to last track.",
+  "category": "basics",
+  "technique": "set-planning",
+  "difficulty": 4,
+  "estimatedMinutes": 10,
+  "prerequisiteIds": ["track-selection", "harmonic-mixing"],
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: a 3-track mini-set. Track 1 at medium energy. Track 2 building higher. Track 3 at peak energy.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0.8, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: each transition happens at a phrase boundary. The BPMs climb slightly with each track.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 2 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: the third transition brings a new key and fresh energy. The journey from start to finish has an arc.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 1, "tolerance": 0.2 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "Your set is a movie. The first track is the opening scene — a hook, not your biggest moment. You build through acts, rising tension, delivering peak moments at the right time, then releasing into a smooth close. Great DJs plan this arc. They know which track comes after which, and why.",
+      "durationMs": 8000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "partial",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Start a 3-track mini-set. Load Track 1 on Deck A — a medium energy track. Play it at 80% volume.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0.8, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 0.8, "timing": 0.2, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Select Track 2 for Deck B — ideally at the same or slightly higher BPM, compatible key. Load and beatmatch it.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 2 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.3, "phrase": 0.1 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Transition from Track 1 to Track 2 using the EQ bass swap technique at a phrase boundary.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": -24, "tolerance": 4 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.2, "phrase": 0.5 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Fade Track 1 out completely. Track 2 is now the main track. Notice the energy level — higher?",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0, "tolerance": 0.05 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.4, "phrase": 0 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Load Track 3 on Deck A — your peak energy track. Choose something that will feel like an upgrade from Track 2.",
+          "highlight": "deck-a:play",
+          "target": { "type": "button_press", "deck": "A" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d6",
+          "instruction": "Beatmatch Track 3 to Track 2. Execute the final transition — the peak of your mini-set.",
+          "highlight": "deck-a:pitch",
+          "target": { "type": "pitch_match", "tolerance": 2 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.3, "phrase": 0.1 }
+        },
+        {
+          "id": "d7",
+          "instruction": "Make the transition from Track 2 to Track 3. Use whatever technique feels right — bass swap, drop mix, or filter transition.",
+          "highlight": "deck-b:eq-low",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqLow", "value": -24, "tolerance": 4 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.2, "phrase": 0.5 }
+        },
+        {
+          "id": "d8",
+          "instruction": "Fade Track 2 out. Track 3 plays solo at full energy. You have just played a 3-track set with an energy arc.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0, "tolerance": 0.05 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.4, "phrase": 0 }
+        }
+      ]
+    }
+  ]
+}

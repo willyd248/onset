@@ -1,0 +1,103 @@
+{
+  "id": "crossfader-basics",
+  "title": "Crossfader Basics",
+  "description": "Use the crossfader to control the blend between two decks — from hard cuts to smooth fades.",
+  "category": "transitions",
+  "technique": "crossfader",
+  "difficulty": 2,
+  "estimatedMinutes": 6,
+  "prerequisiteIds": ["basics-load-play"],
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: both decks are playing. The crossfader sits in the center — you hear both equally.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 0.5, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: the crossfader slides all the way left — only Deck A is audible.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 0, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: the crossfader slides all the way right — only Deck B is audible.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 1, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w4",
+          "instruction": "Watch: the crossfader returns slowly to center. This is a smooth blend.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 0.5, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "Picture the crossfader as a pan dial. Left equals Deck A only. Right equals Deck B only. Center equals an equal blend. You choose where the sound lives.",
+      "durationMs": 5000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "full",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Start with the crossfader centered (0.5). Push it to the center if it is not already there.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 0.5, "tolerance": 0.15 },
+          "scoreWeights": { "accuracy": 0.8, "timing": 0.2, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Slide the crossfader all the way to the left — Deck A only.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 0, "tolerance": 0.1 },
+          "timeLimitMs": 10000,
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.3, "phrase": 0 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Now slide all the way to the right — Deck B only. Go smoothly, not instantly.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 1, "tolerance": 0.1 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.3, "phrase": 0 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Bring it back to center for a 50/50 blend.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 0.5, "tolerance": 0.15 },
+          "timeLimitMs": 10000,
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.3, "phrase": 0 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Do a hard cut — snap the crossfader from left to right in one quick motion. Be decisive.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 1, "tolerance": 0.1 },
+          "timeLimitMs": 5000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.5, "phrase": 0 }
+        },
+        {
+          "id": "d6",
+          "instruction": "Now do a slow fade — move the crossfader from right to left over about 8 seconds. Let Deck A fade in.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 0, "tolerance": 0.1 },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.6, "phrase": 0 }
+        }
+      ]
+    }
+  ]
+}

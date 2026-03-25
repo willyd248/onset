@@ -1,0 +1,88 @@
+{
+  "id": "baby-scratch",
+  "title": "Baby Scratch",
+  "description": "Learn the foundational scratching technique — move the record forward and backward in rhythm while the fader stays open.",
+  "category": "basics",
+  "technique": "baby-scratch",
+  "difficulty": 2,
+  "estimatedMinutes": 8,
+  "prerequisiteIds": ["basics-load-play"],
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: the jog wheel moves forward — a short push. You hear a brief forward sound.",
+          "highlight": "deck-a:jog",
+          "target": { "type": "beat_aligned", "tolerance": 100 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: the jog wheel pulls back — same distance. You hear the reverse. Forward and back — that is a baby scratch.",
+          "highlight": "deck-a:jog",
+          "target": { "type": "beat_aligned", "tolerance": 100 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: the movement repeats in rhythm — forward, back, forward, back. The scratch has a pulse.",
+          "highlight": "deck-a:jog",
+          "target": { "type": "beat_aligned", "tolerance": 80 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "Imagine you are swiping a finger across a vinyl record — forward, then back. Feel the rhythm of that motion. It is not random wiggles; it has a steady tempo. Each forward-back is one beat. Two forward-backs per bar if you scratch on the 8th notes.",
+      "durationMs": 7000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "full",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Load a vocal sample or a track with a clear sound on Deck A. Play it so you have audio to scratch.",
+          "highlight": "deck-a:play",
+          "target": { "type": "button_press", "deck": "A", "param": "isPlaying" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Place your hand on the jog wheel. Push it forward about half an inch — then pull it back the same distance. Do this slowly first.",
+          "highlight": "deck-a:jog",
+          "target": { "type": "beat_aligned", "tolerance": 100 },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.4, "phrase": 0.2 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Now add rhythm. Push forward on beat 1, pull back on the and. Keep the motion even — equal distance each direction.",
+          "highlight": "deck-a:jog",
+          "target": { "type": "beat_aligned", "tolerance": 80 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.5, "phrase": 0.2 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Speed up slightly. Try to scratch in time with the beat of Deck B if it is playing, or at a steady tempo.",
+          "highlight": "deck-a:jog",
+          "target": { "type": "beat_aligned", "tolerance": 60 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.5, "phrase": 0.2 }
+        },
+        {
+          "id": "d5",
+          "instruction": "The baby scratch sounds best when it is even and rhythmic. Keep practicing — equal motion, steady tempo.",
+          "highlight": "deck-a:jog",
+          "target": { "type": "beat_aligned", "tolerance": 60 },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.5, "phrase": 0.2 }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "id": "track-selection",
+  "title": "Track Selection & Energy Flow",
+  "description": "Learn how to sequence tracks to build and release energy — the DJ skill that separates good sets from great ones.",
+  "category": "basics",
+  "technique": "track-selection",
+  "difficulty": 2,
+  "estimatedMinutes": 6,
+  "prerequisiteIds": ["curriculum-transitions"],
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: a lower-energy intro track plays at 80% volume. The crowd warms up.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0.8, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: a higher-energy track is cued on Deck B. The BPM is slightly higher, building momentum.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 3 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: the transition happens at the phrase peak. The new track feels like a step up in energy.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.8, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "Think of a DJ set as a story arc. You start mellow, build energy through the middle, peak at the right moment, then bring it back down. Every track is a chapter. The transitions are sentences. Your job is to keep the story flowing.",
+      "durationMs": 7000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "full",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Load a medium-energy track on Deck A and play it at 80% volume. This is your starting point.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0.8, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 0.8, "timing": 0.2, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Load a second track on Deck B — ideally one with more energy, or a complementary vibe. Press play on Deck B but keep its volume at zero.",
+          "highlight": "deck-b:play",
+          "target": { "type": "button_press", "deck": "B", "param": "isPlaying" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Match the BPM of Deck B to Deck A. The energy shift should come from the music, not from a tempo lurch.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 2 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.3, "phrase": 0.1 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Listen to the phrase structure of Deck A. Wait for the end of an 8-bar phrase — the natural handoff point.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.2, "phrase": 0.5 }
+        },
+        {
+          "id": "d5",
+          "instruction": "At the phrase boundary, bring Deck B's volume up to 80% and fade Deck A down. Let the new track take over.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.8, "tolerance": 0.1 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.3, "phrase": 0.3 }
+        },
+        {
+          "id": "d6",
+          "instruction": "Fade Deck A all the way out. The new track plays solo. Notice how the energy feels — higher, lower, or the same?",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0, "tolerance": 0.05 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.4, "phrase": 0 }
+        }
+      ]
+    }
+  ]
+}

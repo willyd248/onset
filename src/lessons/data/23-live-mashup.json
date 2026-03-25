@@ -1,0 +1,118 @@
+{
+  "id": "live-mashup",
+  "title": "Live Mashup Techniques",
+  "description": "Blend two tracks simultaneously at equal volume to create a mashup — their basslines, melodies, and rhythms merge into something new.",
+  "category": "transitions",
+  "technique": "live-mashup",
+  "difficulty": 5,
+  "estimatedMinutes": 15,
+  "prerequisiteIds": ["harmonic-mixing", "eq-swap-technique"],
+  "requiredTracks": {
+    "count": 2,
+    "bpmRange": [120, 135],
+    "maxBpmDifference": 2,
+    "characteristics": "harmonically compatible tracks — same or adjacent Camelot keys"
+  },
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: both decks play at 80% volume simultaneously — this is the mashup zone. Both tracks contribute equally.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.8, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: Deck A owns the bass (Deck B's LOW EQ cut). Deck B contributes the melody and highs. Separation creates clarity.",
+          "highlight": "deck-b:eq-low",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqLow", "value": -24, "tolerance": 3 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: the roles swap — Deck B takes the bass, Deck A keeps the melody. The mashup shifts character.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_kill", "deck": "A", "param": "eqLow" },
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.3, "phrase": 0.3 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "A live mashup is about control through EQ. Both tracks play simultaneously but you decide what each contributes. Track A owns the low end. Track B owns the melody. Then you swap, or blend, or sculpt. The listener hears something neither track could produce alone.",
+      "durationMs": 8000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "minimal",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Beatmatch both decks precisely — within 0.5 BPM. For a mashup, pitch drift will ruin the blend.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 1 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.8, "timing": 0.2, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Cut Deck B's LOW EQ to -24 dB. Deck B enters without bass — only melody and highs.",
+          "highlight": "deck-b:eq-low",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqLow", "value": -24, "tolerance": 4 },
+          "scoreWeights": { "accuracy": 0.8, "timing": 0.2, "phrase": 0 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Phase-align Deck B to Deck A. Both must be on bar 1 of a phrase simultaneously.",
+          "highlight": "deck-b:jog-rotate",
+          "target": { "type": "beat_aligned", "tolerance": 40 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.3, "phrase": 0.4 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Bring Deck B's volume up to 80%. Now both tracks play — Deck A with full EQ, Deck B with no bass. Listen to the mashup.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.8, "tolerance": 0.1 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.3, "phrase": 0.1 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Let it play for 8 bars. Listen for harmonic compatibility — do the melodies complement or clash?",
+          "highlight": null,
+          "target": { "type": "beat_aligned", "tolerance": 50 },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.2, "phrase": 0.5 }
+        },
+        {
+          "id": "d6",
+          "instruction": "Now sculpt the blend. Try giving Deck B's MID more presence — boost it slightly to hear its melody clearer.",
+          "highlight": "deck-b:eq-mid",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqMid", "value": 6, "tolerance": 4 },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        },
+        {
+          "id": "d7",
+          "instruction": "Execute the bass swap — cut Deck A's LOW EQ and restore Deck B's LOW EQ at a phrase boundary.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": -24, "tolerance": 4 },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.2, "phrase": 0.5 }
+        },
+        {
+          "id": "d8",
+          "instruction": "Restore Deck B's LOW EQ to center. The bass has transferred. The mashup shifts character — a new combination.",
+          "highlight": "deck-b:eq-low",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqLow", "value": 0, "tolerance": 3 },
+          "timeLimitMs": 8000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        }
+      ]
+    }
+  ]
+}

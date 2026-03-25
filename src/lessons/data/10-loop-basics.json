@@ -1,0 +1,94 @@
+{
+  "id": "loop-basics",
+  "title": "Loop Creation & Management",
+  "description": "Create seamless loops to extend breakdowns, build tension, or give yourself time to prepare the next track.",
+  "category": "basics",
+  "technique": "loops",
+  "difficulty": 2,
+  "estimatedMinutes": 6,
+  "prerequisiteIds": ["hot-cues"],
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: the track plays into a break. The loop-in point is set at the start of a 4-bar phrase.",
+          "highlight": "deck-a:cue",
+          "target": { "type": "button_press", "deck": "A", "param": "cue" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: 4 bars later, the loop-out is set. The track now loops seamlessly between those two points.",
+          "highlight": "deck-a:cue",
+          "target": { "type": "button_press", "deck": "A", "param": "cue" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: the loop plays indefinitely. The energy builds. When ready, exit the loop and the track continues.",
+          "highlight": "deck-a:play",
+          "target": { "type": "button_press", "deck": "A", "param": "isPlaying" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "A loop is like a highlight reel on repeat. You pick the best 4 bars of the breakdown and replay them until the moment is right. The crowd thinks you are holding tension on purpose — because you are.",
+      "durationMs": 5000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "full",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Play a track on Deck A. Find a section you want to loop — a 4-bar phrase with a clear rhythm.",
+          "highlight": "deck-a:play",
+          "target": { "type": "button_press", "deck": "A", "param": "isPlaying" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "When the phrase starts, press Cue to mark your loop-in point. Timing matters — aim for the downbeat.",
+          "highlight": "deck-a:cue",
+          "target": { "type": "button_press", "deck": "A", "param": "cue" },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.3, "phrase": 0.3 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Count out 4 bars — 16 beats. When the phrase completes, press Cue again to set your loop-out point.",
+          "highlight": "deck-a:cue",
+          "target": { "type": "button_press", "deck": "A", "param": "cue" },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.3, "phrase": 0.3 }
+        },
+        {
+          "id": "d4",
+          "instruction": "The loop is now active. Let it play for 8 bars. Listen — does it sound seamless or can you hear the join?",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Exit the loop by pressing Play. The track continues from the loop-out point naturally.",
+          "highlight": "deck-a:play",
+          "target": { "type": "button_press", "deck": "A", "param": "isPlaying" },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.4, "phrase": 0 }
+        },
+        {
+          "id": "d6",
+          "instruction": "Good. Loops work best when set exactly on phrase boundaries. If you hear a glitch or click, your out-point was slightly off — try again.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    }
+  ]
+}

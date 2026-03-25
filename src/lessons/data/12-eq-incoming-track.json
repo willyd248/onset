@@ -1,0 +1,107 @@
+{
+  "id": "eq-incoming-track",
+  "title": "EQ Prep on the Incoming Track",
+  "description": "Cut the bass on the incoming track before you bring it in — prevents bass clash and keeps the mix clean.",
+  "category": "eq-mixing",
+  "technique": "eq-incoming",
+  "difficulty": 2,
+  "estimatedMinutes": 7,
+  "prerequisiteIds": ["basics-eq-sweep", "beatmatch-pitch"],
+  "requiredTracks": {
+    "count": 2,
+    "bpmRange": [120, 135],
+    "characteristics": "both tracks should have prominent bass elements"
+  },
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: Deck A plays at full EQ — all bands at center (0 dB). You hear the full mix.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": 0, "tolerance": 3 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: before Deck B is introduced, its bass is cut to -24 dB. Now when it fades in, there is no bass clash.",
+          "highlight": "deck-b:eq-low",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqLow", "value": -24, "tolerance": 3 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: Deck B fades in at 80% volume — only mids and highs from Deck B blend with Deck A's full spectrum.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.8, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w4",
+          "instruction": "Watch: now Deck B's bass is restored at the phrase boundary. Deck A's bass is killed simultaneously — a clean swap.",
+          "highlight": "deck-b:eq-low",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqLow", "value": 0, "tolerance": 3 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "Two bass guitars in the same room create a muddy war. Before the second player enters, they mute their bass. When the moment is right, Player A mutes — Player B unmutes. Clean handoff, one clear bass sound at all times.",
+      "durationMs": 6000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "full",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Deck A is playing. Before you do anything else, confirm Deck B's LOW EQ is cut to -24 dB.",
+          "highlight": "deck-b:eq-low",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqLow", "value": -24, "tolerance": 4 },
+          "scoreWeights": { "accuracy": 0.8, "timing": 0.2, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Start playing Deck B and raise its volume to 80%. Listen — no bass clash because Deck B's lows are cut.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.8, "tolerance": 0.1 },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.3, "phrase": 0 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Listen to the blend. Deck A provides bass and full energy. Deck B adds mids and highs on top.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Wait for a phrase boundary. When the phrase resets — kill Deck A's bass and restore Deck B's bass simultaneously.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": -24, "tolerance": 4 },
+          "timeLimitMs": 25000,
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.2, "phrase": 0.4 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Restore Deck B's bass to center (0 dB). Deck B now drives the low end alone.",
+          "highlight": "deck-b:eq-low",
+          "target": { "type": "eq_value", "deck": "B", "param": "eqLow", "value": 0, "tolerance": 3 },
+          "timeLimitMs": 10000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        },
+        {
+          "id": "d6",
+          "instruction": "Fade Deck A's volume to zero. The transition is complete — no mud, no clash, clean handoff.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0, "tolerance": 0.05 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.4, "phrase": 0 }
+        }
+      ]
+    }
+  ]
+}

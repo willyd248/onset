@@ -1,0 +1,101 @@
+{
+  "id": "phrase-matching",
+  "title": "Phrase Matching",
+  "description": "Align musical phrases between two tracks so transitions feel natural — the difference between DJs who mix bars and DJs who mix songs.",
+  "category": "beatmatching",
+  "technique": "phrase-match",
+  "difficulty": 3,
+  "estimatedMinutes": 10,
+  "prerequisiteIds": ["curriculum-beatmatch"],
+  "requiredTracks": {
+    "count": 2,
+    "bpmRange": [120, 135],
+    "characteristics": "tracks with clear 8 or 16-bar phrase structure — house, techno, or trance"
+  },
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: Deck A is on bar 1 of an 8-bar phrase. Deck B is cued to bar 1 of its own 8-bar phrase.",
+          "highlight": "deck-b:cue",
+          "target": { "type": "button_press", "deck": "B", "param": "cue" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: Deck B launches exactly when Deck A hits bar 1 of a new phrase. Both are now phrase-aligned.",
+          "highlight": "deck-b:play",
+          "target": { "type": "beat_aligned", "tolerance": 50 },
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.3, "phrase": 0.4 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: 8 bars later, both tracks reset on bar 1 simultaneously. The phrasing is locked.",
+          "highlight": null,
+          "target": { "type": "beat_aligned", "tolerance": 40 },
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.3, "phrase": 0.4 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "Imagine two songs playing together. Song A is on verse 2. Song B starts mid-chorus. They are both in time but out of phase musically — the breakdown of one lands over the drop of the other. Phrase matching means you make sure both songs are on the same sentence of the same paragraph at all times.",
+      "durationMs": 8000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "partial",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Play Deck A. Count the beats: 1-2-3-4, 1-2-3-4. That is one bar. Count 8 bars — you should feel when the phrase resets.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Identify bar 1 of a phrase on Deck A. Press Cue on Deck B at that exact moment to mark your launch target.",
+          "highlight": "deck-b:cue",
+          "target": { "type": "button_press", "deck": "B", "param": "cue" },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.3, "phrase": 0.4 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Wait for Deck A to return to bar 1 of the next phrase. Count down — 8, 7, 6, 5, 4, 3, 2, 1...",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "timeLimitMs": 35000,
+          "scoreWeights": { "accuracy": 0.2, "timing": 0.3, "phrase": 0.5 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Hit Play on Deck B exactly on bar 1 of Deck A's next phrase. Launch both into bar 1 together.",
+          "highlight": "deck-b:play",
+          "target": { "type": "beat_aligned", "tolerance": 60 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.3, "phrase": 0.4 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Let both play together. Count 8 more bars. Do the breakdowns and builds arrive at the same time on both?",
+          "highlight": null,
+          "target": { "type": "beat_aligned", "tolerance": 50 },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.2, "phrase": 0.5 }
+        },
+        {
+          "id": "d6",
+          "instruction": "If phrases are misaligned — nudge Deck B with the jog wheel to shift it earlier or later. Phrase alignment is about whole bars, not individual beats.",
+          "highlight": "deck-b:jog-rotate",
+          "target": { "type": "beat_aligned", "tolerance": 40 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.2, "phrase": 0.5 }
+        }
+      ]
+    }
+  ]
+}

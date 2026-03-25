@@ -1,0 +1,104 @@
+{
+  "id": "tension-effects",
+  "title": "Building Tension with EQ",
+  "description": "Use EQ cuts and volume swells to build anticipation before a drop — control how the crowd feels, not just what they hear.",
+  "category": "effects",
+  "technique": "tension-build",
+  "difficulty": 3,
+  "estimatedMinutes": 8,
+  "prerequisiteIds": ["curriculum-eq-mixing"],
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: 8 bars before the drop, the LOW EQ slowly cuts. The bass disappears — tension rises.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": -24, "tolerance": 4 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: the HIGH EQ also cuts. Only the mids remain — thin, tense, expectant.",
+          "highlight": "deck-a:eq-high",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqHigh", "value": -24, "tolerance": 4 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: at the drop, all EQ bands snap back to center instantly. The full sound explodes in. That is the release.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": 0, "tolerance": 3 },
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.4, "phrase": 0.3 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "Think of tension as compression. You squeeze the frequency range tighter and tighter — cutting lows, cutting highs, leaving just the thin, buzzing middle. The crowd feels the walls closing in. Then, at the perfect moment, you release everything. The explosion is proportional to how tight the tension was.",
+      "durationMs": 8000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "partial",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Start the track playing at full EQ (all bands at 0 dB) and volume at 80%. Let it play for 8 bars so you feel the baseline energy.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0.8, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 0.8, "timing": 0.2, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Find the start of an 8-bar section that leads to a drop. Begin cutting the LOW EQ gradually over those 8 bars.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": -24, "tolerance": 5 },
+          "timeLimitMs": 35000,
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.3, "phrase": 0.3 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Keep cutting. The LOW EQ should reach -24 dB by bar 6 or 7. No bass. The track sounds stripped bare.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": -24, "tolerance": 4 },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Now start cutting the HIGH EQ as well. Pull it toward -16 dB — you want mostly just mids left.",
+          "highlight": "deck-a:eq-high",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqHigh", "value": -16, "tolerance": 5 },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.3, "phrase": 0.3 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Hold the tension. Just mids playing, bass gone, highs cut. Let the crowd wonder what comes next.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.2, "timing": 0.3, "phrase": 0.5 }
+        },
+        {
+          "id": "d6",
+          "instruction": "On the drop — snap ALL EQ knobs back to center (0 dB) in one decisive motion. Let it rip.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": 0, "tolerance": 3 },
+          "timeLimitMs": 5000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.4, "phrase": 0.3 }
+        },
+        {
+          "id": "d7",
+          "instruction": "Confirm the HIGH EQ is back to center (0 dB). Full frequency spectrum restored. That is the release.",
+          "highlight": "deck-a:eq-high",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqHigh", "value": 0, "tolerance": 3 },
+          "timeLimitMs": 5000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        }
+      ]
+    }
+  ]
+}

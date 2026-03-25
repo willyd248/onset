@@ -1,0 +1,116 @@
+{
+  "id": "beatmatch-by-ear",
+  "title": "Beatmatching by Ear",
+  "description": "Learn to sync two tracks purely by listening — hear the drift, feel the lock, adjust without looking at BPM numbers.",
+  "category": "beatmatching",
+  "technique": "ear-beatmatch",
+  "difficulty": 3,
+  "estimatedMinutes": 14,
+  "prerequisiteIds": ["curriculum-beatmatch"],
+  "requiredTracks": {
+    "count": 2,
+    "bpmRange": [120, 135],
+    "maxBpmDifference": 8,
+    "characteristics": "tracks with clear, punchy kick drums — house or techno"
+  },
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: both decks play with a slight BPM difference. Listen — you can hear the kicks flam and drift apart.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: the pitch fader adjusts slowly. The flam narrows. When it disappears, the BPMs match.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: even with matching BPMs, the beats drift over time. The jog wheel nudges Deck B to stay in phase.",
+          "highlight": "deck-b:jog-rotate",
+          "target": { "type": "beat_aligned", "tolerance": 50 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "Close your eyes. Hear the kick of Deck A — boom. Now hear Deck B's kick slightly offset. Imagine reaching for the pitch fader and slowing Deck B down just enough until both kicks sound like one single punch. That click of alignment is what you are chasing.",
+      "durationMs": 8000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "partial",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Cover the BPM display if you can. You are training your ears today. Play both decks and just listen.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Listen: are the kicks flaming? If Deck B sounds like it is rushing ahead, you need to slow it down — push the pitch fader slightly up.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Make your first adjustment. Nudge the pitch fader in the direction you think is correct. Listen for the flam to narrow.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 3 },
+          "timeLimitMs": 40000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.2, "phrase": 0.2 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Getting closer. Smaller adjustments now. The closer you get, the flam will slow down — like two pulses aligning into one.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 1.5 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.2, "phrase": 0.2 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Last mile. Tiny pitch tweaks only. When you hear a single, clean kick instead of two — you are matched.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 1 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.2, "phrase": 0.1 }
+        },
+        {
+          "id": "d6",
+          "instruction": "Now check phase. Even with matching BPMs, the kicks might not land together. Nudge the jog wheel forward or backward to snap them into lock.",
+          "highlight": "deck-b:jog-rotate",
+          "target": { "type": "beat_aligned", "tolerance": 60 },
+          "timeLimitMs": 45000,
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.2, "phrase": 0.4 }
+        },
+        {
+          "id": "d7",
+          "instruction": "Hold the lock for 16 beats. Keep your ear on the phase — if drift creeps in, a tiny nudge corrects it.",
+          "highlight": "deck-b:jog-rotate",
+          "target": { "type": "beat_aligned", "tolerance": 40 },
+          "timeLimitMs": 25000,
+          "scoreWeights": { "accuracy": 0.4, "timing": 0.3, "phrase": 0.3 }
+        },
+        {
+          "id": "d8",
+          "instruction": "You matched by ear. Now glance at the BPM display — how close did you get? This is how pros train.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    }
+  ]
+}

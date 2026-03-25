@@ -1,0 +1,103 @@
+{
+  "id": "harmonic-mixing",
+  "title": "Harmonic Mixing Basics",
+  "description": "Match musical keys between tracks so transitions sound melodically compatible — not just rhythmically in time.",
+  "category": "transitions",
+  "technique": "harmonic-mixing",
+  "difficulty": 4,
+  "estimatedMinutes": 10,
+  "prerequisiteIds": ["curriculum-transitions"],
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: Deck A plays in a key shown in the metadata. Deck B shows a compatible key — a perfect 5th apart.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: the transition blends both tracks. No harmonic clash — the melodies complement each other.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.8, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: now a mis-matched key track is loaded. The same blend sounds dissonant — you can hear the clash.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "Every track has a key — a musical home base. When two keys are compatible (the same key, or related keys), they sound natural together. When they clash, listeners feel uncomfortable even if they cannot explain why. The Camelot Wheel shows you which keys mix well: adjacent numbers are compatible, same number different letter (like 8A and 8B) also work.",
+      "durationMs": 9000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "partial",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Look at the key metadata for the track on Deck A. Note the key — for example, 4A on the Camelot Wheel.",
+          "highlight": null,
+          "target": { "type": "button_press" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Load a second track on Deck B. Check its key. Compatible keys are: the same key, ±1 on the Camelot number, or same number different letter.",
+          "highlight": "deck-b:play",
+          "target": { "type": "button_press", "deck": "B" },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Beatmatch Deck B to Deck A. Get the BPM within 1 beat per minute.",
+          "highlight": "deck-b:pitch",
+          "target": { "type": "pitch_match", "tolerance": 1 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.2, "phrase": 0.1 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Bring Deck B's volume up to 50% and listen. Do the melodies and basslines sound compatible? Or is there a clash?",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.5, "tolerance": 0.1 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.7, "timing": 0.3, "phrase": 0 }
+        },
+        {
+          "id": "d5",
+          "instruction": "If the keys are compatible, you will hear them lock together harmonically. Bring Deck B to 80% and let the blend play.",
+          "highlight": "deck-b:volume",
+          "target": { "type": "volume_value", "deck": "B", "value": 0.8, "tolerance": 0.1 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.3, "phrase": 0.1 }
+        },
+        {
+          "id": "d6",
+          "instruction": "Execute the bass swap at the phrase boundary. Deck B takes over. The harmonic blend continues through the transition.",
+          "highlight": "deck-a:eq-low",
+          "target": { "type": "eq_value", "deck": "A", "param": "eqLow", "value": -24, "tolerance": 4 },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.2, "phrase": 0.5 }
+        },
+        {
+          "id": "d7",
+          "instruction": "Fade Deck A out completely. A harmonically matched transition sounds seamless — like one continuous song.",
+          "highlight": "deck-a:volume",
+          "target": { "type": "volume_value", "deck": "A", "value": 0, "tolerance": 0.05 },
+          "timeLimitMs": 15000,
+          "scoreWeights": { "accuracy": 0.6, "timing": 0.4, "phrase": 0 }
+        }
+      ]
+    }
+  ]
+}

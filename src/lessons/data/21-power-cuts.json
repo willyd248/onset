@@ -1,0 +1,88 @@
+{
+  "id": "power-cuts",
+  "title": "Power Cuts & Transformer Scratches",
+  "description": "Use rapid crossfader cuts in rhythm to chop audio into percussive stabs — advanced scratch technique.",
+  "category": "effects",
+  "technique": "power-cuts",
+  "difficulty": 4,
+  "estimatedMinutes": 10,
+  "prerequisiteIds": ["baby-scratch", "crossfader-basics"],
+  "phases": [
+    {
+      "type": "watch",
+      "steps": [
+        {
+          "id": "w1",
+          "instruction": "Watch: the crossfader snaps open-closed-open in rapid succession while the jog holds a forward position. Each snap creates a percussive cut.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 1, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w2",
+          "instruction": "Watch: the cuts happen in groups of three — cut-cut-cut on one beat. This is the transformer effect.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 0, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 1, "timing": 0, "phrase": 0 }
+        },
+        {
+          "id": "w3",
+          "instruction": "Watch: the cuts are in tempo with the track. Three cuts on beat one, three cuts on beat two — rhythmic and precise.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 0.5, "tolerance": 0.2 },
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.3, "phrase": 0.2 }
+        }
+      ]
+    },
+    {
+      "type": "imagine",
+      "instruction": "The crossfader is your gate. Open it and sound comes through. Slam it shut and silence. Open-shut-open three times on one beat — that is a transformer scratch. Your wrist controls the rhythm, your ear controls the timing. Think of it as playing the crossfader like a percussive instrument.",
+      "durationMs": 8000
+    },
+    {
+      "type": "do",
+      "scaffoldLevel": "minimal",
+      "steps": [
+        {
+          "id": "d1",
+          "instruction": "Start Deck A playing at 80% volume. Crossfader on the left (Deck A open).",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 0, "tolerance": 0.1 },
+          "scoreWeights": { "accuracy": 0.8, "timing": 0.2, "phrase": 0 }
+        },
+        {
+          "id": "d2",
+          "instruction": "Practice a single cut: snap the crossfader all the way right (closed) then all the way left (open). One clean snap.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 0, "tolerance": 0.1 },
+          "timeLimitMs": 10000,
+          "scoreWeights": { "accuracy": 0.5, "timing": 0.5, "phrase": 0 }
+        },
+        {
+          "id": "d3",
+          "instruction": "Now do three cuts on a single beat — open-close-open-close-open-close in the time of one quarter note. Keep the hand loose.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 0, "tolerance": 0.15 },
+          "timeLimitMs": 20000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.6, "phrase": 0.1 }
+        },
+        {
+          "id": "d4",
+          "instruction": "Now add the jog wheel. Hold a sound forward with the right hand while cutting with the left. Forward sound, rapid cuts.",
+          "highlight": "deck-a:jog",
+          "target": { "type": "beat_aligned", "tolerance": 80 },
+          "timeLimitMs": 25000,
+          "scoreWeights": { "accuracy": 0.3, "timing": 0.5, "phrase": 0.2 }
+        },
+        {
+          "id": "d5",
+          "instruction": "Try to keep the cuts in tempo with the beat. Three cuts per beat, every beat. This is advanced — be patient with yourself.",
+          "highlight": "crossfader",
+          "target": { "type": "crossfader_position", "value": 0, "tolerance": 0.15 },
+          "timeLimitMs": 30000,
+          "scoreWeights": { "accuracy": 0.2, "timing": 0.6, "phrase": 0.2 }
+        }
+      ]
+    }
+  ]
+}

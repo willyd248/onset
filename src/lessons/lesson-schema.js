@@ -50,6 +50,32 @@ import beatmatchingData from './data/02-beatmatching.json';
 import eqMixingData from './data/03-eq-mixing.json';
 import transitionsData from './data/04-transitions.json';
 
+// Import expanded lesson catalog — beginner tier
+import crossfaderBasicsData from './data/05-crossfader-basics.json';
+import beatmatchByEarData from './data/06-beatmatch-by-ear.json';
+import gainStagingData from './data/07-gain-staging.json';
+import hotCuesData from './data/08-hot-cues.json';
+import babyScratchData from './data/09-baby-scratch.json';
+import loopBasicsData from './data/10-loop-basics.json';
+import trackSelectionData from './data/11-track-selection.json';
+import eqIncomingTrackData from './data/12-eq-incoming-track.json';
+
+// Import expanded lesson catalog — intermediate tier
+import dropMixingData from './data/13-drop-mixing.json';
+import filterTransitionsData from './data/14-filter-transitions.json';
+import phraseMatchingData from './data/15-phrase-matching.json';
+import eqSwapTechniqueData from './data/16-eq-swap-technique.json';
+import spinbackData from './data/17-spinback.json';
+import tensionEffectsData from './data/18-tension-effects.json';
+import waveformReadingData from './data/19-waveform-reading.json';
+
+// Import expanded lesson catalog — advanced tier
+import harmonicMixingData from './data/20-harmonic-mixing.json';
+import powerCutsData from './data/21-power-cuts.json';
+import multiDeckConceptsData from './data/22-multi-deck-concepts.json';
+import liveMashupData from './data/23-live-mashup.json';
+import setPlanningData from './data/24-set-planning.json';
+
 /** @type {LessonDef[]} */
 export const LESSON_CATALOG = [
   // ── Basics ────────────────────────────────────────────
@@ -233,6 +259,32 @@ export const LESSON_CATALOG = [
   beatmatchingData,
   eqMixingData,
   transitionsData,
+
+  // ── Expanded Catalog — Beginner ───────────────────────
+  crossfaderBasicsData,
+  beatmatchByEarData,
+  gainStagingData,
+  hotCuesData,
+  babyScratchData,
+  loopBasicsData,
+  trackSelectionData,
+  eqIncomingTrackData,
+
+  // ── Expanded Catalog — Intermediate ──────────────────
+  dropMixingData,
+  filterTransitionsData,
+  phraseMatchingData,
+  eqSwapTechniqueData,
+  spinbackData,
+  tensionEffectsData,
+  waveformReadingData,
+
+  // ── Expanded Catalog — Advanced ───────────────────────
+  harmonicMixingData,
+  powerCutsData,
+  multiDeckConceptsData,
+  liveMashupData,
+  setPlanningData,
 ];
 
 /** @type {TechniqueCategory[]} */
