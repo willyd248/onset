@@ -28,6 +28,12 @@ export class App {
     /** @type {AudioEngine | null} */
     this._engine = null;
 
+    /** @type {import('@supabase/supabase-js').SupabaseClient | null} */
+    this._supabase = null;
+
+    /** @type {string | null} */
+    this._userId = null;
+
     /** @type {MIDIController | null} */
     this._midiController = null;
 
@@ -918,21 +924,100 @@ export class App {
     });
   }
 
+  // ── Cloud Sync ────────────────────────────────────────────────
+
+  /**
+   * Enable Supabase cloud sync for all persistence layers.
+   * Call this after auth is confirmed and app is initialized.
+   * @param {import('@supabase/supabase-js').SupabaseClient} supabase
+   * @param {import('@supabase/supabase-js').User} user
+   */
+  async setCloudSync(supabase, user) {
+    this._supabase = supabase;
+    this._userId = user.id;
+
+    // Enable cloud sync on lesson engine (progress + spaced repetition)
+    if (this._lessonEngine) {
+      await this._lessonEngine.setCloudSync(supabase, user.id);
+      // Re-render views with fresh cloud data
+      this._refreshAllViews();
+    }
+
+    // Update profile name with email
+    this._updateProfileEmail(user.email);
+  }
+
+  /**
+   * Sign out the current user and reload the app to show auth screen.
+   * @param {import('../auth/AuthManager.js').AuthManager} authManager
+   */
+  async signOut(authManager) {
+    this._lessonEngine?.progress.endSession();
+    await authManager.signOut();
+    window.location.reload();
+  }
+
+  /** @private */
+  _updateProfileEmail(email) {
+    if (!email) return;
+    const username = email.split('@')[0];
+    const nameEl = document.querySelector('.profile-card__name');
+    if (nameEl && nameEl.textContent === 'DJ Learner') {
+      nameEl.textContent = username;
+    }
+    const emailEl = document.getElementById('profile-email');
+    if (emailEl) emailEl.textContent = email;
+  }
+
   // ── Hot Cue Persistence ─────────────────────────────────────
 
   /** @private */
   _saveHotCues(deck, trackName) {
+    const cues = this._mixerState.get(deck, 'hotCues');
+    // localStorage — immediate, offline-safe
     try {
       const key = 'onset:hotcues';
       const data = JSON.parse(localStorage.getItem(key) || '{}');
-      const cues = this._mixerState.get(deck, 'hotCues');
       data[trackName] = cues;
       localStorage.setItem(key, JSON.stringify(data));
     } catch { /* best-effort */ }
+
+    // Supabase — fire-and-forget
+    if (this._supabase && this._userId) {
+      this._supabase
+        .from('hot_cues')
+        .upsert({
+          user_id:    this._userId,
+          track_name: trackName,
+          cue_points: cues,
+          updated_at: new Date().toISOString(),
+        }, { onConflict: 'user_id,track_name' })
+        .then(({ error }) => {
+          if (error) console.warn('[hot-cues] Cloud sync failed:', error.message);
+        });
+    }
   }
 
   /** @private */
-  _restoreHotCues(deck, trackName) {
+  async _restoreHotCues(deck, trackName) {
+    // Try Supabase first; fall back to localStorage
+    if (this._supabase && this._userId) {
+      try {
+        const { data, error } = await this._supabase
+          .from('hot_cues')
+          .select('cue_points')
+          .eq('user_id', this._userId)
+          .eq('track_name', trackName)
+          .maybeSingle();
+
+        if (!error && data?.cue_points && Array.isArray(data.cue_points)) {
+          this._mixerState.set(deck, 'hotCues', data.cue_points, 'audio');
+          return;
+        }
+      } catch { /* fall through to localStorage */ }
+    }
+
+    // localStorage fallback
     try {
       const key = 'onset:hotcues';
       const data = JSON.parse(localStorage.getItem(key) || '{}');

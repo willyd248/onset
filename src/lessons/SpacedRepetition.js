@@ -1,7 +1,9 @@
 /**
  * SpacedRepetition — SM-2 inspired scheduling for technique retention across sessions.
  *
- * Persists review state in localStorage. Each technique tracks:
+ * Persists review state in localStorage (immediate) and syncs to Supabase cloud
+ * in the background when cloud sync is enabled.
+ * Each technique tracks:
  * - lastPracticed: timestamp
  * - interval: days until next review
  * - easeFactor: how easily the user recalls this (starts at 2.5)
@@ -17,6 +19,23 @@ export class SpacedRepetition {
     /** @type {Map<string, TechniqueRecord>} */
     this._records = new Map();
     this._load();
+
+    // Cloud sync — set via setCloudSync() after auth
+    /** @type {import('@supabase/supabase-js').SupabaseClient | null} */
+    this._supabase = null;
+    /** @type {string | null} */
+    this._userId = null;
+  }
+
+  /**
+   * Enable Supabase cloud sync and load cloud data if available.
+   * @param {import('@supabase/supabase-js').SupabaseClient} supabase
+   * @param {string} userId
+   */
+  async setCloudSync(supabase, userId) {
+    this._supabase = supabase;
+    this._userId = userId;
+    await this._loadFromCloud();
   }
 
   /**
@@ -35,7 +54,6 @@ export class SpacedRepetition {
     record.lastPracticed = Date.now();
 
     if (quality >= 3) {
-      // Successful recall
       if (record.repetitions === 0) {
         record.interval = 1;
       } else if (record.repetitions === 1) {
@@ -45,7 +63,6 @@ export class SpacedRepetition {
       }
       record.repetitions += 1;
     } else {
-      // Failed — reset to beginning
       record.repetitions = 0;
       record.interval = 1;
     }
@@ -58,6 +75,7 @@ export class SpacedRepetition {
 
     this._records.set(techniqueId, record);
     this._save();
+    this._syncToCloud();
   }
 
   /**
@@ -111,6 +129,8 @@ export class SpacedRepetition {
     return 0;
   }
 
+  // ── Persistence ───────────────────────────────────────────────
+
   /** @private */
   _load() {
     try {
@@ -132,5 +152,41 @@ export class SpacedRepetition {
       const obj = Object.fromEntries(this._records);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
     } catch { /* quota exceeded */ }
+  }
+
+  /** @private — Load from Supabase (overwrites localStorage cache). */
+  async _loadFromCloud() {
+    if (!this._supabase || !this._userId) return;
+    try {
+      const { data, error } = await this._supabase
+        .from('spaced_repetition')
+        .select('records')
+        .eq('user_id', this._userId)
+        .maybeSingle();
+
+      if (error) throw error;
+      if (!data?.records) return;
+
+      this._records = new Map(Object.entries(data.records));
+      this._save(); // update localStorage cache
+    } catch (err) {
+      console.warn('[spaced-rep] Failed to load from cloud:', err.message);
+    }
+  }
+
+  /** @private — Fire-and-forget sync to Supabase. */
+  _syncToCloud() {
+    if (!this._supabase || !this._userId) return;
+    const records = Object.fromEntries(this._records);
+    this._supabase
+      .from('spaced_repetition')
+      .upsert({
+        user_id:    this._userId,
+        records,
+        updated_at: new Date().toISOString(),
+      })
+      .then(({ error }) => {
+        if (error) console.warn('[spaced-rep] Cloud sync failed:', error.message);
+      });
   }
 }

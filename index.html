@@ -95,7 +95,7 @@
     </script>
   </head>
   <body class="bg-background font-body text-on-background min-h-screen overflow-hidden">
-    <div id="app" class="h-screen grid grid-cols-[auto_1fr] grid-rows-[64px_1fr]" style="grid-template-areas: 'sidebar topbar' 'sidebar content';">
+    <div id="app" class="h-screen grid grid-cols-[auto_1fr] grid-rows-[64px_1fr]" style="display:none; grid-template-areas: 'sidebar topbar' 'sidebar content';">
 
       <!-- ========== SIDEBAR NAVIGATION ========== -->
       <aside class="hidden lg:flex fixed left-0 top-0 h-full w-60 flex-col p-5 z-40 bg-white rounded-r-xl shadow-[20px_0_40px_rgba(45,47,47,0.06)] pt-6" style="grid-area: sidebar;">
@@ -645,12 +645,17 @@
                     <span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">person</span>
                   </div>
                   <h2 class="profile-card__name text-2xl font-black text-on-surface">DJ Learner</h2>
+                  <p id="profile-email" class="text-xs font-medium text-on-surface-variant/60 -mt-2"></p>
                   <p class="profile-card__level text-sm font-semibold text-on-surface-variant" id="profile-level">Level 1 &mdash; Beginner</p>
                   <div class="flex gap-6 mt-2">
                     <div><span class="text-xl font-black text-primary" id="profile-xp">0</span><p class="text-[0.6rem] font-bold uppercase tracking-wider text-on-surface-variant">Total XP</p></div>
                     <div><span class="text-xl font-black text-primary" id="profile-lessons">0</span><p class="text-[0.6rem] font-bold uppercase tracking-wider text-on-surface-variant">Lessons</p></div>
                     <div><span class="text-xl font-black text-primary">&#35;&#8212;</span><p class="text-[0.6rem] font-bold uppercase tracking-wider text-on-surface-variant">Global Rank</p></div>
                   </div>
+                  <button id="btn-logout" class="mt-4 flex items-center gap-1.5 text-xs font-semibold text-on-surface-variant hover:text-error transition-colors">
+                    <span class="material-symbols-outlined" style="font-size:16px;" aria-hidden="true">logout</span>
+                    Sign out
+                  </button>
                 </div>
               </div>
 

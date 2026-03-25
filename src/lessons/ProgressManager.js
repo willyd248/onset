@@ -1,7 +1,7 @@
 /**
- * ProgressManager — central localStorage-backed store for XP, streaks,
- * practice time, and lesson completion. Single source of truth that
- * Profile, Stats, and Learn views all read from.
+ * ProgressManager — central store for XP, streaks, practice time, and lesson completion.
+ * Writes to localStorage immediately for offline use, and syncs to Supabase cloud
+ * in the background when cloud sync is enabled.
  */
 
 const STORAGE_KEY = 'onset:progress';
@@ -44,6 +44,23 @@ export class ProgressManager extends EventTarget {
     /** @type {ProgressData} */
     this._data = this._load();
     this._sessionStartTime = 0;
+
+    // Cloud sync — set via setCloudSync() after auth
+    /** @type {import('@supabase/supabase-js').SupabaseClient | null} */
+    this._supabase = null;
+    /** @type {string | null} */
+    this._userId = null;
+  }
+
+  /**
+   * Enable Supabase cloud sync and load cloud data if available.
+   * @param {import('@supabase/supabase-js').SupabaseClient} supabase
+   * @param {string} userId
+   */
+  async setCloudSync(supabase, userId) {
+    this._supabase = supabase;
+    this._userId = userId;
+    await this._loadFromCloud();
   }
 
   /** Start tracking a practice session. */
@@ -57,6 +74,7 @@ export class ProgressManager extends EventTarget {
       this._data.totalPracticeMs += Date.now() - this._sessionStartTime;
       this._sessionStartTime = 0;
       this._save();
+      this._syncToCloud();
     }
   }
 
@@ -90,6 +108,7 @@ export class ProgressManager extends EventTarget {
     this._updateStreak();
 
     this._save();
+    this._syncToCloud();
     this.dispatchEvent(new CustomEvent('progress-updated', { detail: this.getSummary() }));
   }
 
@@ -98,10 +117,7 @@ export class ProgressManager extends EventTarget {
     const today = new Date().toISOString().split('T')[0];
     const lastDate = this._data.lastPracticeDate;
 
-    if (lastDate === today) {
-      // Already practiced today, no change
-      return;
-    }
+    if (lastDate === today) return;
 
     if (lastDate) {
       const last = new Date(lastDate);
@@ -109,14 +125,11 @@ export class ProgressManager extends EventTarget {
       const diffDays = Math.floor((now.getTime() - last.getTime()) / (1000 * 60 * 60 * 24));
 
       if (diffDays === 1) {
-        // Consecutive day
         this._data.currentStreak += 1;
       } else if (diffDays > 1) {
-        // Streak broken
         this._data.currentStreak = 1;
       }
     } else {
-      // First time
       this._data.currentStreak = 1;
     }
 
@@ -171,7 +184,9 @@ export class ProgressManager extends EventTarget {
     return this._data.completedLessonIds.includes(lessonId);
   }
 
-  /** @private */
+  // ── Persistence ───────────────────────────────────────────────
+
+  /** @private — Load from localStorage (fast, synchronous, offline-safe). */
   _load() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -203,8 +218,62 @@ export class ProgressManager extends EventTarget {
     };
   }
 
-  /** @private */
+  /** @private — Write to localStorage. */
   _save() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(this._data)); } catch { /* quota exceeded */ }
+  }
+
+  /** @private — Load from Supabase (overwrites localStorage cache with authoritative data). */
+  async _loadFromCloud() {
+    if (!this._supabase || !this._userId) return;
+    try {
+      const { data, error } = await this._supabase
+        .from('progress')
+        .select('*')
+        .eq('user_id', this._userId)
+        .maybeSingle();
+
+      if (error) throw error;
+      if (!data) return; // No cloud row yet — localStorage data is current
+
+      this._data = {
+        totalXP:             data.total_xp             || 0,
+        lessonsCompleted:    data.lessons_completed     || 0,
+        currentStreak:       data.current_streak        || 0,
+        bestStreak:          data.best_streak           || 0,
+        lastPracticeDate:    data.last_practice_date    || null,
+        totalPracticeMs:     Number(data.total_practice_ms) || 0,
+        completedLessonIds:  data.completed_lesson_ids  || [],
+        categoryScores:      data.category_scores       || {},
+      };
+
+      // Keep localStorage in sync as cache
+      this._save();
+      this.dispatchEvent(new CustomEvent('progress-updated', { detail: this.getSummary() }));
+    } catch (err) {
+      console.warn('[progress] Failed to load from cloud:', err.message);
+    }
+  }
+
+  /** @private — Fire-and-forget sync to Supabase. */
+  _syncToCloud() {
+    if (!this._supabase || !this._userId) return;
+    this._supabase
+      .from('progress')
+      .upsert({
+        user_id:              this._userId,
+        total_xp:             this._data.totalXP,
+        lessons_completed:    this._data.lessonsCompleted,
+        current_streak:       this._data.currentStreak,
+        best_streak:          this._data.bestStreak,
+        last_practice_date:   this._data.lastPracticeDate,
+        total_practice_ms:    this._data.totalPracticeMs,
+        completed_lesson_ids: this._data.completedLessonIds,
+        category_scores:      this._data.categoryScores,
+        updated_at:           new Date().toISOString(),
+      })
+      .then(({ error }) => {
+        if (error) console.warn('[progress] Cloud sync failed:', error.message);
+      });
   }
 }

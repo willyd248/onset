@@ -497,6 +497,19 @@ export class LessonEngine extends EventTarget {
     return this._progress;
   }
 
+  /**
+   * Enable Supabase cloud sync for both ProgressManager and SpacedRepetition.
+   * Call this after auth is confirmed.
+   * @param {import('@supabase/supabase-js').SupabaseClient} supabase
+   * @param {string} userId
+   */
+  async setCloudSync(supabase, userId) {
+    await Promise.all([
+      this._progress.setCloudSync(supabase, userId),
+      this._spacedRep.setCloudSync(supabase, userId),
+    ]);
+  }
+
   /** Clean up timers and listeners. */
   destroy() {
     if (this._imagineTimerId) clearTimeout(this._imagineTimerId);
