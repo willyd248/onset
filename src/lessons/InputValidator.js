@@ -101,6 +101,8 @@ export class InputValidator extends EventTarget {
         return param === 'pitch';
       case 'button_press':
         return deck === target.deck && param === target.param;
+      case 'beat_aligned':
+        return param === 'pitch' || param === 'jog';
       default:
         return false;
     }
@@ -149,9 +151,7 @@ export class InputValidator extends EventTarget {
         return this._validateButtonPress(target);
 
       case 'beat_aligned':
-        // Beat alignment is scored via ScoringEngine.calcPhraseAlignment at completion
-        // For now, pass if we detect close alignment
-        return { passed: true, accuracy: 50, currentValue: 0, targetValue: 0, distance: 0, proximity: 'warm' };
+        return this._validateBeatAligned(target);
 
       default:
         return { passed: false, accuracy: 0, currentValue: 0, targetValue: 0, distance: Infinity, proximity: 'cold' };
@@ -215,6 +215,38 @@ export class InputValidator extends EventTarget {
       distance: passed ? 0 : 1,
       proximity: passed ? 'hit' : 'cold',
     };
+  }
+
+  /**
+   * Validate beat alignment by comparing pitch values between decks.
+   * If pitch data isn't available, falls back to auto-pass.
+   * @private
+   */
+  _validateBeatAligned(target) {
+    const pitchA = this._mixerState.get('A', 'pitch');
+    const pitchB = this._mixerState.get('B', 'pitch');
+
+    // Fall back to auto-pass if pitch values aren't available
+    if (pitchA == null || pitchB == null) {
+      return { passed: true, accuracy: 50, currentValue: 0, targetValue: 0, distance: 0, proximity: 'warm' };
+    }
+
+    const diff = Math.abs(pitchA - pitchB);
+    const tolerance = 0.5; // pitch units — close enough to be "aligned"
+
+    // Accuracy: 100 when perfectly matched, scaling down as diff increases
+    const maxDiff = 8; // pitch range is typically -8 to +8
+    const accuracy = Math.max(0, Math.round(100 * (1 - diff / maxDiff)));
+    const passed = diff <= tolerance;
+
+    /** @type {ValidationResult['proximity']} */
+    let proximity;
+    if (passed) proximity = 'hit';
+    else if (diff <= tolerance * 2) proximity = 'hot';
+    else if (diff <= tolerance * 4) proximity = 'warm';
+    else proximity = 'cold';
+
+    return { passed, accuracy, currentValue: diff, targetValue: 0, distance: diff, proximity };
   }
 
   /** Clean up listeners. */
