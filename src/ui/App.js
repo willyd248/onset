@@ -360,10 +360,8 @@ export class App {
       // Mark track as loaded in state
       this._mixerState.set(deckName, 'hasTrack', true, 'audio');
 
-      // Hide empty state, show waveform section
+      // Hide empty state overlay
       if (this._emptyStateEl) this._emptyStateEl.hidden = true;
-      const wfSection = document.getElementById('waveform-section');
-      if (wfSection) wfSection.classList.remove('hidden');
 
       // Update track name in UI with tooltip for long names
       if (nameEl) {
@@ -623,22 +621,33 @@ export class App {
       const el = document.getElementById('session-complete-content');
       if (el) {
         el.innerHTML = `
-          <span class="material-symbols-outlined session-complete__icon" style="font-variation-settings: 'FILL' 1;">celebration</span>
-          <h2 class="session-complete__title">Session Complete!</h2>
-          <div class="session-complete__score">${stats.averageScore || 0}</div>
-          <p class="session-complete__label">Average Score</p>
-          <div class="session-complete__metrics">
-            <div class="session-complete__metric">
-              <span class="session-complete__metric-value">${stats.completed || 0}</span>
-              <span class="session-complete__metric-label">Lessons</span>
+          <div class="relative text-center mb-4 w-full max-w-sm">
+            <div class="absolute -top-6 left-1/4 animate-bounce text-secondary text-xl"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">auto_awesome</span></div>
+            <div class="absolute -top-4 right-1/4 animate-pulse text-[#fec700] text-2xl"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">celebration</span></div>
+            <h2 class="session-complete__title mb-3">Session Mastered!</h2>
+            <div style="display:flex; justify-content:center; gap:8px; margin-bottom:20px;">
+              <span class="material-symbols-outlined" style="font-size:40px; color:#fec700; filter:drop-shadow(0 0 8px rgba(254,199,0,0.4)); font-variation-settings:'FILL' 1;">star</span>
+              <span class="material-symbols-outlined" style="font-size:52px; color:#fec700; filter:drop-shadow(0 0 8px rgba(254,199,0,0.4)); margin-top:-12px; font-variation-settings:'FILL' 1;">star</span>
+              <span class="material-symbols-outlined" style="font-size:40px; color:#fec700; filter:drop-shadow(0 0 8px rgba(254,199,0,0.4)); font-variation-settings:'FILL' 1;">star</span>
             </div>
-            <div class="session-complete__metric">
-              <span class="session-complete__metric-value">${stats.total || 0}</span>
-              <span class="session-complete__metric-label">Total</span>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;">
+              <div style="background:var(--primary-container); border-radius:12px; padding:16px; display:flex; flex-direction:column; align-items:center;">
+                <span style="font-weight:900; font-size:22px; color:var(--on-primary-container);">+${(stats.completed || 0) * 20} XP</span>
+                <span style="font-weight:700; font-size:9px; text-transform:uppercase; letter-spacing:0.15em; color:var(--on-primary-container); opacity:0.7; margin-top:4px;">Experience</span>
+              </div>
+              <div style="background:var(--tertiary-container); border-radius:12px; padding:16px; display:flex; flex-direction:column; align-items:center;">
+                <span style="font-weight:900; font-size:22px; color:var(--on-tertiary-container);">${stats.completed || 0}/${stats.total || 0}</span>
+                <span style="font-weight:700; font-size:9px; text-transform:uppercase; letter-spacing:0.15em; color:var(--on-tertiary-container); opacity:0.7; margin-top:4px;">Lessons</span>
+              </div>
             </div>
           </div>
-          <div class="session-complete__actions">
-            <button class="btn btn--deck-a" id="session-back-btn">Back to Practice</button>
+          <div style="background:white; border-radius:12px; padding:20px; margin-bottom:20px; width:100%; max-width:320px; text-align:center;">
+            <p style="font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:0.15em; color:var(--on-surface-variant); margin-bottom:12px;">Performance</p>
+            <div class="session-complete__score">${stats.averageScore || 0}</div>
+            <p class="session-complete__label">Average Score</p>
+          </div>
+          <div class="session-complete__actions" style="flex-direction:column; width:100%; max-width:320px;">
+            <button style="background:var(--primary); color:var(--on-primary); width:100%; padding:16px; border-radius:12px; font-weight:900; font-size:16px; border:none; cursor:pointer; box-shadow:0 6px 0 #1a4700; transition:all 0.1s;" id="session-back-btn">Continue Practicing</button>
           </div>
         `;
 

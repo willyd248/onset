@@ -7,7 +7,7 @@
 /** @typedef {'lessons' | 'freeplay'} AppMode */
 /** @typedef {'connected' | 'disconnected' | 'no-midi'} ConnectionStatus */
 
-const MIN_WIDTH = 1200;
+const MIN_WIDTH = 480;
 
 export class AppShell {
   constructor() {
