@@ -6,6 +6,34 @@ import { AuthManager } from './auth/AuthManager.js';
 import { AuthModal } from './auth/AuthModal.js';
 import { migrateLocalStorageToCloud } from './auth/migration.js';
 
+// ── Dev mode (founder bypass) ─────────────────────────────────────────────
+// Activate:  ?dev=dk_onset_will_9f3k   (persists in localStorage)
+// Deactivate: ?dev=off
+const _DEV_SECRET = 'dk_onset_will_9f3k';
+const _DEV_KEY = 'onset:dev';
+
+try {
+  const _p = new URLSearchParams(window.location.search);
+  if (_p.get('dev') === _DEV_SECRET) {
+    localStorage.setItem(_DEV_KEY, '1');
+    _p.delete('dev');
+    const _c = _p.toString();
+    window.history.replaceState({}, '', window.location.pathname + (_c ? `?${_c}` : ''));
+  } else if (_p.get('dev') === 'off') {
+    localStorage.removeItem(_DEV_KEY);
+    _p.delete('dev');
+    const _c = _p.toString();
+    window.history.replaceState({}, '', window.location.pathname + (_c ? `?${_c}` : ''));
+  }
+} catch { /* ignore */ }
+
+/** True when founder dev bypass is active. Checked throughout the app. */
+export const isDevMode = localStorage.getItem(_DEV_KEY) === '1';
+
+if (isDevMode) {
+  window.__ONSET_DEV__ = true;
+}
+
 /**
  * Bootstrap the app:
  *  1. Check for an existing Supabase session (or run OAuth redirect exchange)
@@ -17,6 +45,16 @@ import { migrateLocalStorageToCloud } from './auth/migration.js';
  * Supabase env vars are not configured (development without a project, etc.)
  */
 async function bootstrap() {
+  // ── Dev mode: skip all auth gates, run as founder ──────────────────────────
+  if (isDevMode) {
+    const appEl = document.getElementById('app');
+    if (appEl) appEl.style.display = '';
+    const app = new App();
+    await app.init();
+    _injectDevBadge();
+    return;
+  }
+
   // ── No Supabase configured → legacy localStorage + email gate ─────────────
   if (!supabase) {
     const ACCESS_KEY = 'onset:access';
@@ -94,6 +132,29 @@ async function bootstrap() {
       window.location.reload();
     }
   });
+}
+
+/** Small persistent badge so you always know dev mode is on. */
+function _injectDevBadge() {
+  const badge = document.createElement('div');
+  badge.id = 'onset-dev-badge';
+  badge.title = 'Dev mode active — ?dev=off to exit';
+  badge.textContent = 'DEV';
+  badge.style.cssText = [
+    'position:fixed',
+    'bottom:12px',
+    'right:12px',
+    'z-index:9999',
+    'background:#2a6900',
+    'color:#fff',
+    'font:700 10px/1 monospace',
+    'padding:3px 6px',
+    'border-radius:4px',
+    'opacity:0.7',
+    'pointer-events:none',
+    'user-select:none',
+  ].join(';');
+  document.body.appendChild(badge);
 }
 
 // Entry point — DOM is ready since this module is loaded at end of <body>
