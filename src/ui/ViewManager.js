@@ -127,7 +127,7 @@ export class ViewManager extends EventTarget {
       }
 
       this.dispatchEvent(new CustomEvent('view-changed', { detail: { view: viewName } }));
-    }, 150); // matches the CSS transition duration
+    }, 200); // matches the CSS transition duration
   }
 
   /** @returns {string} */

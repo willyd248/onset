@@ -487,19 +487,24 @@ export class App {
     const btn = document.getElementById('demo-tracks-btn');
     if (!btn) return;
 
+    const originalHTML = btn.innerHTML;
+    const setLoading = (msg) => {
+      btn.innerHTML = `<span class="loading-spinner loading-spinner--sm" style="border-top-color:#fff;border-color:rgba(255,255,255,0.3);border-top-color:#fff;"></span><span>${msg}</span>`;
+    };
+
     btn.addEventListener('click', async () => {
       btn.disabled = true;
-      btn.textContent = 'Loading Deck A...';
+      setLoading('Loading Deck A…');
 
       try {
         // Load sequentially to avoid two simultaneous heavy decodes
         await this._loadDemoTrack('A', '/assets/demo/track-a.mp3', 'Vox and Bells');
-        btn.textContent = 'Loading Deck B...';
+        setLoading('Loading Deck B…');
         await new Promise(r => setTimeout(r, 50));
         await this._loadDemoTrack('B', '/assets/demo/track-b.mp3', 'Through the Beat');
       } catch (err) {
         btn.disabled = false;
-        btn.textContent = 'Try with demo tracks';
+        btn.innerHTML = originalHTML;
         Toast.show('Could not load demo tracks');
       }
     });

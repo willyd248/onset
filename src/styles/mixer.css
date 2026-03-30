@@ -14,18 +14,25 @@
   background: var(--surface-lowest);
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 16px 20px;
+  gap: 10px;
+  padding: 20px 22px;
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-ambient);
+  box-shadow: 0 20px 40px rgba(45, 47, 47, 0.06);
+  transition: box-shadow 200ms ease;
+}
+
+.deck:hover {
+  box-shadow: 0 24px 48px rgba(45, 47, 47, 0.09);
 }
 
 .deck--a {
-  border-left: 4px solid var(--primary-container);
+  border-left: 5px solid rgba(132, 251, 66, 0.45);
+  box-shadow: 0 20px 40px rgba(42, 105, 0, 0.07);
 }
 
 .deck--b {
-  border-left: 4px solid var(--secondary-container);
+  border-left: 5px solid rgba(238, 194, 255, 0.55);
+  box-shadow: 0 20px 40px rgba(138, 42, 185, 0.07);
 }
 
 /* Deck header */
@@ -294,10 +301,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 16px 24px;
+  padding: 14px 28px;
   min-width: 180px;
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-ambient);
+  box-shadow: 0 8px 24px rgba(45, 47, 47, 0.07);
+  margin-top: 8px;
 }
 
 .crossfader-section__label {

@@ -18,7 +18,16 @@
   position: relative;
   overflow: hidden;
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-ambient);
+  box-shadow: 0 4px 16px rgba(45, 47, 47, 0.06);
+  transition: box-shadow 200ms ease;
+}
+
+.waveform-display--a {
+  border-left: 4px solid rgba(132, 251, 66, 0.5);
+}
+
+.waveform-display--b {
+  border-left: 4px solid rgba(238, 194, 255, 0.6);
 }
 
 .waveform-card__label {
