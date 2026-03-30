@@ -106,8 +106,8 @@ export class AppShell {
     /** @type {Record<ConnectionStatus, string>} */
     const labels = {
       connected: 'MIDI: connected',
-      disconnected: 'MIDI: disconnected',
-      'no-midi': 'MIDI: not available',
+      disconnected: 'Connect MIDI',
+      'no-midi': 'No MIDI',
     };
 
     el.textContent = labels[status];

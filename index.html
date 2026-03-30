@@ -127,6 +127,12 @@
             <span>Settings</span>
           </button>
         </nav>
+        <!-- Upgrade CTA -->
+        <a href="https://buy.stripe.com/PLACEHOLDER" target="_blank" rel="noopener" class="mt-auto mx-1 mb-2 flex flex-col items-start gap-1 px-4 py-3 rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 hover:border-primary/40 transition-all no-underline group">
+          <span class="text-[0.6rem] font-extrabold uppercase tracking-widest text-primary/70">Early Access</span>
+          <span class="text-sm font-black text-on-surface leading-tight">Unlock all 24 lessons</span>
+          <span class="text-xs font-bold text-on-surface-variant">$29 lifetime &rarr;</span>
+        </a>
       </aside>
 
       <!-- ========== TOP BAR ========== -->
@@ -138,9 +144,9 @@
           <span class="streak-badge flex items-center gap-1.5 bg-tertiary-container rounded-full px-4 py-1.5 shadow-[0_4px_12px_rgba(254,199,0,0.3)]" id="streak-badge" aria-label="Practice streak" aria-live="polite">
             <span class="material-symbols-outlined text-on-tertiary-container text-xl streak-icon" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">local_fire_department</span>
             <span class="font-black text-base text-on-tertiary-container streak-count tabular-nums" id="streak-count">0</span>
-            <span class="font-bold text-xs text-on-tertiary-container tracking-wider uppercase hidden sm:inline">days</span>
+            <span class="font-bold text-xs text-on-tertiary-container tracking-wider uppercase hidden sm:inline" id="streak-label">days</span>
           </span>
-          <span class="midi-status flex items-center text-xs font-semibold px-3.5 py-1 border-2 rounded-full disconnected" id="midi-status">MIDI: disconnected</span>
+          <span class="midi-status flex items-center text-xs font-semibold px-3.5 py-1 border-2 rounded-full disconnected" id="midi-status">Connect MIDI</span>
         </div>
       </header>
 
@@ -163,13 +169,14 @@
 
           <!-- Practice Empty State -->
           <div class="practice-empty-state flex flex-col items-center justify-center text-center py-10 px-6" id="practice-empty-state">
-            <span class="material-symbols-outlined text-on-surface-variant" style="font-size:48px;" aria-hidden="true">library_music</span>
-            <p class="text-lg font-semibold mt-3 mb-1">No tracks loaded</p>
-            <p class="text-on-surface-variant text-sm">Drag an audio file onto a deck or click <strong>Load Track</strong> to get started</p>
-            <button class="demo-tracks-btn inline-flex items-center gap-1.5 mt-4 px-5 py-2.5 font-bold text-sm text-white bg-primary rounded-full hover:bg-primary-dim transition-all shadow-sm" id="demo-tracks-btn">
-              <span class="material-symbols-outlined" style="font-size:18px;" aria-hidden="true">play_circle</span>
-              Try with demo tracks
+            <span class="material-symbols-outlined text-primary" style="font-size:64px; font-variation-settings: 'FILL' 1;" aria-hidden="true">library_music</span>
+            <p class="text-xl font-black mt-3 mb-1">Start mixing</p>
+            <p class="text-on-surface-variant text-sm mb-5">Try the demo tracks to hear how it works, or drag your own audio files onto the decks</p>
+            <button class="demo-tracks-btn inline-flex items-center gap-2 px-7 py-3.5 font-black text-base text-white bg-primary rounded-full hover:bg-primary-dim transition-all shadow-lg shadow-primary/30 active:scale-95" id="demo-tracks-btn">
+              <span class="material-symbols-outlined" style="font-size:22px; font-variation-settings: 'FILL' 1;" aria-hidden="true">play_circle</span>
+              Try a Demo
             </button>
+            <p class="text-xs text-on-surface-variant mt-3 opacity-60">or drag &amp; drop your own audio files</p>
           </div>
 
           <!-- Lesson Panel — PROMINENT, above mixer -->

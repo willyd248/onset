@@ -121,10 +121,10 @@
 }
 .midi-status.connected::before { background: var(--primary); }
 .midi-status.disconnected {
-  color: var(--error);
-  border-color: var(--error);
+  color: var(--outline);
+  border-color: var(--outline-variant);
 }
-.midi-status.disconnected::before { background: var(--error); }
+.midi-status.disconnected::before { background: var(--outline); }
 .midi-status.no-midi {
   color: var(--outline);
   border-color: var(--outline-variant);

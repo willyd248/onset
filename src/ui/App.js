@@ -873,6 +873,8 @@ export class App {
   _refreshStreakBadge(summary) {
     const countEl = document.getElementById('streak-count');
     if (countEl) countEl.textContent = String(summary.currentStreak);
+    const labelEl = document.getElementById('streak-label');
+    if (labelEl) labelEl.textContent = summary.currentStreak === 1 ? 'day' : 'days';
   }
 
   // ── Cue Handling ────────────────────────────────────────────
