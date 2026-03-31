@@ -1,3 +1,5 @@
+import './sentry.js';
+import './posthog.js';
 import './styles/custom.css';
 
 import { App } from './ui/App.js';

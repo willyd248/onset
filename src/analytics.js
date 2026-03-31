@@ -1,9 +1,11 @@
 /**
  * analytics.js — lightweight event tracking module.
  *
- * Wraps window.va (Vercel Analytics) with a fire-and-forget interface.
- * Never throws — analytics must never break the app.
+ * Wraps window.va (Vercel Analytics) and PostHog with a fire-and-forget
+ * interface. Never throws — analytics must never break the app.
  */
+
+import { posthog } from './posthog.js';
 
 /**
  * @param {string} name
@@ -14,6 +16,10 @@ function track(name, data = {}) {
     if (typeof window !== 'undefined' && typeof window.va === 'function') {
       window.va('event', { name, data });
     }
+  } catch { /* never break the app */ }
+
+  try {
+    posthog.capture(name, data);
   } catch { /* never break the app */ }
 }
 
