@@ -13,7 +13,7 @@ export class ViewManager extends EventTarget {
     this._activeView = 'practice';
 
     /** @type {NodeListOf<HTMLElement>} */
-    this._navButtons = document.querySelectorAll('#main-nav .nav-btn');
+    this._navButtons = document.querySelectorAll('#main-nav .nav-btn, #mobile-bottom-nav .mobile-nav-btn');
   }
 
   init() {
@@ -74,13 +74,18 @@ export class ViewManager extends EventTarget {
     const incoming = this._views.get(viewName);
     this._activeView = viewName;
 
-    // Update nav button active states immediately
+    // Update nav button active states immediately (sidebar + mobile)
     this._navButtons.forEach((btn) => {
       const btnView = btn.getAttribute('data-view');
+      const isMobile = btn.classList.contains('mobile-nav-btn');
       if (btnView === viewName) {
-        btn.classList.add('nav-btn--active');
+        if (isMobile) {
+          btn.classList.add('mobile-nav-btn--active');
+        } else {
+          btn.classList.add('nav-btn--active');
+        }
       } else {
-        btn.classList.remove('nav-btn--active');
+        btn.classList.remove('nav-btn--active', 'mobile-nav-btn--active');
       }
     });
 

@@ -824,3 +824,58 @@ button, [role="button"] {
 .top-bar {
   box-shadow: 0 2px 16px rgba(45, 47, 47, 0.06);
 }
+
+/* ── Mobile bottom nav ───────────────────────────────────── */
+.mobile-bottom-nav {
+  box-shadow: 0 -2px 16px rgba(45, 47, 47, 0.08);
+  padding-bottom: max(8px, env(safe-area-inset-bottom));
+}
+
+.mobile-nav-btn--active {
+  color: var(--primary) !important;
+}
+
+.mobile-nav-btn--active .material-symbols-outlined {
+  font-variation-settings: 'FILL' 1;
+}
+
+/* ── Mobile layout adjustments ───────────────────────────── */
+@media (max-width: 1023px) {
+  /* Main content: no sidebar offset, add bottom padding for mobile nav */
+  main {
+    margin-left: 0 !important;
+    padding-bottom: 72px;
+  }
+
+  /* Top bar: full width on mobile */
+  .top-bar {
+    left: 0 !important;
+  }
+
+  /* App grid: single column on mobile */
+  #app {
+    grid-template-columns: 1fr !important;
+    grid-template-areas: 'topbar' 'content' !important;
+  }
+
+  /* Non-practice views: allow vertical scroll */
+  #view-stats,
+  #view-profile,
+  #view-settings,
+  #view-learn {
+    overflow-y: auto;
+    max-height: calc(100vh - 64px - 72px);
+  }
+
+  /* Practice view: compact */
+  #view-practice {
+    overflow-y: auto;
+    max-height: calc(100vh - 64px - 72px);
+  }
+}
+
+/* ── Vinyl shadow fix (box-shadow in inline style used underscore typo) ── */
+#vinyl-a,
+#vinyl-b {
+  box-shadow: 0 8px 28px rgba(0,0,0,0.45), inset 0 0 0 2px rgba(255,255,255,0.04);
+}

@@ -246,7 +246,7 @@
           </div>
 
           <!-- Mixer Section -->
-          <section class="mixer grid grid-cols-2 gap-3" aria-label="DJ Mixer">
+          <section class="mixer" aria-label="DJ Mixer">
             <!-- Deck A -->
             <div class="deck deck--a flex flex-col" role="group" aria-label="Deck A">
               <div class="deck__header flex justify-between items-center mb-3">
@@ -264,25 +264,26 @@
               </div>
 
               <!-- Vinyl + Transport -->
-              <div class="flex items-center justify-center gap-5 mb-3">
-                <div class="relative w-[5.5rem] h-[5.5rem] flex-shrink-0">
-                  <div class="absolute inset-0 rounded-full bg-neutral-900 vinyl-spin vinyl-paused shadow-[0_8px_24px_rgba(0,0,0,0.35)]" id="vinyl-a">
-                    <div class="absolute inset-[12%] rounded-full border border-neutral-700/60"></div>
-                    <div class="absolute inset-[24%] rounded-full border border-neutral-700/40"></div>
-                    <div class="absolute inset-[36%] rounded-full border border-neutral-700/25"></div>
-                    <div class="absolute inset-[44%] rounded-full bg-primary/25 border-2 border-primary/70"></div>
-                    <div class="absolute inset-[49%] rounded-full bg-primary"></div>
+              <div class="flex items-center justify-center gap-4 mb-3">
+                <div class="relative flex-shrink-0" style="width:100px;height:100px;">
+                  <div class="absolute inset-0 rounded-full bg-neutral-900 vinyl-spin vinyl-paused" id="vinyl-a" style="box-shadow:0 8px 28px rgba(0,0,0,0.45), inset 0 0 0 2px rgba(255,255,255,0.04);">
+                    <div class="absolute rounded-full border border-neutral-700/50" style="inset:8%"></div>
+                    <div class="absolute rounded-full border border-neutral-700/40" style="inset:18%"></div>
+                    <div class="absolute rounded-full border border-neutral-700/30" style="inset:28%"></div>
+                    <div class="absolute rounded-full border border-neutral-700/20" style="inset:37%"></div>
+                    <div class="absolute rounded-full border-2 border-primary/60" style="inset:43%;background:rgba(132,251,66,0.15)"></div>
+                    <div class="absolute rounded-full bg-primary" style="inset:48%"></div>
                   </div>
                 </div>
                 <div class="deck__transport flex flex-col items-center gap-2">
-                  <button class="transport-btn transport-btn--play transport-btn--a rounded-full bg-primary text-white flex items-center justify-center cursor-pointer border-none transition-all hover:bg-primary-dim active:scale-95 shadow-[0_8px_20px_rgba(42,105,0,0.35)]" id="play-a" aria-label="Play Deck A" style="width:52px;height:52px;">
+                  <button class="transport-btn transport-btn--play transport-btn--a rounded-full bg-primary text-white flex items-center justify-center cursor-pointer border-none transition-all hover:bg-primary-dim active:scale-95" id="play-a" aria-label="Play Deck A" style="width:52px;height:52px;box-shadow:0 6px 18px rgba(42,105,0,0.4);">
                     <span class="material-symbols-outlined text-2xl" style="font-variation-settings:'FILL' 1;" aria-hidden="true">play_arrow</span>
                   </button>
                   <div class="flex gap-2">
-                    <button class="transport-btn transport-btn--a rounded-full border-2 border-surface-container-high text-on-surface-variant flex items-center justify-center cursor-pointer transition-all hover:border-primary hover:text-primary active:scale-95" id="cue-a" aria-label="Cue Deck A" style="width:32px;height:32px;">
+                    <button class="transport-btn transport-btn--a rounded-full border-2 text-on-surface-variant flex items-center justify-center cursor-pointer transition-all hover:border-primary hover:text-primary active:scale-95" id="cue-a" aria-label="Cue Deck A" style="width:32px;height:32px;border-color:rgba(132,251,66,0.4);">
                       <span class="material-symbols-outlined" style="font-size:15px;" aria-hidden="true">stop</span>
                     </button>
-                    <button class="transport-btn transport-btn--a rounded-full border-2 border-surface-container-high text-on-surface-variant flex items-center justify-center cursor-pointer transition-all hover:border-primary hover:text-primary active:scale-95" id="sync-a" aria-label="Sync Deck A" style="width:32px;height:32px;">
+                    <button class="transport-btn transport-btn--a rounded-full border-2 text-on-surface-variant flex items-center justify-center cursor-pointer transition-all hover:border-primary hover:text-primary active:scale-95" id="sync-a" aria-label="Sync Deck A" style="width:32px;height:32px;border-color:rgba(132,251,66,0.4);">
                       <span class="material-symbols-outlined" style="font-size:15px;" aria-hidden="true">sync</span>
                     </button>
                   </div>
@@ -371,25 +372,26 @@
               </div>
 
               <!-- Vinyl + Transport -->
-              <div class="flex items-center justify-center gap-5 mb-3">
-                <div class="relative w-[5.5rem] h-[5.5rem] flex-shrink-0">
-                  <div class="absolute inset-0 rounded-full bg-neutral-900 vinyl-spin vinyl-paused shadow-[0_8px_24px_rgba(0,0,0,0.35)]" id="vinyl-b">
-                    <div class="absolute inset-[12%] rounded-full border border-neutral-700/60"></div>
-                    <div class="absolute inset-[24%] rounded-full border border-neutral-700/40"></div>
-                    <div class="absolute inset-[36%] rounded-full border border-neutral-700/25"></div>
-                    <div class="absolute inset-[44%] rounded-full bg-secondary/25 border-2 border-secondary/70"></div>
-                    <div class="absolute inset-[49%] rounded-full bg-secondary"></div>
+              <div class="flex items-center justify-center gap-4 mb-3">
+                <div class="relative flex-shrink-0" style="width:100px;height:100px;">
+                  <div class="absolute inset-0 rounded-full bg-neutral-900 vinyl-spin vinyl-paused" id="vinyl-b" style="box-shadow:0 8px 28px rgba(0,0,0,0.45), inset 0 0 0 2px rgba(255,255,255,0.04);">
+                    <div class="absolute rounded-full border border-neutral-700/50" style="inset:8%"></div>
+                    <div class="absolute rounded-full border border-neutral-700/40" style="inset:18%"></div>
+                    <div class="absolute rounded-full border border-neutral-700/30" style="inset:28%"></div>
+                    <div class="absolute rounded-full border border-neutral-700/20" style="inset:37%"></div>
+                    <div class="absolute rounded-full border-2 border-secondary/60" style="inset:43%;background:rgba(238,194,255,0.15)"></div>
+                    <div class="absolute rounded-full bg-secondary" style="inset:48%"></div>
                   </div>
                 </div>
                 <div class="deck__transport flex flex-col items-center gap-2">
-                  <button class="transport-btn transport-btn--play transport-btn--b rounded-full bg-secondary text-white flex items-center justify-center cursor-pointer border-none transition-all hover:bg-secondary-dim active:scale-95 shadow-[0_8px_20px_rgba(138,42,185,0.35)]" id="play-b" aria-label="Play Deck B" style="width:52px;height:52px;">
+                  <button class="transport-btn transport-btn--play transport-btn--b rounded-full bg-secondary text-white flex items-center justify-center cursor-pointer border-none transition-all hover:bg-secondary-dim active:scale-95" id="play-b" aria-label="Play Deck B" style="width:52px;height:52px;box-shadow:0 6px 18px rgba(138,42,185,0.4);">
                     <span class="material-symbols-outlined text-2xl" style="font-variation-settings:'FILL' 1;" aria-hidden="true">play_arrow</span>
                   </button>
                   <div class="flex gap-2">
-                    <button class="transport-btn transport-btn--b rounded-full border-2 border-surface-container-high text-on-surface-variant flex items-center justify-center cursor-pointer transition-all hover:border-secondary hover:text-secondary active:scale-95" id="cue-b" aria-label="Cue Deck B" style="width:32px;height:32px;">
+                    <button class="transport-btn transport-btn--b rounded-full border-2 text-on-surface-variant flex items-center justify-center cursor-pointer transition-all hover:border-secondary hover:text-secondary active:scale-95" id="cue-b" aria-label="Cue Deck B" style="width:32px;height:32px;border-color:rgba(238,194,255,0.5);">
                       <span class="material-symbols-outlined" style="font-size:15px;" aria-hidden="true">stop</span>
                     </button>
-                    <button class="transport-btn transport-btn--b rounded-full border-2 border-surface-container-high text-on-surface-variant flex items-center justify-center cursor-pointer transition-all hover:border-secondary hover:text-secondary active:scale-95" id="sync-b" aria-label="Sync Deck B" style="width:32px;height:32px;">
+                    <button class="transport-btn transport-btn--b rounded-full border-2 text-on-surface-variant flex items-center justify-center cursor-pointer transition-all hover:border-secondary hover:text-secondary active:scale-95" id="sync-b" aria-label="Sync Deck B" style="width:32px;height:32px;border-color:rgba(238,194,255,0.5);">
                       <span class="material-symbols-outlined" style="font-size:15px;" aria-hidden="true">sync</span>
                     </button>
                   </div>
@@ -462,13 +464,13 @@
             </div>
           </section>
 
-          <!-- Crossfader -->
-          <div class="crossfader-section bg-surface-container-lowest py-3 px-6 mt-2 flex flex-col items-center max-w-2xl mx-auto w-full">
-            <label class="crossfader-section__label text-[0.55rem] font-black tracking-[0.2em] uppercase text-on-surface-variant mb-2" for="crossfader">Crossfader</label>
-            <input type="range" class="crossfader-section__input w-full h-5" id="crossfader" aria-label="Crossfader" min="-100" max="100" value="0" />
-            <div class="crossfader-section__markers flex justify-between w-full mt-1.5 px-1">
-              <span class="text-xs font-bold text-primary">DECK A</span>
-              <span class="text-xs font-bold text-secondary">DECK B</span>
+          <!-- Crossfader — full width below both decks -->
+          <div class="crossfader-section col-span-2">
+            <label class="crossfader-section__label" for="crossfader">Crossfader</label>
+            <input type="range" class="crossfader-section__input" id="crossfader" aria-label="Crossfader" min="-100" max="100" value="0" />
+            <div class="crossfader-section__markers">
+              <span>Deck A</span>
+              <span>Deck B</span>
             </div>
           </div>
 
@@ -659,19 +661,19 @@
                 <h3 class="text-sm font-extrabold uppercase tracking-wider mb-4">Skill Balance</h3>
                 <div class="flex flex-col gap-4">
                   <div class="flex flex-col gap-1.5">
-                    <div class="flex justify-between"><span class="text-xs font-bold uppercase tracking-wider">Basics</span><span class="text-xs font-bold">0%</span></div>
+                    <div class="flex justify-between"><span class="text-xs font-bold uppercase tracking-wider">Basics</span><span class="text-xs font-bold skill-pct" id="skill-pct-basics">0%</span></div>
                     <div class="h-2 bg-white/20 rounded-full overflow-hidden"><div class="h-full bg-white rounded-full" id="skill-basics" style="width:0%"></div></div>
                   </div>
                   <div class="flex flex-col gap-1.5">
-                    <div class="flex justify-between"><span class="text-xs font-bold uppercase tracking-wider">EQ Mixing</span><span class="text-xs font-bold">0%</span></div>
+                    <div class="flex justify-between"><span class="text-xs font-bold uppercase tracking-wider">EQ Mixing</span><span class="text-xs font-bold skill-pct" id="skill-pct-eq-mixing">0%</span></div>
                     <div class="h-2 bg-white/20 rounded-full overflow-hidden"><div class="h-full bg-white rounded-full" id="skill-eq-mixing" style="width:0%"></div></div>
                   </div>
                   <div class="flex flex-col gap-1.5">
-                    <div class="flex justify-between"><span class="text-xs font-bold uppercase tracking-wider">Beatmatching</span><span class="text-xs font-bold">0%</span></div>
+                    <div class="flex justify-between"><span class="text-xs font-bold uppercase tracking-wider">Beatmatching</span><span class="text-xs font-bold skill-pct" id="skill-pct-beatmatching">0%</span></div>
                     <div class="h-2 bg-white/20 rounded-full overflow-hidden"><div class="h-full bg-white rounded-full" id="skill-beatmatching" style="width:0%"></div></div>
                   </div>
                   <div class="flex flex-col gap-1.5">
-                    <div class="flex justify-between"><span class="text-xs font-bold uppercase tracking-wider">Transitions</span><span class="text-xs font-bold">0%</span></div>
+                    <div class="flex justify-between"><span class="text-xs font-bold uppercase tracking-wider">Transitions</span><span class="text-xs font-bold skill-pct" id="skill-pct-transitions">0%</span></div>
                     <div class="h-2 bg-white/20 rounded-full overflow-hidden"><div class="h-full bg-white rounded-full" id="skill-transitions" style="width:0%"></div></div>
                   </div>
                 </div>
@@ -852,16 +854,16 @@
 
               <!-- Right column -->
               <div class="lg:col-span-5 flex flex-col gap-4">
-                <!-- Profile sidebar card -->
+                <!-- Profile sidebar card (live data via _refreshSettingsView) -->
                 <div class="bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(45,47,47,0.06)] p-6 flex flex-col items-center text-center">
                   <div class="w-16 h-16 rounded-full bg-primary-container/30 text-primary flex items-center justify-center border-4 border-primary-container mb-3">
                     <span class="material-symbols-outlined" style="font-size:32px">person</span>
                   </div>
-                  <p class="text-base font-bold text-on-surface">DJ Learner</p>
-                  <p class="text-xs text-on-surface-variant font-medium mb-3">Level 1 &mdash; Beginner</p>
+                  <p class="text-base font-bold text-on-surface" id="settings-profile-name">DJ Learner</p>
+                  <p class="text-xs text-on-surface-variant font-medium mb-3" id="settings-profile-level">Level 1 &mdash; Beginner</p>
                   <div class="flex gap-4 text-center">
-                    <div><span class="text-lg font-black text-primary">0</span><p class="text-[0.6rem] font-bold uppercase tracking-wider text-on-surface-variant">Total XP</p></div>
-                    <div><span class="text-lg font-black text-on-tertiary-container">0</span><p class="text-[0.6rem] font-bold uppercase tracking-wider text-on-surface-variant">Day Streak</p></div>
+                    <div><span class="text-lg font-black text-primary" id="settings-profile-xp">0</span><p class="text-[0.6rem] font-bold uppercase tracking-wider text-on-surface-variant">Total XP</p></div>
+                    <div><span class="text-lg font-black text-on-tertiary-container" id="settings-profile-streak">0</span><p class="text-[0.6rem] font-bold uppercase tracking-wider text-on-surface-variant">Day Streak</p></div>
                   </div>
                 </div>
 
@@ -920,12 +922,29 @@
         </div>
       </main>
 
-      <!-- ========== MIN WIDTH OVERLAY ========== -->
-      <div class="min-width-overlay fixed inset-0 z-[9999] hidden flex-col items-center justify-center gap-2 bg-background" id="min-width-overlay" aria-hidden="true">
-        <span class="material-symbols-outlined text-on-surface-variant" style="font-size: 48px; margin-bottom: 12px;">desktop_windows</span>
-        <p class="text-lg font-extrabold uppercase tracking-widest text-on-surface">Please use a wider screen</p>
-        <span class="text-sm text-on-surface-variant">Onset needs at least 1200px</span>
-      </div>
+      <!-- ========== MOBILE BOTTOM NAV ========== -->
+      <nav class="mobile-bottom-nav lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-surface-container flex justify-around items-center px-2 py-1 safe-area-bottom" id="mobile-bottom-nav" aria-label="Mobile navigation">
+        <button class="mobile-nav-btn flex flex-col items-center gap-0.5 px-3 py-2 rounded-2xl transition-all text-on-surface-variant" data-view="learn">
+          <span class="material-symbols-outlined" style="font-size:22px" aria-hidden="true">school</span>
+          <span class="text-[0.55rem] font-bold uppercase tracking-wider">Learn</span>
+        </button>
+        <button class="mobile-nav-btn flex flex-col items-center gap-0.5 px-3 py-2 rounded-2xl transition-all text-on-surface-variant" data-view="practice">
+          <span class="material-symbols-outlined" style="font-size:22px" aria-hidden="true">headphones</span>
+          <span class="text-[0.55rem] font-bold uppercase tracking-wider">Practice</span>
+        </button>
+        <button class="mobile-nav-btn flex flex-col items-center gap-0.5 px-3 py-2 rounded-2xl transition-all text-on-surface-variant" data-view="stats">
+          <span class="material-symbols-outlined" style="font-size:22px" aria-hidden="true">bar_chart</span>
+          <span class="text-[0.55rem] font-bold uppercase tracking-wider">Stats</span>
+        </button>
+        <button class="mobile-nav-btn flex flex-col items-center gap-0.5 px-3 py-2 rounded-2xl transition-all text-on-surface-variant" data-view="profile">
+          <span class="material-symbols-outlined" style="font-size:22px" aria-hidden="true">person</span>
+          <span class="text-[0.55rem] font-bold uppercase tracking-wider">Profile</span>
+        </button>
+        <button class="mobile-nav-btn flex flex-col items-center gap-0.5 px-3 py-2 rounded-2xl transition-all text-on-surface-variant" data-view="settings">
+          <span class="material-symbols-outlined" style="font-size:22px" aria-hidden="true">settings</span>
+          <span class="text-[0.55rem] font-bold uppercase tracking-wider">Settings</span>
+        </button>
+      </nav>
     </div>
     <script type="module" src="/src/main.js"></script>
     <script>

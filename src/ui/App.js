@@ -22,6 +22,8 @@ import { PerformanceTips } from './PerformanceTips.js';
 import { Toast } from './Toast.js';
 import { ErrorOverlay } from './ErrorOverlay.js';
 import { SettingsManager } from './SettingsManager.js';
+import { KnobUI } from './KnobUI.js';
+import { FaderUI } from './FaderUI.js';
 
 export class App {
   constructor() {
@@ -173,6 +175,12 @@ export class App {
 
     // 21a. Init settings manager (theme, difficulty, session length)
     this._settingsManager = new SettingsManager();
+
+    // 21b. Init custom knob and fader visuals
+    this._knobUI = new KnobUI();
+    this._knobUI.init();
+    this._faderUI = new FaderUI();
+    this._faderUI.init();
 
     // 21. Save practice time on page unload
     window.addEventListener('beforeunload', () => {
@@ -702,7 +710,7 @@ export class App {
     // Also refresh when navigating to these views
     this._viewManager.addEventListener('view-changed', (e) => {
       const view = /** @type {CustomEvent} */ (e).detail.view;
-      if (view === 'learn' || view === 'stats' || view === 'profile') {
+      if (view === 'learn' || view === 'stats' || view === 'profile' || view === 'settings') {
         this._refreshAllViews();
       }
 
@@ -729,6 +737,7 @@ export class App {
     this._refreshStatsView(summary);
     this._refreshLearnView(summary);
     this._refreshStreakBadge(summary);
+    this._refreshSettingsView(summary);
   }
 
   /** @private */
@@ -770,14 +779,71 @@ export class App {
     if (streakEl) streakEl.textContent = String(summary.currentStreak);
     if (bestEl) bestEl.textContent = String(summary.bestStreak);
 
-    // Skill balance bars
+    // Skill balance bars + text labels
     const categories = ['basics', 'eq-mixing', 'beatmatching', 'transitions'];
     for (const cat of categories) {
-      const el = document.getElementById(`skill-${cat}`);
-      if (el) {
-        const score = summary.categoryScores[cat] || 0;
-        el.style.width = `${score}%`;
+      const score = Math.round(summary.categoryScores[cat] || 0);
+      const barEl = document.getElementById(`skill-${cat}`);
+      if (barEl) barEl.style.width = `${score}%`;
+      const pctEl = document.getElementById(`skill-pct-${cat}`);
+      if (pctEl) pctEl.textContent = `${score}%`;
+    }
+
+    // Weekly activity chart from daily activity log
+    this._refreshWeeklyChart();
+  }
+
+  /** @private */
+  _refreshWeeklyChart() {
+    const chartEl = document.getElementById('weekly-chart');
+    if (!chartEl) return;
+
+    const daily = this._lessonEngine.progress.getDailyActivity();
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const today = new Date();
+    const maxVal = Math.max(1, ...daily.map(d => d.value));
+
+    const columns = chartEl.querySelectorAll(':scope > div');
+    columns.forEach((col, i) => {
+      // column 0 = oldest (6 days ago), column 6 = today
+      const daysAgo = 6 - i;
+      const entry = daily[i] || { value: 0 };
+      const pct = Math.round((entry.value / maxVal) * 100);
+      const isToday = daysAgo === 0;
+
+      const bar = col.querySelector('div:first-child');
+      const label = col.querySelector('span');
+
+      if (bar) {
+        bar.style.height = `${Math.max(4, pct)}%`;
+        bar.className = isToday
+          ? 'w-full bg-primary rounded-t-lg'
+          : 'w-full bg-primary-container/40 rounded-t-lg';
       }
+      if (label) {
+        const d = new Date(today);
+        d.setDate(today.getDate() - daysAgo);
+        label.textContent = days[d.getDay()];
+        label.className = isToday
+          ? 'text-[0.6rem] font-bold text-primary uppercase'
+          : 'text-[0.6rem] font-bold text-on-surface-variant uppercase';
+      }
+    });
+  }
+
+  /** @private */
+  _refreshSettingsView(summary) {
+    // Settings profile sidebar
+    const settingsXpEl = document.getElementById('settings-profile-xp');
+    const settingsStreakEl = document.getElementById('settings-profile-streak');
+    const settingsLevelEl = document.getElementById('settings-profile-level');
+    const settingsNameEl = document.getElementById('settings-profile-name');
+
+    if (settingsXpEl) settingsXpEl.textContent = String(summary.totalXP);
+    if (settingsStreakEl) settingsStreakEl.textContent = String(summary.currentStreak);
+    if (settingsLevelEl) settingsLevelEl.textContent = `Level ${summary.level} — ${summary.levelLabel}`;
+    if (settingsNameEl && settingsNameEl.textContent === 'DJ Learner' && this._profileEmail) {
+      settingsNameEl.textContent = this._profileEmail.split('@')[0];
     }
   }
 
@@ -976,6 +1042,7 @@ export class App {
   /** @private */
   _updateProfileEmail(email) {
     if (!email) return;
+    this._profileEmail = email;
     const username = email.split('@')[0];
     const nameEl = document.querySelector('.profile-card__name');
     if (nameEl && nameEl.textContent === 'DJ Learner') {
@@ -983,6 +1050,11 @@ export class App {
     }
     const emailEl = document.getElementById('profile-email');
     if (emailEl) emailEl.textContent = email;
+    // Also update settings profile name
+    const settingsNameEl = document.getElementById('settings-profile-name');
+    if (settingsNameEl && settingsNameEl.textContent === 'DJ Learner') {
+      settingsNameEl.textContent = username;
+    }
   }
 
   // ── Hot Cue Persistence ─────────────────────────────────────
