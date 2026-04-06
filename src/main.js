@@ -7,9 +7,10 @@ import { AuthModal } from './auth/AuthModal.js';
 import { migrateLocalStorageToCloud } from './auth/migration.js';
 
 // ── Dev mode (founder bypass) ─────────────────────────────────────────────
-// Activate:  ?dev=dk_onset_will_9f3k   (persists in localStorage)
+// Activate:  ?dev=<VITE_DEV_SECRET>   (persists in localStorage)
 // Deactivate: ?dev=off
-const _DEV_SECRET = 'dk_onset_will_9f3k';
+// Secret is injected at build time via VITE_DEV_SECRET env var — never hard-coded.
+const _DEV_SECRET = import.meta.env.VITE_DEV_SECRET ?? '';
 const _DEV_KEY = 'onset:dev';
 
 try {
@@ -85,23 +86,29 @@ async function bootstrap() {
   // ── Supabase available — real auth flow ────────────────────────────────────
   const authManager = new AuthManager();
 
-  // Check for an existing session (also handles the Google OAuth redirect exchange)
-  let session = await authManager.getSession();
-
-  if (!session) {
-    // Hide app shell while auth is in progress
-    const appEl = document.getElementById('app');
-    if (appEl) appEl.style.display = 'none';
-
-    // Show sign-in / sign-up screen
-    const modal = new AuthModal(authManager);
-    await modal.show();
+  let session;
+  try {
+    // Check for an existing session (also handles the Google OAuth redirect exchange)
     session = await authManager.getSession();
+
+    if (!session) {
+      // Hide app shell while auth is in progress
+      const appEl = document.getElementById('app');
+      if (appEl) appEl.style.display = 'none';
+
+      // Show sign-in / sign-up screen
+      const modal = new AuthModal(authManager);
+      await modal.show();
+      session = await authManager.getSession();
+    }
+  } catch (err) {
+    _showAuthError(err, bootstrap);
+    return;
   }
 
   if (!session) {
-    // Should never reach here, but guard anyway
-    console.error('[onset] Auth completed but no session found');
+    // Modal closed without a valid session — show error with retry
+    _showAuthError(new Error('Sign-in did not complete. Please try again.'), bootstrap);
     return;
   }
 
@@ -157,7 +164,51 @@ function _injectDevBadge() {
   document.body.appendChild(badge);
 }
 
+/** Show an auth error with a retry button so the user never sees a blank screen. */
+function _showAuthError(err, retryFn) {
+  const existing = document.getElementById('auth-error-screen');
+  if (existing) existing.remove();
+
+  const screen = document.createElement('div');
+  screen.id = 'auth-error-screen';
+  screen.style.cssText = [
+    'position:fixed', 'inset:0', 'z-index:9990',
+    'display:flex', 'flex-direction:column', 'align-items:center', 'justify-content:center',
+    'background:#f6f6f6', 'gap:16px', 'padding:24px', 'text-align:center',
+  ].join(';');
+
+  const icon = document.createElement('span');
+  icon.className = 'material-symbols-outlined';
+  icon.style.cssText = 'font-size:48px;color:#b02500';
+  icon.textContent = 'wifi_off';
+
+  const title = document.createElement('p');
+  title.style.cssText = 'font:700 18px/1.3 "Plus Jakarta Sans",sans-serif;color:#2d2f2f;max-width:320px';
+  title.textContent = 'Could not connect to sign-in service';
+
+  const detail = document.createElement('p');
+  detail.style.cssText = 'font:400 14px/1.5 "Plus Jakarta Sans",sans-serif;color:#5a5c5c;max-width:320px';
+  detail.textContent = err?.message || 'Check your internet connection and try again.';
+
+  const btn = document.createElement('button');
+  btn.style.cssText = [
+    'margin-top:8px', 'padding:12px 32px',
+    'background:#2a6900', 'color:#fff',
+    'border:none', 'border-radius:9999px',
+    'font:700 14px "Plus Jakarta Sans",sans-serif',
+    'cursor:pointer',
+  ].join(';');
+  btn.textContent = 'Retry';
+  btn.addEventListener('click', () => {
+    screen.remove();
+    retryFn();
+  });
+
+  screen.append(icon, title, detail, btn);
+  document.body.appendChild(screen);
+}
+
 // Entry point — DOM is ready since this module is loaded at end of <body>
 bootstrap().catch(err => {
-  console.error('[onset] Failed to initialize:', err);
+  _showAuthError(err, bootstrap);
 });
