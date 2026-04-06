@@ -190,7 +190,7 @@ export class App {
     // 22. Start time display update loop
     this._startTimeUpdates();
 
-    console.log('onset initialized');
+    // initialized
   }
 
   // ── Browser Support ──────────────────────────────────────────
@@ -231,8 +231,7 @@ export class App {
         this._mixerBridge.init();
       }
 
-      console.log('[onset] MIDI router wired to MixerBridge');
-      console.log('[onset] Triple-click MIDI status to enable debug logging');
+      // MIDI router active — triple-click MIDI status pill to enable debug logging
     };
 
     this._midiController.addEventListener('connected', () => wireUpRouter());
@@ -242,12 +241,14 @@ export class App {
       this._ledFeedback = null;
     });
 
-    this._midiController.addEventListener('error', () => {
+    this._midiController.addEventListener('error', (e) => {
       if (this._shell) this._shell.setConnectionStatus('no-midi');
+      Toast.show(e.detail?.message || 'MIDI not supported in this browser — use keyboard shortcuts instead');
     });
 
     this._midiController.addEventListener('permission-denied', () => {
       if (this._shell) this._shell.setConnectionStatus('no-midi');
+      Toast.show('MIDI access denied — controller won\'t respond. Check browser permissions.');
     });
 
     await this._midiController.init();
@@ -852,85 +853,90 @@ export class App {
     const completed = new Set(summary.completedLessonIds);
     const catalog = this._lessonEngine.library.getAll();
 
-    // Build learn path from catalog data — ordered IDs, titles from catalog
-    const orderedIds = [
-      'basics-load-play', 'basics-eq-sweep', 'beatmatch-pitch',
-      'transition-bass-swap', 'eq-mix-frequency-swap', 'beatmatch-phase',
-    ];
-    const learnPath = orderedIds.map(id => {
-      const lesson = catalog.find(l => l.id === id);
-      return { id, title: lesson?.title ?? id, desc: lesson?.description ?? '' };
-    });
+    // Use full catalog in order — all 24 lessons
+    const learnPath = catalog.map(lesson => ({
+      id: lesson.id,
+      title: lesson.title,
+      desc: lesson.description,
+      lesson,
+    }));
 
-    const pathNodes = document.querySelectorAll('.learn-path-node');
-    pathNodes.forEach((wrapper, i) => {
-      if (i >= learnPath.length) return;
-      const entry = learnPath[i];
-      const isComplete = completed.has(entry.id);
+    // Dynamically render all path nodes into the .learn-path container
+    const pathContainer = document.querySelector('.learn-path');
+    if (pathContainer) {
+      // Keep the static connector line (first child), replace rest
+      const connectorLine = pathContainer.querySelector('.learn-path__connector-line, .absolute.top-0.bottom-0');
+      pathContainer.innerHTML = '';
+      if (connectorLine) pathContainer.appendChild(connectorLine);
 
-      // Check if prerequisites are met (previous lesson completed, or first lesson)
-      const lesson = catalog.find(l => l.id === entry.id);
-      const prereqsMet = lesson
-        ? lesson.prerequisiteIds.every(pid => completed.has(pid))
-        : i === 0;
+      // Alternating left/right offsets for snake-path look
+      const offsets = ['margin-right:6rem', 'margin-left:6rem'];
 
-      const isActive = !isComplete && prereqsMet;
-      const isLocked = !isComplete && !prereqsMet;
+      learnPath.forEach((entry, i) => {
+        const isComplete = completed.has(entry.id);
+        const prereqsMet = entry.lesson
+          ? entry.lesson.prerequisiteIds.every(pid => completed.has(pid))
+          : i === 0;
+        const isActive = !isComplete && prereqsMet;
+        const isLocked = !isComplete && !prereqsMet;
 
-      // Update inner .learn-node classes
-      const circle = wrapper.querySelector('.learn-node');
-      if (circle) {
-        circle.classList.remove('learn-node--complete', 'learn-node--active', 'learn-node--locked', 'learn-node--milestone');
-        if (isComplete) circle.classList.add('learn-node--complete');
-        else if (isActive) circle.classList.add('learn-node--active');
-        else circle.classList.add('learn-node--locked');
-      }
+        const nodeState = isComplete ? 'learn-node--complete' : isActive ? 'learn-node--active' : 'learn-node--locked';
+        const iconName = isComplete ? 'check' : isActive ? 'music_note' : 'lock';
+        const fillSetting = isComplete || isActive ? "'FILL' 1" : "'FILL' 0";
+        const nodeSize = isActive ? 'w-20 h-20' : 'w-16 h-16';
+        const nodeBg = isComplete
+          ? 'bg-primary-container'
+          : isActive
+          ? 'bg-primary ring-8 ring-primary-container/30'
+          : 'bg-surface-container-high opacity-60';
+        const iconColor = isComplete ? 'text-primary' : isActive ? 'text-white' : 'text-outline';
+        const iconSize = isActive ? 'text-3xl' : 'text-2xl';
+        const cursor = isLocked ? 'cursor-default' : 'cursor-pointer';
 
-      // Update icon text content
-      const icon = wrapper.querySelector('.material-symbols-outlined');
-      if (icon) {
-        if (isComplete) {
-          icon.textContent = 'check';
-          icon.style.fontVariationSettings = "'FILL' 1";
-        } else if (isActive) {
-          icon.textContent = 'music_note';
-          icon.style.fontVariationSettings = "'FILL' 1";
-        } else {
-          icon.textContent = 'lock';
-          icon.style.fontVariationSettings = '';
+        const wrapper = document.createElement('div');
+        wrapper.className = `learn-path-node relative z-10 flex flex-col items-center mb-12 w-full ${isActive ? '' : 'justify-center'}`;
+        wrapper.style.cssText = offsets[i % 2];
+
+        if (!isLocked) {
+          wrapper.setAttribute('role', 'button');
+          wrapper.setAttribute('tabindex', '0');
+          wrapper.setAttribute('data-lesson', entry.id);
         }
-      }
 
-      // Add/remove START button for the active node
-      const existingBtn = wrapper.querySelector('button');
-      if (isActive && !existingBtn) {
-        const btn = document.createElement('button');
-        btn.className = 'mt-3 bg-primary text-white text-xs font-extrabold uppercase tracking-wider px-6 py-2 rounded-full shadow-[0_4px_0_#1a4700] active:translate-y-0.5 active:shadow-[0_2px_0_#1a4700] transition-all';
-        btn.textContent = 'Start';
-        wrapper.appendChild(btn);
-      } else if (!isActive && existingBtn) {
-        existingBtn.remove();
-      }
+        const circle = document.createElement('div');
+        circle.className = `learn-node ${nodeState} ${nodeSize} rounded-full ${nodeBg} flex items-center justify-center shadow-[0_10px_30px_rgba(42,105,0,0.3)] ${cursor} transition-transform hover:scale-105`;
 
-      // Update clickability on the wrapper
-      if (isLocked) {
-        wrapper.removeAttribute('role');
-        wrapper.removeAttribute('tabindex');
-        wrapper.removeAttribute('data-lesson');
-      } else {
-        wrapper.setAttribute('role', 'button');
-        wrapper.setAttribute('tabindex', '0');
-        wrapper.setAttribute('data-lesson', entry.id);
-      }
-    });
+        const icon = document.createElement('span');
+        icon.className = `material-symbols-outlined ${iconColor} ${iconSize}`;
+        icon.style.fontVariationSettings = fillSetting;
+        icon.textContent = iconName;
 
-    // Unit progress bar — completed / total lessons in the current unit
+        circle.appendChild(icon);
+        wrapper.appendChild(circle);
+
+        if (isActive) {
+          const btn = document.createElement('button');
+          btn.className = 'mt-3 bg-primary text-white text-xs font-extrabold uppercase tracking-wider px-6 py-2 rounded-full shadow-[0_4px_0_#1a4700] active:translate-y-0.5 active:shadow-[0_2px_0_#1a4700] transition-all';
+          btn.textContent = 'Start';
+          wrapper.appendChild(btn);
+        }
+
+        pathContainer.appendChild(wrapper);
+      });
+    }
+
+    // Unit progress bar + label — completed / total across all lessons
+    const total = learnPath.length;
+    const completedCount = learnPath.filter(e => completed.has(e.id)).length;
+    const pct = total > 0 ? Math.round((completedCount / total) * 100) : 0;
+
     const unitProgressEl = document.getElementById('learn-unit-progress');
     if (unitProgressEl) {
-      const total = orderedIds.length;
-      const completedCount = orderedIds.filter(id => completed.has(id)).length;
-      const pct = total > 0 ? Math.round((completedCount / total) * 100) : 0;
       unitProgressEl.style.width = `${pct}%`;
+    }
+    const unitProgressLabelEl = document.getElementById('learn-unit-progress-label');
+    if (unitProgressLabelEl) {
+      unitProgressLabelEl.textContent = `${pct}% complete`;
     }
 
     // Daily XP and daily progress widgets

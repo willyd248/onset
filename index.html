@@ -3,7 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.json" />
+    <!-- Prevent dark-to-light flash: apply saved theme before first paint -->
+    <script>
+      (function(){try{var t=localStorage.getItem('onset:theme');if(t==='dark')document.documentElement.classList.replace('light','dark');}catch(e){}})();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>onset — learn to DJ</title>
     <meta name="description" content="Learn to DJ with interactive lessons, real-time feedback, and MIDI controller support. Master beatmatching, EQ mixing, and transitions.">
@@ -24,75 +29,6 @@
       rel="stylesheet"
     />
     <script defer src="/_vercel/insights/script.js"></script>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "surface-container-high": "#e1e3e3",
-              "outline-variant": "#acadad",
-              "on-primary-fixed": "#1a4700",
-              "tertiary-dim": "#644c00",
-              "primary-fixed-dim": "#76ec33",
-              "inverse-primary": "#84fb42",
-              "primary-dim": "#235b00",
-              "background": "#f6f6f6",
-              "secondary-dim": "#7c18ac",
-              "on-primary-container": "#245c00",
-              "primary-container": "#84fb42",
-              "surface-bright": "#f6f6f6",
-              "surface-dim": "#d3d5d5",
-              "secondary-container": "#eec2ff",
-              "error": "#b02500",
-              "on-secondary-fixed-variant": "#7d19ad",
-              "on-tertiary-container": "#574300",
-              "on-surface-variant": "#5a5c5c",
-              "primary": "#2a6900",
-              "tertiary": "#725800",
-              "error-container": "#f95630",
-              "tertiary-fixed-dim": "#edba00",
-              "surface-container": "#e7e8e8",
-              "on-secondary-container": "#7303a3",
-              "on-tertiary": "#fff1d7",
-              "on-primary-fixed-variant": "#296700",
-              "secondary-fixed": "#eec2ff",
-              "on-error": "#ffefec",
-              "surface-variant": "#dbdddd",
-              "secondary-fixed-dim": "#e7afff",
-              "surface-container-lowest": "#ffffff",
-              "on-tertiary-fixed": "#403000",
-              "surface": "#f6f6f6",
-              "on-tertiary-fixed-variant": "#634c00",
-              "surface-container-low": "#f0f1f1",
-              "surface-container-highest": "#dbdddd",
-              "on-background": "#2d2f2f",
-              "on-secondary-fixed": "#56007c",
-              "tertiary-container": "#fec700",
-              "on-surface": "#2d2f2f",
-              "on-secondary": "#feeeff",
-              "secondary": "#8a2ab9",
-              "surface-tint": "#2a6900",
-              "inverse-on-surface": "#9c9d9d",
-              "error-dim": "#b92902",
-              "on-primary": "#d5ffb9",
-              "outline": "#767777",
-              "on-error-container": "#520c00",
-              "tertiary-fixed": "#fec700",
-              "primary-fixed": "#84fb42",
-              "inverse-surface": "#0c0f0f"
-            },
-            fontFamily: {
-              "headline": ["Plus Jakarta Sans", "sans-serif"],
-              "body": ["Plus Jakarta Sans", "sans-serif"],
-              "label": ["Plus Jakarta Sans", "sans-serif"]
-            },
-            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
-          },
-        },
-      }
-    </script>
   </head>
   <body class="bg-background font-body text-on-background min-h-screen overflow-hidden">
     <div id="app" class="h-screen grid grid-cols-[auto_1fr] grid-rows-[64px_1fr]" style="display:none; grid-template-areas: 'sidebar topbar' 'sidebar content';">
@@ -505,9 +441,9 @@
                 <p class="text-xs font-bold uppercase tracking-wider text-on-primary/70 mb-1 relative z-10">Current Unit</p>
                 <h2 class="text-2xl font-black relative z-10">Mastering the Basics</h2>
                 <div class="mt-3 h-2 bg-white/20 rounded-full overflow-hidden relative z-10">
-                  <div class="h-full bg-primary-container rounded-full transition-all duration-500" id="learn-unit-progress" style="width:15%"></div>
+                  <div class="h-full bg-primary-container rounded-full transition-all duration-500" id="learn-unit-progress" style="width:0%"></div>
                 </div>
-                <p class="text-xs font-semibold text-on-primary/70 mt-1.5 relative z-10">15% complete</p>
+                <p class="text-xs font-semibold text-on-primary/70 mt-1.5 relative z-10" id="learn-unit-progress-label">0% complete</p>
               </div>
 
               <!-- Snake Path -->
