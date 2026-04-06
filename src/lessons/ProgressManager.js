@@ -104,6 +104,18 @@ export class ProgressManager extends EventTarget {
     const prev = this._data.categoryScores[category] || 0;
     this._data.categoryScores[category] = Math.max(prev, score);
 
+    // Track daily activity (lessons completed per day)
+    const today = new Date().toISOString().split('T')[0];
+    if (!this._data.dailyActivity) this._data.dailyActivity = {};
+    this._data.dailyActivity[today] = (this._data.dailyActivity[today] || 0) + 1;
+    // Prune entries older than 30 days
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - 30);
+    const cutoffStr = cutoff.toISOString().split('T')[0];
+    for (const date of Object.keys(this._data.dailyActivity)) {
+      if (date < cutoffStr) delete this._data.dailyActivity[date];
+    }
+
     // Update streak
     this._updateStreak();
 
@@ -176,6 +188,23 @@ export class ProgressManager extends EventTarget {
   }
 
   /**
+   * Get daily activity for the last 7 days (for the weekly chart).
+   * Returns an array of 7 objects from oldest (index 0) to today (index 6).
+   * @returns {Array<{ date: string, value: number }>}
+   */
+  getDailyActivity() {
+    const daily = this._data.dailyActivity || {};
+    const result = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const dateStr = d.toISOString().split('T')[0];
+      result.push({ date: dateStr, value: daily[dateStr] || 0 });
+    }
+    return result;
+  }
+
+  /**
    * Check if a lesson ID has been completed.
    * @param {string} lessonId
    * @returns {boolean}
@@ -201,6 +230,7 @@ export class ProgressManager extends EventTarget {
           totalPracticeMs: data.totalPracticeMs || 0,
           completedLessonIds: data.completedLessonIds || [],
           categoryScores: data.categoryScores || {},
+          dailyActivity: data.dailyActivity || {},
         };
       }
     } catch {
@@ -215,6 +245,7 @@ export class ProgressManager extends EventTarget {
       totalPracticeMs: 0,
       completedLessonIds: [],
       categoryScores: {},
+      dailyActivity: {},
     };
   }
 

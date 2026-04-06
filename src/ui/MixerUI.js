@@ -270,6 +270,8 @@ export class MixerUI extends EventTarget {
     }
 
     el.value = String(domValue);
+    // Notify KnobUI / FaderUI that the value was set programmatically
+    el.dispatchEvent(new Event('sync'));
   }
 
   /** Push the initial state values into the DOM. */
