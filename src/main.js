@@ -5,16 +5,17 @@ import { supabase } from './auth/supabase.js';
 import { AuthManager } from './auth/AuthManager.js';
 import { AuthModal } from './auth/AuthModal.js';
 import { migrateLocalStorageToCloud } from './auth/migration.js';
+import { ErrorOverlay } from './ui/ErrorOverlay.js';
 
 // ── Dev mode (founder bypass) ─────────────────────────────────────────────
-// Activate:  ?dev=dk_onset_will_9f3k   (persists in localStorage)
+// Activate:  ?dev=<VITE_DEV_SECRET>   (persists in localStorage)
 // Deactivate: ?dev=off
-const _DEV_SECRET = 'dk_onset_will_9f3k';
+const _DEV_SECRET = import.meta.env.VITE_DEV_SECRET || '';
 const _DEV_KEY = 'onset:dev';
 
 try {
   const _p = new URLSearchParams(window.location.search);
-  if (_p.get('dev') === _DEV_SECRET) {
+  if (_DEV_SECRET && _p.get('dev') === _DEV_SECRET) {
     localStorage.setItem(_DEV_KEY, '1');
     _p.delete('dev');
     const _c = _p.toString();
@@ -100,8 +101,12 @@ async function bootstrap() {
   }
 
   if (!session) {
-    // Should never reach here, but guard anyway
     console.error('[onset] Auth completed but no session found');
+    ErrorOverlay.show(
+      'Sign-in failed',
+      'We could not verify your session. Please reload and try again.',
+      { dismissable: false }
+    );
     return;
   }
 
@@ -160,4 +165,8 @@ function _injectDevBadge() {
 // Entry point — DOM is ready since this module is loaded at end of <body>
 bootstrap().catch(err => {
   console.error('[onset] Failed to initialize:', err);
+  ErrorOverlay.show(
+    'Something went wrong',
+    'onset failed to start. This is usually a network issue — reload to try again.'
+  );
 });

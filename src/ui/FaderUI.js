@@ -155,6 +155,36 @@ export class FaderUI {
     // Drag
     this._bindDrag(fader);
 
+    // Double-click resets to HTML default value
+    wrap.addEventListener('dblclick', (e) => {
+      e.preventDefault();
+      const def = parseFloat(input.defaultValue);
+      input.value = String(def);
+      input.dispatchEvent(new Event('input'));
+      this._updateVisual(fader, def);
+    });
+
+    // Keyboard: Arrow keys step value, tab-focusable
+    wrap.setAttribute('tabindex', '0');
+    wrap.setAttribute('role', 'slider');
+    wrap.setAttribute('aria-label', input.getAttribute('aria-label') || 'fader');
+    wrap.setAttribute('aria-valuemin', input.min);
+    wrap.setAttribute('aria-valuemax', input.max);
+    wrap.setAttribute('aria-valuenow', input.value);
+    wrap.addEventListener('keydown', (e) => {
+      const step = (fader.max - fader.min) / 50;
+      let val = parseFloat(input.value);
+      if (e.key === 'ArrowUp') { val = Math.min(fader.max, val + step); e.preventDefault(); }
+      else if (e.key === 'ArrowDown') { val = Math.max(fader.min, val - step); e.preventDefault(); }
+      else if (e.key === 'Home') { val = fader.min; e.preventDefault(); }
+      else if (e.key === 'End') { val = fader.max; e.preventDefault(); }
+      else { return; }
+      input.value = String(val);
+      input.dispatchEvent(new Event('input'));
+      this._updateVisual(fader, val);
+      wrap.setAttribute('aria-valuenow', String(val));
+    });
+
     // Sync from MIDI
     input.addEventListener('sync', () => {
       this._updateVisual(fader, parseFloat(input.value));

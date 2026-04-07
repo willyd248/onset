@@ -69,6 +69,42 @@ export class KnobUI {
       this._updateVisual(knob, parseFloat(input.value));
     });
 
+    // Double-click resets to default value
+    svg.addEventListener('dblclick', (e) => {
+      e.preventDefault();
+      const def = parseFloat(input.defaultValue);
+      input.value = String(def);
+      input.dispatchEvent(new Event('input'));
+      this._updateVisual(knob, def);
+    });
+
+    // Keyboard interaction: Arrow keys step the value
+    svg.setAttribute('tabindex', '0');
+    svg.setAttribute('role', 'slider');
+    svg.setAttribute('aria-label', input.getAttribute('aria-label') || 'knob');
+    svg.setAttribute('aria-valuemin', input.min);
+    svg.setAttribute('aria-valuemax', input.max);
+    svg.setAttribute('aria-valuenow', input.value);
+    svg.addEventListener('keydown', (e) => {
+      const step = (knob.max - knob.min) / 50;
+      let val = parseFloat(input.value);
+      if (e.key === 'ArrowUp' || e.key === 'ArrowRight') {
+        val = Math.min(knob.max, val + step);
+        e.preventDefault();
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') {
+        val = Math.max(knob.min, val - step);
+        e.preventDefault();
+      } else if (e.key === 'Home') {
+        val = knob.min; e.preventDefault();
+      } else if (e.key === 'End') {
+        val = knob.max; e.preventDefault();
+      } else { return; }
+      input.value = String(val);
+      input.dispatchEvent(new Event('input'));
+      this._updateVisual(knob, val);
+      svg.setAttribute('aria-valuenow', String(val));
+    });
+
     // Hide native input, insert SVG
     input.style.position = 'absolute';
     input.style.opacity = '0';
