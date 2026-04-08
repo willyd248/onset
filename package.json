@@ -12,6 +12,8 @@
     "vite": "^8.0.1"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.100.0"
+    "@sentry/browser": "^10.47.0",
+    "@supabase/supabase-js": "^2.100.0",
+    "posthog-js": "^1.364.4"
   }
 }
