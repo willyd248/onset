@@ -102,6 +102,8 @@ export class LessonLibrary {
     let totalMinutes = 0;
     const maxMinutes = opts.maxMinutes || 15;
     const usedIds = new Set();
+    let attempts = 0;
+    const maxAttempts = 50;
 
     // Map difficulty setting to a numeric ceiling
     const difficultyCeiling = opts.difficulty === 'advanced' ? 5
@@ -110,12 +112,13 @@ export class LessonLibrary {
     // Reset recent categories for fresh session
     this._recentCategories = [];
 
-    while (totalMinutes < maxMinutes && session.length < 5) {
+    while (totalMinutes < maxMinutes && session.length < 5 && attempts < maxAttempts) {
+      attempts++;
       const next = this.selectNext(userAccuracy);
       if (!next || usedIds.has(next.id)) break;
 
       // Skip lessons above the user's difficulty ceiling
-      if (next.difficulty > difficultyCeiling) break;
+      if (next.difficulty > difficultyCeiling) continue;
 
       session.push(next);
       usedIds.add(next.id);

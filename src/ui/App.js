@@ -24,6 +24,7 @@ import { ErrorOverlay } from './ErrorOverlay.js';
 import { SettingsManager } from './SettingsManager.js';
 import { KnobUI } from './KnobUI.js';
 import { FaderUI } from './FaderUI.js';
+import { trackMidiConnected } from '../analytics.js';
 
 export class App {
   constructor() {
@@ -190,7 +191,6 @@ export class App {
     // 22. Start time display update loop
     this._startTimeUpdates();
 
-    console.log('onset initialized');
   }
 
   // ── Browser Support ──────────────────────────────────────────
@@ -231,11 +231,12 @@ export class App {
         this._mixerBridge.init();
       }
 
-      console.log('[onset] MIDI router wired to MixerBridge');
-      console.log('[onset] Triple-click MIDI status to enable debug logging');
     };
 
-    this._midiController.addEventListener('connected', () => wireUpRouter());
+    this._midiController.addEventListener('connected', (e) => {
+      wireUpRouter();
+      trackMidiConnected({ controllerName: /** @type {CustomEvent} */ (e).detail?.name || 'unknown' });
+    });
 
     this._midiController.addEventListener('disconnected', () => {
       this._midiRouter = null;

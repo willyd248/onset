@@ -440,6 +440,7 @@ export class LessonEngine extends EventTarget {
       });
     }
 
+    const sessionDurationMs = this._session.elapsedMs;
     this._session.endSession();
     this._progress.endSession();
 
@@ -447,6 +448,7 @@ export class LessonEngine extends EventTarget {
     trackSessionEnded({
       totalXP: summary.totalXP,
       lessonsCompleted: summary.lessonsCompleted,
+      durationMs: sessionDurationMs,
     });
 
     const stats = this._library.getStats();

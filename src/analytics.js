@@ -1,7 +1,7 @@
 /**
  * analytics.js — lightweight event tracking module.
  *
- * Wraps window.va (Vercel Analytics) with a fire-and-forget interface.
+ * Fires to Vercel Analytics (window.va) and PostHog (window.posthog).
  * Never throws — analytics must never break the app.
  */
 
@@ -11,8 +11,9 @@
  */
 function track(name, data = {}) {
   try {
-    if (typeof window !== 'undefined' && typeof window.va === 'function') {
-      window.va('event', { name, data });
+    if (typeof window !== 'undefined') {
+      if (typeof window.va === 'function') window.va('event', { name, data });
+      if (window.posthog?.capture) window.posthog.capture(name, data);
     }
   } catch { /* never break the app */ }
 }
@@ -24,10 +25,10 @@ export function trackSessionStarted() {
 
 /**
  * Fired when a session ends (completed or abandoned).
- * @param {{ totalXP: number, lessonsCompleted: number }} props
+ * @param {{ totalXP: number, lessonsCompleted: number, durationMs?: number }} props
  */
-export function trackSessionEnded({ totalXP, lessonsCompleted }) {
-  track('session_ended', { totalXP, lessonsCompleted });
+export function trackSessionEnded({ totalXP, lessonsCompleted, durationMs }) {
+  track('session_ended', { totalXP, lessonsCompleted, ...(durationMs != null ? { durationMs } : {}) });
 }
 
 /**
@@ -52,4 +53,12 @@ export function trackLessonCompleted({ lessonId, score, durationMs }) {
  */
 export function trackLessonAbandoned({ lessonId, phase }) {
   track('lesson_abandoned', { lessonId, phase });
+}
+
+/**
+ * Fired when a MIDI controller is connected.
+ * @param {{ controllerName: string }} props
+ */
+export function trackMidiConnected({ controllerName }) {
+  track('midi_connected', { controllerName });
 }
