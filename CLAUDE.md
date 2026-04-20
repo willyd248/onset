@@ -9,17 +9,18 @@
 - MIDI: Web MIDI API (hardcoded for Hercules DJControl Inpulse 200 MK2)
 - Hosting: Vercel (two separate projects — app and landing)
 - Email: Resend (landing page drip campaign)
-- Analytics: Vercel Analytics
+- Analytics: Vercel Analytics + PostHog
 
 ## Commands
 - `npm run dev`: Vite dev server at http://localhost:3000
 - `npm run build`: Build app → `dist/`
 - `npm run preview`: Preview built app locally
+- `npm test`: Run test suite (Vitest)
 - Landing page has no package.json — deploy via `cd landing && vercel --prod`
 
 ## Architecture
 - `src/` — Main app: audio/, auth/, midi/, lessons/, visuals/, ui/, styles/
-- `src/lessons/data/` — 27 lesson definitions (schema defined in lesson-schema.js)
+- `src/lessons/data/` — 24 JSON lesson files + 6 inline lessons = 30 total (schema defined in lesson-schema.js)
 - `src/auth/` — Supabase client, AuthManager, AuthModal, localStorage migration
 - `landing/` — Separate landing page with Vercel serverless functions (no shared code with app)
 - `landing/api/` — Email subscribe endpoint + Resend drip crons (day3, day7)
@@ -31,6 +32,7 @@
 ## Environment Variables
 - `VITE_SUPABASE_URL` — Supabase project URL (**bakes at build time**)
 - `VITE_SUPABASE_ANON_KEY` — Supabase anon key (**bakes at build time**)
+- `VITE_POSTHOG_KEY` — PostHog project key (**bakes at build time**, optional — analytics disabled if absent)
 
 Without both `VITE_SUPABASE_*` vars, the app runs in localStorage-only mode with no auth gate.
 
@@ -57,7 +59,7 @@ All `VITE_` vars bake into the JS bundle at build time — changing them in Verc
 
 ## Current Status
 - Live at app.onsetdj.com (app) and onsetdj.com (landing)
-- 27 lessons implemented with spaced repetition
+- 30 lessons implemented with spaced repetition
 - Supabase cloud sync + auth active
 
 ## Rules

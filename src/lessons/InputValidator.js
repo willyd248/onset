@@ -226,9 +226,9 @@ export class InputValidator extends EventTarget {
     const pitchA = this._mixerState.get('A', 'pitch');
     const pitchB = this._mixerState.get('B', 'pitch');
 
-    // Fall back to auto-pass if pitch values aren't available
+    // Fall back to auto-pass if pitch values aren't available (no MIDI controller)
     if (pitchA == null || pitchB == null) {
-      return { passed: true, accuracy: 50, currentValue: 0, targetValue: 0, distance: 0, proximity: 'warm' };
+      return { passed: true, accuracy: 70, currentValue: 0, targetValue: 0, distance: 0, proximity: 'hot' };
     }
 
     const diff = Math.abs(pitchA - pitchB);
