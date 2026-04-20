@@ -115,7 +115,7 @@ export class LessonLibrary {
       if (!next || usedIds.has(next.id)) break;
 
       // Skip lessons above the user's difficulty ceiling
-      if (next.difficulty > difficultyCeiling) break;
+      if (next.difficulty > difficultyCeiling) continue;
 
       session.push(next);
       usedIds.add(next.id);

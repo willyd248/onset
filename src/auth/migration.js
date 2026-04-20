@@ -54,7 +54,6 @@ async function _migrateProgress(supabase, userId) {
   });
 
   if (error) throw error;
-  console.log('[migration] progress migrated to cloud');
 }
 
 async function _migrateHotCues(supabase, userId) {
@@ -79,7 +78,6 @@ async function _migrateHotCues(supabase, userId) {
     .upsert(rows, { onConflict: 'user_id,track_name', ignoreDuplicates: true });
 
   if (error) throw error;
-  console.log(`[migration] ${rows.length} hot cue track(s) migrated to cloud`);
 }
 
 async function _migrateSpacedRepetition(supabase, userId) {
@@ -106,5 +104,4 @@ async function _migrateSpacedRepetition(supabase, userId) {
   });
 
   if (error) throw error;
-  console.log('[migration] spaced repetition data migrated to cloud');
 }
